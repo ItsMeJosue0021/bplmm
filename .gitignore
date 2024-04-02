@@ -1,0 +1,17 @@
+# Django-specific files
+*.log
+*.pot
+*.pyc
+__pycache__
+# db.sqlite3
+media
+
+# Backup files
+*.bak
+
+# Node.js dependencies (node_modules)
+node_modules/
+/.idea
+/.vscode
+.env
+
