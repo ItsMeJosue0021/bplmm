@@ -1157,10 +1157,6 @@ input:checked + .toggle-bg {
   margin-inline-start: 0.75rem;
 }
 
-.mt-14 {
-  margin-top: 3.5rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -1558,6 +1554,10 @@ input:checked + .toggle-bg {
 
 .bg-white\/50 {
   background-color: rgb(255 255 255 / 0.5);
+}
+
+.bg-image {
+  background-image: url('/static/images/image.png');
 }
 
 .p-1 {
