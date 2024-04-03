@@ -1,0 +1,9 @@
+<div class="p-5 border border-gray-200 rounded-lg">
+    <h1>Group</h1>
+    <div class="w-full flex items-start justify-between space-x-6">
+        {% include "components/date-input.html" with name='GROUP_EFF_DATE' label='Effectivity Date' %}
+        {% include "components/date-input.html" with name='GROUP_END_DATE' label='Effectivity End Date' %}
+        {% include "components/true-false-checkbox.html" with name='GROUP_ACTIVE' label='Active' %}
+    </div>
+    {% include "components/text-field.html" with name='GROUP_DESCRIPTION' label='Description' %}
+</div>
