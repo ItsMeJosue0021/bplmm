@@ -5,7 +5,12 @@ module.exports = {
     './node_modules/flowbite/**/*.js'
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'logo': "url('/static/images/philhealth-logo.png')",
+        
+      }
+    },
   },
   plugins: [
     require('flowbite/plugin'),

@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-class {
+    @apply px-4 py-2; /* Apply Tailwind utility classes */
+    background-color: blue;
+    color: white;
+  }
+
+.test{
+    background-color: rgb(243, 243, 243);
+    margin: 60px auto auto -20px;
+    width: 120%;
+    height: 100%;
+    z-index: 111111111;
+    position: fixed;
+    border-top-left-radius: 10px;
+}
