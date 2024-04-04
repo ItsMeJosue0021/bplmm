@@ -6,3 +6,10 @@ def login(request):
 
 def groups(request):
     return render(request, 'pages/acr/group-list.html')
+
+def create_rvs(request):
+    return render(request, 'pages/acr/create-rvs.html')
+
+def create_icds(request):
+    return render(request, 'pages/acr/create-icds.html')
+
