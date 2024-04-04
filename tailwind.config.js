@@ -10,6 +10,10 @@ module.exports = {
         'image': "url('/static/images/image.png')",
         'logo': "url('/static/images/philhealth-logo.png')",
         'loginBg': "url('/static/images/philhealth-login.png')",
+      },
+
+      zIndex: {
+        '100': '100',
       }
     },
 
