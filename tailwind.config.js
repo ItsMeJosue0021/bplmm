@@ -9,6 +9,7 @@ module.exports = {
       backgroundImage: {
         'image': "url('/static/images/image.png')",
         'logo': "url('/static/images/philhealth-logo.png')",
+        
       }
     },
   },
