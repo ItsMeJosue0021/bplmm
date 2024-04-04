@@ -12,6 +12,10 @@ module.exports = {
         'loginBg': "url('/static/images/philhealth-login.png')",
       }
     },
+
+    colors: {
+      'themeColor': '#156913',
+    }
   },
   plugins: [
     require('flowbite/plugin'),
