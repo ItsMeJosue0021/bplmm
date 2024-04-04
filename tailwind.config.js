@@ -9,6 +9,10 @@ module.exports = {
       backgroundImage: {
         'logo': "url('/static/images/philhealth-logo.png')",
         
+      },
+
+      backgroundColor: {
+        'sideBarBgColor': '#4aca1c'
       }
     },
   },
