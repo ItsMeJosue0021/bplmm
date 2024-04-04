@@ -7,12 +7,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
+        'image': "url('/static/images/image.png')",
         'logo': "url('/static/images/philhealth-logo.png')",
         
-      },
-
-      backgroundColor: {
-        'sideBarBgColor': '#4aca1c'
       }
     },
   },
