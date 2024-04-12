@@ -90,7 +90,8 @@ var CHECK_AGE = getElement('CHECK_AGE'),
     MINIMUM_Y_D = getElement('MINIMUM_Y_D'),
     MAXIMUM = getElement('MAXIMUM'),
     MAXIMUM_Y_D = getElement('MAXIMUM_Y_D'),
-    PREVIEW = getElement('PREVIEW');
+    PREVIEW = getElement('PREVIEW'),
+    CHECK_AGE_NOT_APPLICABLE = getElement('CHECK_AGE_NOT_APPLICABLE', 'change', disableAgeInputFields);
 
 function updateCheckAge() {
     var checkAgeValue = OPERATOR.value + MINIMUM.value + MINIMUM_Y_D.value;
@@ -105,3 +106,18 @@ function updateCheckAge() {
     element.addEventListener('change', updateCheckAge);
     element.addEventListener('input', updateCheckAge);
 });
+
+function disableAgeInputFields() {
+    if (CHECK_AGE_NOT_APPLICABLE.checked) {
+        [OPERATOR, MINIMUM, MINIMUM_Y_D, MAXIMUM, MAXIMUM_Y_D].forEach(function(element) {
+            element.disabled = true;
+        });
+        var CHECK_AGE_VALUE = CHECK_AGE.value = 'N/A';
+        PREVIEW.textContent = "Preview: " + CHECK_AGE_VALUE;
+    } else {
+        [OPERATOR, MINIMUM, MINIMUM_Y_D, MAXIMUM, MAXIMUM_Y_D].forEach(function(element) {
+            element.disabled = false;
+        });
+        PREVIEW.textContent = "Preview: ";;
+    }
+}

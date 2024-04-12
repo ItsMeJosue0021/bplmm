@@ -71,7 +71,7 @@ class ACR_PERRVS_RULES_SERVICE:
                 'CHECK_OCCURS_PER_PERSON': data['CHECK_OCCURS_PER_PERSON'],
                 'CHECK_LATERALITY': data['HECK_LATERALITY'],
                 'CHECK_GENDER': data['CHECK_GENDER'],
-                'CHECK_AGE': '18y-59.999y', # temporarily fill with mock data | data['CHECK_AGE']
+                'CHECK_AGE': '18y-59.999y', # temporarily filled with mock data | data['CHECK_AGE']
                 'CHECK_FACILITY_H1': data['CHECK_FACILITY_H1'],
                 'CHECK_FACILITY_H2': data['CHECK_FACILITY_H2'],
                 'CHECK_FACILITY_H3': data['CHECK_FACILITY_H3'],
@@ -80,10 +80,10 @@ class ACR_PERRVS_RULES_SERVICE:
                 'CHECK_FACILITY_MAT': data['CHECK_FACILITY_MAT'],
                 'CHECK_FACILITY_FSDC': data['CHECK_FACILITY_FSDC'],
                 'CHECK_SINGLE_PERIOD_DAYS': data['CHECK_SINGLE_PERIOD_DAYS'],
-                'CHECK_ADDITIONAL_CODES': 'CR4550 CR4551' , # temporarily fill with mock data | data['CHECK_ADDITIONAL_CODES']
+                'CHECK_ADDITIONAL_CODES': 'CR4550 CR4551' , # temporarily filled with mock data | data['CHECK_ADDITIONAL_CODES']
                 'CHECK_PREAUTHORIZATION': data['CHECK_PREAUTHORIZATION'],
                 'CHECK_QUALIFIER': data['CHECK_QUALIFIER'],
-                'DEDUCT_FROM_45DAYS': '1 DAY PER 4 SESSIONS', # temporarily fill with mock data | data['DEDUCT_FROM_45DAYS']
+                'DEDUCT_FROM_45DAYS': '1 DAY PER 4 SESSIONS', # temporarily filled with mock data | data['DEDUCT_FROM_45DAYS']
                 'CHECK_GIDAS': data['CHECK_GIDAS'],
                 'FIXED_COPAY': data['FIXED_COPAY'],
                 'CHECK_DIRECT_FILING': data['CHECK_DIRECT_FILING'],
@@ -96,7 +96,7 @@ class ACR_PERRVS_RULES_SERVICE:
                 'CHECK_FACILITY_TBDOTSC': data['CHECK_FACILITY_TBDOTSC'],
                 'CHECK_FACILITY_OPMC': data['CHECK_FACILITY_OPMC'],
                 'CHECK_WHAT_IS_COVERED_BY_AMT': data['CHECK_WHAT_IS_COVERED_BY_AMT'],
-                'CHECK_SPC_RELATED_BEN_CODES': 'C19T1 C19T2 C19T3', # temporarily fill with mock data | data['CHECK_SPC_RELATED_BEN_CODES']
+                'CHECK_SPC_RELATED_BEN_CODES': 'C19T1 C19T2 C19T3', # temporarily filled with mock data | data['CHECK_SPC_RELATED_BEN_CODES']
                 'CHECK_LENGTH_OF_STAY': data['CHECK_LENGTH_OF_STAY'],
                 'VALIDATION_RULES': "[[ {'Procedure is performed by an HCP whose PAN begins with any of the following numbers','1304,1501'} = 'true' ,'A86' ]]", # temporarily fill with mock data | data['VALIDATION_RULES']
                 'TO_BE_TAGGED_FOR_POST_AUDIT': data['TO_BE_TAGGED_FOR_POST_AUDIT'],
