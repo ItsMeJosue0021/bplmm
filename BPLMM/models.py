@@ -6,7 +6,7 @@ class ACR_GROUPS(models.Model):
     ACR_GROUPID = models.CharField(max_length=255, primary_key=True)
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
-    ACTIVE = models.BooleanField()
+    ACTIVE = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
     END_DATE = models.DateField(null=True, blank=True)
 
 class ACR_GROUPS_ICDS(models.Model):
@@ -38,7 +38,7 @@ class ACR_PERRVS_RULES(models.Model):
     PCF_PROF_SHARE = models.DecimalField(max_digits=10, decimal_places=2)  
     CHECK_OCCURS_PER_CLAIM = models.CharField(max_length=255)
     CHECK_OCCURS_PER_PERSON = models.CharField(max_length=255)  
-    HECK_LATERALITY = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
+    CHECK_LATERALITY = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_GENDER = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
     CHECK_AGE = models.CharField(max_length=255)  
     CHECK_FACILITY_H1 = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])

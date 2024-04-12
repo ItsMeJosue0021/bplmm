@@ -2,11 +2,15 @@
 {% load static %}
 
 {% block content %}
-    <!-- <div>
-        {% include "components/acr/fieldsets/acr-group.html" %}
-        {% include "components/acr/fieldsets/acr-rvs.html" %}
-    </div> -->
-    <div>
-        {% include "components/acr/fieldsets/acr-inputs.html" %}
-    </div>
+    <form action="{% url 'create_rvs' %}" method="POST">
+        <div class="flex flex-col space-y-4">
+            {% csrf_token %}
+            {% include "components/acr/fieldsets/acr-group.html" %}
+            {% include "components/acr/fieldsets/acr-rvs.html" %}
+            {% include "components/acr/fieldsets/acr-inputs.html" %}
+            <div class="py-4">
+                <button class="py-2 px-4 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md">Submit</button>
+            </div>
+        </div>
+    </form>
 {% endblock %}
