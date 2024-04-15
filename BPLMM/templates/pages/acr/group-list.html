@@ -3,17 +3,17 @@
 
 {% block content %}
 
-<div class="p-4 rounded-md mt-10 bg-white shadow-xl h-85">
+<div class="p-4 rounded-md mt-16 bg-white shadow-xl h-4/5">
 
     <div class="flex flex-col h-full">
 
-        <div class="flex flex-row w-full h-28">
+        <div class="flex flex-row w-full h-20">
 
-            <p class="w-fit basis-1/2 text-2xl font-medium p-4 drop-shadow-xl"> All Case-Rate</p>
+            <p class="w-fit basis-1/2 text-2xl font-medium p-4 drop-shadow-xl text-green-800"> All Case-Rate</p>
 
             <section class="flex justify-end p-4 basis-1/2">
 
-                <button href="/" class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-[#1ED760] from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
+                <button href="/" class="group flex justify-center p-2 rounded-md drop-shadow-xl bg-green-800 from-gray-800 to-black text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -29,7 +29,7 @@
         </div>
 
         <table class="text-left overflow-x-auto w-full">
-            <thead class="bg-gray-300 rounded-md flex text-black w-full">
+            <thead class="bg-gray-300 rounded-md flex text-green-800 w-full">
                 <tr class="flex w-full">
                     <th class="p-4 w-1/4">One</th>
                     <th class="p-4 w-1/4">Two</th>
@@ -38,8 +38,8 @@
                 </tr>
             </thead>
         
-            <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full" style="height: 50vh;">
-                <tr class="flex w-full mb-4 border border-b-gray-100">
+            <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-hidden overflow-y-scroll w-full min-h-44 max-h-64 text-gray-600">
+                <tr class="flex w-full mb-4">
                     <td class="p-4 w-1/4">Dogs</td>
                     <td class="p-4 w-1/4">Cats</td>
                     <td class="p-4 w-1/4">Birds</td>
@@ -406,7 +406,7 @@
 
             <div class="hidden flex-1 items-center lg:grid grid-cols-3">
                 <div class="flex items-center">
-                    <div class="pl-2 text-xs font-medium dark:text-white">
+                    <div class="pl-2 text-xs font-medium text-green-800 dark:text-white">
                         Showing 11 to 20 of 99 results
                     </div>
                 </div>
