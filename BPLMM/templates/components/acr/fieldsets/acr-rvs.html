@@ -1,10 +1,29 @@
-<div class="p-5 border border-gray-200 rounded-lg">
-    <h1>Group</h1>
+<div class="flex flex-col space-y-4 p-5 border border-gray-200 rounded-lg bg-white">
+    <h1 class="font-medium">RVS</h1>
     <div class="w-full flex items-start justify-between space-x-6">
-        {% include "components/date-input.html" with name='RVS_EFF_DATE' label='Effectivity Date' %}
-        {% include "components/date-input.html" with name='RVS_END_DATE' label='Effectivity End Date' %}
-        {% include "components/text-input.html" with name='RVS_END_DATE' label='Effectivity End Date' %}
-        {% include "components/text-input.html" with name='RVS_END_DATE' label='Effectivity End Date' %}
+        <div class="w-full">
+            {% include "components/date-input.html" with name='ACR_GROUPS_RVS_EFF_DATE' label='Effectivity Date' old=form.ACR_GROUPS_RVS_EFF_DATE %}
+            {% for error in form.ACR_GROUPS_RVS_EFF_DATE.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="w-full">
+            {% include "components/date-input.html" with name='ACR_GROUPS_RVS_END_DATE' label='Effectivity End Date' old=form.ACR_GROUPS_RVS_END_DATE %}
+            {% for error in form.ACR_GROUPS_RVS_END_DATE.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="w-full">
+            {% include "components/number-input.html" with name='RVU' label='RVU' pholder='0' old=form.RVU %}
+            {% for error in form.RVU.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
     </div>
-    {% include "components/text-field.html" with name='RVS_DESCRIPTION' label='Description' %}
+    <div class="w-full">
+        {% include "components/text-field.html" with name='ACR_GROUPS_RVS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_RVS_DESCRIPTION %}
+        {% for error in form.ACR_GROUPS_RVS_DESCRIPTION.errors %}
+            <div class="text-sm text-red-500">{{ error }}</div>
+        {% endfor %}
+    </div>
 </div>

@@ -1,9 +1,23 @@
-<div class="p-5 border border-gray-200 rounded-lg">
-    <h1>Group</h1>
+<div class="flex flex-col space-y-4 p-5 border border-gray-200 rounded-lg bg-white">
+    <h1 class="font-medium">Group</h1>
     <div class="w-full flex items-start justify-between space-x-6">
-        {% include "components/date-input.html" with name='GROUP_EFF_DATE' label='Effectivity Date' %}
-        {% include "components/date-input.html" with name='GROUP_END_DATE' label='Effectivity End Date' %}
-        {% include "components/true-false-checkbox.html" with name='GROUP_ACTIVE' label='Active' %}
+        <div class="w-full">
+            {% include "components/date-input.html" with name='GROUP_EFF_DATE' label='Effectivity Date' old=form.GROUP_EFF_DATE %}
+            {% for error in form.GROUP_EFF_DATE.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="w-full">
+            {% include "components/date-input.html" with name='GROUP_END_DATE' label='Effectivity End Date' old=form.GROUP_END_DATE %}
+            {% for error in form.GROUP_END_DATE.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
     </div>
-    {% include "components/text-field.html" with name='GROUP_DESCRIPTION' label='Description' %}
+    <div class="w-full">
+        {% include "components/text-field.html" with name='ACR_GROUPS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_DESCRIPTION %}
+        {% for error in form.ACR_GROUPS_DESCRIPTION.errors %}
+            <div class="text-sm text-red-500">{{ error }}</div>
+        {% endfor %}
+    </div>
 </div>
