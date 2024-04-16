@@ -1,5 +1,5 @@
 {% load static %}
-<div class="p-5 border border-gray-200 rounded-lg flex flex-col space-y-8 bg-white">
+<div class="p-5 border border-green-500 rounded-lg flex flex-col space-y-8 bg-white">
     <div class="w-full flex items-start justify-between space-x-6">
         <div class="w-full">
             {% include "components/number-input.html" with name='PRIMARY_HOSP_SHARE' label='Primary Hospital Share' pholder='0.00' %}
@@ -95,7 +95,7 @@
 
         </div>
 
-        <div class="basis-2/6 border border-green-500">
+        <div class="basis-2/6">
 
             <div class="w-full">
                 {% include "components/number-input.html" with name='FIXED_COPAY' label='Fixed Copay' old=form.FIXED_COPAY pholder='0' %}
