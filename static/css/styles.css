@@ -1987,9 +1987,9 @@ input:checked + .toggle-bg {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
-.bg-\[\] {
+/* .bg-\[\] {
   background-color: ;
-}
+} */
 
 .bg-\[\#b2f6eb\] {
   --tw-bg-opacity: 1;
@@ -3172,13 +3172,13 @@ input:checked + .toggle-bg {
     width: 600px;
   }
 
-  .lg\:w-\[\] {
+  /* .lg\:w-\[\] {
     width: ;
-  }
+  } */
 
-  .lg\:w-\[\*\%\] {
+  /* .lg\:w-\[\*\%\] {
     width: *%;
-  }
+  } */
 
   .lg\:w-\[8\] {
     width: 8;
@@ -3203,10 +3203,10 @@ input:checked + .toggle-bg {
   }
 }
 
-@media (min-width: 1280px) {
+/* @media (min-width: 1280px) {
   .xl\:w-\[\] {
     width: ;
-  }
+  } */
 
   .xl\:w-\[90\%\] {
     width: 90%;
@@ -3216,9 +3216,9 @@ input:checked + .toggle-bg {
     width: 85%;
   }
 
-  .xl\:w-\[\%\] {
+  /* .xl\:w-\[\%\] {
     width: %;
-  }
+  } */
 
   .xl\:w-\[88\%\] {
     width: 88%;
@@ -3227,7 +3227,6 @@ input:checked + .toggle-bg {
   .xl\:w-\[8\%\] {
     width: 8%;
   }
-}
 
 .rtl\:rotate-180:where([dir="rtl"], [dir="rtl"] *) {
   --tw-rotate: 180deg;
