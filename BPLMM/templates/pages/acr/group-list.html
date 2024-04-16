@@ -1,9 +1,9 @@
-{% extends 'layouts/test.html' %}
+{% extends 'layouts/main.html' %}
 {% load static %}
 
 {% block content %}
 
-<div class="p-4 rounded-md mt-16 bg-white shadow-xl h-4/5">
+<div class="p-4 rounded-md border border-green-500 bg-white shadow-xl h-full">
 
     <div class="flex flex-col h-full">
 
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
         
-            <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-hidden overflow-y-scroll w-full min-h-44 max-h-64 text-gray-600">
+            <tbody class="bg-grey-light flex flex-col items-center justify-between overflow-hidden overflow-y-scroll w-full h-80 text-gray-600">
                 <tr class="flex w-full mb-4">
                     <td class="p-4 w-1/4">Dogs</td>
                     <td class="p-4 w-1/4">Cats</td>
@@ -352,7 +352,7 @@
 
 </div>
 
-<div class="flex justify-center items-center dark:bg-gray-800 pt-2">
+<div class="flex justify-center items-center dark:bg-gray-800">
 
     <div class="p-2 border-t dark:border-gray-700  w-full">
         <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">

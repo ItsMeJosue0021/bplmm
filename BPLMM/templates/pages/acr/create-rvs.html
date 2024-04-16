@@ -1,8 +1,8 @@
-{% extends 'layouts/testLayout.html' %}
+{% extends 'layouts/test.html' %}
 {% load static %}
 
 {% block content %}
-<div class="mt-0">
+<div class="mt-0 h-full overflow-y-scroll">
     <form action="{% url 'create_rvs' %}" method="POST">
         <div class="flex flex-col space-y-4">
             {% csrf_token %}
