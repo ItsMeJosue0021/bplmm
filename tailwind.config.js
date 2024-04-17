@@ -12,7 +12,7 @@ module.exports = {
         'loginBg': "url('/static/images/philhealth-login.png')",
       },
 
-      height:{
+      width:{
         '85': '85%'
       },
 
