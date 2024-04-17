@@ -3,8 +3,8 @@ from .models import ACR_GROUPS, ACR_GROUPS_RVS
 
 class ACR_GROUPS_SERVICE:
 
-    def __init__(self, repository):
-        self.repository = repository
+    def __init__(self, _repository):
+        self.repository = _repository
 
     def create(self, form):
         if form.is_valid():
@@ -25,8 +25,8 @@ class ACR_GROUPS_SERVICE:
     
 class ACR_GROUPS_RVS_SERVICE:
 
-    def __init__(self, repository):
-        self.repository = repository
+    def __init__(self, _repository):
+        self.repository = _repository
 
     def create(self, form, acr_groups):
         if form.is_valid():
@@ -48,8 +48,8 @@ class ACR_GROUPS_RVS_SERVICE:
         
 class ACR_PERRVS_RULES_SERVICE:
 
-    def __init__(self, repository):
-        self.repository = repository
+    def __init__(self, _repository):
+        self.repository = _repository
 
     def create(self, form, acr_groupid, rvscodes):
         if form.is_valid():
