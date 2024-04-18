@@ -1,6 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+class CustomUser(AbstractUser):
+    is_encoder = models.BooleanField(default=False)
+    is_approver = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
 
 class ACR_GROUPS(models.Model):
     ACR_GROUPID = models.CharField(max_length=255, primary_key=True)
