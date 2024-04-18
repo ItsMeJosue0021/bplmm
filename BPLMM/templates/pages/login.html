@@ -3,39 +3,74 @@
 
 {% block content %}
 
-<div class="h-screen flex items-center justify-center bg-gradient-to-t from-themeColor to-amber-100">
+<div class="h-screen w-full flex items-center justify-center bg-gradient-to-tr from-themeColor to-yellow-100">
 
   <!-- <br> -->
     
-  <div class="flex flex-col justify-center px-6 py-6 lg:px-8 h-fit m-auto w-fit bg-white rounded-2xl bg-opacity-25 shadow-lg">
-    <div class="w-28 h-10 m-auto mt-3 mb-5 bg-logo bg-cover"></div>
+  <div class="flex flex-col justify-center px-6 py-6 lg:px-8 h-fit m-auto w-fit bg-white rounded-2xl backdrop-filter backdrop-blur-md bg-opacity-15 border-[1px] border-gray-400 shadow-2xl">
+    <div class="w-56 h-20 m-auto mt-3 mb-5 bg-logo bg-cover"></div>
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <h2 class="mt-0 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+      <h2 class="mt-0 text-center text-xl font-semibold leading-9 tracking-tight text-white">Sign in to your account</h2>
     </div>
   
     <div class="mt-6 sm:mx-auto w-full md:w-72">
       <form class="space-y-4" action="#" method="POST">
-        <div>
-          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+        <!-- <div>
+          <label for="email" class="block text-sm font-normal leading-6 text-white">Email address</label>
           <div class="mt-2">
             <input id="email" name="email" type="email" autocomplete="email" required placeholder="enter your user name" class="block w-full rounded-md border-0 py-1.5 bg-inherit text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
+        </div> -->
+
+        <div class="flex items-center justify-center mb-10">
+          <div class="relative w-full">
+            <input
+              id="email"
+              name="email"
+              type="text"
+              class="w-full transition-colors focus:outline-none peer bg-transparent border border-white rounded-md py-2 px-4"
+            />
+            <label
+              for="email"
+              class="absolute left-4 top-2 cursor-text text-white peer-focus:text-sm peer-focus:-top-5 transition-all"
+              >User Name</label
+            >
+          </div>
         </div>
+
+        <div class="flex items-center justify-center">
+          <div class="relative w-full">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="w-full transition-colors focus:outline-none peer bg-transparent border border-white rounded-md py-2 px-4"
+            />
+            <label
+              for="password"
+              class="absolute left-4 top-2 cursor-text text-white peer-focus:text-sm peer-focus:-top-5 transition-all"
+              >Pasword</label>
+              <div class="text-xs float-right pt-1 pb-6">
+                <a href="#" class="font-normal text-green-600 hover:text-[#6dff62]">Forgot password?</a>
+              </div>
+          </div>
+        </div>
+        
   
-        <div>
+        <!-- <div>
           <div class="flex items-center justify-between">
-            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+            <label for="password" class="block text-sm font-normal leading-6 text-white">Password</label>
           </div>
           <div class="mt-2">
             <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="enter your user name" class="block w-full rounded-md border-0 py-1.5 bg-inherit text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
           </div>
           <div class="text-xs float-right pt-1 pb-6">
-            <a href="#" class="font-semibold text-green-600 hover:text-[#6dff62]">Forgot password?</a>
+            <a href="#" class="font-normal text-green-600 hover:text-[#6dff62]">Forgot password?</a>
           </div>
-        </div>
+        </div> -->
   
         <div>
-          <button type="submit" class="flex w-full justify-center rounded-md bg-themeColor px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#4aca1c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+          <button type="submit" class="mt-9 flex w-full justify-center rounded-md bg-themeColor px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#4aca1c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
         </div>
       </form>
   

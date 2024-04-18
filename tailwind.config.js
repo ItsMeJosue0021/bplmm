@@ -8,8 +8,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'image': "url('/static/images/image.png')",
-        'logo': "url('/static/images/philhealth-logo.png')",
-        'loginBg': "url('/static/images/philhealth-login.png')",
+        'logo': "url('/static/images/images_Philhealth_Logo.png')",
+        'loginBg': "url('/static/images/images_Philhealth_Logo.png')",
+        'bgImage': "url('/static/images/philhealth-bg.png')",
+        'miniBg' : "url('/static/images/miniBG.jpg')",
       },
 
       width:{

@@ -91,7 +91,7 @@ var CHECK_AGE = getElement('CHECK_AGE'),
     MAXIMUM = getElement('MAXIMUM'),
     MAXIMUM_Y_D = getElement('MAXIMUM_Y_D'),
     PREVIEW = getElement('PREVIEW'),
-    CHECK_AGE_APPLICABLE = getElement('CHECK_AGE_APPLICABLE', 'change', disableAgeInputFields);
+    CHECK_AGE_NOT_APPLICABLE = getElement('CHECK_AGE_NOT_APPLICABLE', 'change', disableAgeInputFields);
 
 function updateCheckAge() {
     var checkAgeValue = OPERATOR.value + MINIMUM.value + MINIMUM_Y_D.value;
@@ -108,27 +108,18 @@ function updateCheckAge() {
 });
 
 function disableAgeInputFields() {
-    if (CHECK_AGE_APPLICABLE.checked) {
+    if (CHECK_AGE_NOT_APPLICABLE.checked) {
         [OPERATOR, MINIMUM, MINIMUM_Y_D, MAXIMUM, MAXIMUM_Y_D].forEach(function(element) {
-            element.disabled = false;
+            element.disabled = true;
         });
         var CHECK_AGE_VALUE = CHECK_AGE.value = 'N/A';
         PREVIEW.textContent = "Preview: " + CHECK_AGE_VALUE;
     } else {
         
         [OPERATOR, MINIMUM, MINIMUM_Y_D, MAXIMUM, MAXIMUM_Y_D].forEach(function(element) {
-            element.disabled = true;
+            element.disabled = false;
         });
         PREVIEW.textContent = "Preview: ";;
     }
 }
 
-const toggleButton = document.getElementById('CHECK_AGE_APPLICABLE');
-const toggleContent = document.getElementById('checkAge_toggleContent');
-
-let isShown = false; // Initial state (content hidden)
-
-toggleButton.addEventListener('click', function() {
-  isShown = !isShown; // Toggle state on click
-  toggleContent.style.display = isShown ? 'block' : 'none';
-});
