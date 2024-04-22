@@ -1,5 +1,5 @@
 {% load static %}
-<div class="p-5 rounded-lg flex flex-col space-y-8 bg-white shadow-2xl h-5/6 mt-3 backdrop-filter backdrop-blur-md bg-opacity-70">
+<div class="p-5 rounded-lg flex flex-col space-y-8 bg-white shadow-2xl h-5/6 mt-3 backdrop-filter backdrop-blur-md bg-opacity-50">
     <div class="w-full">
 
         <div class="w-full flex flex-row items-start justify-between space-x-6">
@@ -112,101 +112,7 @@
                     
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-6">
-            <div class="basis-6/12">
-                <div class="w-full pb-6">
-                    {% include "components/number-input.html" with name='FIXED_COPAY' label='Fixed Copay' old=form.FIXED_COPAY pholder='0' %}
-                    {% for error in form.FIXED_COPAY.errors %}
-                        <div class="text-sm text-red-500">{{ error }}</div>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="basis-6/12">
-                <div class="w-full flex flex-col space-y-1 pb-6">
-                    {% include "components/number-input.html" with name='CHECK_SINGLE_PERIOD_DAYS' label='Check Single Period Days' old=form.CHECK_SINGLE_PERIOD_DAYS pholder='0' %}
-                    <div class="w-full flex items-center ">
-                        <input id="CHECK_SINGLE_PERIOD_DAYS" type="radio" name="CHECK_SINGLE_PERIOD_DAYS" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="CHECK_SINGLE_PERIOD_DAYS" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
-                    </div>
-                    {% for error in form.CHECK_SINGLE_PERIOD_DAYS.errors %}
-                        <div class="text-sm text-red-500">{{ error }}</div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-        <div class="w-full flex flex-row items-start justify-between space-x-6">
-            <div class="basis-6/12">
-                <div class="w-full flex flex-col space-y-2 pb-6">
-                    <div class="w-full flex flex-col space-y-1 ">
-                        <div class="w-full">
-                            <label for="CHECK_AGE" class="text-base">Check Age</label>
-                            <input type="hidden" name="CHECK_AGE" id="CHECK_AGE">
-                        </div>
-                        <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-300">
-                            <div class="w-full flex items-center">
-                                <input id="CHECK_AGE_NOT_APPLICABLE" type="checkbox" name="CHECK_AGE" value="N/A" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="CHECK_AGE" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
-                            </div>
-                        </div>
-                        <div >
-                            <div class="w-full flex items-start justify-between space-x-4">
-                                <div class="w-1/5">
-                                    <label for="OPERATOR" class="text-base">Maximum</label>
-                                    <select id="OPERATOR" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300">
-                                        <option  disabled></option>
-                                        <option value="">N/A</option>
-                                        <option value="<"><</option>
-                                        <option value="<">></option>
-                                        <option value="<="><=</option>
-                                        <option value=">=">>=</option>
-                                    </select>
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MINIMUM" class="text-base">Maximum</label>
-                                    <input id="MINIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic">
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MINIMUM_Y_D" class="text-base">Day/Year</label>
-                                    <select id="MINIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300">
-                                        <option selected disabled value="">Select</option>
-                                        <option value="">N/A</option>
-                                        <option value="y">Year/s</option>
-                                        <option value="d">Day/s</option>
-                                    </select>
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MAXIMUM" class="text-base">Maximum</label>
-                                    <input id="MAXIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic">
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MAXIMUM_Y_D" class="text-base">Day/Year</label>
-                                    <select id="MAXIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300">
-                                        <option selected disabled value="">Select</option>
-                                        <option value="">N/A</option>
-                                        <option value="y">Year/s</option>
-                                        <option value="d">Day/s</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="py-1">
-                            <p id="PREVIEW" class="font-medium ">Preview: <span class="font-normal italic"></span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-6/12">
-                <div class="w-full flex flex-col space-y-1 pb-6">
-                    <label for="CHECK_GENDER" class="text-base">Check Gender</label>
-                    <select name="CHECK_GENDER" id="CHECK_GENDER" class="px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic placeholder:text-gray-400">
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        <option value="B">Both</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+    
     
         <!-- <div class="w-full flex flex-row items-start space-x-6">
             
