@@ -1,5 +1,5 @@
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required # type: ignore
+from django.core.exceptions import PermissionDenied # type: ignore
 
 def encoder_required(function):
     @login_required
