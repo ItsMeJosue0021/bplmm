@@ -67,19 +67,35 @@
                         </div>
                     </div>
                     <div id="section5" data-section="5" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
-                        <!-- {% include "components/acr/fieldsets/acr-validation-rules.html" %} -->
+                        {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
                         <div class="flex items-start space-x-4 py-2">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section4">Back</a>
                             <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section6">Next</a>
                         </div>
                     </div>
-    
                     <div id="section6" data-section="6" style="display: none;" class="form-section">
+                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
+                        <!-- {% include "components/acr/fieldsets/acr-validation-rules.html" %} -->
+                        <div class="flex items-start space-x-4 py-2">
+                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section5">Back</a>
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section7">Next</a>
+                        </div>
+                    </div>
+
+                    <div id="section7" data-section="7" style="display: none;" class="form-section">
+                        {% include "components/acr/fieldsets/acr-code-inputs.html" %}
+                        <!-- {% include "components/acr/fieldsets/acr-validation-rules.html" %} -->
+                        <div class="flex items-start space-x-4 py-2">
+                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section6">Back</a>
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section8">Next</a>
+                        </div>
+                    </div>
+    
+                    <div id="section8" data-section="8" style="display: none;" class="form-section">
                         <!-- {% include "components/acr/fieldsets/acr-comp-input.html" %} -->
                         {% include "components/acr/fieldsets/acr-validation-rules.html" %}
                         <div class="flex items-start space-x-4 py-2">
-                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section5">Back</a>
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section7">Back</a>
                             <a class=" py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section5">Submit</a>
                         </div>
                     </div>
