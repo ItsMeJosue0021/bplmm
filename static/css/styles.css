@@ -1467,8 +1467,6 @@ input:checked + .toggle-bg {
 
 .w-screen {
   width: 100vw;
-.w-screen {
-  width: 100vw;
 }
 
 .w-2\/4 {
@@ -1517,6 +1515,8 @@ input:checked + .toggle-bg {
 
 .basis-2\/6 {
   flex-basis: 33.333333%;
+}
+
 .basis-6\/12 {
   flex-basis: 50%;
 }
@@ -2182,6 +2182,8 @@ input:checked + .toggle-bg {
 
 .pt-2 {
   padding-top: 0.5rem;
+}
+
 .pr-4 {
   padding-right: 1rem;
 }
