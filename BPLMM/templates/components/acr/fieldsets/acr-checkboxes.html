@@ -1,4 +1,27 @@
 {% load static %}
+<div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
+    <div class="w-full">
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
+            <div class="basis-6/12 pb-10">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_LATERALITY' label='Check Laterality' %}
+            </div>
+            <div class="basis-6/12 pb-10">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H1' label='Check Facility H1' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
+            <div class="basis-6/12 pb-10">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H2' label='Check Facility H2' %}
+            </div>
+            <div class="basis-6/12 pb-10">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H3' label='Check Facility H3' %}
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="flex flex-col space-y-4">
     <div class="w-full p-5 py-7 border border-gray-200 rounded-lg bg-white">
         <div class="flex items-start space-x-14 mb-8 justify-between">
