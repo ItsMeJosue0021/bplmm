@@ -3,52 +3,83 @@
 {% load static %}
 
 {% block content %}
-<div class="mt-0 h-full overflow-y-scroll">
-    <form action="{% url 'rvs_create' %}" method="POST">
-        <div class="flex flex-col space-y-4">
-            {% csrf_token %}
-            <div>
-                <div id="section1" class="form-section">
-                    {% include "components/acr/fieldsets/acr-group.html" %}
-                    {% include "components/acr/fieldsets/acr-rvs.html" %}
-                    <div class="flex items-start py-2">
-                        <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section2">Next</a>
+<div class="py-4 h-auto">
+    <div class="h-full">
+        <form action="{% url 'rvs_create' %}" method="POST">
+            <div class="flex flex-col space-y-4">
+                {% csrf_token %}
+                <div>
+                    <div id="section1" class="form-section">
+                        {% include "components/acr/fieldsets/acr-group.html" %}
+                        {% include "components/acr/fieldsets/acr-rvs.html" %}
+                        <div class="flex items-start py-2">
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section2">Next</a>
+                        </div>
                     </div>
-                </div>
-                <div id="section2" data-section="2" style="display: none;" class="form-section">
-                    {% include "components/acr/fieldsets/acr-inputs.html" %}
-                    <div class="flex items-start space-x-4 py-2">
-                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section1">Back</a>
-                        <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section3">Next</a>
+                    <div id="section2" data-section="2" style="display: none;" class="form-section">
+                        {% include "components/acr/fieldsets/acr-inputs.html" %}
+                        <div class="flex items-start space-x-4 py-2">
+                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section1">Back</a>
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section3">Next</a>
+                        </div>
                     </div>
-                </div>
-                <div id="section3" data-section="3" style="display: none;" class="form-section">
-                    {% include "components/acr/fieldsets/acr-checkboxes.html" %}
-                    <div class="flex items-start space-x-4 py-2">
-                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section2">Back</a>
-                        <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section4">Next</a>
+                    <div id="section3" data-section="3" style="display: none;" class="form-section">
+                        {% include "components/acr/fieldsets/acr-checkboxes.html" %}
+                        <div class="flex items-start space-x-4 py-2">
+                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section2">Back</a>
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section4">Next</a>
+                        </div>
                     </div>
-                </div>
-                <div id="section4" data-section="4" style="display: none;" class="form-section">
-                    {% include "components/acr/fieldsets/acr-comp-input.html" %}
-                    <!-- {% include "components/acr/fieldsets/acr-validation-rules.html" %} -->
-                    <div class="flex items-start space-x-4 py-2">
-                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section3">Back</a>
-                        <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section5">Next</a>
+                    <div id="section4" data-section="4" style="display: none;" class="form-section">
+                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
+                        <!-- {% include "components/acr/fieldsets/acr-validation-rules.html" %} -->
+                        <div class="flex items-start space-x-4 py-2">
+                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section3">Back</a>
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section5">Next</a>
+                        </div>
                     </div>
-                </div>
-
-                <div id="section5" data-section="5" style="display: none;" class="form-section">
-                    <!-- {% include "components/acr/fieldsets/acr-comp-input.html" %} -->
-                    {% include "components/acr/fieldsets/acr-validation-rules.html" %}
-                    <div class="flex items-start space-x-4 py-2">
-                        <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section4">Back</a>
-                        <a class=" py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section5">Submit</a>
+    
+                    <div id="section5" data-section="5" style="display: none;" class="form-section">
+                        <!-- {% include "components/acr/fieldsets/acr-comp-input.html" %} -->
+                        {% include "components/acr/fieldsets/acr-validation-rules.html" %}
+                        <div class="flex items-start space-x-4 py-2">
+                            <a class="nav-button next py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-back="section4">Back</a>
+                            <a class=" py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-[#1ED760] hover:text-white" data-next="section5">Submit</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    
+         <ol class="flex items-center w-full text-xs text-gray-900 font-medium sm:text-base">
+                   <li class="flex w-full relative text-indigo-600  after:content-['']  after:w-full after:h-0.5  after:bg-indigo-600 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4">
+                       <div class="block whitespace-nowrap z-10">
+                           <span class="w-6 h-6 bg-indigo-600 border-2 border-transparent rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-white lg:w-10 lg:h-10">1</span> Step 1
+                       </div>
+                   </li>
+                   <li class="flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4">
+                       <div class="block whitespace-nowrap z-10">
+                           <span class="w-6 h-6 bg-indigo-50 border-2 border-indigo-600 rounded-full flex justify-center items-center mx-auto mb-3 text-sm text-indigo-600 lg:w-10 lg:h-10">2</span> Step 2
+                       </div>
+                   </li>
+                   <li class="flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5  after:top-3 after:left-4">
+                       <div class="block whitespace-nowrap z-10">
+                           <span class="w-6 h-6 bg-gray-50 border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm  lg:w-10 lg:h-10">3</span> Step 3
+                       </div>
+                   </li>
+                   <li class="flex w-full relative text-gray-900  after:content-['']  after:w-full after:h-0.5  after:bg-gray-200 after:inline-block after:absolute lg:after:top-5 after:top-3 after:left-4">
+                       <div class="block whitespace-nowrap z-10">
+                           <span class="w-6 h-6 bg-gray-50 border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm  lg:w-10 lg:h-10">4</span> Step 4
+                       </div>
+                   </li>
+                   <li class="flex w-full relative text-gray-900  ">
+                       <div class="block whitespace-nowrap z-10">
+                           <span class="w-6 h-6 bg-gray-50 border-2 border-gray-200 rounded-full flex justify-center items-center mx-auto mb-3 text-sm  lg:w-10 lg:h-10">5</span> Step 5
+                       </div>
+                   </li>
+               </ol>
+    </div>
 </div>
+
 <script src="{% static 'js/acr/create-rvs.js' %}"></script>
 {% endblock %}
