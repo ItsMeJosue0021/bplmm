@@ -30,5 +30,6 @@ urlpatterns = [
     #-------------------------------------------------
     # ICDS' URLs
     #-------------------------------------------------
+    path('groups/icds/', views.icds, name='icds'),
     path('groups/icds/create/', views.create_icds, name='create_icds'),
 ]

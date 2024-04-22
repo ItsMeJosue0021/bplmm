@@ -129,7 +129,7 @@ def groups_delete(request, group_id):
 # CREATE RVS 
 #-------------------------------------------------
 def rvs(request):
-    pass
+    return render(request, 'pages/acr/encoder/rvs-list.html')
 
 
 #-------------------------------------------------
@@ -197,10 +197,10 @@ def rvs_delete(request):
 
 
 #-------------------------------------------------
-# CREATE ICDS 
+# LIST OF ICDS 
 #-------------------------------------------------
-def rvs(request):
-    pass
+def icds(request):
+    return render(request, 'pages/acr/encoder/icds-list.html')
 
 #-------------------------------------------------
 # CREATE ICDS
