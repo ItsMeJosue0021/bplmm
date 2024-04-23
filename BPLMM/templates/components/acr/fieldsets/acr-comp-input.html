@@ -1,57 +1,57 @@
 {% load static %}
-<div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
-    <div class="w-full">
+<div class="p-8 py-10 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
+    <div class="w-full flex flex-col items-start space-y-12">
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
-            <div class="basis-6/12">
+        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+            <div class="w-full">
                 {% include "components/true-false-NA-checkbox.html" with name='TO_BE_TAGGED_FOR_POST_AUDIT' label='To Be Tagged For Post Audit' %}
             </div>
-            <div class="basis-6/12">
+            <div class="w-full">
                 {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_RHU' label='Check Facility RHU' %}
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
-            <div class="basis-6/12">
+        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+            <div class="w-full">
                 {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_PCB' label='Check Facility PCB' %}
             </div>
-            <div class="basis-6/12">
+            <div class="w-full">
                 {% include "components/true-false-NA-checkbox.html" with name='CHECK_QUALIFIER' label='Check  Qualifier' %}
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
-            <div class="basis-6/12">
+        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+            <div class="w-full">
                 
                 <div class="w-full flex flex-col space-y-1">
                     <label id="CHECK_WHAT_IS_COVERED_BY_AMT_LABEL" for="CHECK_WHAT_IS_COVERED_BY_AMT" class="text-base">Check Occurence Per Claim</label>
-                    <input type="number" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="bg-transparent px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic placeholder:text-gray-400">
+                    <input type="number" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="bg-transparent px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
                     <div class="w-full flex items-start justify-between">
-                        <div class="w-1/3 flex items-center mb-4">
+                        <div class="w-1/3 flex items-center ">
                             <input id="CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Sessions" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Sessions</label>
                         </div>
-                        <div class="w-1/3 flex items-center mb-4">
+                        <div class="w-1/3 flex items-center ">
                             <input id="CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Cycles" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Cycles</label>
                         </div>
-                        <div class="w-1/3 flex items-center mb-4">
+                        <div class="w-1/3 flex items-center ">
                             <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="basis-6/12">
+            <div class="w-full">
                 <div class="w-full flex flex-col space-y-1">
                     <label id="CHECK_LENGTH_OF_STAY_HOURS_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-base">Check Length of Stay</label>
-                    <input type="number" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="px-4 py-2.5 text-base rounded-lg border bg-transparent border-gray-400 placeholder:italic placeholder:text-gray-400">
+                    <input type="number" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="px-4 py-2.5 text-base rounded-lg border bg-transparent border-gray-400 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
                     <div class="w-full flex items-start justify-start">
-                        <div class="w-1/3 flex items-center mb-4">
+                        <div class="w-1/3 flex items-center ">
                             <input id="CHECK_LENGTH_OF_STAY_HOURS" type="radio" name="CHECK_LENGTH_OF_STAY" value="Hours" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Hours</label>
                         </div>
-                        <div class="w-1/3 flex items-center mb-4">
+                        <div class="w-1/3 flex items-center ">
                             <input id="CHECK_LENGTH_OF_STAY_DAYS" type="radio" name="CHECK_LENGTH_OF_STAY" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Days</label>
                         </div>
@@ -62,57 +62,3 @@
 
     </div>
 </div>
-
-<!-- <div class="flex flex-col space-y-4">
-    <div class="w-full p-5 py-7 border border-gray-200 rounded-lg flex flex-col space-y-8 bg-white">
-        <div class="flex items-start space-x-14 justify-between">
-            {% include "components/true-false-NA-checkbox.html" with name='TO_BE_TAGGED_FOR_POST_AUDIT' label='To Be Tagged For Post Audit' %}
-            {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_RHU' label='Check Facility RHU' %}
-            {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_PCB' label='Check Facility PCB' %}
-        </div>
-    </div>
-
-    <div class="w-full p-5 py-7 border border-gray-200 rounded-lg flex flex-col space-y-8 bg-white">
-        <div class="flex items-start space-x-8 justify-between">
-            {% include "components/true-false-NA-checkbox.html" with name='CHECK_QUALIFIER' label='Check  Qualifier' %}
-        </div>  
-        
-        <div class="flex items-start space-x-8 justify-between">
-            
-            <div class="w-full flex flex-col space-y-1">
-                <label id="CHECK_WHAT_IS_COVERED_BY_AMT_LABEL" for="CHECK_WHAT_IS_COVERED_BY_AMT" class="text-base">Check Occurence Per Claim</label>
-                <input type="number" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="bg-gray-50 px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic placeholder:text-gray-400">
-                <div class="w-full flex items-start justify-between">
-                    <div class="w-1/3 flex items-center mb-4">
-                        <input id="CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Sessions" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Sessions</label>
-                    </div>
-                    <div class="w-1/3 flex items-center mb-4">
-                        <input id="CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Cycles" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Cycles</label>
-                    </div>
-                    <div class="w-1/3 flex items-center mb-4">
-                        <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full flex flex-col space-y-1">
-                <label id="CHECK_LENGTH_OF_STAY_HOURS_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-base">Check Length of Stay</label>
-                <input type="number" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="px-4 py-2.5 text-base rounded-lg border bg-gray-50 border-gray-300 placeholder:italic placeholder:text-gray-400">
-                <div class="w-full flex items-start justify-start">
-                    <div class="w-1/3 flex items-center mb-4">
-                        <input id="CHECK_LENGTH_OF_STAY_HOURS" type="radio" name="CHECK_LENGTH_OF_STAY" value="Hours" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Hours</label>
-                    </div>
-                    <div class="w-1/3 flex items-center mb-4">
-                        <input id="CHECK_LENGTH_OF_STAY_DAYS" type="radio" name="CHECK_LENGTH_OF_STAY" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                        <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Days</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div> -->

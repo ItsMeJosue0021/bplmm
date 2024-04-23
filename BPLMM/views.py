@@ -205,9 +205,10 @@ def icds(request):
 #-------------------------------------------------
 # CREATE ICDS
 #-------------------------------------------------
-@approver_required
+# @approver_required
+@login_required
 def create_icds(request):
-    return render(request, 'pages/acr/encoder/create-icds.html')
+    return render(request, 'pages/acr/encoder/icds-create.html')
 
 
 

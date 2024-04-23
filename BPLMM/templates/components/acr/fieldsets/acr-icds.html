@@ -1,0 +1,33 @@
+<div>
+    <div id="alert-border-2" class="flex items-center p-4 rounded-t-lg text-green-800 border-t-4 border-[#1ED760] bg-white backdrop-filter backdrop-blur-md bg-opacity-40 dark:bg-gray-800 dark:border-green-800" role="alert">
+        <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <div class="ms-3 text-sm font-medium">
+          This is form is for ICDS
+        </div>
+    </div>
+    <div class="flex flex-col space-y-4 p-5  rounded-b-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
+        <div class="w-full flex items-start justify-between space-x-6">
+            <div class="w-full">
+                {% include "components/date-input.html" with name='ACR_GROUPS_RVS_EFF_DATE' label='Effectivity Date' old=form.ACR_GROUPS_RVS_EFF_DATE %}
+                {% for error in form.ACR_GROUPS_RVS_EFF_DATE.errors %}
+                    <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="w-full">
+                {% include "components/date-input.html" with name='ACR_GROUPS_RVS_END_DATE' label='Effectivity End Date' old=form.ACR_GROUPS_RVS_END_DATE %}
+                {% for error in form.ACR_GROUPS_RVS_END_DATE.errors %}
+                    <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="w-full">
+            {% include "components/text-field.html" with name='ACR_GROUPS_RVS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_RVS_DESCRIPTION %}
+            {% for error in form.ACR_GROUPS_RVS_DESCRIPTION.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

@@ -1,101 +1,99 @@
-<div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
+{% load static %}
+<div class="p-6 py-8 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
     <div class="flex flex-col space-y-1">
         <label for="" class="text-gray-700 font-semibold">Validation Rules</label>
-        <textarea name="" id="textarea"  class="w-full h-auto min-h-52 rounded-lg border border-gray-400 bg-white bg-opacity-60" placeholder="Validation Rules..">
+        <textarea name="" id="textarea"
+            class="w-full h-auto min-h-52 rounded-lg border border-gray-400 bg-white bg-opacity-60"
+            placeholder="Validation Rules..">
         </textarea>
     </div>
-    <div class="py-2 flex items-center justify-between space-x-6">
-        <form action="" class="flex items-center space-x-2">
-            <input type="text" class="w-96 py-2 px-4 rounded-md border border-gray-400 bg-white bg-opacity-60" placeholder="Search Rules..">
-            <button class="py-2 px-4 rounded-md bg-black text-white">Search</button>
-        </form>
-        <div class="flex items-center space-x-1 justify-between">
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+    <div class="w-full py-2 flex items-start justify-between space-x-6">
+        <div class="w-2/5 flex items-center space-x-1">
+            <form action="">
+                <input type="text" class="w-full py-2 px-4 rounded-md border border-gray-400 bg-white bg-opacity-60"
+                    placeholder="Search Rules..">
+                <button class="py-2 px-4 rounded-md bg-black text-white">Search</button>
+            </form>
+        </div>
+        <div class="w-3/5 flex flex-wrap items-center gap-1 justify-start">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#123;&#123;&#123;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#125;&#125;&#125;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#123;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#125;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#91;&#91;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#93;&#93;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#40;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&#41;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&lt;=</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&gt;=</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&lt;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&gt;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>=</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&quot;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>&apos;</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>,</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-11 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>-</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-14 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-14 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>AND</span>
             </button>
-            <button type="button" class="key bg-white text-gray-600 w-14 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
+            <button type="button"
+                class="key bg-white text-gray-600 w-14 h-11 border border-gray-300 rounded-md flex items-center justify-center ">
                 <span>OR</span>
             </button>
         </div>
     </div>
 </div>
 
-
-<!-- Trigger the API request on button click -->
-<div type="button"
-        hx-get="https://api.github.com/users/marcus-at-localhost/gists"
-        hx-target="#list"
-        hx-swap="innerHTML">
-    Fetch Gists
-</div>
-
-<!-- Placeholder for the rendered data -->
-<div id="list"></div>
-
-<script>
-    // Initialize gistsData as an empty array
-    let gistsData = [];
-
-    // Listen for htmx:load event (when data is fetched)
-    document.addEventListener('htmx:load', function(event) {
-        if (event.detail.trigger.getAttribute('hx-get') === 'https://api.github.com/users/marcus-at-localhost/gists') {
-            // Parse the JSON response
-            const responseData = JSON.parse(event.detail.response);
-            // Store the data in the variable
-            gistsData = responseData;
-            // You can now use gistsData in your JavaScript code
-            console.log(gistsData);
-        }
-    });
-</script>
+<script src="{% static 'js/acr/validation-rules.js' %}"></script>

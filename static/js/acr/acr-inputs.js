@@ -123,6 +123,4 @@ window.onload = function() {
             PREVIEW.textContent = "Preview: ";;
         }
     }
-    
-    
-};
+}
