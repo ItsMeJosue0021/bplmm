@@ -2,27 +2,91 @@
 <div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
     <div class="w-full">
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14">
-            <div class="basis-6/12 pb-10">
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
                 {% include "components/true-false-NA-checkbox.html" with name='CHECK_LATERALITY' label='Check Laterality' %}
             </div>
-            <div class="basis-6/12 pb-10">
+            <div class="basis-6/12">
                 {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H1' label='Check Facility H1' %}
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14">
-            <div class="basis-6/12 pb-10">
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
                 {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H2' label='Check Facility H2' %}
             </div>
-            <div class="basis-6/12 pb-10">
+            <div class="basis-6/12">
                 {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H3' label='Check Facility H3' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_ASC' label='Check Facility ASC' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_PCF' label='Check Facility PCF' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_MAT' label='Check Facility MAT' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_FSDC' label='Check Facility FSDC' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_PREAUTHORIZATION' label='Check Preauthorization' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_GIDAS' label='Check GIDAS' %}
+            </div>
+        </div>
+
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_DIRECT_FILING' label='Check Direct Filing' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='ACTIVE' label='Active' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_PCF_SECONDARY_CR' label='Check PCF Secondary CR' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_ASC_SECONDARY_CR' label='Check ASC Secondary CR' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_OPMC' label='Check Facility OPMC' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_TBDOTSC' label='Check  TBDOTSC' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_TSEKAP' label='Check Facility TSEKAP' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_ABTC' label='Check Facility ABTC' %}
             </div>
         </div>
 
     </div>
 </div>
-<div class="flex flex-col space-y-4">
+<!-- <div class="flex flex-col space-y-4">
     <div class="w-full p-5 py-7 border border-gray-200 rounded-lg bg-white">
         <div class="flex items-start space-x-14 mb-8 justify-between">
             {% include "components/true-false-NA-checkbox.html" with name='CHECK_LATERALITY' label='Check Laterality' %}
@@ -60,4 +124,4 @@
             {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_ABTC' label='Check Facility ABTC' %}
         </div>
     </div>
-</div>
+</div> -->

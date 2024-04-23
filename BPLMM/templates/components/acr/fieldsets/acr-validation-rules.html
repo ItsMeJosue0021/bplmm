@@ -1,7 +1,7 @@
 <div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
     <div class="flex flex-col space-y-1">
         <label for="" class="text-gray-700 font-semibold">Validation Rules</label>
-        <textarea name="" id=""  class="w-full h-auto min-h-52 rounded-lg border border-gray-400 bg-white bg-opacity-60" placeholder="Validation Rules..">
+        <textarea name="" id="textarea"  class="w-full h-auto min-h-52 rounded-lg border border-gray-400 bg-white bg-opacity-60" placeholder="Validation Rules..">
         </textarea>
     </div>
     <div class="py-2 flex items-center justify-between space-x-6">
@@ -71,21 +71,31 @@
     </div>
 </div>
 
+
+<!-- Trigger the API request on button click -->
+<div type="button"
+        hx-get="https://api.github.com/users/marcus-at-localhost/gists"
+        hx-target="#list"
+        hx-swap="innerHTML">
+    Fetch Gists
+</div>
+
+<!-- Placeholder for the rendered data -->
+<div id="list"></div>
+
 <script>
-    // Get the textarea element
-    var textarea = document.querySelector('textarea');
+    // Initialize gistsData as an empty array
+    let gistsData = [];
 
-    // Get all the buttons
-    var buttons = document.querySelectorAll('key');
-
-    // Add a click event listener to each button
-    buttons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            // Get the text content of the span inside the button
-            var text = this.querySelector('span').textContent;
-
-            // Append the text to the textarea's value
-            textarea.value += text;
-        });
+    // Listen for htmx:load event (when data is fetched)
+    document.addEventListener('htmx:load', function(event) {
+        if (event.detail.trigger.getAttribute('hx-get') === 'https://api.github.com/users/marcus-at-localhost/gists') {
+            // Parse the JSON response
+            const responseData = JSON.parse(event.detail.response);
+            // Store the data in the variable
+            gistsData = responseData;
+            // You can now use gistsData in your JavaScript code
+            console.log(gistsData);
+        }
     });
 </script>
