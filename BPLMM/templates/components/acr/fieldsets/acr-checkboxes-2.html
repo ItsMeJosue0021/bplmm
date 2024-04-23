@@ -1,0 +1,43 @@
+
+<div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
+    <div class="w-full">
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_PCF_SECONDARY_CR' label='Check PCF Secondary CR' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-checkbox.html" with name='CHECK_ASC_SECONDARY_CR' label='Check ASC Secondary CR' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_PREAUTHORIZATION' label='Check Preauthorization' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_LATERALITY' label='Check Laterality' %}
+            </div>
+        </div>
+
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_OPMC' label='Check Facility OPMC' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_TBDOTSC' label='Check  TBDOTSC' %}
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14 mb-11">
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_TSEKAP' label='Check Facility TSEKAP' %}
+            </div>
+            <div class="basis-6/12">
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_ABTC' label='Check Facility ABTC' %}
+            </div>
+        </div>
+
+    </div>
+</div>

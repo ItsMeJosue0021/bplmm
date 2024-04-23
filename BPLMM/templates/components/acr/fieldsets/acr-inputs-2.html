@@ -1,6 +1,6 @@
 <div class="p-4 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-50">
     <div>
-        <div class="w-full flex flex-row items-start justify-between space-x-6">
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
             <div class="basis-6/12">
                 <div class="w-full pb-6">
                     {% include "components/number-input.html" with name='FIXED_COPAY' label='Fixed Copay' old=form.FIXED_COPAY pholder='0' %}
@@ -23,7 +23,49 @@
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-6">
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
+            <div class="basis-6/12 pb-10">
+                <div class="w-full flex flex-col space-y-1 pb-6">
+                    <label id="CHECK_OCCURS_PER_CLAIM_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-base">Check Occurence Per Claim</label>
+                    <input type="text" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class=" px-4 py-2.5 text-base rounded-lg bg-transparent border border-gray-400 placeholder:italic placeholder:text-gray-400">
+                    <div class="w-full flex flex-row items-start justify-between">
+                        <div class="w-full items-center mb-4">
+                            <input id="CHECK_OCCURS_PER_CLAIM_MULTIPLE" type="radio" name="CHECK_OCCURS_PER_CLAIM" value="M" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="CHECK_OCCURS_PER_CLAIM" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Multiple</label>
+                        </div>
+                        <div class="w-full items-center mb-4">
+                            <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_OCCURS_PER_CLAIM" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="CHECK_OCCURS_PER_CLAIM" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="basis-6/12 pb-10">
+                <div class="w-full flex flex-col space-y-1 pb-6">
+                    <label id="CHECK_OCCURS_PER_PERSON_LABEL" for="CHECK_OCCURS_PER_PERSON" class="text-base">Check Occurence Per Person</label>
+                    <input type="text" id="CHECK_OCCURS_PER_PERSON" name="CHECK_OCCURS_PER_PERSON" placeholder="0" class="px-4 py-2.5 text-base rounded-lg bg-transparent border border-gray-400 placeholder:italic placeholder:text-gray-400">
+                    <div class="w-full flex-col items-start justify-between">
+                        <div class="flex flex-row pb-2">
+                            <div class="w-full flex items-center">
+                                <input id="CHECK_OCCURS_PER_PERSON_Multiple" type="radio" name="CHECK_OCCURS_PER_PERSON" value="M" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_OCCURS_PER_PERSON" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Multiple</label>
+                            </div>
+                            <div class="w-full flex items-center ">
+                                <input id="CHECK_OCCURS_PER_PERSON_NotApplicable" type="radio" name="CHECK_OCCURS_PER_PERSON" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_OCCURS_PER_PERSON" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
+                            </div>
+                        </div>
+                        <div class="w-full flex items-center">
+                            <input id="DENIED_AND_PENDING_CLAIM" type="checkbox" name="DENIED_AND_PENDING_CLAIM" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label id="DENIED_AND_PENDING_CLAIM_LABEL" for="DENIED_AND_PENDING_CLAIM" class="ms-2 text-sm  text-gray-700 dark:text-gray-300 italic">Including Denied and Pending Claim</label>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
             <div class="basis-6/12">
                 <div class="w-full flex flex-col space-y-2 pb-6">
                     <div class="w-full flex flex-col space-y-1 ">
@@ -40,8 +82,8 @@
                         <div >
                             <div class="w-full flex items-start justify-between space-x-4">
                                 <div class="w-1/5">
-                                    <label for="OPERATOR" class="text-base">Maximum</label>
-                                    <select id="OPERATOR" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300">
+                                    <label for="OPERATOR" class="text-base">Operator</label>
+                                    <select id="OPERATOR" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-transparent">
                                         <option  disabled></option>
                                         <option value="">N/A</option>
                                         <option value="<"><</option>
@@ -51,12 +93,12 @@
                                     </select>
                                 </div>
                                 <div class="w-1/5">
-                                    <label for="MINIMUM" class="text-base">Maximum</label>
-                                    <input id="MINIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic">
+                                    <label for="MINIMUM" class="text-base">Minimun</label>
+                                    <input id="MINIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-transparent placeholder:italic">
                                 </div>
                                 <div class="w-1/5">
                                     <label for="MINIMUM_Y_D" class="text-base">Day/Year</label>
-                                    <select id="MINIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300">
+                                    <select id="MINIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-transparent">
                                         <option selected disabled value="">Select</option>
                                         <option value="">N/A</option>
                                         <option value="y">Year/s</option>
@@ -65,11 +107,11 @@
                                 </div>
                                 <div class="w-1/5">
                                     <label for="MAXIMUM" class="text-base">Maximum</label>
-                                    <input id="MAXIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic">
+                                    <input id="MAXIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-transparent placeholder:italic">
                                 </div>
                                 <div class="w-1/5">
                                     <label for="MAXIMUM_Y_D" class="text-base">Day/Year</label>
-                                    <select id="MAXIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300">
+                                    <select id="MAXIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-transparent">
                                         <option selected disabled value="">Select</option>
                                         <option value="">N/A</option>
                                         <option value="y">Year/s</option>
@@ -87,7 +129,7 @@
             <div class="basis-6/12">
                 <div class="w-full flex flex-col space-y-1 pb-6">
                     <label for="CHECK_GENDER" class="text-base">Check Gender</label>
-                    <select name="CHECK_GENDER" id="CHECK_GENDER" class="px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic placeholder:text-gray-400">
+                    <select name="CHECK_GENDER" id="CHECK_GENDER" class="px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-transparent placeholder:italic placeholder:text-gray-400">
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                         <option value="B">Both</option>
