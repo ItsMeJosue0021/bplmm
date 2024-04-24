@@ -26,10 +26,11 @@ urlpatterns = [
     path('groups/rvs/<int:id>/', views.rvs_show, name="rvs_show"),
     path('groups/rvs/<int:id>/edit', views.rvs_edit, name="rvs_edit"),
     path('groups/rvs/<int:id>/delete', views.rvs_delete, name="rvs_delete"),
+    path('groups/rvs/set_rules', views.set_rules, name="set_rules"),
 
     #-------------------------------------------------
     # ICDS' URLs
     #-------------------------------------------------
     path('groups/icds/', views.icds, name='icds'),
-    path('groups/icds/create/', views.create_icds, name='create_icds'),
+    path('groups/icds/create/', views.create_icds, name='icds_create'),
 ]

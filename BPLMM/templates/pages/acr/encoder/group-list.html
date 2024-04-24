@@ -4,12 +4,11 @@
 {% block content %}
 
 <div class="pt-10">
-    <div class="flex items-center space-x-4">
-        <a href="{% url 'rvs_create' %}" class="py-3 px-8 rounded-lg border border-white text-sm text-white hover:border-[#1ED760] hover:bg-[#1ED760] hover:text-white">Add New RVS</a>
-        <a href="{% url 'create_icds' %}" class="py-3 px-8 rounded-lg border border-white text-sm text-white hover:border-[#1ED760] hover:bg-[#1ED760] hover:text-white">Add New ICDS</a>
+    <div>
+        {% include "components/acr/fieldsets/acr-group.html" %}
     </div>
-    <div class="p-6 py-8 rounded-md border bg-white h-full mt-3 backdrop-filter backdrop-blur-md bg-opacity-50">
-    
+    <div class="p-6 py-8 rounded-md bg-white h-full mt-3 backdrop-filter backdrop-blur-md bg-opacity-40">
+
         <div class="flex flex-col h-full">
             <div class="flex items-start justify-between w-full pb-4">
                 <p class="w-fit text-xl font-medium py-2 drop-shadow-xl text-green-800"> All Case-Rate</p>
@@ -17,71 +16,216 @@
                     <label for="simple-search" class="sr-only">Search</label>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                    clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="simple-search" class="w-96 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required="">
+                        <input type="text" id="simple-search"
+                            class="w-96 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Search" required="">
                     </div>
-                    <button class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
+                    <button
+                        class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
                 </form>
             </div>
-    
-            <table class="text-sm text-left overflow-x-auto w-full max-h-[600px]">
-                <thead class="bg-gray-100 rounded-md flex text-green-800 w-full h-9">
-                    <tr class="flex w-full justify-center">
-                        <th class="p-1 w-1/4 text-center">Group ID</th>
-                        <th class="p-1 w-1/4 text-center">Description</th>
-                        <th class="p-1 w-1/4 text-center">Effective Date</th>
-                        <th class="p-1 w-1/4 text-center">End Date</th>
-                        <th class="p-1 w-1/4 text-center">Status</th>
+
+            <table class="w-full text-center border-collapse">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="p-2 border border-gray-400">Group ID</th>
+                        <th class="p-2 border border-gray-400">Description</th>
+                        <th class="p-2 border border-gray-400">Effective Date</th>
+                        <th class="p-2 border border-gray-400">End Date</th>
+                        <th class="p-2 border border-gray-400">Status</th>
+                        <th class="p-2 border border-gray-400">Actions</th>
                     </tr>
                 </thead>
-            
-                <tbody class="bg-grey-light flex flex-col items-center justify-between w-full text-gray-600">
-                    <tr class="flex w-full border border-gray-400 border-t-0 border-l-0 border-r-0">
-                        <td class="p-4 w-1/4 text-center">12345</td>
-                        <td class="p-4 w-1/4 text-center">None</td>
-                        <td class="p-4 w-1/4 text-center">1/1/24</td>
-                        <td class="p-4 w-1/4 text-center">1/1/27</td>
-                        <td class="p-4 w-1/4 text-center">Active</td>
+                <tbody class="text-gray-700">
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Aliquid perferendis</td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <button data-popover-target="popover-left-1" data-popover-placement="left" type="button"
+                                    class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
+                                <div data-popover id="popover-left-1" role="tooltip"
+                                    class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                    <div
+                                        class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
+                                    </div>
+                                    <div class="flex items-center justify-center space-x-4 px-3 py-2">
+                                        <a href="{% url 'rvs_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            RVS</a>
+                                        <a href="{% url 'icds_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            ICDS</a>
+                                    </div>
+                                </div>
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
                     </tr>
-    
-                    <tr class="flex w-full border border-gray-400 border-t-0 border-l-0 border-r-0">
-                        <td class="p-4 w-1/4 text-center">12345</td>
-                        <td class="p-4 w-1/4 text-center">None</td>
-                        <td class="p-4 w-1/4 text-center">1/1/24</td>
-                        <td class="p-4 w-1/4 text-center">1/1/27</td>
-                        <td class="p-4 w-1/4 text-center">Active</td>
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing </td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
                     </tr>
-    
-                    <tr class="flex w-full border border-gray-400 border-t-0 border-l-0 border-r-0">
-                        <td class="p-4 w-1/4 text-center">12345</td>
-                        <td class="p-4 w-1/4 text-center">None</td>
-                        <td class="p-4 w-1/4 text-center">1/1/24</td>
-                        <td class="p-4 w-1/4 text-center">1/1/27</td>
-                        <td class="p-4 w-1/4 text-center">Active</td>
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing
+                            perferendis</td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <button data-popover-target="popover-left-2" data-popover-placement="left" type="button"
+                                    class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
+                                <div data-popover id="popover-left-2" role="tooltip"
+                                    class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                    <div
+                                        class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
+                                    </div>
+                                    <div class="flex items-center justify-center space-x-4 px-3 py-2">
+                                        <a href="{% url 'rvs_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            RVS</a>
+                                        <a href="{% url 'icds_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            ICDS</a>
+                                    </div>
+                                </div>
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
                     </tr>
-    
-                    <tr class="flex w-full border border-gray-400 border-t-0 border-l-0 border-r-0">
-                        <td class="p-4 w-1/4 text-center">12345</td>
-                        <td class="p-4 w-1/4 text-center">None</td>
-                        <td class="p-4 w-1/4 text-center">1/1/24</td>
-                        <td class="p-4 w-1/4 text-center">1/1/27</td>
-                        <td class="p-4 w-1/4 text-center">Active</td>
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing
+                            perferendis</td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <button data-popover-target="popover-left-3" data-popover-placement="left" type="button"
+                                    class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
+                                <div data-popover id="popover-left-3" role="tooltip"
+                                    class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                    <div
+                                        class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
+                                    </div>
+                                    <div class="flex items-center justify-center space-x-4 px-3 py-2">
+                                        <a href="{% url 'rvs_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            RVS</a>
+                                        <a href="{% url 'icds_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            ICDS</a>
+                                    </div>
+                                </div>
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
                     </tr>
-    
-                    <tr class="flex w-full border border-gray-400 border-t-0 border-l-0 border-r-0">
-                        <td class="p-4 w-1/4 text-center">12345</td>
-                        <td class="p-4 w-1/4 text-center">None</td>
-                        <td class="p-4 w-1/4 text-center">1/1/24</td>
-                        <td class="p-4 w-1/4 text-center">1/1/27</td>
-                        <td class="p-4 w-1/4 text-center">Active</td>
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing </td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
                     </tr>
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing </td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 border border-gray-400">12345</td>
+                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur adipisicing
+                            perferendis</td>
+                        <td class="p-2 border border-gray-400">1/1/24</td>
+                        <td class="p-2 border border-gray-400">1/1/27</td>
+                        <td class="p-2 border border-gray-400">
+                            <span
+                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                        </td>
+                        <td class="p-2 border border-gray-400">
+                            <div class="flex items-center justify-end space-x-1 px-4">
+                                <button data-popover-target="popover-left-4" data-popover-placement="left" type="button"
+                                    class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
+                                <div data-popover id="popover-left-4" role="tooltip"
+                                    class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                    <div
+                                        class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                        <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
+                                    </div>
+                                    <div class="flex items-center justify-center space-x-4 px-3 py-2">
+                                        <a href="{% url 'rvs_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            RVS</a>
+                                        <a href="{% url 'icds_create' %}"
+                                            class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                            ICDS</a>
+                                    </div>
+                                </div>
+                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                            </div>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>
 {% endblock %}
-

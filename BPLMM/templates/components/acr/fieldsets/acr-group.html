@@ -1,23 +1,32 @@
-<div class="flex flex-col space-y-4 p-5 mb-4 rounded-lg bg-white backdrop-filter backdrop-blur-lg bg-opacity-40">
-    <h1 class="font-medium">Group</h1>
-    <div class="w-full flex items-start justify-between space-x-6">
-        <div class="w-full">
-            {% include "components/date-input.html" with name='GROUP_EFF_DATE' label='Effectivity Date' old=form.GROUP_EFF_DATE %}
-            {% for error in form.GROUP_EFF_DATE.errors %}
-                <div class="text-sm text-red-500">{{ error }}</div>
-            {% endfor %}
-        </div>
-        <div class="w-full">
-            {% include "components/date-input.html" with name='GROUP_END_DATE' label='Effectivity End Date' old=form.GROUP_END_DATE %}
-            {% for error in form.GROUP_END_DATE.errors %}
-                <div class="text-sm text-red-500">{{ error }}</div>
-            {% endfor %}
+<div>
+    <div id="alert-border-2" class="flex items-center p-4 rounded-t-lg text-green-800 border-t-4 border-[#1ED760] bg-white backdrop-filter backdrop-blur-md bg-opacity-40 dark:bg-gray-800 dark:border-green-800" role="alert">
+        <div class="px-1 text-lg font-medium">
+          Add new All Case-Rate Group
         </div>
     </div>
-    <div class="w-full">
-        {% include "components/text-field.html" with name='ACR_GROUPS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_DESCRIPTION %}
-        {% for error in form.ACR_GROUPS_DESCRIPTION.errors %}
-            <div class="text-sm text-red-500">{{ error }}</div>
-        {% endfor %}
+    <div class="flex flex-col space-y-4 p-5 pt-2 mb-4 rounded-b-lg bg-white backdrop-filter backdrop-blur-lg bg-opacity-40">
+        <div class="w-full flex items-start justify-between space-x-6">
+            <div class="w-full">
+                {% include "components/date-input.html" with name='GROUP_EFF_DATE' label='Effectivity Date' old=form.GROUP_EFF_DATE %}
+                {% for error in form.GROUP_EFF_DATE.errors %}
+                    <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="w-full">
+                {% include "components/date-input.html" with name='GROUP_END_DATE' label='Effectivity End Date' old=form.GROUP_END_DATE %}
+                {% for error in form.GROUP_END_DATE.errors %}
+                    <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="w-full">
+            {% include "components/text-field.html" with name='ACR_GROUPS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_DESCRIPTION %}
+            {% for error in form.ACR_GROUPS_DESCRIPTION.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="flex">
+            <button class="py-2.5 px-6 text-sm rounded-md bg-[#1ED760] text-white">Save Group</button>
+        </div>
     </div>
 </div>

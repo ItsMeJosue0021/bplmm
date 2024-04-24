@@ -18,61 +18,39 @@
                         <div class="text-sm text-red-500">{{ error }}</div>
                     {% endfor %}
                 </div>
-                <div class="w-full flex flex-col space-y-2">
-                    <div class="w-full flex flex-col space-y-1 ">
-                        <div class="w-full">
-                            <label for="CHECK_AGE" class="text-base">Check Age</label>
-                            <input type="hidden" name="CHECK_AGE" id="CHECK_AGE">
-                        </div>
-                        <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-400">
-                            <div class="w-full flex items-center">
-                                <input id="CHECK_AGE_NOT_APPLICABLE" type="checkbox" name="CHECK_AGE" value="N/A" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="CHECK_AGE" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
+                <div class="w-full">
+                    <div class="w-full flex flex-col space-y-1">
+                        <label id="CHECK_WHAT_IS_COVERED_BY_AMT_LABEL" for="CHECK_WHAT_IS_COVERED_BY_AMT" class="text-base">Check what is covered by AMT</label>
+                        <input type="number" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="bg-transparent px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
+                        <div class="w-full flex items-start justify-between">
+                            <div class="w-1/3 flex items-center ">
+                                <input id="CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Sessions" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Sessions</label>
+                            </div>
+                            <div class="w-1/3 flex items-center ">
+                                <input id="CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Cycles" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Cycles</label>
+                            </div>
+                            <div class="w-1/3 flex items-center ">
+                                <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
                             </div>
                         </div>
-                        <div >
-                            <div class="w-full flex items-start justify-between space-x-4">
-                                <div class="w-1/5">
-                                    <label for="OPERATOR" class="text-base">Operator</label>
-                                    <select id="OPERATOR" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40">
-                                        <option  disabled></option>
-                                        <option value="">N/A</option>
-                                        <option value="<"><</option>
-                                        <option value="<">></option>
-                                        <option value="<="><=</option>
-                                        <option value=">=">>=</option>
-                                    </select>
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MINIMUM" class="text-base">Minimun</label>
-                                    <input id="MINIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MINIMUM_Y_D" class="text-base">Day/Year</label>
-                                    <select id="MINIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40">
-                                        <option selected disabled value="">Select</option>
-                                        <option value="">N/A</option>
-                                        <option value="y">Year/s</option>
-                                        <option value="d">Day/s</option>
-                                    </select>
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MAXIMUM" class="text-base">Maximum</label>
-                                    <input id="MAXIMUM" type="number" placeholder="0" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
-                                </div>
-                                <div class="w-1/5">
-                                    <label for="MAXIMUM_Y_D" class="text-base">Day/Year</label>
-                                    <select id="MAXIMUM_Y_D" type="text" class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40 ">
-                                        <option selected disabled value="">Select</option>
-                                        <option value="">N/A</option>
-                                        <option value="y">Year/s</option>
-                                        <option value="d">Day/s</option>
-                                    </select>
-                                </div>
+                    </div>
+                </div>
+                <div class="w-full">
+                    <div class="w-full flex flex-col space-y-1">
+                        <label id="CHECK_LENGTH_OF_STAY_HOURS_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-base">Check Length of Stay</label>
+                        <input type="number" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="px-4 py-2.5 text-base rounded-lg border bg-transparent border-gray-400 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
+                        <div class="w-full flex items-start justify-start">
+                            <div class="w-1/3 flex items-center ">
+                                <input id="CHECK_LENGTH_OF_STAY_HOURS" type="radio" name="CHECK_LENGTH_OF_STAY" value="Hours" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Hours</label>
                             </div>
-                        </div>
-                        <div class="py-1">
-                            <p id="PREVIEW" class="font-medium ">Preview: <span class="font-normal italic"></span></p>
+                            <div class="w-1/3 flex items-center ">
+                                <input id="CHECK_LENGTH_OF_STAY_DAYS" type="radio" name="CHECK_LENGTH_OF_STAY" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Days</label>
+                            </div>
                         </div>
                     </div>
                 </div>
