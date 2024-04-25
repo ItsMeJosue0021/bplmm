@@ -195,6 +195,9 @@ def rvs_edit(request):
 def rvs_delete(request):
     pass
 
+def set_rules(request):
+    return render(request, 'pages/acr/encoder/rvs-rules-create.html')
+
 
 #-------------------------------------------------
 # LIST OF ICDS 

@@ -11,7 +11,7 @@
                 <span data-next="section1" style="background-color: #1ED760;"
                     class="stepper-nav-button  rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-white dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class="w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">1</span>
+                        class="w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li
@@ -19,7 +19,7 @@
                 <span data-next="section2"
                     class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">2</span>
+                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li
@@ -27,7 +27,7 @@
                 <span data-next="section3"
                     class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">3</span>
+                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li
@@ -35,7 +35,7 @@
                 <span data-next="section4"
                     class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">4</span>
+                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li
@@ -43,7 +43,7 @@
                 <span data-next="section5"
                     class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">5</span>
+                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li
@@ -51,21 +51,13 @@
                 <span data-next="section6"
                     class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">6</span>
-                </span>
-            </li>
-            <li
-                class=" flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section7"
-                    class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 cursor-pointer">
-                    <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">7</span>
+                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li class=" flex items-center cursor-pointer">
-                <span data-next="section8" class="stepper-nav-button rounded-full">
+                <span data-next="section7" class="stepper-nav-button rounded-full">
                     <span
-                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-sm  lg:w-10 lg:h-10 text-white">8</span>
+                        class=" w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
         </ol>
@@ -81,7 +73,7 @@
             </svg>
             <span class="sr-only">Info</span>
             <div>
-                <span class="font-medium">Warning!</span> Your are about to add new ICDS.
+                <span class="font-medium">Warning!</span> Your are about to add new RVS.
             </div>
         </div>
     </div>
@@ -91,18 +83,16 @@
             <div class="flex flex-col space-y-4">
                 {% csrf_token %}
                 <div>
-                    <div id="section1" class="form-section">
-                        {% include "components/acr/fieldsets/acr-group.html" %}
-                        {% include "components/acr/fieldsets/acr-icds.html" %}
+                    <div id="section1" data-section="1" class="form-section">
+                        {% include "components/acr/fieldsets/acr-inputs.html" %}
                         <div class="flex items-start space-x-4 mt-4">
-                            <a href="{% url 'groups' %}"
-                                class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
+                            <a href="{% url 'rvs_create' %}" class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
                             <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-[#1ED760] text-white"
                                 data-next="section2">Next</a>
                         </div>
                     </div>
                     <div id="section2" data-section="2" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-inputs.html" %}
+                        {% include "components/acr/fieldsets/acr-inputs-2.html" %}
                         <div class="flex items-start space-x-4 mt-4">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section1">Back</a>
@@ -111,7 +101,7 @@
                         </div>
                     </div>
                     <div id="section3" data-section="3" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-inputs-2.html" %}
+                        {% include "components/acr/fieldsets/acr-checkboxes.html" %}
                         <div class="flex items-start space-x-4 mt-4">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section2">Back</a>
@@ -120,7 +110,7 @@
                         </div>
                     </div>
                     <div id="section4" data-section="4" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-checkboxes.html" %}
+                        {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
                         <div class="flex items-start space-x-4 mt-4">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section3">Back</a>
@@ -129,7 +119,7 @@
                         </div>
                     </div>
                     <div id="section5" data-section="5" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
+                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
                         <div class="flex items-start space-x-4 mt-4">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section4">Back</a>
@@ -137,8 +127,9 @@
                                 data-next="section6">Next</a>
                         </div>
                     </div>
+
                     <div id="section6" data-section="6" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
+                        {% include "components/acr/fieldsets/acr-code-inputs.html" %}
                         <div class="flex items-start space-x-4 mt-4">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section5">Back</a>
@@ -148,22 +139,12 @@
                     </div>
 
                     <div id="section7" data-section="7" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-code-inputs.html" %}
-                        <div class="flex items-start space-x-4 mt-4">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section6">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-[#1ED760] text-white"
-                                data-next="section8">Next</a>
-                        </div>
-                    </div>
-
-                    <div id="section8" data-section="8" style="display: none;" class="form-section">
                         {% include "components/acr/fieldsets/acr-validation-rules.html" %}
                         <div class="flex items-start space-x-4 mt-4">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section7">Back</a>
-                            <button type="submit"
-                                class="next py-2.5 px-6 rounded-md cursor-pointer bg-[#1ED760] text-white">Submit</button>
+                                data-back="section6">Back</a>
+                            <button
+                                class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-[#1ED760] text-white">Submit</button>
                         </div>
                     </div>
                 </div>

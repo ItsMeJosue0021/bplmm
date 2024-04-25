@@ -1,6 +1,6 @@
 <div class="w-full flex flex-col space-y-1">
     <label for="{{ name }}" class="text-base">{{ label }}</label>
-    <textarea name="{{ name }}" id="{{ name }}" placeholder="{{ label }}" class="h-32 rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
+    <textarea name="{{ name }}" id="{{ name }}" placeholder="{{ label }}" class="h-28 rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
         {% if old.value %}{{ old.value|escape }} {% endif %}
     </textarea>
 </div>

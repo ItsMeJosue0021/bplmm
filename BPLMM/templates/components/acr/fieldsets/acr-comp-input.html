@@ -16,49 +16,221 @@
                 {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_PCB' label='Check Facility PCB' %}
             </div>
             <div class="w-full">
-                {% include "components/true-false-NA-checkbox.html" with name='CHECK_QUALIFIER' label='Check  Qualifier' %}
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_QUALIFIER' label='Check Qualifier'%}
             </div>
         </div>
 
         <div class="w-full flex flex-row items-start justify-between space-x-14 ">
-            <div class="w-full">
-                
-                <div class="w-full flex flex-col space-y-1">
-                    <label id="CHECK_WHAT_IS_COVERED_BY_AMT_LABEL" for="CHECK_WHAT_IS_COVERED_BY_AMT" class="text-base">Check Occurence Per Claim</label>
-                    <input type="number" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="bg-transparent px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
-                    <div class="w-full flex items-start justify-between">
-                        <div class="w-1/3 flex items-center ">
-                            <input id="CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Sessions" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Sessions</label>
+            <div class="w-full flex flex-col space-y-2">
+                <div class="w-full flex flex-col space-y-1 ">
+                    <div class="w-full">
+                        <label for="CHECK_AGE" class="text-base">Check Age</label>
+                        <input type="hidden" name="CHECK_AGE" id="CHECK_AGE">
+                    </div>
+                    <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-400">
+                        <div class="w-full flex items-center">
+                            <input id="CHECK_AGE_NOT_APPLICABLE" type="checkbox" name="CHECK_AGE" value="N/A"
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="CHECK_AGE" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not
+                                Applicable</label>
                         </div>
-                        <div class="w-1/3 flex items-center ">
-                            <input id="CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Cycles" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Cycles</label>
+                    </div>
+                    <div>
+                        <div class="w-full flex items-start justify-between space-x-4">
+                            <div class="w-1/5">
+                                <label for="OPERATOR" class="text-sm">Operator</label>
+                                <select id="OPERATOR" type="text"
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40">
+                                    <option disabled></option>
+                                    <option value="">N/A</option>
+                                    <option value="<"><</option>
+                                    <option value=">">></option>
+                                    <option value="<="><=</option>
+                                    <option value=">=">>=</option>
+                                </select>
+                            </div>
+                            <div class="w-1/5">
+                                <label for="MINIMUM" class="text-sm">Minimun</label>
+                                <input id="MINIMUM" type="number" placeholder="0"
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
+                            </div>
+                            <div class="w-1/5">
+                                <label for="MINIMUM_Y_D" class="text-sm">Day/Year</label>
+                                <select id="MINIMUM_Y_D" type="text"
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40">
+                                    <option selected disabled value="">Select</option>
+                                    <option value="">N/A</option>
+                                    <option value="y">Year/s</option>
+                                    <option value="d">Day/s</option>
+                                </select>
+                            </div>
+                            <div class="w-1/5">
+                                <label for="MAXIMUM" class="text-sm">Maximum</label>
+                                <input id="MAXIMUM" type="number" placeholder="0"
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
+                            </div>
+                            <div class="w-1/5">
+                                <label for="MAXIMUM_Y_D" class="text-sm">Day/Year</label>
+                                <select id="MAXIMUM_Y_D" type="text"
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40 ">
+                                    <option selected disabled value="">Select</option>
+                                    <option value="">N/A</option>
+                                    <option value="y">Year/s</option>
+                                    <option value="d">Day/s</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="w-1/3 flex items-center ">
-                            <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
-                        </div>
+                    </div>
+                    <div class="py-1">
+                        <p id="PREVIEW" class="font-medium ">Preview: <span class="font-normal italic"></span></p>
                     </div>
                 </div>
             </div>
-            <div class="w-full">
-                <div class="w-full flex flex-col space-y-1">
-                    <label id="CHECK_LENGTH_OF_STAY_HOURS_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-base">Check Length of Stay</label>
-                    <input type="number" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="px-4 py-2.5 text-base rounded-lg border bg-transparent border-gray-400 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
-                    <div class="w-full flex items-start justify-start">
-                        <div class="w-1/3 flex items-center ">
-                            <input id="CHECK_LENGTH_OF_STAY_HOURS" type="radio" name="CHECK_LENGTH_OF_STAY" value="Hours" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Hours</label>
+            <div class="w-full flex flex-col space-y-1 ">
+                <div class="w-full">
+                    <label for="DEDUCT_FROM_45DAYS" class="text-base">Deduct from 45 days</label>
+                    <input type="hidden" name="DEDUCT_FROM_45DAYS" id="DEDUCT_FROM_45DAYS_INPUT">
+                </div>
+                <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-400">
+                    <div class="w-full flex items-center">
+                        <input id="DEDUCT_FROM_45DAYS_CONDITIONAL" type="radio" name="DEDUCT_FROM_45DAYS_RADIO"
+                            value="N/A"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="DEDUCT_FROM_45DAYS"
+                            class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Conditional</label>
+                    </div>
+                    <div class="w-full flex items-center">
+                        <input id="DEDUCT_FROM_45DAYS_NOTAPPLICABLE" type="radio" name="DEDUCT_FROM_45DAYS_RADIO"
+                            value="N/A"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <label for="DEDUCT_FROM_45DAYS" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not
+                            Applicable</label>
+                    </div>
+                </div>
+                <div id="initial-inputs" class="w-full flex space-x-6">
+                    <div class="w-1/2 flex items-center justify-between">
+                        <div class="flex flex-col ">
+                            <label class="text-sm">Days</label>
+                            <input type="number" id="DEDUCT_FROM_45DAYS_DAYS"
+                                class="w-32 py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                                placeholder="0">
                         </div>
-                        <div class="w-1/3 flex items-center ">
-                            <input id="CHECK_LENGTH_OF_STAY_DAYS" type="radio" name="CHECK_LENGTH_OF_STAY" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Days</label>
+                        <span class="text-lg">Per</span>
+                        <div class="flex flex-col ">
+                            <label class="text-sm">Number</label>
+                            <input type="number" id="DEDUCT_FROM_45DAYS_NUMBER"
+                                class="w-32 py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                                placeholder="0">
                         </div>
                     </div>
+                    <div class="w-1/2 flex flex-col ">
+                        <label class="text-sm">Type</label>
+                        <select id="DEDUCT_FROM_45DAYS_TYPE"
+                            class="py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                            placeholder="0">
+                            <option value="">N/A</option>
+                            <option value="Cycle" selected>Cycle</option>
+                            <option value="Session">Session</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="condition-cntr">
+                    <div class="flex flex-col ">
+                        <label class="text-sm">Condition</label>
+                        <input type="txt"
+                            class="py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                            placeholder="Condition..">
+                    </div>
+                </div>
+                <div class="py-1">
+                    <p class="font-medium">Preview: <span id="deduct-45-days-preview" class="font-normal italic"></span></p>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
+
+<script>
+    const DEDUCT_FROM_45DAYS_INPUT = document.getElementById('DEDUCT_FROM_45DAYS_INPUT');
+    const DEDUCT_FROM_45DAYS_DAYS = document.getElementById('DEDUCT_FROM_45DAYS_DAYS');
+    const DEDUCT_FROM_45DAYS_NUMBER = document.getElementById('DEDUCT_FROM_45DAYS_NUMBER');
+    const DEDUCT_FROM_45DAYS_TYPE = document.getElementById('DEDUCT_FROM_45DAYS_TYPE');
+    const DEDUCT_FROM_45DAYS_CONDITIONAL = document.getElementById('DEDUCT_FROM_45DAYS_CONDITIONAL');
+    const DEDUCT_FROM_45DAYS_NOTAPPLICABLE = document.getElementById('DEDUCT_FROM_45DAYS_NOTAPPLICABLE');
+    const initialInputs = document.getElementById('initial-inputs');
+    const conditionCntr = document.getElementById('condition-cntr');
+    const conditionInput = conditionCntr.querySelector('input');
+    const previewSpan = document.getElementById('deduct-45-days-preview');
+
+    conditionCntr.style.display = 'none';
+
+    let lastChecked = null;
+
+    function updateInputValue() {
+        let value;
+        if (DEDUCT_FROM_45DAYS_CONDITIONAL.checked) {
+            value = conditionInput.value.toUpperCase();
+        } else if (DEDUCT_FROM_45DAYS_NOTAPPLICABLE.checked) {
+            value = 'N/A';
+        } else {
+            let type = DEDUCT_FROM_45DAYS_TYPE.value;
+            if (DEDUCT_FROM_45DAYS_TYPE.value !== "" && DEDUCT_FROM_45DAYS_NUMBER.value > 1) {
+                type += 's';
+            }
+            value = DEDUCT_FROM_45DAYS_DAYS.value;
+            if (DEDUCT_FROM_45DAYS_NUMBER.value) {
+                value += ' PER ' + DEDUCT_FROM_45DAYS_NUMBER.value;
+            }
+            value += ' ' + type;
+            value = value.toUpperCase();
+        }
+        DEDUCT_FROM_45DAYS_INPUT.value = value;
+        previewSpan.textContent = value;
+    }
+
+    function updateDisplay() {
+        if (DEDUCT_FROM_45DAYS_CONDITIONAL.checked) {
+            initialInputs.style.display = 'none';
+            conditionCntr.style.display = 'block';
+        } else if (DEDUCT_FROM_45DAYS_NOTAPPLICABLE.checked) {
+            DEDUCT_FROM_45DAYS_DAYS.disabled = true;
+            DEDUCT_FROM_45DAYS_NUMBER.disabled = true;
+            DEDUCT_FROM_45DAYS_TYPE.disabled = true;
+            conditionInput.disabled = true;
+        } else {
+            DEDUCT_FROM_45DAYS_DAYS.disabled = false;
+            DEDUCT_FROM_45DAYS_NUMBER.disabled = false;
+            DEDUCT_FROM_45DAYS_TYPE.disabled = false;
+            conditionInput.disabled = false;
+            initialInputs.style.display = 'flex';
+            conditionCntr.style.display = 'none';
+        }
+    }
+
+    DEDUCT_FROM_45DAYS_CONDITIONAL.addEventListener('click', function() {
+        if (lastChecked === this) {
+            this.checked = false;
+            lastChecked = null;
+        } else {
+            lastChecked = this;
+        }
+        updateDisplay();
+        updateInputValue();
+    });
+
+    DEDUCT_FROM_45DAYS_NOTAPPLICABLE.addEventListener('click', function() {
+        if (lastChecked === this) {
+            this.checked = false;
+            lastChecked = null;
+        } else {
+            lastChecked = this;
+        }
+        updateDisplay();
+        updateInputValue();
+    });
+
+    DEDUCT_FROM_45DAYS_DAYS.addEventListener('input', updateInputValue);
+    DEDUCT_FROM_45DAYS_NUMBER.addEventListener('input', updateInputValue);
+    DEDUCT_FROM_45DAYS_TYPE.addEventListener('change', updateInputValue);
+    conditionInput.addEventListener('input', updateInputValue);
+</script>
