@@ -1390,6 +1390,10 @@ input:checked + .toggle-bg{
   height: 100vh;
 }
 
+.h-0{
+  height: 0px;
+}
+
 .min-h-52{
   min-height: 13rem;
 }
@@ -1494,6 +1498,10 @@ input:checked + .toggle-bg{
   width: 24rem;
 }
 
+.w-\[100\%\]{
+  width: 100%;
+}
+
 .w-fit{
   width: -moz-fit-content;
   width: fit-content;
@@ -1505,6 +1513,10 @@ input:checked + .toggle-bg{
 
 .w-screen{
   width: 100vw;
+}
+
+.min-w-\[70\%\]{
+  min-width: 70%;
 }
 
 .max-w-\[480px\]{
