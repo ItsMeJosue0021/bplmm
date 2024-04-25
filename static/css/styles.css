@@ -1507,6 +1507,10 @@ input:checked + .toggle-bg{
   width: 100vw;
 }
 
+.w-10{
+  width: 2.5rem;
+}
+
 .max-w-\[480px\]{
   max-width: 480px;
 }
@@ -1658,6 +1662,10 @@ input:checked + .toggle-bg{
 
 .gap-1{
   gap: 0.25rem;
+}
+
+.gap-4{
+  gap: 1rem;
 }
 
 .space-x-1 > :not([hidden]) ~ :not([hidden]){
@@ -1869,6 +1877,11 @@ input:checked + .toggle-bg{
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
 }
 
+.border-gray-200{
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
 .border-gray-300{
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -1963,6 +1976,11 @@ input:checked + .toggle-bg{
   background-color: rgb(253 242 242 / var(--tw-bg-opacity));
 }
 
+.bg-red-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+}
+
 .bg-themeColor{
   --tw-bg-opacity: 1;
   background-color: rgb(21 105 19 / var(--tw-bg-opacity));
@@ -1981,29 +1999,14 @@ input:checked + .toggle-bg{
   background-color: rgb(255 255 255 / 0.5);
 }
 
-.bg-yellow-50{
-  --tw-bg-opacity: 1;
-  background-color: rgb(253 253 234 / var(--tw-bg-opacity));
-}
-
-.bg-yellow-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(194 120 3 / var(--tw-bg-opacity));
-}
-
 .bg-yellow-400{
   --tw-bg-opacity: 1;
   background-color: rgb(227 160 8 / var(--tw-bg-opacity));
 }
 
-.bg-red-400{
+.bg-yellow-50{
   --tw-bg-opacity: 1;
-  background-color: rgb(249 128 128 / var(--tw-bg-opacity));
-}
-
-.bg-red-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(240 82 82 / var(--tw-bg-opacity));
+  background-color: rgb(253 253 234 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-10{
@@ -2126,11 +2129,6 @@ input:checked + .toggle-bg{
   padding-right: 1.5rem;
 }
 
-.px-8{
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .py-0{
   padding-top: 0px;
   padding-bottom: 0px;
@@ -2244,6 +2242,11 @@ input:checked + .toggle-bg{
   text-align: center;
 }
 
+.text-2xl{
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-base{
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2267,11 +2270,6 @@ input:checked + .toggle-bg{
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-2xl{
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .font-light{
