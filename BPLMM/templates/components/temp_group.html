@@ -1,0 +1,48 @@
+{% for item in groups %}
+<tr>
+    <td class="p-2 border border-gray-400">{{ item.ID|default:"" }}</td>
+    <td class="p-2 border border-gray-400">{{ item.DESCRIPTION|default:""|truncatechars:20 }}
+    </td>
+    <td class="p-2 border border-gray-400">{{ item.EFF_DATE|default:"" }}</td>
+    <td class="p-2 border border-gray-400">{{ item.END_DATE|default:"" }}</td>
+    <td class="p-2 border border-gray-400">
+        {% if item.ACTIVE == "T" %}
+        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+        {% elif item.ACTIVE == "F" %}
+        <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+        {% endif %}
+    </td>
+    <td class="p-2 border border-gray-400">
+        <div class="flex items-center justify-center space-x-1 px-4">
+            {% if item.ACTIVE == "F" %}
+            <button data-popover-target="popover-left-{{ item.ID }}" data-popover-placement="left" type="button"
+                class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
+            <div data-popover id="popover-left-{{ item.ID }}" role="tooltip"
+                class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                <div
+                    class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
+                </div>
+                <div class="flex items-center justify-center space-x-4 px-3 py-2">
+                    <a href="{% url 'rvs_create' %}"
+                        class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                        RVS</a>
+                    <a href="{% url 'icds_create' %}"
+                        class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                        ICDS</a>
+                </div>
+            </div>
+            {% endif %}
+            <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
+            <a href="" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
+            <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="6" class="pt-4">
+        <span class=" text-red-600">No Record Found</span>
+    </td>
+</tr>
+{% endfor %}

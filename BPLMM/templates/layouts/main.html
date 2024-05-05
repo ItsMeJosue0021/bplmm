@@ -1,4 +1,5 @@
 {% load static %}
+{% load group_checker %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,7 +49,7 @@
                         </button> -->
                         <!-- <ul id="dropdown-example" class="hidden py-2 space-y-2"> -->
                         <div class="w-full flex">
-                            <a href="{% url 'groups' %}" class="w-full py-2.5 px-4 text-gray-700 transition duration-75 rounded-lg bg-white dark:text-white dark:hover:bg-green-700">All Case-Rate</a>
+                            <a href="{% url 'acr' %}" class="w-full py-2.5 px-4 text-gray-700 transition duration-75 rounded-lg bg-white dark:text-white dark:hover:bg-green-700">All Case-Rate</a>
                         </div>
                         <div class="w-full flex">
                             <a href="{% url 'rvs' %}" class="w-full py-2.5 px-4 text-gray-700 transition duration-75 rounded-lg hover:bg-white dark:text-white dark:hover:bg-green-700">Z-Benefits</a>

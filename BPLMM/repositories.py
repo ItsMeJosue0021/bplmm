@@ -1,13 +1,13 @@
-from .models import ACR_GROUPS, ACR_GROUPS_RVS, ACR_PERRVS_RULES
+from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULES
 
 class ACR_GROUPS_REPOSITORY:
     #-------------------------------------------------
     # fields for ACR_GROUPS_RVS
     #-------------------------------------------------
-    def create(self, data):
-        acr_groups = ACR_GROUPS(**data)
-        acr_groups.save()
-        return acr_groups
+    def create_temp(self, data):
+        acr_groups_temp = ACR_GROUPS_TEMP(**data)
+        acr_groups_temp.save()
+        return acr_groups_temp
     
     def update(self, data):
         acr_groups = ACR_GROUPS(**data)

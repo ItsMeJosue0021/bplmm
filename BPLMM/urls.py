@@ -10,10 +10,15 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
 
     #-------------------------------------------------
+    # ACR' URLs
+    #-------------------------------------------------
+    path('acr/', views.acr, name='acr'),
+
+    #-------------------------------------------------
     # Groups' URLs
     #-------------------------------------------------
     path('groups/', views.groups, name='groups'),
-    path('groups/create/', views.groups_create, name='groups_create'),
+    # path('groups/create/', views.groups_create, name='groups_create'),
     path('groups/<int:id>/', views.groups_show, name="groups_show"),
     path('groups/<int:id>/edit', views.groups_edit, name="groups_edit"),
     path('groups/<int:id>/delete', views.groups_delete, name="groups_delete"),
@@ -26,11 +31,21 @@ urlpatterns = [
     path('groups/rvs/<int:id>/', views.rvs_show, name="rvs_show"),
     path('groups/rvs/<int:id>/edit', views.rvs_edit, name="rvs_edit"),
     path('groups/rvs/<int:id>/delete', views.rvs_delete, name="rvs_delete"),
-    path('groups/rvs/set_rules', views.set_rules, name="set_rules"),
+    path('groups/rvs/set_rules', views.set_rvs_rules, name="set_rvs_rules"),
 
     #-------------------------------------------------
     # ICDS' URLs
     #-------------------------------------------------
     path('groups/icds/', views.icds, name='icds'),
     path('groups/icds/create/', views.create_icds, name='icds_create'),
+    path('groups/icds/set_rules', views.set_icds_rules, name="set_icds_rules"),
+
+
+    #-------------------------------------------------
+    # APPROVER'S URLs
+    #-------------------------------------------------
+    path('apvr/groups/', views.approver_groups, name='approver_groups'),
+
+    path('groups/item/', views.group_item, name='group_item'),
+
 ]

@@ -1,28 +1,36 @@
 import random
-from .models import ACR_GROUPS, ACR_GROUPS_RVS
+from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS
 
 class ACR_GROUPS_SERVICE:
 
     def __init__(self, _repository):
         self.repository = _repository
 
-    def create(self, form):
-        if form.is_valid():
-            data = form.cleaned_data
-            acr_groups_data = {
-                'ACR_GROUPID': self.generate_acr_group_id(),
-                'DESCRIPTION': data['ACR_GROUPS_DESCRIPTION'],
-                'EFF_DATE': data['GROUP_EFF_DATE'],
-                'ACTIVE': 'F',
-                'END_DATE': data['GROUP_END_DATE']
-            }
-            return self.repository.create(acr_groups_data)
-        else:
-            return None
+
+
+    def create_temp(self, form, request):
+            
+        data = form.cleaned_data
+        acr_temp_group_data = {
+            'DESCRIPTION': data['DESCRIPTION'],
+            'EFF_DATE': data['EFF_DATE'],
+            'ACTIVE': 'F',
+            'END_DATE': data['END_DATE'],
+            'USERNAME': request.user.username
+        }
+        return self.repository.create_temp(acr_temp_group_data)
         
+
+
+
     def generate_acr_group_id(self):
         return 'CR' + str(random.randint(1000, 9999)) #incremental
     
+
+
+
+
+
 class ACR_GROUPS_RVS_SERVICE:
 
     def __init__(self, _repository):

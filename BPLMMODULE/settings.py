@@ -135,3 +135,6 @@ AUTH_USER_MODEL = 'BPLMM.CustomUser'
 
 LOGIN_URL = 'login'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+

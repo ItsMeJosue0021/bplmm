@@ -16,6 +16,8 @@ class ACR_GROUPS(models.Model):
     END_DATE = models.DateField(null=True, blank=True)
 
 class ACR_GROUPS_TEMP(models.Model):
+    ID = models.AutoField(primary_key=True)
+    ACR_GROUPID = models.CharField(max_length=255, null=True, default='N/A')
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
     ACTIVE = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
@@ -37,7 +39,8 @@ class ACR_GROUPS_ICDS(models.Model):
     EFF_DATE = models.DateField()
 
 class ACR_GROUPS_ICDS_TEMP(models.Model):
-    ICDCODE = models.CharField(max_length=255, primary_key=True)
+    ID = models.AutoField(primary_key=True)
+    ICDCODE = models.CharField(max_length=255, null=True, default='N/A')
     ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()

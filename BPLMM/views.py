@@ -1,11 +1,22 @@
 import random
-from .forms import SAVE_RVS_FORM
+from django.db.models import Q
+from datetime import datetime
+from django.contrib import messages
+from django.core.paginator import Paginator
+from .forms import SAVE_RVS_FORM, ACR_GROUPS_FORM
 from django.shortcuts import render, redirect # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from .decorators import encoder_required, approver_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout # type: ignore
 from .services import ACR_GROUPS_SERVICE, ACR_GROUPS_RVS_SERVICE, ACR_PERRVS_RULES_SERVICE
 from .repositories import ACR_GROUPS_REPOSITORY, ACR_GROUPS_RVS_REPOSITORY, ACR_PERRVS_RULES_REPOSITORY
+from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULES
+
+
+def group_item(request):
+    temp_search_query = request.GET.get('temp_search', '')
+    groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query)
+    return render(request, 'components/temp_group.html', {'groups': groups})
 
 #-------------------------------------------------
 # LOGIN
@@ -20,7 +31,7 @@ def login(request):
             print('nag login')
             auth_login(request, user)
             if user.groups.filter(name='Encoder').exists():
-                return redirect('groups')
+                return redirect('acr')
             elif user.groups.filter(name='Approver').exists():
                 return redirect('create_icds')
             else:
@@ -44,18 +55,71 @@ def logout(request):
 
 
 #-------------------------------------------------
+# ACR
+#-------------------------------------------------
+def acr(request):
+    return render(request, 'pages/acr/acr.html')
+
+#-------------------------------------------------
 # GROUPS
 #-------------------------------------------------
 @login_required
 def groups(request):
-    return render(request, 'pages/acr/encoder/group-list.html')
+    
+    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
+    data = ACR_GROUPS.objects.all()
 
-#-------------------------------------------------
-# CREATE GROUPS 
-#-------------------------------------------------
-def groups_create(request):
-    pass
+    temp_search_query = request.GET.get('temp_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query))
+    else:
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query)
+
+    temp_data_paginator = Paginator(temp_groups, 8) 
+    page_number = request.GET.get('page', 1)
+    temp_data = temp_data_paginator.get_page(page_number)
+
+    form = ACR_GROUPS_FORM(request.POST or None)
+    context = {'data': data, 'temp_data': temp_data, 'form': form}
+
+    if request.method == 'POST':
+        if form.is_valid():
+            try:
+                acr_groups = acr_groups_service.create_temp(form, request)
+                if acr_groups is not None:
+                    messages.success(request, 'Form saved successfully.')
+                    return render(request, 'pages/acr/encoder/group-list.html', context)
+                else:
+                    raise Exception('An error occurred while saving the form.')
+            except Exception as e:
+                messages.error(request, str(e))
+        else:
+            messages.error(request, 'Please make sure all fields are filled out.')
+
+    return render(request, 'pages/acr/encoder/group-list.html', context)
+
+    # if request.method == 'POST':
+
+    #     form = ACR_GROUPS_FORM(request.POST)
+    #     if form.is_valid():
+    #         try:
+    #             acr_groups = acr_groups_service.create_temp(form, request)
+    #             if acr_groups is not None:
+    #                 messages.success(request, 'Form saved successfully.')
+    #                 return render(request, 'pages/acr/encoder/group-list.html', {'data': data, 'temp_data': temp_data})
+    #         except Exception as e:
+    #             messages.error(request, 'An error occurred while saving the form.')
+    #             return render(request, 'pages/acr/encoder/group-list.html', {'data': data, 'temp_data': temp_data})
+    #     else:
+    #         messages.error(request, 'Please make sure all fields are filled out.')
+    #         return render(request, 'pages/acr/encoder/group-list.html', {'form': form, 'data': data, 'temp_data': temp_data})
+        
+    # return render(request, 'pages/acr/encoder/group-list.html', {'data': data, 'temp_data': temp_data})
+
 
 #-------------------------------------------------
 # CREATE RVS (with GROUP)
@@ -195,7 +259,7 @@ def rvs_edit(request):
 def rvs_delete(request):
     pass
 
-def set_rules(request):
+def set_rvs_rules(request):
     return render(request, 'pages/acr/encoder/rvs-rules-create.html')
 
 
@@ -212,6 +276,53 @@ def icds(request):
 @login_required
 def create_icds(request):
     return render(request, 'pages/acr/encoder/icds-create.html')
+
+def set_icds_rules(request):
+    return render(request, 'pages/acr/encoder/icds-rules-create.html')
+
+
+
+
+#----------------------------------------------------------------------------------------------------------
+# APPROVER'S VIEWS
+#----------------------------------------------------------------------------------------------------------
+
+def approver_groups(request):
+    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+
+    data = ACR_GROUPS.objects.all()
+
+    temp_search_query = request.GET.get('temp_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query))
+    else:
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query)
+
+    temp_data_paginator = Paginator(temp_groups, 8) 
+    page_number = request.GET.get('page', 1)
+    temp_data = temp_data_paginator.get_page(page_number)
+
+    form = ACR_GROUPS_FORM(request.POST or None)
+    context = {'data': data, 'temp_data': temp_data, 'form': form}
+
+    if request.method == 'POST':
+        if form.is_valid():
+            try:
+                acr_groups = acr_groups_service.create_temp(form, request)
+                if acr_groups is not None:
+                    messages.success(request, 'Form saved successfully.')
+                    return render(request, 'pages/acr/approver/group-list.html', context)
+                else:
+                    raise Exception('An error occurred while saving the form.')
+            except Exception as e:
+                messages.error(request, str(e))
+        else:
+            messages.error(request, 'Please make sure all fields are filled out.')
+
+    return render(request, 'pages/acr/approver/group-list.html', context)
 
 
 

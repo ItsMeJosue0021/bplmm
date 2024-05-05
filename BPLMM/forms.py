@@ -1,10 +1,10 @@
 from django import forms
 from .models import ACR_GROUPS, ACR_GROUPS_ICDS, ACR_GROUPS_RVS, ACR_PERRVS_RULES
 
-# class ACR_GROUPS_FORM(forms.Form):
-#     ACR_GROUPS_DESCRIPTION = forms.CharField(widget=forms.Textarea)
-#     GROUP_EFF_DATE = forms.DateField()
-#     GROUP_END_DATE = forms.DateField(required=False)
+class ACR_GROUPS_FORM(forms.Form):
+    DESCRIPTION = forms.CharField(widget=forms.Textarea)
+    EFF_DATE = forms.DateField()
+    END_DATE = forms.DateField()
 
 # class ACR_GROUPS_RVS_FORM(forms.Form):
 #     DESCRIPTION = forms.CharField(widget=forms.Textarea)
