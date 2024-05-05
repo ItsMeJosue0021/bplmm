@@ -16,23 +16,33 @@
     </div>
 
     <div class="sm:mx-auto w-full md:w-72">
-      <form class="flex flex-col space-y-6" action="{% url 'login' %}" method="POST">
+      <form class="flex flex-col space-y-6 " action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        <div class="flex items-center justify-center">
+        <!-- <div class="flex items-center justify-center">
           <div class="relative w-full">
             <label for="email" class="font-light text-sm text-gray-700">Username</label>
             <input id="username" name="username" type="text"
               class="w-full focus:outline-none peer bg-white bg-opacity-15 border-1.5 border-gray-400 rounded-md py-2.5 px-4 text-sm placeholder:italic placeholder:text-gray-500" placeholder="Username"/>
           </div>
+        </div> -->
+
+        <div class="input-group">
+          <input id="username" required="" type="text" name="username" autocomplete="off" class="login-input">
+          <label for="name" class="user-label">First Name</label>
         </div>
 
-        <div class="flex items-center justify-center">
+        <div class="input-group">
+          <input id="password" required="" type="password" name="password" autocomplete="off" class="login-input">
+          <label for="email" class="user-label">Password</label>
+        </div>
+
+        <!-- <div class="flex items-center justify-center">
           <div class="relative w-full">
             <label for="email" class="font-light text-sm text-gray-700">Password</label>
             <input id="password" name="password" type="password"
               class="w-full transition-colors focus:outline-none peer bg-white bg-opacity-15 border-1.5 border-gray-400 rounded-md py-2.5 px-4 text-sm placeholder:italic placeholder:text-gray-500 placeholder:font-light" placeholder="********"/>
           </div>
-        </div>
+        </div> -->
 
         <div>
           <button type="submit"
@@ -40,6 +50,7 @@
             in
           </button>
         </div>
+        
       </form>
     </div>
   </div>
