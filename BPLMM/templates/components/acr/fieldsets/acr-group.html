@@ -1,10 +1,10 @@
 <div>
-    <div id="alert-border-2" class="flex items-center p-4 rounded-t-lg text-green-800 border-t-4 border-[#1ED760] bg-white backdrop-filter backdrop-blur-md bg-opacity-40 dark:bg-gray-800 dark:border-green-800" role="alert">
-        <div class="px-1 text-lg font-medium">
-          Add new All Case-Rate Group
+    <div id="alert-border-2" class="flex items-center px-4 py-2 rounded-t-md text-green-800 bg-[#1ED760] shadow dark:bg-gray-800 dark:border-green-800">
+        <div class="px-1 text-base text-white">
+           CREATION OF NEW ACR GROUP
         </div>
     </div>
-    <div class="flex flex-col space-y-4 p-5 pt-2 mb-4 rounded-b-lg bg-white backdrop-filter backdrop-blur-lg bg-opacity-40">
+    <div class="flex flex-col space-y-4 p-4 mb-4 rounded-b-md bg-white shadow">
         <div class="w-full flex items-start justify-between space-x-6">
             <div class="w-full">
                 {% include "components/date-input.html" with name='EFF_DATE' label='Effectivity Date' old=form.EFF_DATE %}
@@ -26,7 +26,7 @@
             {% endfor %}
         </div>
         <div class="flex items-center justify-between">
-            <button class="py-2.5 px-6 text-sm rounded-md bg-[#1ED760] text-white">Save Group</button>
+            <button class="py-2.5 px-6 text-sm rounded bg-[#1ED760] text-white">SAVE</button>
             <span>STATUS: <span class="ml-2 py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-sm font-light">INACTIVE</span></span>
         </div>
     </div>

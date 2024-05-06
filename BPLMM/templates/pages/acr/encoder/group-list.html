@@ -3,11 +3,11 @@
 
 {% block content %}
 
-<div class="py-5">
+<div class="">
     <div>
         <div class="flex items-start space-x-4 mb-4">
             <a href="{% url 'acr' %}"
-                class="nav-button previous text-sm py-2.5 px-6 bg-white bg-opacity-40 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
+                class="nav-button previous text-sm py-2.5 px-6 bg-white text-gray-600 rounded-md cursor-pointer hover:bg-gray-100">Back</a>
         </div>
         {% include "components/messages.html" %}
         <form action="{% url 'groups' %}" method="POST">
@@ -15,368 +15,143 @@
             {% include "components/acr/fieldsets/acr-group.html" %}
         </form>
     </div>
-    <div id="navigationn" class="flex items-center space-x-2">
-        <a href="#" id="tab1-link" class="py-2 px-4 bg-[#1ED760] text-white rounded ">Temporary Groups</a>
-        <a href="#" id="tab2-link"  hx-target="#main-group"
-            class="py-2 px-4 bg-white bg-opacity-40 rounded">Main Groups</a>
-            <!-- hx-get="/groups/item/" hx-trigger="click" -->
-    </div>
-    <div id="tab1" class="p-6 rounded-md bg-white h-full mt-3 backdrop-filter backdrop-blur-md bg-opacity-40">
-        <div class="flex flex-col h-full">
-            <div class="flex items-start justify-between w-full pb-4">
-                <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR GROUP <span
-                        class="italic text-base font-light">(Waiting for approval)</span></p>
-
-                <div class="flex space-x-4 items-center">
-                    <form action="{% url 'groups' %}" class="flex items-center space-x-2">
-                        <input type="date" id="date_search" name="date_search"
-                            class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <!-- <button
-                            class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400 fill-white"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button> -->
-                    </form>
-                    <form action="{% url 'groups' %}" class="flex items-center">
-                        <label for="temp_search" class="sr-only">Search</label>
-                        <div class="relative w-full">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                    fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <input type="text" id="temp_search" name="temp_search"
-                                class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Search Description..">
-                        </div>
-                        <button
-                            class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400 fill-white"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="h-fit max-h-80 overflow-y-auto ">
-                <table class="w-full text-center border-collapse">
-                    <thead class="bg-gray-200 sticky top-0 z-10">
-                        <tr>
-                            <th class="p-2 border border-gray-400">TEMP ID</th>
-                            <th class="p-2 border border-gray-400">DESCRIPTION</th>
-                            <th class="p-2 border border-gray-400">EFFECTIVE DATE</th>
-                            <th class="p-2 border border-gray-400">END DATE</th>
-                            <th class="p-2 border border-gray-400">STATUS</th>
-                            <th class="p-2 border border-gray-400">ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody hx-get="/groups/item/" hx-trigger="click" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
-                        <!-- {% for item in temp_data %}
-                        <tr>
-                            <td class="p-2 border border-gray-400">{{ item.ID|default:"" }}</td>
-                            <td class="p-2 border border-gray-400">{{ item.DESCRIPTION|default:""|truncatechars:20 }}
-                            </td>
-                            <td class="p-2 border border-gray-400">{{ item.EFF_DATE|default:"" }}</td>
-                            <td class="p-2 border border-gray-400">{{ item.END_DATE|default:"" }}</td>
-                            <td class="p-2 border border-gray-400">
-                                {% if item.ACTIVE == "T" %}
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                                {% elif item.ACTIVE == "F" %}
-                                <span
-                                    class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                                {% endif %}
-                            </td>
-                            <td class="p-2 border border-gray-400">
-                                <div class="flex items-center justify-center space-x-1 px-4">
-                                    {% if item.ACTIVE == "T" %}
-                                    <button data-popover-target="popover-left-{{ item.ID }}"
-                                        data-popover-placement="left" type="button"
-                                        class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                    <div data-popover id="popover-left-{{ item.ID }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                        <div
-                                            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                        </div>
-                                        <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                            <a href="{% url 'rvs_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                RVS</a>
-                                            <a href="{% url 'icds_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                ICDS</a>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="pt-4">
-                                <span class=" text-red-600">No Record Found</span>
-                            </td>
-                        </tr>
-                        {% endfor %} -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="flex space-x-4 items-center mt-3">
-                {% if temp_data.has_previous %}
-                <a href="?page={{ temp_data.previous_page_number }}"
-                    class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                {% endif %}
-                <span class="current text-sm">
-                    Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                </span>
-                {% if temp_data.has_next %}
-                <a href="?page={{ temp_data.next_page_number }}"
-                    class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                {% endif %}
-            </div>
-
+    <div class="rounded-md bg-white h-full shadow">
+        <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
+            <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm ">TEMPORARY GROUPS</a>
+            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm">MAIN GROUPS</a>
         </div>
-    </div>
-    <div id="tab2" style="display: none;"
-        class="p-6 rounded-md bg-white h-full mt-3 backdrop-filter backdrop-blur-md bg-opacity-40">
-        <div class="flex flex-col h-fit">
-            <div class="flex items-start justify-between w-full pb-4">
-                <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR GROUPs <span
-                        class="italic text-base font-light">(Main)</span></p>
-                <div class="flex space-x-4 items-center">
-                    <form action="{% url 'groups' %}" class="flex items-center space-x-2">
-                        <input type="date" id="date_search" name="date_search"
-                            class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <!-- <button
-                            class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400 fill-white"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button> -->
-                    </form>
-                    <!-- action="{% url 'groups' %}" -->
-                    <form hx-get="/groups/item/" hx-trigger="submit" hx-target="#main-group" class="flex items-center">
-                        <label for="temp_search" class="sr-only">Search</label>
-                        <div class="relative w-full">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                    fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                        clip-rule="evenodd" />
-                                </svg>
+        <div id="tab1" class="p-4 rounded-b-md bg-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR GROUP <span
+                            class="italic text-base font-light">(Waiting for approval)</span></p>
+    
+                    <div class="flex space-x-4 items-center">
+                        <form action="{% url 'groups' %}" class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search"
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </form>
+                        <form action="{% url 'groups' %}" class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input type="text" id="temp_search" name="temp_search"
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
                             </div>
-                            <input type="text" id="temp_search" name="temp_search"
-                                class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Search Description..">
-                        </div>
-                        <button
-                            class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400 fill-white"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </form>
+                            <button
+                                class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Search
+                            </button>
+                        </form>
+                    </div>
                 </div>
+    
+                <div class="h-fit max-h-80 overflow-y-auto ">
+                    <table class="w-full text-center border-collapse">
+                        <thead class="bg-gray-100 sticky top-0 z-10">
+                            <tr>
+                                <th class="p-2 border border-gray-200">TEMP ID</th>
+                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-200">END DATE</th>
+                                <th class="p-2 border border-gray-200">STATUS</th>
+                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody hx-get="/groups/item/" hx-trigger="click" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex space-x-4 items-center mt-3">
+                    {% if temp_data.has_previous %}
+                    <a href="?page={{ temp_data.previous_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
+                    </span>
+                    {% if temp_data.has_next %}
+                    <a href="?page={{ temp_data.next_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
+                    {% endif %}
+                </div>
+    
             </div>
-
-            <div class="h-fit max-h-80 overflow-y-auto ">
-                <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
-                    <thead class="bg-gray-200 sticky top-0 z-10 ">
-                        <tr>
-                            <th class="p-2 border border-gray-400">GROUP ID</th>
-                            <th class="p-2 border border-gray-400">DESCRIPTION</th>
-                            <th class="p-2 border border-gray-400">EFFECTIVE DATE</th>
-                            <th class="p-2 border border-gray-400">EDN DATE</th>
-                            <th class="p-2 border border-gray-400">STATUS</th>
-                            <th class="p-2 border border-gray-400">ACTIONS</th>
-                        </tr>
-                    </thead>
-
-                    <tbody hx-get="/groups/item/" hx-trigger="load" id="main-group" class="text-gray-700 ">
-                        <!-- <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-400">
-                                <div class="flex items-center justify-center space-x-1 px-4">
-                                    <button data-popover-target="popover-left-1" data-popover-placement="left"
-                                        type="button"
-                                        class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                    <div data-popover id="popover-left-1" role="tooltip"
-                                        class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                        <div
-                                            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                        </div>
-                                        <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                            <a href="{% url 'rvs_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                RVS</a>
-                                            <a href="{% url 'icds_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                ICDS</a>
-                                        </div>
-                                    </div>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+        </div>
+        <div id="tab2" style="display: none;" class="p-4 rounded-b-md bg-white">
+            <div class="flex flex-col h-fit">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR GROUPs <span
+                            class="italic text-base font-light">(Main)</span></p>
+                    <div class="flex space-x-4 items-center">
+                        <form action="{% url 'groups' %}" class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search"
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </form>
+                        <!-- action="{% url 'groups' %}" -->
+                        <form hx-get="/groups/item/" hx-trigger="submit" hx-target="#main-group" class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                 </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor </td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-400">
-                                <div class="flex items-center justify-center space-x-1 px-4">
-                                    <button data-popover-target="popover-left-2" data-popover-placement="left"
-                                        type="button"
-                                        class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                    <div data-popover id="popover-left-2" role="tooltip"
-                                        class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                        <div
-                                            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                        </div>
-                                        <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                            <a href="{% url 'rvs_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                RVS</a>
-                                            <a href="{% url 'icds_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                ICDS</a>
-                                        </div>
-                                    </div>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet </td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-400">
-                                <div class="flex items-center justify-center space-x-1 px-4">
-                                    <button data-popover-target="popover-left-3" data-popover-placement="left"
-                                        type="button"
-                                        class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                    <div data-popover id="popover-left-3" role="tooltip"
-                                        class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                        <div
-                                            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                        </div>
-                                        <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                            <a href="{% url 'rvs_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                RVS</a>
-                                            <a href="{% url 'icds_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                ICDS</a>
-                                        </div>
-                                    </div>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor </td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-400">
-                                <div class="flex items-center justify-center space-x-1 px-4">
-                                    <button data-popover-target="popover-left-4" data-popover-placement="left"
-                                        type="button"
-                                        class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                    <div data-popover id="popover-left-4" role="tooltip"
-                                        class="absolute z-50 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                        <div
-                                            class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                            <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                        </div>
-                                        <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                            <a href="{% url 'rvs_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                RVS</a>
-                                            <a href="{% url 'icds_create' %}"
-                                                class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                ICDS</a>
-                                        </div>
-                                    </div>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr> -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="flex space-x-4 items-center mt-3">
-                {% if temp_data.has_previous %}
-                <a href="?page={{ temp_data.previous_page_number }}"
-                    class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                {% endif %}
-                <span class="current text-sm">
-                    Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                </span>
-                {% if temp_data.has_next %}
-                <a href="?page={{ temp_data.next_page_number }}"
-                    class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                {% endif %}
+                                <input type="text" id="temp_search" name="temp_search"
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
+                            </div>
+                            <button
+                                class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+    
+                <div class="h-fit max-h-60 overflow-y-auto ">
+                    <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
+                        <thead class="bg-gray-100 sticky top-0 z-10 ">
+                            <tr>
+                                <th class="p-2 border border-gray-200">GROUP ID</th>
+                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-200">END DATE</th>
+                                <th class="p-2 border border-gray-200">STATUS</th>
+                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody hx-get="/groups/item/" hx-trigger="load" id="main-group" class="text-gray-700 ">
+    
+                        </tbody>
+                    </table>
+                </div>
+                <div class="flex space-x-4 items-center mt-3">
+                    {% if temp_data.has_previous %}
+                    <a href="?page={{ temp_data.previous_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
+                    </span>
+                    {% if temp_data.has_next %}
+                    <a href="?page={{ temp_data.next_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -399,23 +174,19 @@
     });
 
     function setTab1Active() {
-        tab2.classList.replace('bg-[#1ED760]', 'bg-white');
-        tab2.classList.add('bg-opacity-40');
-        tab2.classList.remove('text-white');
-
-        tab1.classList.replace('bg-white', 'bg-[#1ED760]');
-        tab1.classList.remove('bg-opacity-40');
-        tab1.classList.add('text-white');
-    }
-
-    function setTab2Active() {
         tab2.classList.replace('bg-white', 'bg-[#1ED760]');
-        tab2.classList.remove('bg-opacity-40');
         tab2.classList.add('text-white');
 
         tab1.classList.replace('bg-[#1ED760]', 'bg-white');
-        tab1.classList.add('bg-opacity-40');
         tab1.classList.remove('text-white');
+    }
+
+    function setTab2Active() {
+        tab2.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab2.classList.remove('text-white');
+
+        tab1.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab1.classList.add('text-white');
     }
 </script>
 {% endblock content %}

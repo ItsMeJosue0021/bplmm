@@ -1,9 +1,9 @@
 {% load static %}
 <div
-    class="p-6 py-8 rounded-lg flex flex-col space-y-8 bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
-    <div class="w-full flex flex-col space-y-8">
+    class="p-6 py-12 rounded-md flex flex-col space-y-8 bg-white shadow border-t-4 border-[#1ED760]">
+    <div class="w-full flex flex-col space-y-12">
 
-        <div class="w-full flex flex-row items-start justify-between space-x-8">
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
             <div class="w-full ">
                 {% include "components/date-input.html" with name='EFF_DATE' label='Effectivity Date' old=form.EFF_DATE %}
                 {% for error in form.EFF_DATE.errors %}
@@ -18,23 +18,22 @@
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-8">
-                <div class="w-full">
-                    {% include "components/number-input.html" with name='PRIMARY_HOSP_SHARE' label='Primary Hospital Share' pholder='0.00' %}
-                    {% for error in form.PRIMARY_HOSP_SHARE.errors %}
-                    <div class="text-sm text-red-500">{{ error }}</div>
-                    {% endfor %}
-                </div>
-                <div class="w-full">
-                    {% include "components/number-input.html" with name='SECONDARY_HOSP_SHARE' label='Secondary Hospital Share' pholder='0.00' %}
-                    {% for error in form.SECONDARY_HOSP_SHARE.errors %}
-                    <div class="text-sm text-red-500">{{ error }}</div>
-                    {% endfor %}
-                </div>
-
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
+            <div class="w-full">
+                {% include "components/number-input.html" with name='PRIMARY_HOSP_SHARE' label='Primary Hospital Share' pholder='0.00' %}
+                {% for error in form.PRIMARY_HOSP_SHARE.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="w-full">
+                {% include "components/number-input.html" with name='SECONDARY_HOSP_SHARE' label='Secondary Hospital Share' pholder='0.00' %}
+                {% for error in form.SECONDARY_HOSP_SHARE.errors %}
+                <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-8">
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
 
             <div class="w-full">
                 {% include "components/number-input.html" with name='PRIMARY_PROF_SHARE' label='Primary Professional Share' pholder='0.00' %}
@@ -51,7 +50,7 @@
             </div>
     </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-8">
+        <div class="w-full flex flex-row items-start justify-between space-x-14">
                 <div class="w-full">
                     {% include "components/number-input.html" with name='PCF_HOSP_SHARE' label='PCF Hospital Share' pholder='0.00' %}
                     {% for error in form.PCF_HOSP_SHARE.errors %}

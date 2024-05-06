@@ -1,6 +1,6 @@
 {% load static %}
-<div class="p-8 py-10 rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
-    <div class="w-full flex flex-col items-start space-y-12">
+<div class="p-8 py-12 rounded-md bg-white shadow border-t-4 border-[#1ED760]">
+    <div class="w-full flex flex-col items-start space-y-14">
 
         <div class="w-full flex flex-row items-start justify-between space-x-14 ">
             <div class="w-full">
@@ -24,10 +24,10 @@
             <div class="w-full flex flex-col space-y-2">
                 <div class="w-full flex flex-col space-y-1 ">
                     <div class="w-full">
-                        <label for="CHECK_AGE" class="text-base">Check Age</label>
+                        <label for="CHECK_AGE" class="text-gray-700 uppercase text-sm font-medium">Check Age</label>
                         <input type="hidden" name="CHECK_AGE" id="CHECK_AGE">
                     </div>
-                    <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-400">
+                    <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-300">
                         <div class="w-full flex items-center">
                             <input id="CHECK_AGE_NOT_APPLICABLE" type="checkbox" name="CHECK_AGE" value="N/A"
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -40,7 +40,7 @@
                             <div class="w-1/5">
                                 <label for="OPERATOR" class="text-sm">Operator</label>
                                 <select id="OPERATOR" type="text"
-                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40">
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 bg-white bg-opacity-40">
                                     <option disabled></option>
                                     <option value="">N/A</option>
                                     <option value="<"><</option>
@@ -52,13 +52,13 @@
                             <div class="w-1/5">
                                 <label for="MINIMUM" class="text-sm">Minimun</label>
                                 <input id="MINIMUM" type="number" placeholder="0"
-                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic bg-white bg-opacity-40">
                             </div>
                             <div class="w-1/5">
                                 <label for="MINIMUM_Y_D" class="text-sm">Day/Year</label>
                                 <select id="MINIMUM_Y_D" type="text"
-                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40">
-                                    <option selected disabled value="">Select</option>
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 bg-white bg-opacity-40">
+                                    <option selected disabled value="">--Select--</option>
                                     <option value="">N/A</option>
                                     <option value="y">Year/s</option>
                                     <option value="d">Day/s</option>
@@ -67,13 +67,13 @@
                             <div class="w-1/5">
                                 <label for="MAXIMUM" class="text-sm">Maximum</label>
                                 <input id="MAXIMUM" type="number" placeholder="0"
-                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 placeholder:italic bg-white bg-opacity-40">
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic bg-white bg-opacity-40">
                             </div>
                             <div class="w-1/5">
                                 <label for="MAXIMUM_Y_D" class="text-sm">Day/Year</label>
                                 <select id="MAXIMUM_Y_D" type="text"
-                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40 ">
-                                    <option selected disabled value="">Select</option>
+                                    class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 bg-white bg-opacity-40 ">
+                                    <option selected disabled value="">--Select--</option>
                                     <option value="">N/A</option>
                                     <option value="y">Year/s</option>
                                     <option value="d">Day/s</option>
@@ -81,17 +81,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="py-1">
+                    <div class="py-1 text-sm">
                         <p id="PREVIEW" class="font-medium ">Preview: <span class="font-normal italic"></span></p>
                     </div>
                 </div>
             </div>
             <div class="w-full flex flex-col space-y-1 ">
                 <div class="w-full">
-                    <label for="DEDUCT_FROM_45DAYS" class="text-base">Deduct from 45 days</label>
+                    <label for="DEDUCT_FROM_45DAYS" class="text-gray-700 uppercase text-sm font-medium">Deduct from 45 days</label>
                     <input type="hidden" name="DEDUCT_FROM_45DAYS" id="DEDUCT_FROM_45DAYS_INPUT">
                 </div>
-                <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-400">
+                <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-300">
                     <div class="w-full flex items-center">
                         <input id="DEDUCT_FROM_45DAYS_CONDITIONAL" type="radio" name="DEDUCT_FROM_45DAYS_RADIO"
                             value="N/A"
@@ -112,24 +112,25 @@
                         <div class="flex flex-col ">
                             <label class="text-sm">Days</label>
                             <input type="number" id="DEDUCT_FROM_45DAYS_DAYS"
-                                class="w-32 py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                                class="w-32 py-2.5 px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                                 placeholder="0">
                         </div>
                         <span class="text-lg">Per</span>
                         <div class="flex flex-col ">
                             <label class="text-sm">Number</label>
                             <input type="number" id="DEDUCT_FROM_45DAYS_NUMBER"
-                                class="w-32 py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                                class="w-32 py-2.5 px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                                 placeholder="0">
                         </div>
                     </div>
                     <div class="w-1/2 flex flex-col ">
                         <label class="text-sm">Type</label>
                         <select id="DEDUCT_FROM_45DAYS_TYPE"
-                            class="py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                            class="py-2.5 px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                             placeholder="0">
+                            <option selected disabled value="">--Select--</option>
                             <option value="">N/A</option>
-                            <option value="Cycle" selected>Cycle</option>
+                            <option value="Cycle" >Cycle</option>
                             <option value="Session">Session</option>
                         </select>
                     </div>
@@ -137,12 +138,12 @@
                 <div id="condition-cntr">
                     <div class="flex flex-col ">
                         <label class="text-sm">Condition</label>
-                        <input type="txt"
-                            class="py-2.5 px-4 rounded-md border border-gray-400 bg-white bg-opacity-40 placeholder:italic"
+                        <input type="text"
+                            class="py-2.5 text-base px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                             placeholder="Condition..">
                     </div>
                 </div>
-                <div class="py-1">
+                <div class="py-1 text-sm">
                     <p class="font-medium">Preview: <span id="deduct-45-days-preview" class="font-normal italic"></span></p>
                 </div>
             </div>
@@ -169,7 +170,7 @@
     function updateInputValue() {
         let value;
         if (DEDUCT_FROM_45DAYS_CONDITIONAL.checked) {
-            value = conditionInput.value.toUpperCase();
+            value = 'CONDITION: ' + conditionInput.value.toUpperCase();
         } else if (DEDUCT_FROM_45DAYS_NOTAPPLICABLE.checked) {
             value = 'N/A';
         } else {

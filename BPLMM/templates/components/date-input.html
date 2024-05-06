@@ -1,4 +1,4 @@
 <div class="w-full flex flex-col space-y-1">
-    <label for="{{ name }}" class="text-base">{{ label }}</label>
-    <input type="date" id="{{ name }}" name="{{ name }}" value="{{ old.value|default:''|escape }}" placeholder="mm/dd/yyyy" class="w-full bg-transparent px-4 py-2.5 text-base rounded-lg border border-gray-400 bg-white bg-opacity-40" placeholder:italic placeholder:text-gray-200">
+    <label for="{{ name }}" class="text-gray-700 uppercase text-sm font-medium">{{ label }}</label>
+    <input type="date" id="{{ name }}" name="{{ name }}" value="{{ old.value|default:''|escape }}" placeholder="mm/dd/yyyy" class="w-full bg-transparent px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-200">
 </div>

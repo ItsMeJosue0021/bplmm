@@ -2,23 +2,23 @@
 {% load static %}
 
 {% block content %}
-<div class="py-6 px-2 h-auto">
+<div class="h-auto">
     <div class="h-full flex flex-col space-y-4">
         <form action="{% url 'rvs_create' %}" method="POST">
             {% csrf_token %}
             <div class="flex flex-col space-y-4">
                 <div class="flex items-start space-x-4 ">
                     <a href="{% url 'groups' %}"
-                        class="nav-button previous text-sm py-2.5 px-6 bg-white bg-opacity-40 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
+                        class="nav-button previous text-sm py-2.5 px-6 bg-white text-gray-600 rounded-md cursor-pointer hover:bg-gray-100">Back</a>
                 </div>
                 {% include "components/acr/fieldsets/acr-rvs.html" %}
             </div>
         </form>
-        <div class="p-6 py-8 rounded-md bg-white h-full backdrop-filter backdrop-blur-md bg-opacity-40">
+        <div class="p-4 rounded-md bg-white h-full shadow">
 
             <div class="flex flex-col h-full">
                 <div class="flex items-start justify-between w-full pb-4">
-                    <p class="w-fit text-xl font-medium py-2 drop-shadow-xl text-green-800">ACR RVS</p>
+                    <p class="w-fit text-base font-medium py-2 drop-shadow-xl text-green-800">ACR RVS</p>
                     <form class="flex items-center">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
@@ -40,34 +40,34 @@
                 </div>
 
                 <table class="w-full text-center border-collapse">
-                    <thead class="bg-gray-200">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <th class="p-2 border border-gray-400">GROUP ID</th>
-                            <th class="p-2 border border-gray-400">RVS CODE</th>
-                            <th class="p-2 border border-gray-400">DESCRIPTION</th>
-                            <th class="p-2 border border-gray-400">RVU</th>
-                            <th class="p-2 border border-gray-400">EFFECTIVE DATE</th>
-                            <th class="p-2 border border-gray-400">END DATE</th>
-                            <th class="p-2 border border-gray-400">STATUS</th>
-                            <th class="p-2 border border-gray-400">ACTIONS</th>
+                            <th class="p-2 border border-gray-300">GROUP ID</th>
+                            <th class="p-2 border border-gray-300">RVS CODE</th>
+                            <th class="p-2 border border-gray-300">DESCRIPTION</th>
+                            <th class="p-2 border border-gray-300">RVU</th>
+                            <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
+                            <th class="p-2 border border-gray-300">END DATE</th>
+                            <th class="p-2 border border-gray-300">STATUS</th>
+                            <th class="p-2 border border-gray-300">ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit.
                                 Aliquid perferendis
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
@@ -78,19 +78,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing 
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
                                     <a href=""
@@ -99,20 +99,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing
                                 perferendis
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
@@ -123,20 +123,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing
                                 perferendis
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
                                     <a hhref="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
@@ -147,19 +147,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
                                     <a href=""
@@ -168,19 +168,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing 
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
                                     <a href=""
@@ -189,20 +189,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">12345</td>
-                            <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">12345</td>
+                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
                                 adipisicing
                                 perferendis
                             </td>
-                            <td class="p-2 border border-gray-400">1</td>
-                            <td class="p-2 border border-gray-400">1/1/24</td>
-                            <td class="p-2 border border-gray-400">1/1/27</td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">1</td>
+                            <td class="p-2 border border-gray-300">1/1/24</td>
+                            <td class="p-2 border border-gray-300">1/1/27</td>
+                            <td class="p-2 border border-gray-300">
                                 <span
                                     class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
                             </td>
-                            <td class="p-2 border border-gray-400">
+                            <td class="p-2 border border-gray-300">
                                 <div class="flex items-center justify-end space-x-1 px-4">
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
                                     <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>

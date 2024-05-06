@@ -1,18 +1,18 @@
 {% for item in groups %}
 <tr>
-    <td class="p-2 border border-gray-400">{{ item.ID|default:"" }}</td>
-    <td class="p-2 border border-gray-400">{{ item.DESCRIPTION|default:""|truncatechars:20 }}
+    <td class="p-2 border border-gray-200">{{ item.ID|default:"" }}</td>
+    <td class="p-2 border border-gray-200">{{ item.DESCRIPTION|default:""|truncatechars:20 }}
     </td>
-    <td class="p-2 border border-gray-400">{{ item.EFF_DATE|default:"" }}</td>
-    <td class="p-2 border border-gray-400">{{ item.END_DATE|default:"" }}</td>
-    <td class="p-2 border border-gray-400">
+    <td class="p-2 border border-gray-200">{{ item.EFF_DATE|default:"" }}</td>
+    <td class="p-2 border border-gray-200">{{ item.END_DATE|default:"" }}</td>
+    <td class="p-2 border border-gray-200">
         {% if item.ACTIVE == "T" %}
         <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
         {% elif item.ACTIVE == "F" %}
         <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
         {% endif %}
     </td>
-    <td class="p-2 border border-gray-400">
+    <td class="p-2 border border-gray-200">
         <div class="flex items-center justify-center space-x-1 px-4">
             {% if item.ACTIVE == "F" %}
             <button data-popover-target="popover-left-{{ item.ID }}" data-popover-placement="left" type="button"

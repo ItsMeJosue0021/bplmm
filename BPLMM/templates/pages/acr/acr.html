@@ -3,114 +3,103 @@
 {% load group_checker %}
 
 {% block content %}
-<div class="py-5">
+<div class="flex flex-col space-y-4">
     <div class="w-full flex items-center justify-center space-x-4">
         <div class="flex">
-            <a href="{% url 'groups' %}" class="w-40 text-center py-5 text-base rounded-md bg-[#1ED760] text-white">VIEW GROUPS</a>
+            <a href="{% url 'groups' %}" class="w-40 text-center py-5 text-base rounded-md bg-[#1ED760] text-white">ACR GROUPS</a>
         </div>
         <div class="w-full flex items-center">
-            <div class="w-full bg-white bg-opacity-40 rounded-md py-2 px-2">
-                <form action="{% url 'groups' %}" class="w-full flex items-center justify-between gap-4">
-                    <label for="temp_search" class="sr-only">Search</label>
+            <div class="w-full bg-white rounded-md p-3 shadow-sm">
+                <form class="flex items-center space-x-4">
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="description_search" name="description_search"
-                            class="w-full bg-gray-50 bg-opacity-50 placeholder:italic border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-3 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="DESCRIPTION..">
+                        <input type="text" id="Description-search"
+                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Description" required="">
                     </div>
-                    <div class="relative w-fit">
+                    <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-    
-                        <input type="text" id="code_search" name="code_search"
-                            class="w-80 bg-gray-50 bg-opacity-50 placeholder:italic border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-3 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="GROUP ID..">
+                        <input type="text" id="RVS-search"
+                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="RVS" required="">
                     </div>
-                    <div class="relative w-fit">
+                    <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-    
-                        <input type="text" id="code_search" name="code_search"
-                            class="w-80 bg-gray-50 bg-opacity-50 border placeholder:italic border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-3 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="RVS CODE..">
+                        <input type="text" id="ICD-search"
+                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="ICD" required="">
                     </div>
-                    <div class="relative w-fit">
+                    <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
-                                viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
                                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-    
-                        <input type="text" id="code_search" name="code_search"
-                            class="w-80 bg-gray-50 bg-opacity-50 placeholder:italic border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="ICD CODE..">
+                        <input type="text" id="GROUPID-search"
+                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="GROUP ID" required="">
                     </div>
                     <button
-                        class="text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-8 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400 fill-white"
-                        viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
+                        class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="mt-8 p-6 rounded-md bg-white h-full backdrop-filter backdrop-blur-md bg-opacity-40 mb-4">
-        <div class="flex flex-col h-fit">
+    <div class="p-4 rounded-md bg-white h-full shadow-sm">
+        <div class="flex flex-col h-fit space-y-2">
             <div class="flex items-start justify-between w-full">
-                <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR GROUP</p>
+                <p class="w-fit text-base font-medium drop-shadow-xl text-green-800">ACR GROUP</p>
             </div>
 
             <div class="h-fit overflow-y-auto ">
                 <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
-                    <thead class="bg-gray-200 sticky top-0 z-10">
+                    <thead class="bg-gray-100 sticky top-0 z-10">
                         <tr>
-                            <th class="p-2 border border-gray-400">GROUP ID</th>
-                            <th class="p-2 border border-gray-400">DESCRIPTION</th>
-                            <th class="p-2 border border-gray-400">EFFECTIVE DATE</th>
-                            <th class="p-2 border border-gray-400">EDN DATE</th>
-                            <th class="p-2 border border-gray-400">STATUS</th>
-                            <th class="p-2 border border-gray-400">ACTIONS</th>
+                            <th class="p-2 border border-gray-200">GROUP ID</th>
+                            <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                            <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                            <th class="p-2 border border-gray-200">EDN DATE</th>
+                            <th class="p-2 border border-gray-200">STATUS</th>
+                            <th class="p-2 border border-gray-200">ACTIONS</th>
                         </tr>
                     </thead>
     
                         <tbody class="text-gray-700 ">
                             <tr>
-                                <td class="p-2 border border-gray-400">12345</td>
-                                <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet</td>
-                                <td class="p-2 border border-gray-400">1/1/24</td>
-                                <td class="p-2 border border-gray-400">1/1/27</td>
-                                <td class="p-2 border border-gray-400">
+                                <td class="p-2 border border-gray-200">12345</td>
+                                <td class="p-2 border border-gray-200">Lorem ipsum dolor sit amet</td>
+                                <td class="p-2 border border-gray-200">1/1/24</td>
+                                <td class="p-2 border border-gray-200">1/1/27</td>
+                                <td class="p-2 border border-gray-200">
                                     <span
-                                        class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                                        class="py-1 px-2 rounded text-green-800 bg-green-50 text-xs font-light">Active</span>
                                 </td>
-                                <td class="p-2 border border-gray-400">
+                                <td class="p-2 border border-gray-200">
                                     <div class="flex items-center justify-center space-x-1 px-4">
                                         <button data-popover-target="popover-left-1" data-popover-placement="left" type="button"
                                             class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
@@ -140,11 +129,10 @@
         </div>
     </div>
 
-    <div class="p-6 py-6 rounded-md bg-white h-full backdrop-filter backdrop-blur-md bg-opacity-40">
-
-        <div class="flex flex-col h-full">
-            <div class="flex items-start justify-between w-full pb-4">
-                <p class="w-fit text-xl font-medium py-2 drop-shadow-xl text-green-800">ACR RVS</p>
+    <div class="p-4 rounded-md bg-white h-full shadow-sm">
+        <div class="flex flex-col h-fit space-y-2">
+            <div class="flex items-center justify-between w-full">
+                <p class="w-fit text-base font-medium drop-shadow-xl text-green-800">ACR RVS</p>
                 <form class="flex items-center">
                     <label for="simple-search" class="sr-only">Search</label>
                     <div class="relative w-full">
@@ -166,16 +154,16 @@
             </div>
 
             <table class="w-full text-center border-collapse">
-                <thead class="bg-gray-200">
+                <thead class="bg-gray-100">
                     <tr>
-                        <th class="p-2 border border-gray-400">GROUP ID</th>
-                        <th class="p-2 border border-gray-400">RVS CODE</th>
-                        <th class="p-2 border border-gray-400">DESCRIPTION</th>
-                        <th class="p-2 border border-gray-400">RVU</th>
-                        <th class="p-2 border border-gray-400">EFFECTIVE DATE</th>
-                        <th class="p-2 border border-gray-400">END DATE</th>
-                        <th class="p-2 border border-gray-400">STATUS</th>
-                        <th class="p-2 border border-gray-400">ACTIONS</th>
+                        <th class="p-2 border border-gray-200">GROUP ID</th>
+                        <th class="p-2 border border-gray-200">RVS CODE</th>
+                        <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                        <th class="p-2 border border-gray-200">RVU</th>
+                        <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                        <th class="p-2 border border-gray-200">END DATE</th>
+                        <th class="p-2 border border-gray-200">STATUS</th>
+                        <th class="p-2 border border-gray-200">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
