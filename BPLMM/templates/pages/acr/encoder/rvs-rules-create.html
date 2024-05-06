@@ -5,13 +5,13 @@
 <div class="h-auto">
     <div class="py-3">
         <ol
-            class="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
+            class="flex items-center w-full text-sm font-medium text-center text-white dark:text-gray-400 sm:text-base">
             <li
-                class="  flex md:w-full items-center sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-400 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
+                class="  flex md:w-full items-center sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
                 <span data-next="section1" style="background-color: #1ED760;"
                     class="stepper-nav-button  rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-white dark:after:text-gray-500 cursor-pointer">
                     <span
-                        class="w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-gray-400">></span>
+                        class="w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
                 </span>
             </li>
             <li
@@ -79,7 +79,7 @@
     </div> -->
 
     <div class="h-full">
-        <form action="{% url 'rvs_create' %}" method="POST">
+        <form action="{% url 'set_rvs_rules' %}" method="POST">
             <div class="flex flex-col space-y-4">
                 {% csrf_token %}
                 <div>

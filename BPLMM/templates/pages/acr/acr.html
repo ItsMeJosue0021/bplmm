@@ -5,12 +5,18 @@
 {% block content %}
 <div class="flex flex-col space-y-4">
     <div class="w-full flex items-center justify-center space-x-4">
-        <div class="flex">
+        <!-- <div class="flex">
             <a href="{% url 'groups' %}" class="w-40 text-center py-5 text-base rounded-md bg-[#1ED760] text-white">ACR GROUPS</a>
-        </div>
+        </div> -->
         <div class="w-full flex items-center">
             <div class="w-full bg-white rounded-md p-3 shadow-sm">
                 <form class="flex items-center space-x-4">
+                    <div class="flex">
+                        <a href="{% url 'groups' %}" class="w-40 py-2.5 text-sm text-base rounded-md bg-[#1ED760] text-white flex items-center justify-center">
+                            <i class='bx bx-list-plus text-2xl'></i>
+                            <span class="ml-2">ACR GROUPS</span>
+                        </a>
+                    </div>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"

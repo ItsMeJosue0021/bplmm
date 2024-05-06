@@ -3,7 +3,7 @@ from django.db.models import Q
 from datetime import datetime
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .forms import SAVE_RVS_FORM, ACR_GROUPS_FORM
+from .forms import SAVE_RVS_FORM, ACR_GROUPS_FORM, SAVE_RVS_RULES
 from django.shortcuts import render, redirect # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from .decorators import encoder_required, approver_required
@@ -260,7 +260,15 @@ def rvs_delete(request):
     pass
 
 def set_rvs_rules(request):
-    return render(request, 'pages/acr/encoder/rvs-rules-create.html')
+
+    if request.method == 'POST':
+
+        form = SAVE_RVS_RULES(request.POST)
+        print(request.POST)
+        return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'form': form})
+
+    else:
+        return render(request, 'pages/acr/encoder/rvs-rules-create.html')
 
 
 #-------------------------------------------------
