@@ -1,16 +1,12 @@
 <div class="">
     <div class="flex flex-col space-y-6">
+        <!-- CHECK ADDITIONAL CODES -->
         <div id="additional-code-cntr" class="relative p-6 rounded-md bg-white shadow border-t-4 border-[#1ED760]">
-            <!-- <div class="absolute bottom-5 right-5 w-fit rounded p-2 bg-red-200 text-red-800">
-                <span>This coode has been added already</span>
-            </div> -->
             <div class="w-full flex flex-col space-y-1">
                 <label class="text-gray-700 uppercase text-sm font-medium">Check Additional Codes</label>
                 <input type="hidden" name="CHECK_ADDITIONAL_CODES" id="CHECK_ADDITIONAL_CODES">
             </div>
-
             <div class="flex flex-row space-x-5">
-
                 <div class="w-full basis-1/2">
                     <div class="w-full flex flex-col space-y-1 mb-4">
                         <div class="w-full mx-auto">
@@ -24,118 +20,40 @@
                                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input name="CHECK_ADDITIONAL_CODES" type="search" id="default-search"
+                                <input type="search" name="code_search" id="default-search" hx-get="/rvs/codes/" hx-trigger="keyup delay:500ms" hx-target="#aditional-codes-results"
                                     class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Search Additional Code..." />
-                                <button type="submit"
-                                    class="text-white h-8 absolute end-2.5 bottom-2 bg-[#1ED760] focus:ring-4 focus:outline-none font-medium rounded-md text-sm px-4 py-1 ">Search</button>
                             </div>
                         </div>
                     </div>
-                    <div class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-4">
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">1</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">2</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">3</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">4</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">5</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">6</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">7</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="code text-sm">8</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="plus-button" width="16" height="16"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
+                    <div id="aditional-codes-results" hx-get="/rvs/codes/" hx-trigger="load" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
+                       <!-- Code container -->
                     </div>
                 </div>
 
                 <div class="w-full basis-1/2">
                     <div class="w-full flex flex-col space-y-1 mb-10">
-                        <label class="text-gray-700 uppercase text-sm font-medium">Current Codes:</label>
+                        <label class="text-gray-700 uppercase text-sm font-medium">Added additional Codes:</label>
                     </div>
-                    <div
-                        class="current-additional-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
+                    <div class="current-additional-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
                         <!-- Current Codes will be added here -->
                     </div>
-                    <span id="codes-preview"></span>
+                    <div class="flex items-center space-x-2">
+                        <span>Preview:</span>
+                        <span id="codes-preview"></span>
+                    </div>
                 </div>
 
             </div>
         </div>
 
-        <div class="p-6 rounded-md bg-white shadow border-t-4 border-[#1ED760]">
+        <!-- CHECK SPC RELATED BEN CODES -->
+        <div id="spc-code-cntr" class="relative p-6 rounded-md bg-white shadow border-t-4 border-[#1ED760]">
             <div class="w-full flex flex-col space-y-1">
                 <label class="text-gray-700 uppercase text-sm font-medium">Check SPC Related BEN Codes</label>
+                <input type="hidden" name="CHECK_SPC_RELATED_BEN_CODES" id="CHECK_SPC_RELATED_BEN_CODES">
             </div>
             <div class="flex flex-row space-x-5">
-
                 <div class="w-full basis-1/2">
                     <div class="w-full flex flex-col space-y-1 mb-4">
                         <div class="w-full mx-auto">
@@ -149,119 +67,27 @@
                                             stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input name="CHECK_SPC_RELATED_BEN_CODES" type="search" id="default-search"
+                                <input name="spc_code_search" type="search" id="default-search" hx-get="/spc/codes/" hx-trigger="keyup delay:500ms" hx-target="#spc-code-results"
                                     class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Search SPC Related BEN Codes..." />
-                                <button type="submit"
-                                    class="text-white h-8 absolute end-2.5 bottom-2 bg-[#1ED760] focus:ring-4 focus:outline-none  font-medium rounded-md text-sm px-4 py-1 ">Search</button>
                             </div>
                         </div>
                     </div>
-                    <div class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-4">
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                        </div>
+                    <div hx-get="/spc/codes/" hx-trigger="load" id="spc-code-results" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
+                        <!-- spc code container -->
                     </div>
                 </div>
 
                 <div class="w-full basis-1/2">
                     <div class="w-full flex flex-col space-y-1 mb-10">
-                        <label class="text-gray-700 uppercase text-sm font-medium">Current Related BEN Codes:</label>
+                        <label class="text-gray-700 uppercase text-sm font-medium">Added Related BEN Codes:</label>
                     </div>
-                    <div class="w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                            </svg>
-                        </div>
-                        <div
-                            class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                            <span class="text-sm">12345</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                            </svg>
-                        </div>
+                    <div class="current-spc-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
+                        <!-- ADDED SPC CODE CNTR -->
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span>Preview:</span>
+                        <span id="spc-codes-preview"></span>
                     </div>
                 </div>
             </div>
@@ -270,53 +96,129 @@
 </div>
 
 <script>
+
+    updateCodeCntr('.current-spc-codes-container');
+    updateCodeCntr('.current-additional-codes-container');
+
+    // CHECK ADDITIONAL CODES
+
     let codes = [];
 
-    document.querySelectorAll('.plus-button').forEach(button => {
-        button.addEventListener('click', function () {
-            let code = this.parentElement.querySelector('.code').textContent;
+    function addAdditionalCode(button) {
 
-            if (!codes.includes(code)) {
-                codes.push(code);
+        let code = button.parentElement.querySelector('.code').textContent;
 
-                var compiledCodes = document.querySelector('#CHECK_ADDITIONAL_CODES').value = codes.join(',');
-                document.querySelector('#codes-preview').textContent = compiledCodes;
+        if (!codes.includes(code)) {
+            codes.push(code);
 
-                let currentCodesContainer = document.querySelector('.current-additional-codes-container');
-                currentCodesContainer.innerHTML += `
-                            <div class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
-                                <span class="text-sm">${code}</span>
-                                <!-- Current Codes will be added here -->
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 minus-button">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                </svg>                        
-                            </div>`;
+            var compiledCodes = document.querySelector('#CHECK_ADDITIONAL_CODES').value = codes.join(' ');
+            document.querySelector('#codes-preview').textContent = compiledCodes;
 
-                currentCodesContainer.querySelectorAll('.minus-button').forEach(mBtn => {
-                    mBtn.addEventListener('click', function () {
-                        let codeToRemove = this.parentElement.querySelector('span').textContent;
-                        codes = codes.filter(c => c !== codeToRemove);
+            let currentCodesContainer = document.querySelector('.current-additional-codes-container');
+            currentCodesContainer.innerHTML += `
+                        <div class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
+                            <span class="text-sm">${code}</span>
+                            <!-- Current Codes will be added here -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 minus-button">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                            </svg>                        
+                        </div>`;
 
-                        var compiledCodes = document.querySelector('#CHECK_ADDITIONAL_CODES').value = codes.join(',');
-                        document.querySelector('#codes-preview').textContent = compiledCodes;
+            currentCodesContainer.querySelectorAll('.minus-button').forEach(mBtn => {
+                mBtn.addEventListener('click', function () {
+                    let codeToRemove = this.parentElement.querySelector('span').textContent;
+                    codes = codes.filter(c => c !== codeToRemove);
 
-                        this.parentElement.remove();
-                    });
+                    var compiledCodes = document.querySelector('#CHECK_ADDITIONAL_CODES').value = codes.join(' ');
+                    document.querySelector('#codes-preview').textContent = compiledCodes;
+
+                    this.parentElement.remove();
+                    updateCodeCntr('.current-additional-codes-container');
                 });
-            } else {
-                let errorMessageDiv = document.createElement('div');
-                errorMessageDiv.innerHTML = `
-                    <div class="absolute bottom-5 right-5 w-fit rounded p-2 bg-red-200 text-red-800">
-                        <span>This code has already been added.</span>
-                    </div>`;
-                document.querySelector('#additional-code-cntr').appendChild(errorMessageDiv);
+            });
+            updateCodeCntr('.current-additional-codes-container');
+        } else {
+            let errorMessageDiv = document.createElement('div');
+            errorMessageDiv.innerHTML = `
+                <div class="absolute top-5 right-5 w-fit rounded p-2 bg-red-200 text-red-800">
+                    <span>This code has already been added.</span>
+                </div>`;
+            document.querySelector('#additional-code-cntr').appendChild(errorMessageDiv);
 
-                setTimeout(function() {
-                    errorMessageDiv.remove();
-                }, 1000);
-            }
-        });
-    });
+            setTimeout(function() {
+                errorMessageDiv.remove();
+            }, 1500);
+        }
+    }
+
+
+    // CHECK SPC RELATED BEN CODES
+
+    let SPCcodes = [];
+
+    function addSPCcode(button) {
+        let code = button.parentElement.querySelector('.spc-code').textContent;
+
+        if (!SPCcodes.includes(code)) {
+            
+            SPCcodes.push(code);
+
+            var compiledCodes = document.querySelector('#CHECK_SPC_RELATED_BEN_CODES').value = SPCcodes.join(' ');
+            document.querySelector('#spc-codes-preview').textContent = compiledCodes;
+
+            let currentCodesContainer = document.querySelector('.current-spc-codes-container');
+            currentCodesContainer.innerHTML += `
+                        <div class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white bg-opacity-40">
+                            <span class="text-sm">${code}</span>
+                            <!-- Current Codes will be added here -->
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 spc-minus-button">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                            </svg>                        
+                        </div>`;
+
+            currentCodesContainer.querySelectorAll('.spc-minus-button').forEach(mBtn => {
+                mBtn.addEventListener('click', function () {
+                    let codeToRemove = this.parentElement.querySelector('span').textContent;
+                    SPCcodes = SPCcodes.filter(c => c !== codeToRemove);
+
+                    var compiledCodes = document.querySelector('#CHECK_SPC_RELATED_BEN_CODES').value = SPCcodes.join(' ');
+                    document.querySelector('#spc-codes-preview').textContent = compiledCodes;
+
+                    this.parentElement.remove();
+
+                    updateCodeCntr('.current-spc-codes-container');
+                });
+            });
+            updateCodeCntr('.current-spc-codes-container');
+        } else {
+            let errorMessageDiv = document.createElement('div');
+            errorMessageDiv.innerHTML = `
+                <div class="absolute top-5 right-5 w-fit rounded p-2 bg-red-200 text-red-800">
+                    <span>This code has already been added.</span>
+                </div>`;
+            document.querySelector('#spc-code-cntr').appendChild(errorMessageDiv);
+
+            setTimeout(function() {
+                errorMessageDiv.remove();
+            }, 1500);
+        }
+    }
+    
+
+    function updateCodeCntr(container) {
+        let cntr = document.querySelector(container);
+
+        let noCodeMessage = cntr.querySelector('.no-code-message');
+        if (noCodeMessage) {
+            noCodeMessage.remove();
+        }
+
+        if (!cntr.textContent.trim() || !cntr.innerHTML.trim()) {
+            cntr.innerHTML = `<div class="no-code-message h-full w-full flex items-center justify-center">
+                                <span class="text-red-500 text-sm">No Data</span>
+                             </div>`;
+        }
+    }
 
 
 </script>

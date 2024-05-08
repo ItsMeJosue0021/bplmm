@@ -1,0 +1,9 @@
+<div class="flex items-center space-x-3 border-t border-gray-200 pt-3">
+    <img src="https://placehold.co/600x400" alt="" class="w-14 h-14 max-w-14 max-h-14 rounded-full object-cover object-center border border-gray-200">
+    <div class="leading-4">
+        <span>{{user.first_name}} {{user.last_name}}</span>
+        {% for group in user.groups.all %}
+            <span class="text-xs text-[#1ED760]">{{ group.name }}</span>
+        {% endfor %}
+    </div>
+</div>

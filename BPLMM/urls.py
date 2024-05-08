@@ -8,6 +8,7 @@ urlpatterns = [
     #-------------------------------------------------
     path('', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
+    path('user/', views.get_current_user),
 
     #-------------------------------------------------
     # ACR' URLs
@@ -47,5 +48,11 @@ urlpatterns = [
     path('apvr/groups/', views.approver_groups, name='approver_groups'),
 
     path('groups/item/', views.group_item, name='group_item'),
+
+
+    # -------------------------------- MOCK URL ---------------------------------------
+    path('rvs/codes/', views.rvs_codes),
+    path('spc/codes/', views.spc_codes),
+    path('claim-valitaions-rules/', views.claim_validation_rules),
 
 ]

@@ -290,4 +290,15 @@ class ACR_PERICD_RULES_LOG(models.Model):
     UPDATED_CULOMNS = models.TextField()
     PREVIOUS_COLUMN_VALUE = models.TextField()
 
+# ----------------------------------------------------- MOCK MODELS ----------------------------------------------------------
+class RVS_CODE_MOCK(models.Model):
+    CODE = models.CharField(max_length=255)
+
+class SPC_CODE_MOCK(models.Model):
+    CODE = models.CharField(max_length=255)
+
+class CLAIM_VALIDATION_INFOS(models.Model):
+    CONTENT = models.TextField()
+
+
 

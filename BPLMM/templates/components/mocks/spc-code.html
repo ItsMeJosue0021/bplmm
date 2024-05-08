@@ -1,0 +1,15 @@
+{% for item in codes %}
+    <div class="w-full flex items-center justify-between p-2 rounded-md border border-gray-300 cursor-pointer bg-white hover:bg-gray-100 group">
+        <span class="spc-code text-sm">{{ item.CODE }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="spc-plus-button hover:stroke-[#1ED760]" width="16" height="16" viewBox="0 0 24 24" onclick="addSPCcode(this)"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+    </div>
+{% empty %}
+    <div class="h-full w-full flex items-center justify-center">
+        <span class="text-sm text-red-600">No Record Found</span>
+    </div>
+{% endfor %}

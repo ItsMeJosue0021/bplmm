@@ -2,7 +2,7 @@ from django.contrib import admin # type: ignore
 from django.contrib.auth import get_user_model # type: ignore
 from .models import ACR_GROUPS, ACR_GROUPS_ICDS, ACR_GROUPS_RVS, ACR_PERRVS_RULES, CustomUser
 from .models import ACR_GROUPS_LOG, ACR_GROUPS_TEMP, ACR_GROUPS_ICDS_LOG, ACR_GROUPS_ICDS_TEMP, ACR_GROUPS_RVS_LOG, ACR_GROUPS_RVS_TEMP
-from .models import ACR_PERRVS_RULES_LOG, ACR_PERRVS_RULES_TEMP, ACR_PERICD_RULES_LOG, ACR_PERICD_RULES_TEMP
+from .models import ACR_PERRVS_RULES_LOG, ACR_PERRVS_RULES_TEMP, ACR_PERICD_RULES_LOG, ACR_PERICD_RULES_TEMP, RVS_CODE_MOCK, SPC_CODE_MOCK, CLAIM_VALIDATION_INFOS
 
 # Register your models here.
 
@@ -28,3 +28,8 @@ class MyUserAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 admin.site.register(get_user_model(), MyUserAdmin)
+
+# ------------------------------ MOCK TABLES -------------------------------------
+admin.site.register(RVS_CODE_MOCK)
+admin.site.register(SPC_CODE_MOCK)
+admin.site.register(CLAIM_VALIDATION_INFOS)

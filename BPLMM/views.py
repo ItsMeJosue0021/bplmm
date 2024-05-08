@@ -10,13 +10,24 @@ from .decorators import encoder_required, approver_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout # type: ignore
 from .services import ACR_GROUPS_SERVICE, ACR_GROUPS_RVS_SERVICE, ACR_PERRVS_RULES_SERVICE
 from .repositories import ACR_GROUPS_REPOSITORY, ACR_GROUPS_RVS_REPOSITORY, ACR_PERRVS_RULES_REPOSITORY
-from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULES
+from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULES, RVS_CODE_MOCK, SPC_CODE_MOCK, CLAIM_VALIDATION_INFOS
 
 
 def group_item(request):
     temp_search_query = request.GET.get('temp_search', '')
-    groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query)
-    return render(request, 'components/temp_group.html', {'groups': groups})
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query))
+    else:
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query)
+
+    temp_data_paginator = Paginator(temp_groups, 3) 
+    page_number = request.GET.get('page', 1)
+    temp_data = temp_data_paginator.get_page(page_number)
+
+    return render(request, 'components/temp_group.html', {'groups': temp_data})
 
 #-------------------------------------------------
 # LOGIN
@@ -52,6 +63,13 @@ def logout(request):
     auth_logout(request)
     print('nag logout')
     return redirect('login')
+
+#-------------------------------------------------
+# USER INFORMATION
+#-------------------------------------------------
+def get_current_user(request):
+    user = request.user
+    return render(request, 'components/auth/user-info-preview.html', {'user': user})
 
 
 #-------------------------------------------------
@@ -332,6 +350,22 @@ def approver_groups(request):
 
     return render(request, 'pages/acr/approver/group-list.html', context)
 
+
+# -------------------------------------- MOCK VIEWS ----------------------------------------
+def rvs_codes(request):
+    code_search_query = request.GET.get('code_search', '')
+    codes = RVS_CODE_MOCK.objects.filter(CODE__icontains=code_search_query)
+    return render(request, 'components/mocks/rvs-code.html', {'codes': codes})
+
+def spc_codes(request):
+    code_search_query = request.GET.get('spc_code_search', '')
+    codes = SPC_CODE_MOCK.objects.filter(CODE__icontains=code_search_query)
+    return render(request, 'components/mocks/spc-code.html', {'codes': codes})
+
+def claim_validation_rules(request):
+    validation_rules_query_search_query = request.GET.get('validation_rules_search', '')
+    rules = CLAIM_VALIDATION_INFOS.objects.filter(CONTENT__icontains=validation_rules_query_search_query)
+    return render(request, 'components/mocks/claim-validation-rules.html', {'rules': rules})
 
 
 
