@@ -10,12 +10,24 @@
         </div> -->
         <div class="w-full flex items-center">
             <div class="w-full bg-white rounded-md p-3 shadow-sm">
-                <form class="flex items-center space-x-4">
+                <form action="{% url 'acr' %}" class="flex items-center space-x-4">
+                    {% csrf_token %}
                     <div class="flex">
-                        <a href="{% url 'groups' %}" class="w-40 py-2.5 text-sm text-base rounded-md bg-[#1ED760] text-white flex items-center justify-center">
-                            <i class='bx bx-list-plus text-2xl'></i>
-                            <span class="ml-2">ACR GROUPS</span>
-                        </a>
+                        {% if user.is_authenticated %}
+                            {% for group in user.groups.all %}
+                                {% if group.name == "Encoder" %}
+                                    <a href="{% url 'groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-[#1ED760] text-white flex items-center justify-center">
+                                        <i class='bx bx-list-plus text-2xl'></i>
+                                        <span class="ml-2">ACR GROUPS</span>
+                                    </a>
+                                {% elif group.name == "Approver" %}
+                                    <a href="{% url 'approver_groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-[#1ED760] text-white flex items-center justify-center">
+                                        <i class='bx bx-list-plus text-2xl'></i>
+                                        <span class="ml-2">ACR GROUPS</span>
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -26,9 +38,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="Description-search"
+                        <input type="text" id="description_search" name="description_search"
                             class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Description" required="">
+                            placeholder="Description" >
                     </div>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -39,9 +51,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="RVS-search"
+                        <input type="text" id="rvs_search" name="rvs_search"
                             class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="RVS" required="">
+                            placeholder="RVS" >
                     </div>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -52,9 +64,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="ICD-search"
+                        <input type="text" id="icd_search" name="icd_search"
                             class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="ICD" required="">
+                            placeholder="ICD" >
                     </div>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -65,9 +77,9 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        <input type="text" id="GROUPID-search"
+                        <input type="text" id="group_id_search" name="group_id_search"
                             class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="GROUP ID" required="">
+                            placeholder="GROUP ID" >
                     </div>
                     <button
                         class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
@@ -97,249 +109,391 @@
     
                         <tbody class="text-gray-700 ">
                             <tr>
-                                <td class="p-2 border border-gray-200">12345</td>
-                                <td class="p-2 border border-gray-200">Lorem ipsum dolor sit amet</td>
-                                <td class="p-2 border border-gray-200">1/1/24</td>
-                                <td class="p-2 border border-gray-200">1/1/27</td>
-                                <td class="p-2 border border-gray-200">
-                                    <span
-                                        class="py-1 px-2 rounded text-green-800 bg-green-50 text-xs font-light">Active</span>
-                                </td>
-                                <td class="p-2 border border-gray-200">
-                                    <div class="flex items-center justify-center space-x-1 px-4">
-                                        <button data-popover-target="popover-left-1" data-popover-placement="left" type="button"
-                                            class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                        <div data-popover id="popover-left-1" role="tooltip"
-                                            class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                            <div
-                                                class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                                <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                            </div>
-                                            <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                                <a href="{% url 'rvs_create' %}"
-                                                    class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                    RVS</a>
-                                            </div>
-                                        </div>
-                                        <a href="" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                        <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                        {% if request.user|has_group:"Approver" %}
-                                            <a href="" class="py-1 px-2 rounded text-gray-700 bg-white text-xs font-light">Aprove</a>
-                                        {% endif %}
-                                    </div>
+                                <td colspan="6" class="pt-4">
+                                    <span class=" text-red-600">No Record Found</span>
                                 </td>
                             </tr>
+                            {% if group %}
+                                <tr>
+                                    <td class="p-2 border border-gray-200">{{ group.ACR_GROUPID }}</td>
+                                    <td class="p-2 border border-gray-200">{{ group.DESCRIPTION }}</td>
+                                    <td class="p-2 border border-gray-200">{{ group.EFF_DATE }}</td>
+                                    <td class="p-2 border border-gray-200">{{ group.END_DATE }}</td>
+                                    <td class="p-2 border border-gray-200">
+                                        <span
+                                            class="py-1 px-2 rounded text-green-800 bg-green-50 text-xs font-light">{{ group.ACR_GROUPID }}</span>
+                                    </td>
+                                    <td class="p-2 border border-gray-200">
+                                        <div class="flex items-center justify-center space-x-1 px-4">
+                                            <button data-popover-target="popover-left-1" data-popover-placement="left" type="button"
+                                                class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
+                                            <div data-popover id="popover-left-1" role="tooltip"
+                                                class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+                                                <div
+                                                    class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
+                                                    <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
+                                                </div>
+                                                <div class="flex items-center justify-center space-x-4 px-3 py-2">
+                                                    <a 
+                                                        class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
+                                                        RVS</a>
+                                                </div>
+                                            </div>
+                                            <a href="" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
+                                            <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                                            {% if request.user|has_group:"Approver" %}
+                                                <a href="" class="py-1 px-2 rounded text-gray-700 bg-white text-xs font-light">Aprove</a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <div class="p-4 rounded-md bg-white h-full shadow-sm">
-        <div class="flex flex-col h-fit space-y-2">
-            <div class="flex items-center justify-between w-full">
-                <p class="w-fit text-base font-medium drop-shadow-xl text-green-800">ACR RVS</p>
-                <form class="flex items-center">
-                    <label for="simple-search" class="sr-only">Search</label>
-                    <div class="relative w-full">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" id="simple-search"
-                            class="w-96 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search" required="">
+    <div class="rounded-md bg-white h-full shadow">
+        <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
+            <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN RVS</a>
+            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">STEMPORARY RVS</a>
+        </div>
+        <div id="tab1" class="p-4 rounded-b-md bg-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR RVS <span
+                        class="italic text-base font-light">(Main)</span></p>
+    
+                    <div class="flex space-x-4 items-center">
+                        <form action="{% url 'groups' %}" class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search" 
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </form>
+                        <form action="{% url 'groups' %}" class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input type="text" id="temp_search" name="description_search" 
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
+                            </div>
+                        </form>
                     </div>
-                    <button
-                        class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
-                </form>
+                </div>
+    
+                <div class="h-fit max-h-80 overflow-y-auto ">
+                    <table class="w-full text-center border-collapse">
+                        <thead class="bg-gray-100 sticky top-0 z-10">
+                            <tr>
+                                <th class="p-2 border border-gray-200">GROUP ID</th>
+                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-200">END DATE</th>
+                                <th class="p-2 border border-gray-200">STATUS</th>
+                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody  id="main-group" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+                            <tr>
+                                <td colspan="6" class="pt-4">
+                                    <span class=" text-red-600">No Record Found</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="flex space-x-4 items-center mt-3">
+                    {% if temp_data.has_previous %}
+                    <a href="?page={{ temp_data.previous_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
+                    </span>
+                    {% if temp_data.has_next %}
+                    <a href="?page={{ temp_data.next_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
+                    {% endif %}
+                </div> -->
+    
             </div>
+        </div>
+        <div id="tab2" style="display: none;" class="p-4 rounded-b-md bg-white">
+            <div class="flex flex-col h-fit">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR RVS <span
+                        class="italic text-base font-light">(Waiting for approval)</span></p>
+                    <div class="flex space-x-4 items-center">
+                        <form class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search" 
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </form>
+                        <div class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input type="text" id="temp_search" name="description_search" 
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="h-fit max-h-60 overflow-y-auto ">
+                    <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
+                        <thead class="bg-gray-100 sticky top-0 z-10 ">
+                            <tr>
+                                <th class="p-2 border border-gray-200">TEMP ID</th>
+                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-200">END DATE</th>
+                                <th class="p-2 border border-gray-200">STATUS</th>
+                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody  id="temp-group" class="text-gray-700 ">
+                            <tr>
+                                <td colspan="6" class="pt-4">
+                                    <span class=" text-red-600">No Record Found</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="flex space-x-4 items-center mt-3">
+                    {% if temp_data.has_previous %}
+                    <a href="?page={{ temp_data.previous_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
+                    </span>
+                    {% if temp_data.has_next %}
+                    <a href="?page={{ temp_data.next_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
+                    {% endif %}
+                </div> -->                
+            </div>
+        </div>
+    </div>
 
-            <table class="w-full text-center border-collapse">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="p-2 border border-gray-200">GROUP ID</th>
-                        <th class="p-2 border border-gray-200">RVS CODE</th>
-                        <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                        <th class="p-2 border border-gray-200">RVU</th>
-                        <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                        <th class="p-2 border border-gray-200">END DATE</th>
-                        <th class="p-2 border border-gray-200">STATUS</th>
-                        <th class="p-2 border border-gray-200">ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-700">
-                    <!-- hx-get="/groups/item/" hx-trigger="load" -->
-                    <!-- <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit.
-                            Aliquid perferendis
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href=""
-                                    class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+    <div class="rounded-md bg-white h-full shadow">
+        <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
+            <a href="#" id="tab3-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN ICDs</a>
+            <a href="#" id="tab4-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">TEMPORARY ICDs</a>
+        </div>
+        <div id="tab3" class="p-4 rounded-b-md bg-white">
+            <div class="flex flex-col h-full">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR ICDs <span
+                        class="italic text-base font-light">(Main)</span></p>
+    
+                    <div class="flex space-x-4 items-center">
+                        <form action="{% url 'groups' %}" class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search" 
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </form>
+                        <form action="{% url 'groups' %}" class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input type="text" id="temp_search" name="description_search" 
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing 
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href=""
-                                    class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
+                        </form>
+                    </div>
+                </div>
+    
+                <div class="h-fit max-h-80 overflow-y-auto ">
+                    <table class="w-full text-center border-collapse">
+                        <thead class="bg-gray-100 sticky top-0 z-10">
+                            <tr>
+                                <th class="p-2 border border-gray-200">GROUP ID</th>
+                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-200">END DATE</th>
+                                <th class="p-2 border border-gray-200">STATUS</th>
+                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="flex space-x-4 items-center mt-3">
+                    {% if temp_data.has_previous %}
+                    <a href="?page={{ temp_data.previous_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
+                    </span>
+                    {% if temp_data.has_next %}
+                    <a href="?page={{ temp_data.next_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
+                    {% endif %}
+                </div> -->
+    
+            </div>
+        </div>
+        <div id="tab4" style="display: none;" class="p-4 rounded-b-md bg-white">
+            <div class="flex flex-col h-fit">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR ICDs <span
+                        class="italic text-base font-light">(Waiting for approval)</span></p>
+                    <div class="flex space-x-4 items-center">
+                        <form class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search" 
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </form>
+                        <div class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <input type="text" id="temp_search" name="description_search" 
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing
-                            perferendis
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href=""
-                                    class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing
-                            perferendis
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                <a hhref="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href=""
-                                    class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href=""
-                                    class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing 
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href=""
-                                    class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">12345</td>
-                        <td class="p-2 border border-gray-400">Lorem ipsum dolor sit amet consectetur
-                            adipisicing
-                            perferendis
-                        </td>
-                        <td class="p-2 border border-gray-400">1</td>
-                        <td class="p-2 border border-gray-400">1/1/24</td>
-                        <td class="p-2 border border-gray-400">1/1/27</td>
-                        <td class="p-2 border border-gray-400">
-                            <span
-                                class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                        </td>
-                        <td class="p-2 border border-gray-400">
-                            <div class="flex items-center justify-end space-x-1 px-4">
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                            </div>
-                        </td>
-                    </tr> -->
-
-                </tbody>
-            </table>
-
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="h-fit max-h-60 overflow-y-auto ">
+                    <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
+                        <thead class="bg-gray-100 sticky top-0 z-10 ">
+                            <tr>
+                                <th class="p-2 border border-gray-200">TEMP ID</th>
+                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-200">END DATE</th>
+                                <th class="p-2 border border-gray-200">STATUS</th>
+                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody id="temp-group" class="text-gray-700 ">
+                            <tr>
+                                <td colspan="6" class="pt-4">
+                                    <span class=" text-red-600">No Record Found</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="flex space-x-4 items-center mt-3">
+                    {% if temp_data.has_previous %}
+                    <a href="?page={{ temp_data.previous_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
+                    </span>
+                    {% if temp_data.has_next %}
+                    <a href="?page={{ temp_data.next_page_number }}"
+                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
+                    {% endif %}
+                </div> -->                
+            </div>
         </div>
     </div>
 </div>
+<script>
+    const tab1 = document.getElementById('tab1-link');
+    const tab2 = document.getElementById('tab2-link');
+    const tab3 = document.getElementById('tab3-link');
+    const tab4 = document.getElementById('tab4-link');
+
+    tab1.addEventListener('click', function (event) {
+        event.preventDefault();
+        setTab1Active();
+        document.getElementById('tab1').style.display = 'block';
+        document.getElementById('tab2').style.display = 'none';
+    });
+
+    tab2.addEventListener('click', function (event) {
+        event.preventDefault();
+        setTab2Active();
+        document.getElementById('tab1').style.display = 'none';
+        document.getElementById('tab2').style.display = 'block';
+    });
+
+    tab3.addEventListener('click', function (event) {
+        event.preventDefault();
+        setTab3Active();
+        document.getElementById('tab3').style.display = 'none';
+        document.getElementById('tab4').style.display = 'block';
+    });
+
+    tab4.addEventListener('click', function (event) {
+        event.preventDefault();
+        setTab4Active();
+        document.getElementById('tab3').style.display = 'none';
+        document.getElementById('tab4').style.display = 'block';
+    });
+
+    function setTab1Active() {
+        tab2.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab2.classList.add('text-white');
+
+        tab1.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab1.classList.remove('text-white');
+    }
+
+    function setTab2Active() {
+        tab2.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab2.classList.remove('text-white');
+
+        tab1.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab1.classList.add('text-white');
+    }
+
+    function setTab3Active() {
+        tab4.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab4.classList.add('text-white');
+
+        tab3.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab3.classList.remove('text-white');
+    }
+
+    function setTab4Active() {
+        tab4.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab4.classList.remove('text-white');
+
+        tab3.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab3.classList.add('text-white');
+    }
+</script>
 {% endblock content %}

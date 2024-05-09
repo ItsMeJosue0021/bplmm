@@ -7,7 +7,8 @@ class ACR_GROUPS_SERVICE:
         self.repository = _repository
 
 
-
+# Add a new object to the temporary ACR GROUPS table
+# Adding is through 
     def create_temp(self, form, request):
             
         data = form.cleaned_data
@@ -19,12 +20,33 @@ class ACR_GROUPS_SERVICE:
             'USERNAME': request.user.username
         }
         return self.repository.create_temp(acr_temp_group_data)
+    
+
+    def create_main(self, acr_group_data):
+
+        acr_group_data = {
+            'ACR_GROUPID': self.generate_acr_group_id(),
+            'DESCRIPTION': acr_group_data.DESCRIPTION,
+            'EFF_DATE': acr_group_data.EFF_DATE,
+            'ACTIVE': 'T',
+            'END_DATE': acr_group_data.END_DATE
+        }
+        return self.repository.create_main(acr_group_data)
         
 
-
-
+    # def generate_acr_group_id(self):
+    #     return 'CR' + str(random.randint(1000, 9999)) #incremental
+    
     def generate_acr_group_id(self):
-        return 'CR' + str(random.randint(1000, 9999)) #incremental
+        group_id = self.repository.get_most_recent_groupid()
+        if group_id:
+            prefix = group_id[:2]  
+            number = int(group_id[2:])  
+            number += 1 
+            new_group_id = prefix + str(number) 
+            return new_group_id
+        else:
+            return 'CR1000'
     
 
 
@@ -36,18 +58,19 @@ class ACR_GROUPS_RVS_SERVICE:
     def __init__(self, _repository):
         self.repository = _repository
 
-    def create(self, form, acr_groups):
+    def create(self, form, group_id, request):
         if form.is_valid():
             data = form.cleaned_data
             acr_groups_rvs_data = {
-                'RVSCODE': self.generate_acr_group_rvs_id(),
-                'ACR_GROUPID': acr_groups,
-                'DESCRIPTION': data['ACR_GROUPS_RVS_DESCRIPTION'],
+                'RVSCODE': data['RVSCODE'],
+                'ACR_GROUPID': group_id,
+                'DESCRIPTION': data['DESCRIPTION'],
                 'RVU': data['RVU'],
-                'EFF_DATE': data['ACR_GROUPS_RVS_EFF_DATE'],
-                'END_DATE': data['ACR_GROUPS_RVS_END_DATE']
+                'EFF_DATE': data['EFF_DATE'],
+                'END_DATE': data['END_DATE'],
+                'USERNAME': request.user.username
             }
-            return self.repository.create(acr_groups_rvs_data)
+            return self.repository.create_temp(acr_groups_rvs_data)
         else:
             return None
         

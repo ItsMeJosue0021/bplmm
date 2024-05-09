@@ -7,17 +7,20 @@
     <div class="flex flex-col space-y-4 p-4 mb-4 rounded-b-md bg-white shadow">
         <div class="w-full flex items-start justify-between space-x-6">
             <div class="w-full">
-                {% include "components/text-input.html" with name='RVSCODE' label='RVS CODE' %}
-            </div>
-            <div class="w-full">
-                {% include "components/date-input.html" with name='ACR_GROUPS_RVS_EFF_DATE' label='Effectivity Date' old=form.ACR_GROUPS_RVS_EFF_DATE %}
-                {% for error in form.ACR_GROUPS_RVS_EFF_DATE.errors %}
+                {% include "components/text-input.html" with name='RVSCODE' label='RVS CODE' old=form.RVSCODE %}
+                {% for error in form.RVSCODE.errors %}
                     <div class="text-sm text-red-500">{{ error }}</div>
                 {% endfor %}
             </div>
             <div class="w-full">
-                {% include "components/date-input.html" with name='ACR_GROUPS_RVS_END_DATE' label='Effectivity End Date' old=form.ACR_GROUPS_RVS_END_DATE %}
-                {% for error in form.ACR_GROUPS_RVS_END_DATE.errors %}
+                {% include "components/date-input.html" with name='EFF_DATE' label='Effectivity Date' old=form.EFF_DATE %}
+                {% for error in form.EFF_DATE.errors %}
+                    <div class="text-sm text-red-500">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div class="w-full">
+                {% include "components/date-input.html" with name='END_DATE' label='Effectivity End Date' old=form.END_DATE %}
+                {% for error in form.END_DATE.errors %}
                     <div class="text-sm text-red-500">{{ error }}</div>
                 {% endfor %}
             </div>
@@ -29,8 +32,8 @@
             </div>
         </div>
         <div class="w-full">
-            {% include "components/text-field.html" with name='ACR_GROUPS_RVS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_RVS_DESCRIPTION %}
-            {% for error in form.ACR_GROUPS_RVS_DESCRIPTION.errors %}
+            {% include "components/text-field.html" with name='DESCRIPTION' label='Description' old=form.DESCRIPTION %}
+            {% for error in form.DESCRIPTION.errors %}
                 <div class="text-sm text-red-500">{{ error }}</div>
             {% endfor %}
         </div>

@@ -1,0 +1,57 @@
+{% for item in groups %}
+<tr>
+    <td class="p-2 border border-gray-200">
+        {% if item.ID %}
+            {{ item.ID }}
+        {% elif item.ACR_GROUPID %}
+            {{ item.ACR_GROUPID }}
+        {% else %}
+            ""
+        {% endif %}
+    </td>
+    <td class="p-2 border border-gray-200">{{ item.DESCRIPTION|default:""|truncatechars:40 }}
+    </td>
+    <td class="p-2 border border-gray-200">{{ item.EFF_DATE|default:"" }}</td>
+    <td class="p-2 border border-gray-200">{{ item.END_DATE|default:"" }}</td>
+    <td class="p-2 border border-gray-200">
+        {% if item.ACTIVE == "T" %}
+        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+        {% elif item.ACTIVE == "F" %}
+        <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+        {% endif %}
+    </td>
+    <td class="w-40 p-2 border border-gray-200">
+        <div class="flex items-center justify-center space-x-1 px-4">
+            {% for group in user.groups.all %}
+                {% if group.name == "Approver" %}
+                    {% if item.ACTIVE == "F" %}
+                        <form method="post" action="{% url 'groups_approve' id=item.ID %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">
+                        </form>
+                    {% endif %}
+
+                    {% if item.ACTIVE == "T" %}
+                        <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Deactivate</a>
+                    {% endif %}
+                {% elif group.name == "Encoder" %}
+                    {% if item.ACTIVE == "T" %}
+                        <a href="{% url 'rvs_create' group_id=item.ACR_GROUPID %}" class="py-1 px-2 rounded text-white border border-[#1ED760] bg-[#1ED760] text-xs font-light flex items-center">
+                            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
+                        <a href="{% url 'icds_create' group_id=item.ACR_GROUPID %}" class="py-1 px-2 rounded text-[#1ED760] border border-[#1ED760] bg-white text-xs font-light flex items-center">
+                            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+        </div>
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="6" class="pt-4">
+        <span class=" text-red-600">No Record Found</span>
+    </td>
+</tr>
+{% endfor %}
+

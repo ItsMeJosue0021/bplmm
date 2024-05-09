@@ -17,18 +17,18 @@
     </div>
     <div class="rounded-md bg-white h-full shadow">
         <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
-            <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">TEMPORARY GROUPS</a>
-            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">MAIN GROUPS</a>
+            <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN GROUP</a>
+            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">STEMPORARY GROUPS</a>
         </div>
         <div id="tab1" class="p-4 rounded-b-md bg-white">
             <div class="flex flex-col h-full">
                 <div class="flex items-start justify-between w-full pb-4">
-                    <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR GROUP <span
-                            class="italic text-base font-light">(Waiting for approval)</span></p>
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR GROUPs <span
+                        class="italic text-base font-light">(Main)</span></p>
     
                     <div class="flex space-x-4 items-center">
                         <form action="{% url 'groups' %}" class="flex items-center space-x-2">
-                            <input type="date" id="date_search" name="date_search"
+                            <input type="date" id="date_search" name="date_search" hx-get="{% url 'groups_main' %}" hx-trigger="change delay:500ms" hx-target="#main-group"
                                 class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </form>
                         <form action="{% url 'groups' %}" class="flex items-center">
@@ -42,7 +42,7 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <input type="text" id="temp_search" name="temp_search"
+                                <input type="text" id="temp_search" name="description_search" hx-get="{% url 'groups_main' %}" hx-trigger="keyup delay:500ms" hx-target="#main-group"
                                     class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Search Description..">
                             </div>
@@ -54,7 +54,7 @@
                     <table class="w-full text-center border-collapse">
                         <thead class="bg-gray-100 sticky top-0 z-10">
                             <tr>
-                                <th class="p-2 border border-gray-200">TEMP ID</th>
+                                <th class="p-2 border border-gray-200">GROUP ID</th>
                                 <th class="p-2 border border-gray-200">DESCRIPTION</th>
                                 <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
                                 <th class="p-2 border border-gray-200">END DATE</th>
@@ -62,7 +62,7 @@
                                 <th class="p-2 border border-gray-200">ACTIONS</th>
                             </tr>
                         </thead>
-                        <tbody hx-get="/groups/item/" hx-trigger="click" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+                        <tbody hx-get="{% url 'groups_main' %}" hx-trigger="load" id="main-group" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
                             
                         </tbody>
                     </table>
@@ -86,14 +86,13 @@
         <div id="tab2" style="display: none;" class="p-4 rounded-b-md bg-white">
             <div class="flex flex-col h-fit">
                 <div class="flex items-start justify-between w-full pb-4">
-                    <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR GROUPs <span
-                            class="italic text-base font-light">(Main)</span></p>
+                    <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR GROUP <span
+                        class="italic text-base font-light">(Waiting for approval)</span></p>
                     <div class="flex space-x-4 items-center">
                         <form class="flex items-center space-x-2">
-                            <input type="date" id="date_search" name="date_search" hx-get="/groups/item/"  hx-trigger="change delay:500ms" hx-target="#main-group"
+                            <input type="date" id="date_search" name="date_search" hx-get="{% url 'groups_temporary' %}"  hx-trigger="change delay:500ms" hx-target="#temp-group"
                                 class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                         </form>
-                        <!-- action="{% url 'groups' %}" hx-get="/groups/item/"  hx-trigger="change" hx-target="#main-group" -->
                         <div class="flex items-center">
                             <label for="temp_search" class="sr-only">Search</label>
                             <div class="relative w-full">
@@ -105,14 +104,10 @@
                                             clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                                <input type="text" id="temp_search" name="temp_search" hx-get="/groups/item/"  hx-trigger="keyup delay:500ms" hx-target="#main-group"
+                                <input type="text" id="temp_search" name="description_search" hx-get="{% url 'groups_temporary' %}"  hx-trigger="keyup delay:500ms" hx-target="#temp-group"
                                     class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Search Description..">
                             </div>
-                            <!-- <button
-                                class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                Search
-                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -121,7 +116,7 @@
                     <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
                         <thead class="bg-gray-100 sticky top-0 z-10 ">
                             <tr>
-                                <th class="p-2 border border-gray-200">GROUP ID</th>
+                                <th class="p-2 border border-gray-200">TEMP ID</th>
                                 <th class="p-2 border border-gray-200">DESCRIPTION</th>
                                 <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
                                 <th class="p-2 border border-gray-200">END DATE</th>
@@ -130,7 +125,7 @@
                             </tr>
                         </thead>
     
-                        <tbody hx-get="/groups/item/" hx-trigger="load" id="main-group" class="text-gray-700 ">
+                        <tbody hx-get="{% url 'groups_temporary' %}" hx-trigger="load" id="temp-group" class="text-gray-700 ">
     
                         </tbody>
                     </table>

@@ -4,13 +4,14 @@
 {% block content %}
 <div class="h-auto">
     <div class="h-full flex flex-col space-y-4">
-        <form action="{% url 'rvs_create' %}" method="POST">
+        <form action="{% url 'rvs_create' group_id=group_id %}" method="POST">
             {% csrf_token %}
             <div class="flex flex-col space-y-4">
                 <div class="flex items-start space-x-4 ">
                     <a href="{% url 'groups' %}"
                         class="nav-button previous text-sm py-2.5 px-6 bg-white text-gray-600 rounded-md cursor-pointer hover:bg-gray-100">Back</a>
                 </div>
+                {% include "components/messages.html" %}
                 {% include "components/acr/fieldsets/acr-rvs.html" %}
             </div>
         </form>
@@ -34,8 +35,6 @@
                                 class="w-96 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Search" required="">
                         </div>
-                        <button
-                            class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
                     </form>
                 </div>
 
@@ -52,166 +51,8 @@
                             <th class="p-2 border border-gray-300">ACTIONS</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-700">
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit.
-                                Aliquid perferendis
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing 
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing
-                                perferendis
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing
-                                perferendis
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                    <a hhref="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing 
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href=""
-                                        class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">12345</td>
-                            <td class="p-2 border border-gray-300">Lorem ipsum dolor sit amet consectetur
-                                adipisicing
-                                perferendis
-                            </td>
-                            <td class="p-2 border border-gray-300">1</td>
-                            <td class="p-2 border border-gray-300">1/1/24</td>
-                            <td class="p-2 border border-gray-300">1/1/27</td>
-                            <td class="p-2 border border-gray-300">
-                                <span
-                                    class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                            </td>
-                            <td class="p-2 border border-gray-300">
-                                <div class="flex items-center justify-end space-x-1 px-4">
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a>
-                                    <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                    <a href="" class="py-1 px-2 rounded text-white bg-red-500 text-xs font-light">Delete</a>
-                                    <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                </div>
-                            </td>
-                        </tr>
-
+                    <tbody hx-get="{% url 'temp_rvs_by_group' group_id=group_id %}" hx-trigger="load" class="text-gray-700">
+                        <!-- temporary group related RVS container -->
                     </tbody>
                 </table>
 

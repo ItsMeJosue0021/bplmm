@@ -14,6 +14,8 @@ class ACR_GROUPS(models.Model):
     EFF_DATE = models.DateField()
     ACTIVE = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
     END_DATE = models.DateField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_TEMP(models.Model):
     ID = models.AutoField(primary_key=True)
@@ -23,6 +25,8 @@ class ACR_GROUPS_TEMP(models.Model):
     ACTIVE = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
     END_DATE = models.DateField(null=True, blank=True)
     USERNAME = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_LOG(models.Model):
     ACR_GROUPID = models.CharField(max_length=255)
@@ -31,20 +35,26 @@ class ACR_GROUPS_LOG(models.Model):
     USERNAME = models.CharField(max_length=255)
     UPDATED_CULOMNS = models.TextField()
     PREVIOUS_COLUMN_VALUE = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_ICDS(models.Model):
     ICDCODE = models.CharField(max_length=255, primary_key=True)
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_ICDS_TEMP(models.Model):
     ID = models.AutoField(primary_key=True)
     ICDCODE = models.CharField(max_length=255, null=True, default='N/A')
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
     USERNAME = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_ICDS_LOG(models.Model):
     ICDCODE = models.CharField(max_length=255)
@@ -53,22 +63,29 @@ class ACR_GROUPS_ICDS_LOG(models.Model):
     USERNAME = models.CharField(max_length=255)
     UPDATED_CULOMNS = models.TextField()
     PREVIOUS_COLUMN_VALUE = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_RVS(models.Model):
     RVSCODE = models.CharField(max_length=255, primary_key=True)
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
     RVU = models.IntegerField()
     EFF_DATE = models.DateField()
     END_DATE = models.DateField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_RVS_TEMP(models.Model):
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    RVSCODE = models.CharField(max_length=255, primary_key=True)
+    ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
     RVU = models.IntegerField()
     EFF_DATE = models.DateField()
     END_DATE = models.DateField(null=True, blank=True)
     USERNAME = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_RVS_LOG(models.Model):
     RVSCODE = models.CharField(max_length=255)
@@ -77,6 +94,8 @@ class ACR_GROUPS_RVS_LOG(models.Model):
     USERNAME = models.CharField(max_length=255)
     UPDATED_CULOMNS = models.TextField()
     PREVIOUS_COLUMN_VALUE = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERRVS_RULES(models.Model):
     ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
@@ -126,6 +145,8 @@ class ACR_PERRVS_RULES(models.Model):
     TO_BE_TAGGED_FOR_POST_AUDIT = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_RHU = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_PCB = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERRVS_RULES_TEMP(models.Model):
     ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
@@ -176,6 +197,8 @@ class ACR_PERRVS_RULES_TEMP(models.Model):
     CHECK_FACILITY_RHU = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_PCB = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     USERNAME = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERRVS_RULES_LOG(models.Model):
     RVSCODE = models.CharField(max_length=255)
@@ -184,6 +207,8 @@ class ACR_PERRVS_RULES_LOG(models.Model):
     USERNAME = models.CharField(max_length=255)
     UPDATED_CULOMNS = models.TextField()
     PREVIOUS_COLUMN_VALUE = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERICD_RULES(models.Model):
     ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
@@ -232,6 +257,8 @@ class ACR_PERICD_RULES(models.Model):
     TO_BE_TAGGED_FOR_POST_AUDIT = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_RHU = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_PCB = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERICD_RULES_TEMP(models.Model):
     ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
@@ -281,6 +308,8 @@ class ACR_PERICD_RULES_TEMP(models.Model):
     CHECK_FACILITY_RHU = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_PCB = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     USERNAME = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERICD_RULES_LOG(models.Model):
     ICDCODE = models.CharField(max_length=255)
@@ -289,6 +318,8 @@ class ACR_PERICD_RULES_LOG(models.Model):
     USERNAME = models.CharField(max_length=255)
     UPDATED_CULOMNS = models.TextField()
     PREVIOUS_COLUMN_VALUE = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 # ----------------------------------------------------- MOCK MODELS ----------------------------------------------------------
 class RVS_CODE_MOCK(models.Model):
