@@ -61,38 +61,77 @@ def get_current_user(request):
 #-------------------------------------------------
 # ACR
 #-------------------------------------------------
-def acr(request):
+# def acr(request):
 
-    description_search = request.GET.get('description_search', '')
+#     description_search = request.GET.get('description_search', '')
+#     rvs_search = request.GET.get('rvs_search', '')
+#     icd_search = request.GET.get('icd_search', '')
+#     group_id_search = request.GET.get('group_id_search', '')
+
+
+#     if group_id_search:
+#         group = ACR_GROUPS.objects.get(ACR_GROUPID=group_id_search)
+
+#         temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id_search)
+#         main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id_search)
+
+#         temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group_id_search)
+#         main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id_search)
+
+#         context = {'group': group, 'temp_rvs': temp_rvs, 'main_rvs': main_rvs, 'temp_icds': temp_icds, 'main_icds': main_icds}
+
+#     elif rvs_search:
+#         temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search)
+#         main_rvs = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search)
+
+#         group = ACR_GROUPS.objects.get(ACR_GROUPID=main_rvs.ACR_GROUPID)
+    
+#     elif icd_search:
+#         temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=icd_search)
+#         main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=icd_search)
+    
+
+#     print(request.POST)
+#     return render(request, 'pages/acr/acr.html', context)
+
+def acr(request):
+    group_id_search = request.GET.get('group_id_search', '')
     rvs_search = request.GET.get('rvs_search', '')
     icd_search = request.GET.get('icd_search', '')
-    group_id_search = request.GET.get('group_id_search', '')
 
+    group = None
+    context = {}
 
     if group_id_search:
-        group = ACR_GROUPS.objects.get(ACR_GROUPID=group_id_search)
+        group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id_search).first()
 
-        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id_search)
-        main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id_search)
+    elif rvs_search:
+        main_rvs = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search).first()
+        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search).first()
+        if main_rvs:
+            group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_rvs.ACR_GROUPID).first()
+        elif temp_rvs:
+            group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_rvs.ACR_GROUPID).first()
 
-        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group_id_search)
-        main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id_search)
+    elif icd_search:
+        main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=icd_search).first()
+        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=icd_search).first()
+        if main_icds:
+            group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_icds.ACR_GROUPID).first()
+        elif temp_icds:
+            group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_icds.ACR_GROUPID).first()
+
+    if group:
+        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
+        main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
+
+        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
+        main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
 
         context = {'group': group, 'temp_rvs': temp_rvs, 'main_rvs': main_rvs, 'temp_icds': temp_icds, 'main_icds': main_icds}
 
-    elif rvs_search:
-        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search)
-        main_rvs = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search)
-
-        group = ACR_GROUPS.objects.get(ACR_GROUPID=main_rvs.ACR_GROUPID)
-    
-    elif icd_search:
-        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=icd_search)
-        main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=icd_search)
-    
-
-    print(request.POST)
     return render(request, 'pages/acr/acr.html', context)
+
 
 
 
@@ -218,6 +257,25 @@ def groups_main(request):
         groups = ACR_GROUPS.objects.filter(DESCRIPTION__icontains=description_search).order_by('-ACR_GROUPID')
 
     return render(request, 'components/htmx-rendered/groups-main.html', {'groups': groups})
+
+
+# checks whether RVS or ICD exists in a GROUP
+def check_rvs_or_icd_exists(request, group_id):
+
+    group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id).first()
+    main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
+    main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id)
+
+    button = None
+
+    if main_rvs:
+        button = 'rvs'
+    elif main_icds:
+        button = 'icd'
+    else:
+        button = None
+
+    return render(request, 'components/htmx-rendered/rvs-icd-buttons.html', {'button': button, 'group_id': group_id})
 
 
 

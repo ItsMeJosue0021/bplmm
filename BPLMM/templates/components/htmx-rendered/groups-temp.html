@@ -27,7 +27,7 @@
                     {% if item.ACTIVE == "F" %}
                         <form method="post" action="{% url 'groups_approve' id=item.ID %}">
                             {% csrf_token %}
-                            <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">
+                            <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
                         </form>
                     {% endif %}
                 {% endif %}

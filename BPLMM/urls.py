@@ -26,6 +26,8 @@ urlpatterns = [
     path('groups/<int:id>/approve', views.groups_approve, name="groups_approve"),
     path('groups/temporary', views.groups_temporary, name='groups_temporary'),
     path('groups/main', views.groups_main, name='groups_main'),
+    # checks whether RVS or ICD exist in a GROUP
+    path('groups/<str:group_id>/check-related', views.check_rvs_or_icd_exists, name='check_rvs_or_icd_exists'),
 
     #-------------------------------------------------
     # RVS' URLs

@@ -7,7 +7,7 @@
     <div>
         <div class="flex items-start space-x-4 mb-4">
             <a href="{% url 'acr' %}"
-                class="nav-button previous text-sm py-2.5 px-6 bg-white text-gray-600 rounded-md cursor-pointer hover:bg-gray-100">Back</a>
+                class="nav-button previous text-sm py-2.5 px-6 bg-white text-gray-600 rounded-md cursor-pointer hover:bg-primary hover:text-white">Back</a>
         </div>
         {% include "components/messages.html" %}
         <form action="{% url 'groups' %}" method="POST">
@@ -16,9 +16,9 @@
         </form>
     </div>
     <div class="rounded-md bg-white h-full shadow">
-        <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
+        <div id="navigationn" class="w-full flex items-center bg-primary rounded-t-md border-t-2 border-primary">
             <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN GROUP</a>
-            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">STEMPORARY GROUPS</a>
+            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-primary text-white rounded-t-md text-sm italic">STEMPORARY GROUPS</a>
         </div>
         <div id="tab1" class="p-4 rounded-b-md bg-white">
             <div class="flex flex-col h-full">
@@ -165,18 +165,18 @@
     });
 
     function setTab1Active() {
-        tab2.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab2.classList.replace('bg-white', 'bg-primary');
         tab2.classList.add('text-white');
 
-        tab1.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab1.classList.replace('bg-primary', 'bg-white');
         tab1.classList.remove('text-white');
     }
 
     function setTab2Active() {
-        tab2.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab2.classList.replace('bg-primary', 'bg-white');
         tab2.classList.remove('text-white');
 
-        tab1.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab1.classList.replace('bg-white', 'bg-primary');
         tab1.classList.add('text-white');
     }
 </script>

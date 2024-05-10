@@ -25,6 +25,7 @@ module.exports = {
 
     colors: {
       'themeColor': '#156913',
+      'primary': '#43B02A',
     }
   },
   plugins: [

@@ -1,0 +1,14 @@
+{% if button %}
+    {% if button == 'rvs' %}
+        <a href="{% url 'rvs_create' group_id=group_id %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
+    {% elif button == 'icd' %}
+        <a href="{% url 'icds_create' group_id=group_id %}" class="py-1 px-2 rounded text-primary border border-primary bg-white text-xs font-light flex items-center">
+            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
+    {% endif %}
+{% else %}
+    <a href="{% url 'rvs_create' group_id=group_id %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
+    <a href="{% url 'icds_create' group_id=group_id %}" class="py-1 px-2 rounded text-primary border border-primary bg-white text-xs font-light flex items-center">
+        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
+{% endif %}

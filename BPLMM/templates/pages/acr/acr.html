@@ -16,12 +16,12 @@
                         {% if user.is_authenticated %}
                             {% for group in user.groups.all %}
                                 {% if group.name == "Encoder" %}
-                                    <a href="{% url 'groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-[#1ED760] text-white flex items-center justify-center">
+                                    <a href="{% url 'groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-primary text-white flex items-center justify-center">
                                         <i class='bx bx-list-plus text-2xl'></i>
                                         <span class="ml-2">ACR GROUPS</span>
                                     </a>
                                 {% elif group.name == "Approver" %}
-                                    <a href="{% url 'approver_groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-[#1ED760] text-white flex items-center justify-center">
+                                    <a href="{% url 'approver_groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-primary text-white flex items-center justify-center">
                                         <i class='bx bx-list-plus text-2xl'></i>
                                         <span class="ml-2">ACR GROUPS</span>
                                     </a>
@@ -29,7 +29,7 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <div class="relative w-full">
+                    <!-- <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
                                 fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@
                         <input type="text" id="description_search" name="description_search"
                             class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Description" >
-                    </div>
+                    </div> -->
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -82,13 +82,13 @@
                             placeholder="GROUP ID" >
                     </div>
                     <button
-                        class="ml-2 text-white bg-[#1ED760] focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
+                        class="ml-2 text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="p-4 rounded-md bg-white h-full shadow-sm">
+    <div class="p-4 rounded-md bg-white h-full shadow-sm border-t-4 border-primary">
         <div class="flex flex-col h-fit space-y-2">
             <div class="flex items-start justify-between w-full">
                 <p class="w-fit text-base font-medium drop-shadow-xl text-green-800">ACR GROUP</p>
@@ -108,43 +108,52 @@
                     </thead>
     
                         <tbody class="text-gray-700 ">
-                            <tr>
-                                <td colspan="6" class="pt-4">
-                                    <span class=" text-red-600">No Record Found</span>
-                                </td>
-                            </tr>
                             {% if group %}
                                 <tr>
-                                    <td class="p-2 border border-gray-200">{{ group.ACR_GROUPID }}</td>
-                                    <td class="p-2 border border-gray-200">{{ group.DESCRIPTION }}</td>
-                                    <td class="p-2 border border-gray-200">{{ group.EFF_DATE }}</td>
-                                    <td class="p-2 border border-gray-200">{{ group.END_DATE }}</td>
                                     <td class="p-2 border border-gray-200">
-                                        <span
-                                            class="py-1 px-2 rounded text-green-800 bg-green-50 text-xs font-light">{{ group.ACR_GROUPID }}</span>
+                                        {{ group.ACR_GROUPID }}
                                     </td>
+                                    <td class="p-2 border border-gray-200">{{ group.DESCRIPTION|default:""|truncatechars:40 }}
+                                    </td>
+                                    <td class="p-2 border border-gray-200">{{ group.EFF_DATE|default:"" }}</td>
+                                    <td class="p-2 border border-gray-200">{{ group.END_DATE|default:"" }}</td>
                                     <td class="p-2 border border-gray-200">
-                                        <div class="flex items-center justify-center space-x-1 px-4">
-                                            <button data-popover-target="popover-left-1" data-popover-placement="left" type="button"
-                                                class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add</button>
-                                            <div data-popover id="popover-left-1" role="tooltip"
-                                                class="absolute z-10 invisible inline-block w-64 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
-                                                <div
-                                                    class="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                                                    <h3 class="font-semibold text-gray-900 dark:text-white">Options:</h3>
-                                                </div>
-                                                <div class="flex items-center justify-center space-x-4 px-3 py-2">
-                                                    <a 
-                                                        class="py-2 px-4 rounded text-gray-700 bg-gray-200 text-xs font-light">Add
-                                                        RVS</a>
-                                                </div>
-                                            </div>
-                                            <a href="" class="py-1 px-2 rounded text-white bg-yellow-400 text-xs font-light">Edit</a>
-                                            <a href="" class="py-1 px-2 rounded text-white bg-blue-500 text-xs font-light">View</a>
-                                            {% if request.user|has_group:"Approver" %}
-                                                <a href="" class="py-1 px-2 rounded text-gray-700 bg-white text-xs font-light">Aprove</a>
-                                            {% endif %}
+                                        {% if group.ACTIVE == "T" %}
+                                        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                                        {% elif group.ACTIVE == "F" %}
+                                        <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="w-40 p-2 border border-gray-200">
+                                        <div class="flex items-center justify-end space-x-1 px-4">
+                                            {% for user_group in user.groups.all %}
+                                                {% if user_group.name == "Approver" %}
+                                                    {% if group.ACTIVE == "F" %}
+                                                        <form method="post" action="{% url 'groups_approve' id=group.ID %}">
+                                                            {% csrf_token %}
+                                                            <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
+                                                        </form>
+                                                    {% endif %}
+                                
+                                                    {% if group.ACTIVE == "T" %}
+                                                        <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Deactivate</a>
+                                                    {% endif %}
+                                                {% elif user_group.name == "Encoder" %}
+                                                    {% if group.ACTIVE == "T" %}
+                                                            <div hx-get="{% url 'check_rvs_or_icd_exists' group_id=group.ACR_GROUPID %}" hx-trigger="load" class="flex items-center space-x-2">
+                                
+                                                            </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
                                         </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="8" class="pt-4">
+                                        <span class=" text-red-600">No Record Found</span>
                                     </td>
                                 </tr>
                             {% endif %}
@@ -154,12 +163,24 @@
         </div>
     </div>
 
-    <div class="rounded-md bg-white h-full shadow">
-        <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
-            <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN RVS</a>
-            <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">STEMPORARY RVS</a>
-        </div>
-        <div id="tab1" class="p-4 rounded-b-md bg-white">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% if main_rvs or temp_rvs %}
+    <div class="rounded-md h-full shadow">
+        {% if main_rvs %}
+        <div class="p-4 rounded-md bg-white mb-4 border-t-4 border-primary">
             <div class="flex flex-col h-full">
                 <div class="flex items-start justify-between w-full pb-4">
                     <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR RVS <span
@@ -193,20 +214,45 @@
                     <table class="w-full text-center border-collapse">
                         <thead class="bg-gray-100 sticky top-0 z-10">
                             <tr>
-                                <th class="p-2 border border-gray-200">GROUP ID</th>
-                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                                <th class="p-2 border border-gray-200">END DATE</th>
-                                <th class="p-2 border border-gray-200">STATUS</th>
-                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                                <th class="p-2 border border-gray-300">GROUP ID</th>
+                                <th class="p-2 border border-gray-300">RVS CODE</th>
+                                <th class="p-2 border border-gray-300">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-300">RVU</th>
+                                <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-300">END DATE</th>
+                                <th class="p-2 border border-gray-300">STATUS</th>
+                                <th class="p-2 border border-gray-300">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody  id="main-group" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
-                            <tr>
-                                <td colspan="6" class="pt-4">
-                                    <span class=" text-red-600">No Record Found</span>
-                                </td>
-                            </tr>
+                            {% for item in main_rvs %}
+                                <tr>
+                                    <td class="p-2 border border-gray-300">{{ item.ACR_GROUPID }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.RVSCODE }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.DESCRIPTION|default:""|truncatechars:40 }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.RVU }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
+                                    <td class="p-2 border border-gray-300">
+                                        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                                    </td>
+                                    <td class="w-40 p-2 border border-gray-300">
+                                        <div class="flex items-center justify-end space-x-1 px-4">
+                                            <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+                                                <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
+                                            <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Delete</a>
+                                            <a href="" class="py-1 px-2 rounded text-yellow-700 bg-yellow-50 border border-yellow-300 text-xs font-light">Edit</a>
+                                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="8" class="pt-4">
+                                        <span class=" text-red-600">No Record Found</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -226,7 +272,9 @@
     
             </div>
         </div>
-        <div id="tab2" style="display: none;" class="p-4 rounded-b-md bg-white">
+        {% endif %}
+        {% if temp_rvs %}
+        <div class="p-4 rounded-md bg-white border-t-4 border-primary">
             <div class="flex flex-col h-fit">
                 <div class="flex items-start justify-between w-full pb-4">
                     <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR RVS <span
@@ -259,21 +307,45 @@
                     <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
                         <thead class="bg-gray-100 sticky top-0 z-10 ">
                             <tr>
-                                <th class="p-2 border border-gray-200">TEMP ID</th>
-                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                                <th class="p-2 border border-gray-200">END DATE</th>
-                                <th class="p-2 border border-gray-200">STATUS</th>
-                                <th class="p-2 border border-gray-200">ACTIONS</th>
+                                <th class="p-2 border border-gray-300">GROUP ID</th>
+                                <th class="p-2 border border-gray-300">RVS CODE</th>
+                                <th class="p-2 border border-gray-300">DESCRIPTION</th>
+                                <th class="p-2 border border-gray-300">RVU</th>
+                                <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
+                                <th class="p-2 border border-gray-300">END DATE</th>
+                                <th class="p-2 border border-gray-300">STATUS</th>
+                                <th class="p-2 border border-gray-300">ACTIONS</th>
                             </tr>
                         </thead>
-    
                         <tbody  id="temp-group" class="text-gray-700 ">
-                            <tr>
-                                <td colspan="6" class="pt-4">
-                                    <span class=" text-red-600">No Record Found</span>
-                                </td>
-                            </tr>
+                            {% for item in temp_rvs %}
+                                <tr>
+                                    <td class="p-2 border border-gray-300">{{ item.ACR_GROUPID }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.RVSCODE }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.DESCRIPTION|default:""|truncatechars:40 }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.RVU }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
+                                    <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
+                                    <td class="p-2 border border-gray-300">
+                                        <span
+                                            class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                                    </td>
+                                    <td class="w-40 p-2 border border-gray-300">
+                                        <div class="flex items-center justify-end space-x-1 px-4">
+                                            <!-- <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a> -->
+                                            <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Delete</a>
+                                            <a href="" class="py-1 px-2 rounded text-yellow-700 bg-yellow-50 border border-yellow-300 text-xs font-light">Edit</a>
+                                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="6" class="pt-4">
+                                        <span class=" text-red-600">No Record Found</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -292,12 +364,16 @@
                 </div> -->                
             </div>
         </div>
+        {% endif %}
     </div>
+    {% endif %}
 
+
+    {% if main_icds or temp_icds %}
     <div class="rounded-md bg-white h-full shadow">
-        <div id="navigationn" class="w-full flex items-center bg-[#1ED760] rounded-t-md border-t-2 border-[#1ED760]">
+        <div id="navigationn" class="w-full flex items-center bg-primary rounded-t-md border-t-2 border-primary">
             <a href="#" id="tab3-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN ICDs</a>
-            <a href="#" id="tab4-link"  hx-target="#main-group" class=" py-2 px-4 bg-[#1ED760] text-white rounded-t-md text-sm italic">TEMPORARY ICDs</a>
+            <a href="#" id="tab4-link"  hx-target="#main-group" class=" py-2 px-4 bg-primary text-white rounded-t-md text-sm italic">TEMPORARY ICDs</a>
         </div>
         <div id="tab3" class="p-4 rounded-b-md bg-white">
             <div class="flex flex-col h-full">
@@ -362,6 +438,8 @@
     
             </div>
         </div>
+
+       
         <div id="tab4" style="display: none;" class="p-4 rounded-b-md bg-white">
             <div class="flex flex-col h-fit">
                 <div class="flex items-start justify-between w-full pb-4">
@@ -429,8 +507,9 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
-<script>
+<!-- <script>
     const tab1 = document.getElementById('tab1-link');
     const tab2 = document.getElementById('tab2-link');
     const tab3 = document.getElementById('tab3-link');
@@ -465,35 +544,35 @@
     });
 
     function setTab1Active() {
-        tab2.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab2.classList.replace('bg-white', 'bg-primary');
         tab2.classList.add('text-white');
 
-        tab1.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab1.classList.replace('bg-primary', 'bg-white');
         tab1.classList.remove('text-white');
     }
 
     function setTab2Active() {
-        tab2.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab2.classList.replace('bg-primary', 'bg-white');
         tab2.classList.remove('text-white');
 
-        tab1.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab1.classList.replace('bg-white', 'bg-primary');
         tab1.classList.add('text-white');
     }
 
     function setTab3Active() {
-        tab4.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab4.classList.replace('bg-white', 'bg-primary');
         tab4.classList.add('text-white');
 
-        tab3.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab3.classList.replace('bg-primary', 'bg-white');
         tab3.classList.remove('text-white');
     }
 
     function setTab4Active() {
-        tab4.classList.replace('bg-[#1ED760]', 'bg-white');
+        tab4.classList.replace('bg-primary', 'bg-white');
         tab4.classList.remove('text-white');
 
-        tab3.classList.replace('bg-white', 'bg-[#1ED760]');
+        tab3.classList.replace('bg-white', 'bg-primary');
         tab3.classList.add('text-white');
     }
-</script>
+</script> -->
 {% endblock content %}
