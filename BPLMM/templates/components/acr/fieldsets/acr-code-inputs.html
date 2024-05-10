@@ -1,93 +1,104 @@
+
 <div class="">
     <div class="flex flex-col space-y-6">
         <!-- CHECK ADDITIONAL CODES -->
-        <div id="additional-code-cntr" class="relative p-6 rounded-md bg-white shadow border-t-4 border-[#1ED760]">
-            <div class="w-full flex flex-col space-y-1">
-                <label class="text-gray-700 uppercase text-sm font-medium">Check Additional Codes</label>
-                <input type="hidden" name="CHECK_ADDITIONAL_CODES" id="CHECK_ADDITIONAL_CODES">
+        <div>
+            <div class="w-full px-4 rounded-t-lg bg-primary">
+                <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">ADDITIONAL CODES</p>
             </div>
-            <div class="flex flex-row space-x-5">
-                <div class="w-full basis-1/2">
-                    <div class="w-full flex flex-col space-y-1 mb-4">
-                        <div class="w-full mx-auto">
-                            <label for="default-search"
-                                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
+            <div id="additional-code-cntr" class="relative p-6 rounded-b-md bg-white shadow ">
+                <div class="w-full flex flex-col space-y-1">
+                    <label class="text-gray-700 uppercase text-sm font-medium">Check Additional Codes</label>
+                    <input type="hidden" name="CHECK_ADDITIONAL_CODES" id="CHECK_ADDITIONAL_CODES">
+                </div>
+                <div class="flex flex-row space-x-5">
+                    <div class="w-full basis-1/2">
+                        <div class="w-full flex flex-col space-y-1 mb-4">
+                            <div class="w-full mx-auto">
+                                <label for="default-search"
+                                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                        </svg>
+                                    </div>
+                                    <input type="search" name="code_search" id="default-search" hx-get="/rvs/codes/" hx-trigger="keyup delay:500ms" hx-target="#aditional-codes-results"
+                                        class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Search Additional Code..." />
                                 </div>
-                                <input type="search" name="code_search" id="default-search" hx-get="/rvs/codes/" hx-trigger="keyup delay:500ms" hx-target="#aditional-codes-results"
-                                    class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search Additional Code..." />
                             </div>
                         </div>
+                        <div id="aditional-codes-results" hx-get="/rvs/codes/" hx-trigger="load" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
+                           <!-- Code container -->
+                        </div>
                     </div>
-                    <div id="aditional-codes-results" hx-get="/rvs/codes/" hx-trigger="load" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
-                       <!-- Code container -->
+    
+                    <div class="w-full basis-1/2">
+                        <div class="w-full flex flex-col space-y-1 mb-10">
+                            <label class="text-gray-700 uppercase text-sm font-medium">Added additional Codes:</label>
+                        </div>
+                        <div class="current-additional-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
+                            <!-- Current Codes will be added here -->
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span>Preview:</span>
+                            <span id="codes-preview"></span>
+                        </div>
                     </div>
+    
                 </div>
-
-                <div class="w-full basis-1/2">
-                    <div class="w-full flex flex-col space-y-1 mb-10">
-                        <label class="text-gray-700 uppercase text-sm font-medium">Added additional Codes:</label>
-                    </div>
-                    <div class="current-additional-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
-                        <!-- Current Codes will be added here -->
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span>Preview:</span>
-                        <span id="codes-preview"></span>
-                    </div>
-                </div>
-
             </div>
         </div>
 
         <!-- CHECK SPC RELATED BEN CODES -->
-        <div id="spc-code-cntr" class="relative p-6 rounded-md bg-white shadow border-t-4 border-[#1ED760]">
-            <div class="w-full flex flex-col space-y-1">
-                <label class="text-gray-700 uppercase text-sm font-medium">Check SPC Related BEN Codes</label>
-                <input type="hidden" name="CHECK_SPC_RELATED_BEN_CODES" id="CHECK_SPC_RELATED_BEN_CODES">
+        <div>
+            <div class="w-full px-4 rounded-t-lg bg-primary">
+                <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">SPC RELATED BEN CODES</p>
             </div>
-            <div class="flex flex-row space-x-5">
-                <div class="w-full basis-1/2">
-                    <div class="w-full flex flex-col space-y-1 mb-4">
-                        <div class="w-full mx-auto">
-                            <label for="default-search"
-                                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
+            <div id="spc-code-cntr" class="relative p-6 rounded-b-md bg-white shadow">
+                <div class="w-full flex flex-col space-y-1">
+                    <label class="text-gray-700 uppercase text-sm font-medium">Check SPC Related BEN Codes</label>
+                    <input type="hidden" name="CHECK_SPC_RELATED_BEN_CODES" id="CHECK_SPC_RELATED_BEN_CODES">
+                </div>
+                <div class="flex flex-row space-x-5">
+                    <div class="w-full basis-1/2">
+                        <div class="w-full flex flex-col space-y-1 mb-4">
+                            <div class="w-full mx-auto">
+                                <label for="default-search"
+                                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                        </svg>
+                                    </div>
+                                    <input name="spc_code_search" type="search" id="default-search" hx-get="/spc/codes/" hx-trigger="keyup delay:500ms" hx-target="#spc-code-results"
+                                        class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="Search SPC Related BEN Codes..." />
                                 </div>
-                                <input name="spc_code_search" type="search" id="default-search" hx-get="/spc/codes/" hx-trigger="keyup delay:500ms" hx-target="#spc-code-results"
-                                    class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search SPC Related BEN Codes..." />
                             </div>
                         </div>
+                        <div hx-get="/spc/codes/" hx-trigger="load" id="spc-code-results" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
+                            <!-- spc code container -->
+                        </div>
                     </div>
-                    <div hx-get="/spc/codes/" hx-trigger="load" id="spc-code-results" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
-                        <!-- spc code container -->
-                    </div>
-                </div>
-
-                <div class="w-full basis-1/2">
-                    <div class="w-full flex flex-col space-y-1 mb-10">
-                        <label class="text-gray-700 uppercase text-sm font-medium">Added Related BEN Codes:</label>
-                    </div>
-                    <div class="current-spc-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
-                        <!-- ADDED SPC CODE CNTR -->
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span>Preview:</span>
-                        <span id="spc-codes-preview"></span>
+    
+                    <div class="w-full basis-1/2">
+                        <div class="w-full flex flex-col space-y-1 mb-10">
+                            <label class="text-gray-700 uppercase text-sm font-medium">Added Related BEN Codes:</label>
+                        </div>
+                        <div class="current-spc-codes-container w-full mt-4 py-2 flex flex-col space-y-1 h-40 overflow-y-auto rounded-lg pr-4">
+                            <!-- ADDED SPC CODE CNTR -->
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span>Preview:</span>
+                            <span id="spc-codes-preview"></span>
+                        </div>
                     </div>
                 </div>
             </div>

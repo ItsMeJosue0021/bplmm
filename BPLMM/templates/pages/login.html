@@ -3,56 +3,35 @@
 
 {% block content %}
 
-<div class="h-screen w-full flex items-center justify-center bg-gradient-to-tr from-themeColor to-yellow-100">
-
-  <!-- <br> -->
-
-  <div class="flex flex-col justify-center p-8 h-fit m-auto w-fit bg-white rounded-lg backdrop-filter backdrop-blur-md bg-opacity-30 shadow-md">
-    <div class="w-52 h-16 m-auto mb-4">
-      <img src="{% static 'images/images_Philhealth_Logo.png' %}" alt="logo" class="w-full h-full">
-    </div>
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <h2 class="text-center font-light text-base text-gray-800">Sign in to your account</h2>
-    </div>
-
-    <div class="sm:mx-auto w-full md:w-72">
-      <form class="flex flex-col space-y-6 " action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <!-- <div class="flex items-center justify-center">
-          <div class="relative w-full">
-            <label for="email" class="font-light text-sm text-gray-700">Username</label>
-            <input id="username" name="username" type="text"
-              class="w-full focus:outline-none peer bg-white bg-opacity-15 border-1.5 border-gray-400 rounded-md py-2.5 px-4 text-sm placeholder:italic placeholder:text-gray-500" placeholder="Username"/>
-          </div>
-        </div> -->
-
-        <div class="input-group">
-          <input id="username" required="" type="text" name="username" autocomplete="off" class="login-input">
-          <label for="name" class="user-label">First Name</label>
+<div class="h-screen w-full flex items-center justify-center bg-gradient-to-tr from-primary to-[#F6EB61] ">
+    <div class="flex flex-col justify-center p-8 h-fit m-auto w-fit rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
+        <div class="w-52 h-16 m-auto mb-4">
+            <img src="{% static 'images/images_Philhealth_Logo.png' %}" alt="logo" class="w-full h-full">
+        </div>
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <h2 class="text-center font-light text-base text-gray-800">Sign in to your account</h2>
         </div>
 
-        <div class="input-group">
-          <input id="password" required="" type="password" name="password" autocomplete="off" class="login-input">
-          <label for="email" class="user-label">Password</label>
-        </div>
+        <div class="sm:mx-auto w-full md:w-72">
+            <form class="flex flex-col space-y-6 " action="{% url 'login' %}" method="POST">
+              {% csrf_token %}
+                <div class="input-group">
+                    <input id="username" required="" type="text" name="username" autocomplete="off" class="login-input">
+                    <label for="name" class="user-label">First Name</label>
+                </div>
 
-        <!-- <div class="flex items-center justify-center">
-          <div class="relative w-full">
-            <label for="email" class="font-light text-sm text-gray-700">Password</label>
-            <input id="password" name="password" type="password"
-              class="w-full transition-colors focus:outline-none peer bg-white bg-opacity-15 border-1.5 border-gray-400 rounded-md py-2.5 px-4 text-sm placeholder:italic placeholder:text-gray-500 placeholder:font-light" placeholder="********"/>
-          </div>
-        </div> -->
-
-        <div>
-          <button type="submit"
-            class="flex w-full justify-center transition-all ease-in-out hover:scale-[.99] rounded-md bg-themeColor px-3 py-2 text-sm font-light leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-            in
-          </button>
+                <div class="input-group">
+                    <input id="password" required="" type="password" name="password" autocomplete="off" class="login-input">
+                    <label for="email" class="user-label">Password</label>
+                </div>
+                <div>
+                  <button type="submit"
+                    class="flex w-full justify-center transition-all ease-in-out hover:scale-[.99] rounded-md bg-primary px-3 py-2 text-sm font-light leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
+                    in
+                  </button>
+              </div>
+            </form>
         </div>
-        
-      </form>
     </div>
-  </div>
 </div>
 {% endblock %}

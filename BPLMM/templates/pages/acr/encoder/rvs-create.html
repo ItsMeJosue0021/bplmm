@@ -3,62 +3,168 @@
 
 {% block content %}
 <div class="h-auto">
-    <div class="h-full flex flex-col space-y-4">
+    <div class="h-full flex flex-col">
         <form action="{% url 'rvs_create' group_id=group_id %}" method="POST">
             {% csrf_token %}
-            <div class="flex flex-col space-y-4">
-                <div class="flex items-start space-x-4 ">
-                    <a href="{% url 'groups' %}"
+            <div class="flex flex-col">
+                <div class="flex items-start pb-4">
+                    <a href="{% url 'acr' %}"
                         class="nav-button previous text-sm py-2.5 px-6 bg-white hover:bg-primary hover:text-white text-gray-600 rounded-md cursor-pointer">Back</a>
                 </div>
                 {% include "components/messages.html" %}
                 {% include "components/acr/fieldsets/acr-rvs.html" %}
             </div>
         </form>
-        <div class="p-4 rounded-md bg-white h-full shadow">
+        <div class="rounded-md bg-white h-full shadow">
+            <div id="navigationn" class="w-full flex items-center bg-primary rounded-t-md border-t-2 border-primary">
+                <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN RVS</a>
+                <a href="#" id="tab2-link" hx-target="#main-group"
+                    class=" py-2 px-4 bg-primary text-white rounded-t-md text-sm italic">TEMPORARY RVS</a>
+            </div>
+            <div id="tab1" class="p-4 rounded-b-md bg-white">
+                <div class="flex flex-col h-full">
+                    <div class="flex items-start justify-between w-full pb-4">
+                        <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR GROUP RVS <span
+                                class="italic text-base font-light">(Main)</span></p>
 
-            <div class="flex flex-col h-full">
-                <div class="flex items-start justify-between w-full pb-4">
-                    <p class="w-fit text-base font-medium py-2 drop-shadow-xl text-green-800">ACR RVS</p>
-                    <form class="flex items-center">
-                        <label for="simple-search" class="sr-only">Search</label>
-                        <div class="relative w-full">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                    fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <input type="text" id="simple-search"
-                                class="w-96 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Search" required="">
+                        <div class="flex space-x-4 items-center">
+                            <form action="{% url 'groups' %}" class="flex items-center space-x-2">
+                                <input type="date" id="date_search" name="date_search" hx-get="{% url 'groups_main' %}"
+                                    hx-trigger="change delay:500ms" hx-target="#main-group"
+                                    class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            </form>
+                            <form action="{% url 'groups' %}" class="flex items-center">
+                                <label for="temp_search" class="sr-only">Search</label>
+                                <div class="relative w-full">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="temp_search" name="description_search"
+                                        hx-get="{% url 'groups_main' %}" hx-trigger="keyup delay:500ms"
+                                        hx-target="#main-group"
+                                        class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Search Description..">
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="h-fit max-h-80 overflow-y-auto ">
+                        <table class="w-full text-center border-collapse">
+                            <thead class="bg-gray-100 sticky top-0 z-10">
+                                <tr>
+                                    <th class="p-2 border border-gray-300">GROUP ID</th>
+                                    <th class="p-2 border border-gray-300">RVS CODE</th>
+                                    <th class="p-2 border border-gray-300">DESCRIPTION</th>
+                                    <th class="p-2 border border-gray-300">RVU</th>
+                                    <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
+                                    <th class="p-2 border border-gray-300">END DATE</th>
+                                    <th class="p-2 border border-gray-300">ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody hx-get="{% url 'main_rvs_by_group' group_id=group_id %}" hx-trigger="load"
+                                class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
+            <div id="tab2" style="display: none;" class="p-4 rounded-b-md bg-white">
+                <div class="flex flex-col h-fit">
+                    <div class="flex items-start justify-between w-full pb-4">
+                        <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR GROUP RVS<span
+                                class="italic text-base font-light">(Waiting for approval)</span></p>
+                        <div class="flex space-x-4 items-center">
+                            <form class="flex items-center space-x-2">
+                                <input type="date" id="date_search" name="date_search"
+                                    hx-get="{% url 'groups_temporary' %}" hx-trigger="change delay:500ms"
+                                    hx-target="#temp-group"
+                                    class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            </form>
+                            <div class="flex items-center">
+                                <label for="temp_search" class="sr-only">Search</label>
+                                <div class="relative w-full">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <input type="text" id="temp_search" name="description_search"
+                                        hx-get="{% url 'groups_temporary' %}" hx-trigger="keyup delay:500ms"
+                                        hx-target="#temp-group"
+                                        class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Search Description..">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <table class="w-full text-center border-collapse">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="p-2 border border-gray-300">GROUP ID</th>
-                            <th class="p-2 border border-gray-300">RVS CODE</th>
-                            <th class="p-2 border border-gray-300">DESCRIPTION</th>
-                            <th class="p-2 border border-gray-300">RVU</th>
-                            <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
-                            <th class="p-2 border border-gray-300">END DATE</th>
-                            <th class="p-2 border border-gray-300">STATUS</th>
-                            <th class="p-2 border border-gray-300">ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody hx-get="{% url 'temp_rvs_by_group' group_id=group_id %}" hx-trigger="load" class="text-gray-700">
-                        <!-- temporary group related RVS container -->
-                    </tbody>
-                </table>
+                    <div class="h-fit max-h-60 overflow-y-auto ">
+                        <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
+                            <thead class="bg-gray-100 sticky top-0 z-10 ">
+                                <tr>
+                                    <th class="p-2 border border-gray-300">GROUP ID</th>
+                                    <th class="p-2 border border-gray-300">RVS CODE</th>
+                                    <th class="p-2 border border-gray-300">DESCRIPTION</th>
+                                    <th class="p-2 border border-gray-300">RVU</th>
+                                    <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
+                                    <th class="p-2 border border-gray-300">END DATE</th>
+                                    <th class="p-2 border border-gray-300">ACTIONS</th>
+                                </tr>
+                            </thead>
 
+                            <tbody hx-get="{% url 'temp_rvs_by_group' group_id=group_id %}" hx-trigger="load"
+                                id="temp-rvs" class="text-gray-700 ">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script src="{% static 'js/acr/create-rvs.js' %}"></script>
+<script>
+    const tab1 = document.getElementById('tab1-link');
+    const tab2 = document.getElementById('tab2-link');
+    tab1.addEventListener('click', function (event) {
+        event.preventDefault();
+        setTab1Active();
+        document.getElementById('tab1').style.display = 'block';
+        document.getElementById('tab2').style.display = 'none';
+    });
+
+    tab2.addEventListener('click', function (event) {
+        event.preventDefault();
+        setTab2Active();
+        document.getElementById('tab1').style.display = 'none';
+        document.getElementById('tab2').style.display = 'block';
+    });
+
+    function setTab1Active() {
+        tab2.classList.replace('bg-white', 'bg-primary');
+        tab2.classList.add('text-white');
+
+        tab1.classList.replace('bg-primary', 'bg-white');
+        tab1.classList.remove('text-white');
+    }
+
+    function setTab2Active() {
+        tab2.classList.replace('bg-primary', 'bg-white');
+        tab2.classList.remove('text-white');
+
+        tab1.classList.replace('bg-white', 'bg-primary');
+        tab1.classList.add('text-white');
+    }
+</script>
 {% endblock %}

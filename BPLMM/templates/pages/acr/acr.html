@@ -9,8 +9,8 @@
             <a href="{% url 'groups' %}" class="w-40 text-center py-5 text-base rounded-md bg-[#1ED760] text-white">ACR GROUPS</a>
         </div> -->
         <div class="w-full flex items-center">
-            <div class="w-full bg-white rounded-md p-3 shadow-sm">
-                <form action="{% url 'acr' %}" class="flex items-center space-x-4">
+            <div class="w-full bg-white rounded-md p-3 px-4 shadow-sm">
+                <form action="{% url 'acr' %}" class="flex items-center justify-evenly gap-4">
                     {% csrf_token %}
                     <div class="flex">
                         {% if user.is_authenticated %}
@@ -163,20 +163,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     {% if main_rvs or temp_rvs %}
     <div class="rounded-md h-full shadow">
         {% if main_rvs %}
@@ -220,7 +206,6 @@
                                 <th class="p-2 border border-gray-300">RVU</th>
                                 <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
                                 <th class="p-2 border border-gray-300">END DATE</th>
-                                <th class="p-2 border border-gray-300">STATUS</th>
                                 <th class="p-2 border border-gray-300">ACTIONS</th>
                             </tr>
                         </thead>
@@ -233,16 +218,19 @@
                                     <td class="p-2 border border-gray-300">{{ item.RVU }}</td>
                                     <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
                                     <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
-                                    <td class="p-2 border border-gray-300">
-                                        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                                    </td>
                                     <td class="w-40 p-2 border border-gray-300">
                                         <div class="flex items-center justify-end space-x-1 px-4">
-                                            <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+                                            <a href="{% url 'set_rvs_rules' group_id=item.ACR_GROUPID %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
                                                 <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
-                                            <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Delete</a>
-                                            <a href="" class="py-1 px-2 rounded text-yellow-700 bg-yellow-50 border border-yellow-300 text-xs font-light">Edit</a>
-                                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                                                <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                                                    <i class='bx bx-trash text-red-500 text-base'></i>
+                                                </a>
+                                                <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
+                                                    <i class='bx bx-edit text-yellow-400 text-base'></i>
+                                                </a>
+                                                <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
+                                                    <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
+                                                </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -256,20 +244,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- <div class="flex space-x-4 items-center mt-3">
-                    {% if temp_data.has_previous %}
-                    <a href="?page={{ temp_data.previous_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                    </span>
-                    {% if temp_data.has_next %}
-                    <a href="?page={{ temp_data.next_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                    {% endif %}
-                </div> -->
-    
             </div>
         </div>
         {% endif %}
@@ -313,7 +287,6 @@
                                 <th class="p-2 border border-gray-300">RVU</th>
                                 <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
                                 <th class="p-2 border border-gray-300">END DATE</th>
-                                <th class="p-2 border border-gray-300">STATUS</th>
                                 <th class="p-2 border border-gray-300">ACTIONS</th>
                             </tr>
                         </thead>
@@ -326,16 +299,17 @@
                                     <td class="p-2 border border-gray-300">{{ item.RVU }}</td>
                                     <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
                                     <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
-                                    <td class="p-2 border border-gray-300">
-                                        <span
-                                            class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                                    </td>
                                     <td class="w-40 p-2 border border-gray-300">
                                         <div class="flex items-center justify-end space-x-1 px-4">
-                                            <!-- <a href="{% url 'set_rvs_rules' %}" class="py-1 px-2 rounded text-white bg-[#1ED760] text-xs font-light">Add Rules</a> -->
-                                            <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Delete</a>
-                                            <a href="" class="py-1 px-2 rounded text-yellow-700 bg-yellow-50 border border-yellow-300 text-xs font-light">Edit</a>
-                                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                                            <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                                                <i class='bx bx-trash text-red-500 text-base'></i>
+                                            </a>
+                                            <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
+                                                <i class='bx bx-edit text-yellow-400 text-base'></i>
+                                            </a>
+                                            <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
+                                                <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
@@ -348,20 +322,7 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
-                <!-- <div class="flex space-x-4 items-center mt-3">
-                    {% if temp_data.has_previous %}
-                    <a href="?page={{ temp_data.previous_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                    </span>
-                    {% if temp_data.has_next %}
-                    <a href="?page={{ temp_data.next_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                    {% endif %}
-                </div> -->                
+                </div>              
             </div>
         </div>
         {% endif %}
@@ -422,20 +383,6 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- <div class="flex space-x-4 items-center mt-3">
-                    {% if temp_data.has_previous %}
-                    <a href="?page={{ temp_data.previous_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                    </span>
-                    {% if temp_data.has_next %}
-                    <a href="?page={{ temp_data.next_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                    {% endif %}
-                </div> -->
-    
             </div>
         </div>
 
@@ -490,89 +437,10 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <!-- <div class="flex space-x-4 items-center mt-3">
-                    {% if temp_data.has_previous %}
-                    <a href="?page={{ temp_data.previous_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                    </span>
-                    {% if temp_data.has_next %}
-                    <a href="?page={{ temp_data.next_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                    {% endif %}
-                </div> -->                
+                </div>               
             </div>
         </div>
     </div>
     {% endif %}
 </div>
-<!-- <script>
-    const tab1 = document.getElementById('tab1-link');
-    const tab2 = document.getElementById('tab2-link');
-    const tab3 = document.getElementById('tab3-link');
-    const tab4 = document.getElementById('tab4-link');
-
-    tab1.addEventListener('click', function (event) {
-        event.preventDefault();
-        setTab1Active();
-        document.getElementById('tab1').style.display = 'block';
-        document.getElementById('tab2').style.display = 'none';
-    });
-
-    tab2.addEventListener('click', function (event) {
-        event.preventDefault();
-        setTab2Active();
-        document.getElementById('tab1').style.display = 'none';
-        document.getElementById('tab2').style.display = 'block';
-    });
-
-    tab3.addEventListener('click', function (event) {
-        event.preventDefault();
-        setTab3Active();
-        document.getElementById('tab3').style.display = 'none';
-        document.getElementById('tab4').style.display = 'block';
-    });
-
-    tab4.addEventListener('click', function (event) {
-        event.preventDefault();
-        setTab4Active();
-        document.getElementById('tab3').style.display = 'none';
-        document.getElementById('tab4').style.display = 'block';
-    });
-
-    function setTab1Active() {
-        tab2.classList.replace('bg-white', 'bg-primary');
-        tab2.classList.add('text-white');
-
-        tab1.classList.replace('bg-primary', 'bg-white');
-        tab1.classList.remove('text-white');
-    }
-
-    function setTab2Active() {
-        tab2.classList.replace('bg-primary', 'bg-white');
-        tab2.classList.remove('text-white');
-
-        tab1.classList.replace('bg-white', 'bg-primary');
-        tab1.classList.add('text-white');
-    }
-
-    function setTab3Active() {
-        tab4.classList.replace('bg-white', 'bg-primary');
-        tab4.classList.add('text-white');
-
-        tab3.classList.replace('bg-primary', 'bg-white');
-        tab3.classList.remove('text-white');
-    }
-
-    function setTab4Active() {
-        tab4.classList.replace('bg-primary', 'bg-white');
-        tab4.classList.remove('text-white');
-
-        tab3.classList.replace('bg-white', 'bg-primary');
-        tab3.classList.add('text-white');
-    }
-</script> -->
 {% endblock content %}

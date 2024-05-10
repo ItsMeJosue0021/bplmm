@@ -126,23 +126,10 @@
                         </thead>
     
                         <tbody hx-get="{% url 'groups_temporary' %}" hx-trigger="load" id="temp-group" class="text-gray-700 ">
-    
+                            
                         </tbody>
                     </table>
-                </div>
-                <!-- <div class="flex space-x-4 items-center mt-3">
-                    {% if temp_data.has_previous %}
-                    <a href="?page={{ temp_data.previous_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                    </span>
-                    {% if temp_data.has_next %}
-                    <a href="?page={{ temp_data.next_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                    {% endif %}
-                </div> -->                
+                </div>             
             </div>
         </div>
     </div>

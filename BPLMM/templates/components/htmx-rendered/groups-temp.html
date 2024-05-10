@@ -32,9 +32,15 @@
                     {% endif %}
                 {% endif %}
             {% endfor %}
-            <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Delete</a>
-            <a href="" class="py-1 px-2 rounded text-yellow-700 bg-yellow-50 border border-yellow-300 text-xs font-light">Edit</a>
-            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+            <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                <i class='bx bx-trash text-red-500 text-base'></i>
+            </a>
+            <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
+                <i class='bx bx-edit text-yellow-400 text-base'></i>
+            </a>
+            <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
+                <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
+            </a>
         </div>
     </td>
 </tr>

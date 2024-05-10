@@ -14,7 +14,6 @@ from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULE
 from .models import CLAIM_VALIDATION_INFOS, ACR_GROUPS_RVS_TEMP, ACR_GROUPS_ICDS_TEMP, ACR_GROUPS_ICDS
 
 
-
 #-------------------------------------------------
 # LOGIN
 #-------------------------------------------------
@@ -61,38 +60,6 @@ def get_current_user(request):
 #-------------------------------------------------
 # ACR
 #-------------------------------------------------
-# def acr(request):
-
-#     description_search = request.GET.get('description_search', '')
-#     rvs_search = request.GET.get('rvs_search', '')
-#     icd_search = request.GET.get('icd_search', '')
-#     group_id_search = request.GET.get('group_id_search', '')
-
-
-#     if group_id_search:
-#         group = ACR_GROUPS.objects.get(ACR_GROUPID=group_id_search)
-
-#         temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id_search)
-#         main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id_search)
-
-#         temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group_id_search)
-#         main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id_search)
-
-#         context = {'group': group, 'temp_rvs': temp_rvs, 'main_rvs': main_rvs, 'temp_icds': temp_icds, 'main_icds': main_icds}
-
-#     elif rvs_search:
-#         temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search)
-#         main_rvs = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search)
-
-#         group = ACR_GROUPS.objects.get(ACR_GROUPID=main_rvs.ACR_GROUPID)
-    
-#     elif icd_search:
-#         temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=icd_search)
-#         main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=icd_search)
-    
-
-#     print(request.POST)
-#     return render(request, 'pages/acr/acr.html', context)
 
 def acr(request):
     group_id_search = request.GET.get('group_id_search', '')
@@ -265,12 +232,14 @@ def check_rvs_or_icd_exists(request, group_id):
     group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id).first()
     main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
     main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id)
+    temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id)
+    temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group_id)
 
     button = None
 
-    if main_rvs:
+    if main_rvs or temp_rvs:
         button = 'rvs'
-    elif main_icds:
+    elif main_icds or temp_icds:
         button = 'icd'
     else:
         button = None
@@ -343,7 +312,7 @@ def temp_rvs_by_group(request, group_id):
 # returns group related RVS from main table
 def main_rvs_by_group(request, group_id):
     rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
-    return render(request, 'components/htmx-rendered/rvs-temp.html', {'rvs': rvs})
+    return render(request, 'components/htmx-rendered/rvs-main.html', {'rvs': rvs})
 
 #-------------------------------------------------
 # GENERATE ACR GROUP ID
@@ -443,16 +412,16 @@ def rvs_edit(request):
 def rvs_delete(request):
     pass
 
-def set_rvs_rules(request):
+def set_rvs_rules(request, group_id):
 
     if request.method == 'POST':
 
         form = SAVE_RVS_RULES(request.POST)
         print(request.POST)
-        return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'form': form})
+        return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'form': form, 'group_id': group_id})
 
     else:
-        return render(request, 'pages/acr/encoder/rvs-rules-create.html')
+        return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'group_id': group_id})
 
 
 #-------------------------------------------------

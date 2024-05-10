@@ -38,13 +38,13 @@ urlpatterns = [
     path('groups/rvs/<int:id>/', views.rvs_show, name="rvs_show"),
     path('groups/rvs/<int:id>/edit', views.rvs_edit, name="rvs_edit"),
     path('groups/rvs/<int:id>/delete', views.rvs_delete, name="rvs_delete"),
-    path('groups/rvs/set_rules', views.set_rvs_rules, name="set_rvs_rules"),
+    path('groups/<str:group_id>/rvs/set_rules', views.set_rvs_rules, name="set_rvs_rules"),
 
     # returns group related RVS from temporary table
     path('rvs/<str:group_id>/temp', views.temp_rvs_by_group, name='temp_rvs_by_group'),
 
     # returns group related RVS from main table
-    path('rvs/<str:group_id>/main', views.main_rvs_by_group, name='temp_rvs_by_group'),
+    path('rvs/<str:group_id>/main', views.main_rvs_by_group, name='main_rvs_by_group'),
 
 
     #-------------------------------------------------
