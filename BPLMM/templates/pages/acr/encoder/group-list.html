@@ -1,15 +1,14 @@
 {% extends 'layouts/main.html' %}
 {% load static %}
-
 {% block content %}
-
 <div class="">
     <div>
-        <div class="flex items-start space-x-4 mb-4">
+        <div class="flex items-center mb-4 group">
+            <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
             <a href="{% url 'acr' %}"
-                class="nav-button previous text-sm py-2.5 px-6 bg-white text-gray-600 rounded-md cursor-pointer hover:bg-primary hover:text-white">Back</a>
+                class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back to Home</a>
         </div>
-        {% include "components/messages.html" %}
+        {% include "components/alerts/messages.html" %}
         <form action="{% url 'groups' %}" method="POST">
             {% csrf_token %}
             {% include "components/acr/fieldsets/acr-group.html" %}
@@ -49,38 +48,9 @@
                         </form>
                     </div>
                 </div>
-    
-                <div class="h-fit max-h-80 overflow-y-auto ">
-                    <table class="w-full text-center border-collapse">
-                        <thead class="bg-gray-100 sticky top-0 z-10">
-                            <tr>
-                                <th class="p-2 border border-gray-200">GROUP ID</th>
-                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                                <th class="p-2 border border-gray-200">END DATE</th>
-                                <th class="p-2 border border-gray-200">STATUS</th>
-                                <th class="p-2 border border-gray-200">ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody hx-get="{% url 'groups_main' %}" hx-trigger="load" id="main-group" class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
-                            
-                        </tbody>
-                    </table>
+                <div hx-get="{% url 'groups_main' %}" hx-trigger="load" id="main-group" class="h-fit max-h-80 overflow-y-auto ">
+                   {% comment %} Main groups table container {% endcomment %}
                 </div>
-                <!-- <div class="flex space-x-4 items-center mt-3">
-                    {% if temp_data.has_previous %}
-                    <a href="?page={{ temp_data.previous_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60 ">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ temp_data.number }} of {{ temp_data.paginator.num_pages }}.
-                    </span>
-                    {% if temp_data.has_next %}
-                    <a href="?page={{ temp_data.next_page_number }}"
-                        class="py-1 px-2 rounded text-gray-700 bg-white bg-opacity-40 hover:bg-opacity-60">Next</a>
-                    {% endif %}
-                </div> -->
-    
             </div>
         </div>
         <div id="tab2" style="display: none;" class="p-4 rounded-b-md bg-white">
@@ -112,59 +82,12 @@
                     </div>
                 </div>
     
-                <div class="h-fit max-h-60 overflow-y-auto ">
-                    <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
-                        <thead class="bg-gray-100 sticky top-0 z-10 ">
-                            <tr>
-                                <th class="p-2 border border-gray-200">TEMP ID</th>
-                                <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                                <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                                <th class="p-2 border border-gray-200">END DATE</th>
-                                <th class="p-2 border border-gray-200">STATUS</th>
-                                <th class="p-2 border border-gray-200">ACTIONS</th>
-                            </tr>
-                        </thead>
-    
-                        <tbody hx-get="{% url 'groups_temporary' %}" hx-trigger="load" id="temp-group" class="text-gray-700 ">
-                            
-                        </tbody>
-                    </table>
+                <div hx-get="{% url 'groups_temporary' %}" hx-trigger="load" id="temp-group" class="h-fit max-h-60 overflow-y-auto ">
+                    {% comment %} Temporary groups table container {% endcomment %}
                 </div>             
             </div>
         </div>
     </div>
 </div>
-<script>
-    const tab1 = document.getElementById('tab1-link');
-    const tab2 = document.getElementById('tab2-link');
-    tab1.addEventListener('click', function (event) {
-        event.preventDefault();
-        setTab1Active();
-        document.getElementById('tab1').style.display = 'block';
-        document.getElementById('tab2').style.display = 'none';
-    });
-
-    tab2.addEventListener('click', function (event) {
-        event.preventDefault();
-        setTab2Active();
-        document.getElementById('tab1').style.display = 'none';
-        document.getElementById('tab2').style.display = 'block';
-    });
-
-    function setTab1Active() {
-        tab2.classList.replace('bg-white', 'bg-primary');
-        tab2.classList.add('text-white');
-
-        tab1.classList.replace('bg-primary', 'bg-white');
-        tab1.classList.remove('text-white');
-    }
-
-    function setTab2Active() {
-        tab2.classList.replace('bg-primary', 'bg-white');
-        tab2.classList.remove('text-white');
-
-        tab1.classList.replace('bg-white', 'bg-primary');
-        tab1.classList.add('text-white');
-    }
-</script>
+<script src="{% static 'js/acr/group-list.js' %}"></script>
 {% endblock content %}

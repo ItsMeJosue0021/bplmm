@@ -1,54 +1,93 @@
-{% for item in groups %}
-<tr>
-    <td class="p-2 border border-gray-200">
-        {% if item.ID %}
-            {{ item.ID }}
-        {% elif item.ACR_GROUPID %}
-            {{ item.ACR_GROUPID }}
-        {% else %}
-            ""
-        {% endif %}
-    </td>
-    <td class="p-2 border border-gray-200">{{ item.DESCRIPTION|default:""|truncatechars:40 }}
-    </td>
-    <td class="p-2 border border-gray-200">{{ item.EFF_DATE|default:"" }}</td>
-    <td class="p-2 border border-gray-200">{{ item.END_DATE|default:"" }}</td>
-    <td class="p-2 border border-gray-200">
-        {% if item.ACTIVE == "T" %}
-        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-        {% elif item.ACTIVE == "F" %}
-        <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-        {% endif %}
-    </td>
-    <td class="w-40 p-2 border border-gray-200">
-        <div class="flex items-center justify-center space-x-1 px-4">
-            {% for group in user.groups.all %}
-                {% if group.name == "Approver" %}
-                    {% if item.ACTIVE == "F" %}
-                        <form method="post" action="{% url 'groups_approve' id=item.ID %}">
-                            {% csrf_token %}
-                            <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
-                        </form>
-                    {% endif %}
+<table class="w-full text-center border-collapse">
+    <thead class="bg-gray-100 sticky top-0 z-10">
+        <tr>
+            <th class="p-2 border border-gray-200">GROUP ID</th>
+            <th class="p-2 border border-gray-200">DESCRIPTION</th>
+            <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
+            <th class="p-2 border border-gray-200">END DATE</th>
+            <th class="p-2 border border-gray-200">STATUS</th>
+            <th class="p-2 border border-gray-200">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+        {% for item in groups %}
+        <tr>
+            <td class="w-24 p-2 border border-gray-200">
+                {% if item.ID %}
+                    {{ item.ID }}
+                {% elif item.ACR_GROUPID %}
+                    {{ item.ACR_GROUPID }}
+                {% else %}
+                    ""
                 {% endif %}
-            {% endfor %}
-            <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
-                <i class='bx bx-trash text-red-500 text-base'></i>
-            </a>
-            <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
-                <i class='bx bx-edit text-yellow-400 text-base'></i>
-            </a>
-            <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
-                <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
-            </a>
-        </div>
-    </td>
-</tr>
-{% empty %}
-<tr>
-    <td colspan="6" class="pt-4">
-        <span class=" text-red-600">No Record Found</span>
-    </td>
-</tr>
-{% endfor %}
+            </td>
+            <td class="p-2 border border-gray-200">{{ item.DESCRIPTION|default:""|truncatechars:40 }}
+            </td>
+            <td class="p-2 border border-gray-200">{{ item.EFF_DATE|default:"" }}</td>
+            <td class="p-2 border border-gray-200">{{ item.END_DATE|default:"" }}</td>
+            <td class="p-2 border border-gray-200">
+                {% if item.ACTIVE == "T" %}
+                <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                {% elif item.ACTIVE == "F" %}
+                <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                {% endif %}
+            </td>
+            <td class="w-40 p-2 border border-gray-200">
+                <div class="flex items-center justify-center space-x-1 px-4">
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Approver" %}
+                            {% if item.ACTIVE == "F" %}
+                                <form method="post" action="{% url 'groups_approve' id=item.ID %}">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                        <i class='bx bx-trash text-red-500 text-base'></i>
+                    </a>
+                    <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
+                        <i class='bx bx-edit text-yellow-400 text-base'></i>
+                    </a>
+                    <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
+                        <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="pt-4">
+                <span class=" text-red-600">No Record Found</span>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+    <tfoot class="pagination">
+        <tr class="step-links">
+            <td colspan="8">
+                <div class="flex space-x-4 items-center mt-3">
+                    {% if groups.has_previous %}
+                    <a hx-get="/groups/temporary?page={{ groups.previous_page_number }}" hx-trigger="click" hx-target="#temp-group"
+                        class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
+                    {% endif %}
+                    <span class="current text-sm">
+                        Page {{ groups.number }} of {{ groups.paginator.num_pages }}.
+                    </span>
+                    {% if groups.has_next %}
+                    <a hx-get="/groups/temporary?page={{ groups.next_page_number }}" hx-trigger="click" hx-target="#temp-group" 
+                        class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
+                    {% endif %}
+                </div> 
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+
+
 

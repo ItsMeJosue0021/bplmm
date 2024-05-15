@@ -5,20 +5,17 @@
 {% block content %}
 <div class="flex flex-col space-y-4">
     <div class="w-full flex items-center justify-center space-x-4">
-        <!-- <div class="flex">
-            <a href="{% url 'groups' %}" class="w-40 text-center py-5 text-base rounded-md bg-[#1ED760] text-white">ACR GROUPS</a>
-        </div> -->
         <div class="w-full flex items-center">
             <div class="w-full bg-white rounded-md p-3 px-4 shadow-sm">
                 <form action="{% url 'acr' %}" class="flex items-center justify-evenly gap-4">
-                    {% csrf_token %}
+                    <!-- {% csrf_token %} -->
                     <div class="flex">
                         {% if user.is_authenticated %}
                             {% for group in user.groups.all %}
                                 {% if group.name == "Encoder" %}
                                     <a href="{% url 'groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-primary text-white flex items-center justify-center">
                                         <i class='bx bx-list-plus text-2xl'></i>
-                                        <span class="ml-2">ACR GROUPS</span>
+                                        <span class="ml-2">NEW GROUP</span>
                                     </a>
                                 {% elif group.name == "Approver" %}
                                     <a href="{% url 'approver_groups' %}" class="w-40 py-2.5 text-sm rounded-md bg-primary text-white flex items-center justify-center">
@@ -29,19 +26,6 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <!-- <div class="relative w-full">
-                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <input type="text" id="description_search" name="description_search"
-                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Description" >
-                    </div> -->
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -107,66 +91,79 @@
                         </tr>
                     </thead>
     
-                        <tbody class="text-gray-700 ">
-                            {% if group %}
-                                <tr>
-                                    <td class="p-2 border border-gray-200">
-                                        {{ group.ACR_GROUPID }}
-                                    </td>
-                                    <td class="p-2 border border-gray-200">{{ group.DESCRIPTION|default:""|truncatechars:40 }}
-                                    </td>
-                                    <td class="p-2 border border-gray-200">{{ group.EFF_DATE|default:"" }}</td>
-                                    <td class="p-2 border border-gray-200">{{ group.END_DATE|default:"" }}</td>
-                                    <td class="p-2 border border-gray-200">
-                                        {% if group.ACTIVE == "T" %}
-                                        <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
-                                        {% elif group.ACTIVE == "F" %}
-                                        <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="w-40 p-2 border border-gray-200">
-                                        <div class="flex items-center justify-end space-x-1 px-4">
-                                            {% for user_group in user.groups.all %}
-                                                {% if user_group.name == "Approver" %}
-                                                    {% if group.ACTIVE == "F" %}
-                                                        <form method="post" action="{% url 'groups_approve' id=group.ID %}">
-                                                            {% csrf_token %}
-                                                            <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
-                                                        </form>
-                                                    {% endif %}
-                                
-                                                    {% if group.ACTIVE == "T" %}
-                                                        <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Deactivate</a>
-                                                    {% endif %}
-                                                {% elif user_group.name == "Encoder" %}
-                                                    {% if group.ACTIVE == "T" %}
-                                                            <div hx-get="{% url 'check_rvs_or_icd_exists' group_id=group.ACR_GROUPID %}" hx-trigger="load" class="flex items-center space-x-2">
-                                
-                                                            </div>
-                                                    {% endif %}
+                    <tbody class="text-gray-700 ">
+                        {% if group %}
+                            <tr>
+                                <td class="p-2 border border-gray-200">
+                                    {{ group.ACR_GROUPID }}
+                                </td>
+                                <td class="p-2 border border-gray-200">{{ group.DESCRIPTION|default:""|truncatechars:40 }}
+                                </td>
+                                <td class="p-2 border border-gray-200">{{ group.EFF_DATE|default:"" }}</td>
+                                <td class="p-2 border border-gray-200">{{ group.END_DATE|default:"" }}</td>
+                                <td class="p-2 border border-gray-200">
+                                    {% if group.ACTIVE == "T" %}
+                                    <span class="py-1 px-2 rounded text-green-800 bg-green-50 bg-opacity-80 text-xs font-light">Active</span>
+                                    {% elif group.ACTIVE == "F" %}
+                                    <span class="py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">Inactive</span>
+                                    {% endif %}
+                                </td>
+                                <td class="w-40 p-2 border border-gray-200">
+                                    <div class="flex items-center justify-end space-x-1 px-4">
+                                        {% for user_group in user.groups.all %}
+                                            {% if user_group.name == "Approver" %}
+                                                {% if group.ACTIVE == "F" %}
+                                                    <form method="post" action="{% url 'groups_approve' id=group.ID %}">
+                                                        {% csrf_token %}
+                                                        <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
+                                                    </form>
                                                 {% endif %}
-                                            {% endfor %}
-                                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% else %}
-                                <tr>
-                                    <td colspan="8" class="pt-4">
-                                        <span class=" text-red-600">No Record Found</span>
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
+                            
+                                                {% if group.ACTIVE == "T" %}
+                                                    <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Deactivate</a>
+                                                {% endif %}
+                                            {% elif user_group.name == "Encoder" %}
+                                                {% if group.ACTIVE == "T" %}
+                                                        <div class="flex items-center space-x-2">
+                                                            {% if button %}
+                                                                {% if button == 'rvs' %}
+                                                                    <a data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+                                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
+                                                                {% elif button == 'icd' %}
+                                                                    <a class="py-1 px-2 rounded text-primary border border-primary bg-white text-xs font-light flex items-center">
+                                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <a data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+                                                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
+                                                                <a href="{% url 'icds_create' group.ACR_GROUPID %}" class="py-1 px-2 rounded text-primary border border-primary bg-white text-xs font-light flex items-center">
+                                                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
+                                                            {% endif %}
+                                                        </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8" class="pt-4">
+                                    <span class=" text-red-600">No Record Found</span>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
     {% if main_rvs or temp_rvs %}
-    <div class="rounded-md h-full shadow">
+    <div class="rounded-md h-full flex flex-col space-y-4">
         {% if main_rvs %}
-        <div class="p-4 rounded-md bg-white mb-4 border-t-4 border-primary">
+        <div class="p-4 rounded-md bg-white border-t-4 border-primary shadow">
             <div class="flex flex-col h-full">
                 <div class="flex items-start justify-between w-full pb-4">
                     <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR RVS <span
@@ -248,7 +245,7 @@
         </div>
         {% endif %}
         {% if temp_rvs %}
-        <div class="p-4 rounded-md bg-white border-t-4 border-primary">
+        <div class="p-4 rounded-md bg-white border-t-4 border-primary shadow">
             <div class="flex flex-col h-fit">
                 <div class="flex items-start justify-between w-full pb-4">
                     <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR RVS <span
@@ -300,7 +297,7 @@
                                     <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
                                     <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
                                     <td class="w-40 p-2 border border-gray-300">
-                                        <div class="flex items-center justify-end space-x-1 px-4">
+                                        <div class="flex items-center justify-center space-x-1 px-4">
                                             <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
                                                 <i class='bx bx-trash text-red-500 text-base'></i>
                                             </a>
@@ -442,5 +439,40 @@
         </div>
     </div>
     {% endif %}
+
+{% if group %}
+    <div id="default-modal-{{ group_id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-[1300px] max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between px-5 py-2 border-b rounded-t dark:border-gray-600">
+                    {% comment %} <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        CREATION OF ACR RVS
+                    </h3> {% endcomment %}
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-{{ group_id }}">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body hx-post="{% url 'rvs_create_modal' group_id=group.ACR_GROUPID %}" hx-trigger="load" hx-target="this" -->
+                <div class="p-4 space-y-4">
+                    <form hx-post="{% url 'rvs_create_modal' group_id=group.ACR_GROUPID %}" hx-trigger="submit" hx-target="#form-cntr" method="POST">
+                        {% csrf_token %}
+                        <div class="flex flex-col">
+                            {% comment %} {% include "components/alerts/modal-messages.html" %} {% endcomment %}
+                            <div id="form-cntr">
+                                {% include "components/acr/fieldsets/acr-rvs.html" %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+{% endif %}
+
 {% endblock content %}

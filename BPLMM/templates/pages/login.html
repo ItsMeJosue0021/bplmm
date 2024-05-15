@@ -15,15 +15,26 @@
         <div class="sm:mx-auto w-full md:w-72">
             <form class="flex flex-col space-y-6 " action="{% url 'login' %}" method="POST">
               {% csrf_token %}
-                <div class="input-group">
+                <!-- <div class="input-group">
                     <input id="username" required="" type="text" name="username" autocomplete="off" class="login-input">
                     <label for="name" class="user-label">First Name</label>
+                </div> -->
+
+                <div class="relative">
+                    <input type="text" name="username" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Floating outlined</label>
                 </div>
 
-                <div class="input-group">
-                    <input id="password" required="" type="password" name="password" autocomplete="off" class="login-input">
-                    <label for="email" class="user-label">Password</label>
+                <div class="relative">
+                    <input type="password" name="password" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-inherit dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Password</label>
                 </div>
+
+
+                <!-- <div class="input-group">
+                    <input id="password" required="" type="password" name="password" autocomplete="off" class="login-input bg-black">
+                    <label for="email" class="user-label">Password</label>
+                </div> -->
                 <div>
                   <button type="submit"
                     class="flex w-full justify-center transition-all ease-in-out hover:scale-[.99] rounded-md bg-primary px-3 py-2 text-sm font-light leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
