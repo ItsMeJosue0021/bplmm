@@ -180,14 +180,30 @@ def rvs_create_modal(request, group_id):
 # rvs/<str:group_id>/temp
 # returns group related RVS from temporary table
 def temp_rvs_by_group(request, group_id):
-    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id)
-    return render(request, 'components/htmx-rendered/rvs-temp.html', {'rvs': paginate(request, rvs, 2)})
+    desc_search_query = request.GET.get('description_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id).order_by('-created_at')
+    else:
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id).order_by('-created_at')
+    # rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id)
+    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
 
 # rvs/<str:group_id>/main
 # returns group related RVS from main table
 def main_rvs_by_group(request, group_id):
-    rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
-    return render(request, 'components/htmx-rendered/rvs-main.html', {'rvs': paginate(request, rvs, 2)})
+    desc_search_query = request.GET.get('description_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        rvs = ACR_GROUPS_RVS.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id)
+    else:
+        rvs = ACR_GROUPS_RVS.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id)
+    # rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
+    return render(request, 'components/htmx-templates/rvs-main.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
 
 #-------------------------------------------------
 # GENERATE ACR GROUP ID
@@ -356,7 +372,6 @@ def claim_validation_rules(request):
     validation_rules_query_search_query = request.GET.get('validation_rules_search', '')
     rules = CLAIM_VALIDATION_INFOS.objects.filter(CONTENT__icontains=validation_rules_query_search_query)
     return render(request, 'components/mocks/claim-validation-rules.html', {'rules': rules})
-
 
 
 def paginate(request, data, items_per_page):

@@ -56,23 +56,7 @@
                     </div>
 
                     <div hx-get="{% url 'main_rvs_by_group' group_id=group_id %}" hx-trigger="load" class="h-fit max-h-80 overflow-y-auto ">
-                        {% comment %} <table class="w-full text-center border-collapse">
-                            <thead class="bg-gray-100 sticky top-0 z-10">
-                                <tr>
-                                    <th class="p-2 border border-gray-300">GROUP ID</th>
-                                    <th class="p-2 border border-gray-300">RVS CODE</th>
-                                    <th class="p-2 border border-gray-300">DESCRIPTION</th>
-                                    <th class="p-2 border border-gray-300">RVU</th>
-                                    <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
-                                    <th class="p-2 border border-gray-300">END DATE</th>
-                                    <th class="p-2 border border-gray-300">ACTIONS</th>
-                                </tr>
-                            </thead>
-                            <tbody hx-get="{% url 'main_rvs_by_group' group_id=group_id %}" hx-trigger="load"
-                                class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
-
-                            </tbody>
-                        </table> {% endcomment %}
+                        
                     </div>
                 </div>
             </div>
@@ -109,25 +93,9 @@
                         </div>
                     </div>
 
-                    <div class="h-fit max-h-60 overflow-y-auto ">
-                        <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
-                            <thead class="bg-gray-100 sticky top-0 z-10 ">
-                                <tr>
-                                    <th class="p-2 border border-gray-300">GROUP ID</th>
-                                    <th class="p-2 border border-gray-300">RVS CODE</th>
-                                    <th class="p-2 border border-gray-300">DESCRIPTION</th>
-                                    <th class="p-2 border border-gray-300">RVU</th>
-                                    <th class="p-2 border border-gray-300">EFFECTIVE DATE</th>
-                                    <th class="p-2 border border-gray-300">END DATE</th>
-                                    <th class="p-2 border border-gray-300">ACTIONS</th>
-                                </tr>
-                            </thead>
-
-                            <tbody hx-get="{% url 'temp_rvs_by_group' group_id=group_id %}" hx-trigger="load"
-                                id="temp-rvs" class="text-gray-700 ">
-
-                            </tbody>
-                        </table>
+                    <div  hx-get="{% url 'temp_rvs_by_group' group_id=group_id %}" hx-trigger="load"
+                    id="temp-rvs"  class="h-fit max-h-60 overflow-y-auto ">
+                        
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
-<table class="w-full text-center border-collapse">
-    <thead class="bg-gray-100 sticky top-0 z-10">
+<table class="w-full text-center border-collapse h-20 overflow-y-auto ">
+    <thead class="bg-gray-100 sticky top-0 z-10 ">
         <tr>
             <th class="p-2 border border-gray-300">GROUP ID</th>
             <th class="p-2 border border-gray-300">RVS CODE</th>
@@ -10,7 +10,7 @@
             <th class="p-2 border border-gray-300">ACTIONS</th>
         </tr>
     </thead>
-    <tbody class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+    <tbody  id="temp-group" class="text-gray-700 ">
         {% for item in rvs %}
             <tr>
                 <td class="p-2 border border-gray-300">{{ item.ACR_GROUPID }}</td>
@@ -20,9 +20,7 @@
                 <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
                 <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
                 <td class="w-40 p-2 border border-gray-300">
-                    <div class="flex items-center justify-end space-x-1 px-4">
-                        <a href="{% url 'set_rvs_rules' group_id=item.ACR_GROUPID %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
-                            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
+                    <div class="flex items-center justify-center space-x-1 px-4">
                         <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
                             <i class='bx bx-trash text-red-500 text-base'></i>
                         </a>
@@ -48,18 +46,18 @@
             <td colspan="8">
                 <div class="flex space-x-4 items-center mt-3">
                     {% if rvs.has_previous %}
-                    <a hx-get="/groups/main?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#main-group"
+                    <a hx-get="/rvs/{{ group_id }}/temp?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr"
                         class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
                     {% endif %}
                     <span class="current text-sm">
                         Page {{ rvs.number }} of {{ rvs.paginator.num_pages }}.
                     </span>
                     {% if rvs.has_next %}
-                    <a hx-get="/groups/main?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#main-group" 
+                    <a hx-get="/rvs/{{ group_id }}/temp?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr" 
                         class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
                     {% endif %}
                 </div> 
             </td>
         </tr>
     </tfoot>
-</table>
+</table> 

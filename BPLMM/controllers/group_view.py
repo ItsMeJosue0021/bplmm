@@ -103,7 +103,7 @@ def groups_temporary(request):
     else:
         groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=description_search, ACTIVE='F').order_by('-ID')
 
-    return render(request, 'components/htmx-rendered/groups-temp.html', {'groups': paginate(request, groups, 2)})
+    return render(request, 'components/htmx-templates/groups-temp.html', {'groups': paginate(request, groups, 2)})
 
 
 # /groups/main
@@ -120,7 +120,7 @@ def groups_main(request):
     else:
         groups = ACR_GROUPS.objects.filter(DESCRIPTION__icontains=description_search).order_by('-ACR_GROUPID')
 
-    return render(request, 'components/htmx-rendered/groups-main.html', {'groups': paginate(request, groups, 2)})
+    return render(request, 'components/htmx-templates/groups-main.html', {'groups': paginate(request, groups, 2)})
 
 
 # checks whether RVS or ICD exists in a GROUP
@@ -141,7 +141,7 @@ def check_rvs_or_icd_exists(request, group_id):
     else:
         button = None
 
-    return render(request, 'components/htmx-rendered/rvs-icd-buttons.html', {'button': button, 'group_id': group_id})
+    return render(request, 'components/htmx-templates/rvs-icd-buttons.html', {'button': button, 'group_id': group_id})
 
 #-------------------------------------------------
 # SHOW GROUP
