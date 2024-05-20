@@ -1,66 +1,48 @@
 import random
 
-class ACR_GROUPS_SERVICE:
+class ACR_GROUPS_RVS_SERVICE:
 
     def __init__(self, _repository):
         self.repository = _repository
 
-    # Add a new object to the TEMPORARY ACR GROUPS table
-    def create_temp(self, form, request):    
-        data = form.cleaned_data
-        acr_temp_group_data = {
-            'DESCRIPTION': data['DESCRIPTION'],
-            'EFF_DATE': data['EFF_DATE'],
-            'ACTIVE': 'F',
-            'END_DATE': data['END_DATE'],
-            'USERNAME': request.user.username
-        }
-        return self.repository.create_temp(acr_temp_group_data)
-    
-    # Add new object to the MAIN ACR GROUPS table
-    def create_main(self, acr_group_data):
-
-        acr_group_data = {
-            'ACR_GROUPID': self.generate_acr_group_id(),
-            'DESCRIPTION': acr_group_data.DESCRIPTION,
-            'EFF_DATE': acr_group_data.EFF_DATE,
-            'ACTIVE': 'T',
-            'END_DATE': acr_group_data.END_DATE
-        }
-        return self.repository.create_main(acr_group_data)
-    
-    # Generates a mock ACR_GROUPID by getting the most recent ACR_GROUPID and incrementing it
-    def generate_acr_group_id(self):
-        group_id = self.repository.get_most_recent_groupid()
-        if group_id:
-            prefix = group_id[:2]  
-            number = int(group_id[2:])  
-            number += 1 
-            new_group_id = prefix + str(number) 
-            return new_group_id
+    def create_temp(self, form, group_id, request):
+        if form.is_valid():
+            data = form.cleaned_data
+            acr_groups_rvs_data = {
+                'RVSCODE': data['RVSCODE'],
+                'ACR_GROUPID': group_id,
+                'DESCRIPTION': data['RVS_DESCRIPTION'],
+                'RVU': data['RVU'],
+                'EFF_DATE': data['RVS_EFF_DATE'],
+                'END_DATE': data['RVS_END_DATE'],
+                'USERNAME': request.user.username
+            }
+            return self.repository.create_temp(acr_groups_rvs_data)
         else:
-            return 'CR1000'
+            return None
+        
+    def create_temp_modal(self, form, group_id, request):
+        if form.is_valid():
+            data = form.cleaned_data
+            acr_groups_rvs_data = {
+                'RVSCODE': data['RVSCODE'],
+                'ACR_GROUPID': group_id,
+                'DESCRIPTION': data['DESCRIPTION'],
+                'RVU': data['RVU'],
+                'EFF_DATE': data['EFF_DATE'],
+                'END_DATE': data['END_DATE'],
+                'USERNAME': request.user.username
+            }
+            return self.repository.create_temp(acr_groups_rvs_data)
+        else:
+            return None
     
-
-
-
-
-  
+    def create_main_rvs_rules(self, data, group_id, rvs_code):
+        return self.repository.create_main_rvs_rules(self.to_rules_array(data, group_id, rvs_code))
         
-class ACR_PERRVS_RULES_SERVICE:
-
-    def __init__(self, _repository):
-        self.repository = _repository
-
-    def create_main(self, data, group_id, rvs_code):
-        return self.repository.create_main(self.to_rules_array(data, group_id, rvs_code))
+    def create_temp_rvs_rules(self, data, group_id, rvs_code):
+            return self.repository.create_temp_rvs_rules(self.to_rules_array(data, group_id, rvs_code))
         
-    def create_temp(self, data, group_id, rvs_code):
-            return self.repository.create_temp(self.to_rules_array(data, group_id, rvs_code))
-        
-        
-    def update(self, form, acr_groupid, rvscodes):
-        pass
         
     def to_rules_array(self, data, group_id, rvs_code):
         return {
@@ -113,5 +95,3 @@ class ACR_PERRVS_RULES_SERVICE:
             'CHECK_FACILITY_PCB': data['CHECK_FACILITY_PCB']
         }
         
-
-

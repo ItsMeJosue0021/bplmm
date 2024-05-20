@@ -1,14 +1,18 @@
-<div class="w-full px-4 rounded-t-lg bg-primary">
-    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">FORM 2</p>
+{% load static %}
+<div class="w-full px-4 bg-primary">
+    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">RULES FORM 2</p>
 </div>
-<div class="p-6 py-12 rounded-b-md bg-white shadow ">
+<div class="p-5 py-5 rounded-b-md bg-white shadow ">
     <div>
         <div class="w-full flex items-start space-x-14">
-            <div class="w-1/2 flex flex-col items-start justify-between space-y-12">
+            <div class="w-1/2 flex flex-col items-start justify-between space-y-8">
                 <div class="w-full ">
                     {% include "components/number-input.html" with name='FIXED_COPAY' label='Fixed Copay' old=form.FIXED_COPAY pholder='0' %}
                     {% for error in form.FIXED_COPAY.errors %}
-                        <div class="text-sm text-red-500">{{ error }}</div>
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
                     {% endfor %}
                 </div>
                 <div class="w-full flex flex-col space-y-1">
@@ -18,94 +22,209 @@
                         <label for="CHECK_SINGLE_PERIOD_DAYS" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
                     </div>
                     {% for error in form.CHECK_SINGLE_PERIOD_DAYS.errors %}
-                        <div class="text-sm text-red-500">{{ error }}</div>
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
                     {% endfor %}
                 </div>
 
-                {% if request.path == "/groups/rvs/set_rules" %}
+                {% if request.path == "/groups/rvs/new/" %}
                     <div class="w-full">
                         <div class="w-full flex flex-col space-y-1">
                             <label id="CHECK_WHAT_IS_COVERED_BY_AMT_LABEL" for="CHECK_WHAT_IS_COVERED_BY_AMT" class="text-gray-700 uppercase text-sm font-medium">Check what is covered by AMT</label>
-                            <input type="number" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="bg-transparent px-4 py-2.5 text-base rounded-md border border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
+                            <input type="text" id="CHECK_WHAT_IS_COVERED_BY_AMT" name="CHECK_WHAT_IS_COVERED_BY_AMT" placeholder="0" value="{{ form.CHECK_WHAT_IS_COVERED_BY_AMT.value|default:''|escape }}" class="bg-transparent px-4 py-2.5 text-base rounded-md border border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
                             <div class="w-full flex items-start justify-between">
                                 <div class="w-1/3 flex items-center ">
-                                    <input id="CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Sessions" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input {% if 'Session' in form.CHECK_WHAT_IS_COVERED_BY_AMT.value %} checked {% endif %} id="CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS" type="checkbox" name="CHECK_WHAT_IS_COVERED_BY_AMT_RADIO" value="Sessions" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Sessions</label>
                                 </div>
                                 <div class="w-1/3 flex items-center ">
-                                    <input id="CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="Cycles" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input {% if 'Cycle' in form.CHECK_WHAT_IS_COVERED_BY_AMT.value %} checked {% endif %} id="CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES" type="checkbox" name="CHECK_WHAT_IS_COVERED_BY_AMT_RADIO" value="Cycles" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Cycles</label>
                                 </div>
                                 <div class="w-1/3 flex items-center ">
-                                    <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_WHAT_IS_COVERED_BY_AMT" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <input {% if form.CHECK_WHAT_IS_COVERED_BY_AMT_RADIO.value == "N/A" %} checked {% endif %} id="CHECK_WHAT_IS_COVERED_BY_AMT_NOTAPPLICABLE" type="checkbox" name="CHECK_WHAT_IS_COVERED_BY_AMT_RADIO" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="CHECK_WHAT_IS_COVERED_BY_AMT" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
                                 </div>
                             </div>
+                            {% for error in form.CHECK_WHAT_IS_COVERED_BY_AMT.errors %}
+                            <div class="flex items-center space-x-1 text-sm text-red-500">
+                                <i class='bx bx-error-circle text-base'></i>
+                                <span>{{ error }}</span>
+                            </div>
+                            {% endfor %}
                         </div>
+                        <script>
+                                var CHECK_WHAT_IS_COVERED_BY_AMT = document.getElementById('CHECK_WHAT_IS_COVERED_BY_AMT');
+                                var CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS = document.getElementById('CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS');
+                                var CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES = document.getElementById('CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES');
+                                var CHECK_WHAT_IS_COVERED_BY_AMT_NOTAPPLICABLE = document.getElementById('CHECK_WHAT_IS_COVERED_BY_AMT_NOTAPPLICABLE');
+                            
+                                var CHECK_WHAT_IS_COVERED_BY_AMT_RADIO = document.getElementsByName('CHECK_WHAT_IS_COVERED_BY_AMT_RADIO');
+                            
+                                for(var i = 0; i < CHECK_WHAT_IS_COVERED_BY_AMT_RADIO.length; i++) {
+                                    CHECK_WHAT_IS_COVERED_BY_AMT_RADIO[i].addEventListener('change', function() {
+                                        if(CHECK_WHAT_IS_COVERED_BY_AMT_NOTAPPLICABLE.checked) {
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS.disabled = true;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES.disabled = true;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_NOTAPPLICABLE.disabled = false;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT.value = this.value;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS.checked = false;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES.checked = false;
+                                        } else {
+                                            CHECK_WHAT_IS_COVERED_BY_AMT.disabled = false;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS.disabled = false;
+                                            CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES.disabled = false;
+                            
+                                            if (this === CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS && this.checked) {
+                                                CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES.checked = false;
+                                            } else if (this === CHECK_WHAT_IS_COVERED_BY_AMT_CYCLES && this.checked) {
+                                                CHECK_WHAT_IS_COVERED_BY_AMT_SESSIONS.checked = false;
+                                            }
+
+                                            if (this.checked) {
+                                                var value = this.value;
+                                                if (CHECK_WHAT_IS_COVERED_BY_AMT.value == 1) {
+                                                    value = value.slice(0, -1); 
+                                                    console.log(value);
+                                                }
+                                                CHECK_WHAT_IS_COVERED_BY_AMT.value = CHECK_WHAT_IS_COVERED_BY_AMT.value + ' ' + value;
+                                            } else if (this === CHECK_WHAT_IS_COVERED_BY_AMT_NOTAPPLICABLE && this.checked) {
+                                                CHECK_WHAT_IS_COVERED_BY_AMT.value = this.value;
+                                            } else {
+                                                CHECK_WHAT_IS_COVERED_BY_AMT.value = CHECK_WHAT_IS_COVERED_BY_AMT.value.replace(this.value, '');
+                                            }
+                                        }
+                                    });
+                                }
+                        </script>  
                     </div>
                 {% endif %}
+
                 <div class="w-full">
                     <div class="w-full flex flex-col space-y-1">
-                        <label id="CHECK_LENGTH_OF_STAY_HOURS_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-gray-700 uppercase text-sm font-medium">Check Length of Stay</label>
-                        <input type="number" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class="px-4 py-2.5 text-base rounded-md border bg-transparent border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
+                        <label id="CHECK_LENGTH_OF_STAY_HOURS_LABEL" for="CHECK_LENGTH_OF_STAY" class="text-gray-700 uppercase text-sm font-medium">Check Length of Stay</label>
+                        <input type="text" id="CHECK_LENGTH_OF_STAY" name="CHECK_LENGTH_OF_STAY" placeholder="0" value="{{ form.CHECK_LENGTH_OF_STAY.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md border bg-transparent border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
                         <div class="w-full flex items-start justify-start">
                             <div class="w-1/3 flex items-center ">
-                                <input id="CHECK_LENGTH_OF_STAY_HOURS" type="radio" name="CHECK_LENGTH_OF_STAY" value="Hours" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <input {% if 'Hour' in form.CHECK_LENGTH_OF_STAY.value %} checked {% endif %} id="CHECK_LENGTH_OF_STAY_HOURS" type="checkbox" name="CHECK_LENGTH_OF_STAY_RADIO" value="Hours" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Hours</label>
                             </div>
                             <div class="w-1/3 flex items-center ">
-                                <input id="CHECK_LENGTH_OF_STAY_DAYS" type="radio" name="CHECK_LENGTH_OF_STAY" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <input {% if 'Day' in form.CHECK_LENGTH_OF_STAY.value %} checked {% endif %} id="CHECK_LENGTH_OF_STAY_DAYS" type="checkbox" name="CHECK_LENGTH_OF_STAY_RADIO" value="Days" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-200 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="CHECK_LENGTH_OF_STAY" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Days</label>
                             </div>
                         </div>
+                        {% for error in form.CHECK_LENGTH_OF_STAY.errors %}
+                        <div class="flex items-center space-x-1 text-sm text-red-500">
+                            <i class='bx bx-error-circle text-base'></i>
+                            <span>{{ error }}</span>
+                        </div>
+                        {% endfor %}
                     </div>
+                    <script>
+                        var CHECK_LENGTH_OF_STAY = document.getElementById('CHECK_LENGTH_OF_STAY');
+                        var CHECK_LENGTH_OF_STAY_HOURS = document.getElementById('CHECK_LENGTH_OF_STAY_HOURS');
+                        var CHECK_LENGTH_OF_STAY_DAYS = document.getElementById('CHECK_LENGTH_OF_STAY_DAYS');
+                    
+                        var CHECK_LENGTH_OF_STAY_RADIO = document.getElementsByName('CHECK_LENGTH_OF_STAY_RADIO');
+                    
+                        for(var i = 0; i < CHECK_LENGTH_OF_STAY_RADIO.length; i++) {
+                            CHECK_LENGTH_OF_STAY_RADIO[i].addEventListener('change', function() {
+                                if (this === CHECK_LENGTH_OF_STAY_HOURS && this.checked) {
+                                    CHECK_LENGTH_OF_STAY_DAYS.checked = false;
+                                } else if (this === CHECK_LENGTH_OF_STAY_DAYS && this.checked) {
+                                    CHECK_LENGTH_OF_STAY_HOURS.checked = false;
+                                }
+                                if (this.checked) {
+                                    CHECK_LENGTH_OF_STAY.value = CHECK_LENGTH_OF_STAY.value + ' ' + this.value;
+                                } else {
+                                    CHECK_LENGTH_OF_STAY.value = CHECK_LENGTH_OF_STAY.value.replace(this.value, '');
+                                }
+                            });
+                        }
+                    </script>
+                        
                 </div>
             </div>
     
-            <div class="w-1/2 flex flex-col items-start justify-between space-y-12">
+            <div class="w-1/2 flex flex-col items-start justify-between space-y-8">
                 <div class="w-full flex flex-col space-y-1">
                     <label id="CHECK_OCCURS_PER_CLAIM_LABEL" for="CHECK_OCCURS_PER_CLAIM" class="text-gray-700 uppercase text-sm font-medium">Check Occurence Per Claim</label>
-                    <input type="text" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" class=" px-4 py-2.5 text-base rounded-md bg-transparent border border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
+                    <input type="text" id="CHECK_OCCURS_PER_CLAIM" name="CHECK_OCCURS_PER_CLAIM" placeholder="0" value="{{ form.CHECK_OCCURS_PER_CLAIM.value|default:''|escape }}"  class=" px-4 py-2.5 text-base rounded-md bg-transparent border border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
                     <div class="w-full flex flex-row items-start justify-between">
                         <div class="w-full items-center">
-                            <input id="CHECK_OCCURS_PER_CLAIM_MULTIPLE" type="radio" name="CHECK_OCCURS_PER_CLAIM" value="M" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input {% if 'M' in form.CHECK_OCCURS_PER_CLAIM.value %} checked {% endif %} id="CHECK_OCCURS_PER_CLAIM_MULTIPLE" type="radio" name="CHECK_OCCURS_PER_CLAIM_RADIO" value="M" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_OCCURS_PER_CLAIM" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Multiple</label>
                         </div>
                         <div class="w-full items-center">
-                            <input id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_OCCURS_PER_CLAIM" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input {% if 'N/A' in form.CHECK_OCCURS_PER_CLAIM.value %} checked {% endif %}  id="CHECK_OCCURS_PER_CLAIM_NOTAPPLICABLE" type="radio" name="CHECK_OCCURS_PER_CLAIM_RADIO" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_OCCURS_PER_CLAIM" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
                         </div>
                     </div>
+                    {% for error in form.CHECK_OCCURS_PER_CLAIM.errors %}
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
+                    {% endfor %}
+                    <script>
+                        var CHECK_OCCURS_PER_CLAIM_RADIO = document.getElementsByName('CHECK_OCCURS_PER_CLAIM_RADIO');
+                        var CHECK_OCCURS_PER_CLAIM = document.getElementById('CHECK_OCCURS_PER_CLAIM');
+                    
+                        for(var i = 0; i < CHECK_OCCURS_PER_CLAIM_RADIO.length; i++) {
+                            CHECK_OCCURS_PER_CLAIM_RADIO[i].addEventListener('change', function() {
+                                if(this.checked) {
+                                    CHECK_OCCURS_PER_CLAIM.value = this.value;
+                                }
+                            });
+                        }
+                    </script> 
                 </div>
                 <div class="w-full flex flex-col space-y-1 ">
                     <label id="CHECK_OCCURS_PER_PERSON_LABEL" for="CHECK_OCCURS_PER_PERSON" class="text-gray-700 uppercase text-sm font-medium">Check Occurence Per Person</label>
-                    <input type="text" id="CHECK_OCCURS_PER_PERSON" name="CHECK_OCCURS_PER_PERSON" placeholder="0" class="px-4 py-2.5 text-base rounded-md bg-transparent border border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
+                    <input type="text" id="CHECK_OCCURS_PER_PERSON" name="CHECK_OCCURS_PER_PERSON" placeholder="0" value="{{ form.CHECK_OCCURS_PER_PERSON.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md bg-transparent border border-gray-300 placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
                     <div class="w-full flex-col items-start justify-between">
                         <div class="flex flex-row pb-2">
                             <div class="w-full flex items-center">
-                                <input id="CHECK_OCCURS_PER_PERSON_Multiple" type="radio" name="CHECK_OCCURS_PER_PERSON" value="M" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <input {% if 'Multiple' in form.CHECK_OCCURS_PER_PERSON.value %} checked {% endif %}  id="CHECK_OCCURS_PER_PERSON_Multiple" type="radio" name="CHECK_OCCURS_PER_PERSON" value="M" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="CHECK_OCCURS_PER_PERSON" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Multiple</label>
                             </div>
                             <div class="w-full flex items-center ">
-                                <input id="CHECK_OCCURS_PER_PERSON_NotApplicable" type="radio" name="CHECK_OCCURS_PER_PERSON" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <input {% if 'N/A' in form.CHECK_OCCURS_PER_PERSON.value %} checked {% endif %} id="CHECK_OCCURS_PER_PERSON_NotApplicable" type="radio" name="CHECK_OCCURS_PER_PERSON" value="N/A" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="CHECK_OCCURS_PER_PERSON" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not Applicable</label>
                             </div>
                         </div>
                         <div class="w-full flex items-center">
-                            <input id="DENIED_AND_PENDING_CLAIM" type="checkbox" name="DENIED_AND_PENDING_CLAIM" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <input {% if 'Including' in form.CHECK_OCCURS_PER_PERSON.value %} checked {% endif %} id="DENIED_AND_PENDING_CLAIM" type="checkbox" name="DENIED_AND_PENDING_CLAIM" class="cursor-pointer w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label id="DENIED_AND_PENDING_CLAIM_LABEL" for="DENIED_AND_PENDING_CLAIM" class="ms-2 text-sm  text-gray-700 dark:text-gray-300 italic">Including Denied and Pending Claim</label>
                         </div>
-                    </div>    
+                    </div>  
+                    {% for error in form.CHECK_OCCURS_PER_PERSON.errors %}
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
+                    {% endfor %}  
                 </div>
-                <div class="w-full flex flex-col space-y-1 pb-6">
+                <div class="w-full flex flex-col space-y-1">
                     <label for="CHECK_GENDER" class="text-gray-700 uppercase text-sm font-medium">Check Gender</label>
                     <select name="CHECK_GENDER" id="CHECK_GENDER" class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-transparent placeholder:italic placeholder:text-gray-400 bg-white bg-opacity-40">
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        <option value="B">Both</option>
+                        <option value="" selected disabled>--SELECT--</option>
+                        <option value="M" {% if "M" in form.CHECK_GENDER.value %} selected {% endif %}>Male</option>
+                        <option value="F" {% if "F" in form.CHECK_GENDER.value %} selected {% endif %}>Female</option>
+                        <option value="B" {% if "B" in form.CHECK_GENDER.value %} selected {% endif %}>Both</option>
                     </select>
+                    {% for error in form.CHECK_GENDER.errors %}
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
+                    {% endfor %}  
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="{% static 'js/acr/acr-inputs.js' %}"></script>

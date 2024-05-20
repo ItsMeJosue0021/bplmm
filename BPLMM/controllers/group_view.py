@@ -3,14 +3,56 @@ from django.db.models import Q # type: ignore
 from datetime import datetime
 from django.contrib import messages # type: ignore
 from django.core.paginator import Paginator # type: ignore
-from ..forms import SAVE_RVS_FORM, ACR_GROUPS_FORM
+from ..forms import SAVE_RVS_FORM, ACR_GROUPS_FORM, SAVE_RVS_RULES, SAVE_GROUP_RVS_RULES
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from ..decorators import encoder_required, approver_required
-from ..services import ACR_GROUPS_SERVICE
-from ..repositories import ACR_GROUPS_REPOSITORY
 from ..models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS
 from ..models import ACR_GROUPS_RVS_TEMP, ACR_GROUPS_ICDS_TEMP, ACR_GROUPS_ICDS
+
+#services
+from ..services.group_service import ACR_GROUPS_SERVICE
+from ..services.rvs_service import ACR_GROUPS_RVS_SERVICE
+
+#repositories
+from ..repositories.group_repository import ACR_GROUPS_REPOSITORY
+from ..repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
+
+
+acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
+
+
+def groups_rvs_new(request):
+    exception_error_message = 'An error occurred while saving the group.'
+    template = 'pages/acr/encoder/new_group_rvs_rules.html'
+    
+    if request.method == 'POST':
+        form = SAVE_GROUP_RVS_RULES(request.POST)
+        
+        print(request.POST) # testing
+        
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                group = acr_groups_service.create_temp(data, request)
+                if group is not None:
+                    rvs = acr_groups_rvs_service.create_temp(data, group.ACR_GROUPID, request)
+                    rules = acr_groups_rvs_service.create_temp_rvs_rules(data, group.ACR_GROUPID, data['RVSCODE'])
+                    if rvs is not None and rules is not None:
+                        messages.success(request, 'Form saved successfully.')
+                        return redirect('acr')
+                    else:
+                        raise Exception(exception_error_message)
+                else:
+                    raise Exception(exception_error_message)
+            except Exception as e:
+                messages.error(request, str(e))   
+        else:
+            messages.error(request, 'Please make sure all fields are filled out.')
+            return render(request, template, {'form': form})
+            
+    return render(request, template)
 
 #-------------------------------------------------
 # GROUPS

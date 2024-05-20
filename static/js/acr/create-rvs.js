@@ -11,7 +11,8 @@ function hideAllSections() {
 
 function resetStepperColors() {
     stepperNavButtons.forEach(button => {
-        button.style.backgroundColor = 'initial'; // Reset color to initial state
+        button.style.backgroundColor = 'initial';
+        button.querySelector('.core').classList.replace('text-primary', 'text-white');
     });
 }
 
@@ -24,16 +25,14 @@ navButtons.forEach(button => {
             hideAllSections();
             resetStepperColors();
             document.getElementById(nextSectionId).style.display = "block";
-            document.querySelector(`.stepper-nav-button[data-next="${nextSectionId}"]`).style.backgroundColor = '#43B02A';
-            // document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"]`).querySelector('.core').style.color = '#ffffff';
-            // document.querySelector(`.stepper-nav-button[data-next="${nextSectionId}"]`).classList.replace("bg-gray-50", "bg-black");
+            document.querySelector(`.stepper-nav-button[data-next="${nextSectionId}"]`).style.backgroundColor = '#ffffff';
+            document.querySelector(`.stepper-nav-button[data-next="${nextSectionId}"] .core`).classList.replace('text-white', 'text-primary');
         } else if (backSectionId) {
             hideAllSections();
             resetStepperColors();
             document.getElementById(backSectionId).style.display = "block";
-            document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"]`).style.backgroundColor = '#43B02A';
-            // document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"]`).querySelector('.core').style.color = '#ffffff';
-            // document.querySelector(`.stepper-nav-button[data-next="${nextSectionId}"]`).classList.replace("bg-gray-50", "bg-black");
+            document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"]`).style.backgroundColor = '#ffffff';
+            document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"] .core`).classList.replace('text-white', 'text-primary');
         }
     });
 });
@@ -47,16 +46,15 @@ stepperNavButtons.forEach(button => {
             hideAllSections();
             resetStepperColors();
             document.getElementById(nextSectionId).style.display = "block";
-            this.style.backgroundColor = '#43B02A';
-            // document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"]`).querySelector('.core').style.color = '#ffffff';
-            // this.classList.replace("bg-gray-50", "bg-black");
+            this.style.backgroundColor = '#ffffff';
+            this.querySelector('.core').classList.replace('text-white', 'text-primary');
         } else if (backSectionId) {
             hideAllSections();
             resetStepperColors();
             document.getElementById(backSectionId).style.display = "block";
-            this.style.backgroundColor = '#43B02A';
-            // document.querySelector(`.stepper-nav-button[data-next="${backSectionId}"]`).querySelector('.core').style.color = '#ffffff';
-            // this.classList.replace("bg-gray-50", "bg-black");
+            this.style.backgroundColor = '#ffffff';
+            
+            this.querySelector('.core').classList.replace('text-white', 'text-primary');
         }
     });
 });

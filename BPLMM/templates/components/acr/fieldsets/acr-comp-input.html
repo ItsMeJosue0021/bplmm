@@ -1,29 +1,53 @@
 {% load static %}
-<div class="w-full px-4 rounded-t-lg bg-primary">
-    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">FORM 5</p>
+<div class="w-full px-4 bg-primary">
+    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">RULES FORM 5</p>
 </div>
-<div class="p-8 py-12 rounded-b-md bg-white shadow ">
+<div class="p-4 py-5 rounded-b-md bg-white shadow ">
     <div class="w-full flex flex-col items-start space-y-14">
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
             <div class="w-full">
-                {% include "components/true-false-NA-checkbox.html" with name='TO_BE_TAGGED_FOR_POST_AUDIT' label='To Be Tagged For Post Audit' %}
+                {% include "components/true-false-NA-checkbox.html" with name='TO_BE_TAGGED_FOR_POST_AUDIT' label='To Be Tagged For Post Audit' formName=form.TO_BE_TAGGED_FOR_POST_AUDIT %}
+                {% for error in form.TO_BE_TAGGED_FOR_POST_AUDIT.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
             <div class="w-full">
-                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_RHU' label='Check Facility RHU' %}
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_RHU' label='Check Facility RHU' formName=form.CHECK_FACILITY_RHU %}
+                {% for error in form.CHECK_FACILITY_RHU.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
             <div class="w-full">
-                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_PCB' label='Check Facility PCB' %}
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_FACILITY_PCB' label='Check Facility PCB' formName=form.CHECK_FACILITY_PCB %}
+                {% for error in form.CHECK_FACILITY_PCB.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
             <div class="w-full">
-                {% include "components/true-false-NA-checkbox.html" with name='CHECK_QUALIFIER' label='Check Qualifier'%}
+                {% include "components/true-false-NA-checkbox.html" with name='CHECK_QUALIFIER' label='Check Qualifier' formName=form.CHECK_QUALIFIER %}
+                {% for error in form.CHECK_QUALIFIER.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
             <div class="w-full flex flex-col space-y-2">
                 <div class="w-full flex flex-col space-y-1 ">
                     <div class="w-full">
@@ -87,6 +111,12 @@
                     <div class="py-1 text-sm">
                         <p id="PREVIEW" class="font-medium ">Preview: <span class="font-normal italic"></span></p>
                     </div>
+                    {% for error in form.CHECK_AGE.errors %}
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
+                    {% endfor %} 
                 </div>
             </div>
             <div class="w-full flex flex-col space-y-1 ">
@@ -149,6 +179,12 @@
                 <div class="py-1 text-sm">
                     <p class="font-medium">Preview: <span id="deduct-45-days-preview" class="font-normal italic"></span></p>
                 </div>
+                {% for error in form.DEDUCT_FROM_45DAYS.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
         </div>
     </div>
@@ -183,7 +219,7 @@
             }
             value = DEDUCT_FROM_45DAYS_DAYS.value;
             if (DEDUCT_FROM_45DAYS_NUMBER.value) {
-                value += ' PER ' + DEDUCT_FROM_45DAYS_NUMBER.value;
+                value += ' DAYS PER ' + DEDUCT_FROM_45DAYS_NUMBER.value;
             }
             value += ' ' + type;
             value = value.toUpperCase();

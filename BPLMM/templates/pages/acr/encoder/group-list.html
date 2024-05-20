@@ -14,7 +14,14 @@
             {% include "components/acr/fieldsets/acr-group.html" %}
         </form>
     </div>
-    <div class="rounded-md bg-white h-full shadow">
+
+    <div class="w-full flex items-center space-x-6">
+        <a href="{% url 'groups_new' %}" class="bg-white hover:text-primary border border-gray-200 hover:border-primary shadow rounded-md py-2.5 w-full text-center text-base">CREATE RVS</a>
+        <a href="" class="bg-white hover:text-primary border border-gray-200 hover:border-primary shadow rounded-md py-2.5 w-full text-center text-base">CREATE ICD</a>
+    </div>
+
+    
+    <!-- <div class="rounded-md bg-white h-full shadow">
         <div id="navigationn" class="w-full flex items-center bg-primary rounded-t-md border-t-2 border-primary">
             <a href="#" id="tab1-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN GROUP</a>
             <a href="#" id="tab2-link"  hx-target="#main-group" class=" py-2 px-4 bg-primary text-white rounded-t-md text-sm italic">STEMPORARY GROUPS</a>
@@ -49,7 +56,7 @@
                     </div>
                 </div>
                 <div hx-get="{% url 'groups_main' %}" hx-trigger="load" id="main-group" class="h-fit max-h-80 overflow-y-auto ">
-                   {% comment %} Main groups table container {% endcomment %}
+                   
                 </div>
             </div>
         </div>
@@ -83,11 +90,11 @@
                 </div>
     
                 <div hx-get="{% url 'groups_temporary' %}" hx-trigger="load" id="temp-group" class="h-fit max-h-60 overflow-y-auto ">
-                    {% comment %} Temporary groups table container {% endcomment %}
+                    
                 </div>             
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
-<script src="{% static 'js/acr/group-list.js' %}"></script>
+{% comment %} <script src="{% static 'js/acr/group-list.js' %}"></script> {% endcomment %}
 {% endblock content %}

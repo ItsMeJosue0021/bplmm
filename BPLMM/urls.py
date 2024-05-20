@@ -67,5 +67,10 @@ urlpatterns = [
         path('rvs/codes/', views.rvs_codes),
         path('spc/codes/', views.spc_codes),
         path('claim-valitaions-rules/', views.claim_validation_rules),
+        
+    #----------------------------------------------------------------------------------
+        path('groups/rvs/new/', groups_rvs_new, name='groups_rvs_new'),
+        
+        path('rvscode/existence-check', views.check_if_rvscode_exists, name='check_rvscode_existence')
 
 ]

@@ -1,77 +1,97 @@
 {% load static %}
-<div class="w-full px-4 rounded-t-lg bg-primary">
-    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">FORM 1</p>
+<div class="w-full px-4 bg-primary">
+    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">RULES FORM 1</p>
 </div>
 <div
-    class="p-6 py-12 rounded-b-md flex flex-col space-y-8 bg-white shadow">
-    <div class="w-full flex flex-col space-y-12">
+    class="px-4 py-5 rounded-b-md flex flex-col space-y-8 bg-white shadow">
+    <div class="w-full flex flex-col space-y-8">
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14">
+        <div class="w-full flex flex-row items-start justify-between space-x-10">
             <div class="w-full ">
                 {% include "components/date-input.html" with name='EFF_DATE' label='Effectivity Date' old=form.EFF_DATE %}
                 {% for error in form.EFF_DATE.errors %}
-                <div class="text-xs text-red-500">{{ error }}</div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
                 {% endfor %}
             </div>
             <div class="w-full ">
                 {% include "components/date-input.html" with name='EFF_END_DATE' label='Effectivity End Date' old=form.EFF_END_DATE %}
                 {% for error in form.EFF_END_DATE.errors %}
-                <div class="text-xs text-red-500">{{ error }}</div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
                 {% endfor %}
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14">
+        <div class="w-full flex flex-row items-start justify-between space-x-10">
             <div class="w-full">
-                {% include "components/number-input.html" with name='PRIMARY_HOSP_SHARE' label='Primary Hospital Share' pholder='0.00' %}
+                {% include "components/number-input.html" with name='PRIMARY_HOSP_SHARE' label='Primary Hospital Share' pholder='0.00' old=form.PRIMARY_HOSP_SHARE %}
                 {% for error in form.PRIMARY_HOSP_SHARE.errors %}
-                <div class="text-xs text-red-500">{{ error }}</div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
                 {% endfor %}
             </div>
             <div class="w-full">
-                {% include "components/number-input.html" with name='SECONDARY_HOSP_SHARE' label='Secondary Hospital Share' pholder='0.00' %}
+                {% include "components/number-input.html" with name='SECONDARY_HOSP_SHARE' label='Secondary Hospital Share' pholder='0.00' old=form.SECONDARY_HOSP_SHARE %}
                 {% for error in form.SECONDARY_HOSP_SHARE.errors %}
-                <div class="text-xs text-red-500">{{ error }}</div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
                 {% endfor %}
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14">
+        <div class="w-full flex flex-row items-start justify-between space-x-10">
 
             <div class="w-full">
-                {% include "components/number-input.html" with name='PRIMARY_PROF_SHARE' label='Primary Professional Share' pholder='0.00' %}
+                {% include "components/number-input.html" with name='PRIMARY_PROF_SHARE' label='Primary Professional Share' pholder='0.00' old=form.PRIMARY_PROF_SHARE %}
                 {% for error in form.PRIMARY_PROF_SHARE.errors %}
-                <div class="text-xs text-red-500">{{ error }}</div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
                 {% endfor %}
             </div>
 
             <div class="w-full ">
-                {% include "components/number-input.html" with name='SECONDARY_PROF_SHARE' label='Secondary Professional Share' pholder='0.00' %}
+                {% include "components/number-input.html" with name='SECONDARY_PROF_SHARE' label='Secondary Professional Share' pholder='0.00' old=form.SECONDARY_PROF_SHARE%}
                 {% for error in form.SECONDARY_PROF_SHARE.errors %}
-                <div class="text-xs text-red-500">{{ error }}</div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
                 {% endfor %}
             </div>
-    </div>
+        </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14">
-                <div class="w-full">
-                    {% include "components/number-input.html" with name='PCF_HOSP_SHARE' label='PCF Hospital Share' pholder='0.00' %}
-                    {% for error in form.PCF_HOSP_SHARE.errors %}
-                    <div class="text-xs text-red-500">{{ error }}</div>
-                    {% endfor %}
+        <div class="w-full flex flex-row items-start justify-between space-x-10">
+            <div class="w-full">
+                {% include "components/number-input.html" with name='PCF_HOSP_SHARE' label='PCF Hospital Share' pholder='0.00' old=form.PCF_HOSP_SHARE %}
+                {% for error in form.PCF_HOSP_SHARE.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
                 </div>
-                
+                {% endfor %}
+            </div>
+            
 
-                <div class="w-full">
-                    {% include "components/number-input.html" with name='PCF_PROF_SHARE' label='PCF Professional Share' pholder='0.00' %}
-                    {% for error in form.PCF_PROF_SHARE.errors %}
-                        <div class="flex items-center space-x-1 text-xs text-red-500">
-                            <i class='bx bx-error-circle text-sm'></i>
-                            <span>{{ error }}</span>
-                        </div>
-                    {% endfor %}
-                </div>
-                    
+            <div class="w-full">
+                {% include "components/number-input.html" with name='PCF_PROF_SHARE' label='PCF Professional Share' pholder='0.00' old=form.PCF_PROF_SHARE %}
+                {% for error in form.PCF_PROF_SHARE.errors %}
+                    <div class="flex items-center space-x-1 text-sm text-red-500">
+                        <i class='bx bx-error-circle text-base'></i>
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

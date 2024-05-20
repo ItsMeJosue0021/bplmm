@@ -1,52 +1,112 @@
 {% load static %}
-<div class="w-full px-4 rounded-t-lg bg-primary">
-    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">FORM 3</p>
+<div class="w-full px-4 bg-primary">
+    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">RULES FORM 3</p>
 </div>
-<div class="p-8 py-12 rounded-b-md bg-white shadow">
-    <div class="w-full flex flex-col items-start space-y-14">
+<div class="p-4 py-5 rounded-b-md bg-white shadow">
+    <div class="w-full flex flex-col items-start space-y-8">
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
             <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='ACTIVE' label='Active' %}
+                {% include "components/true-false-checkbox.html" with name='ACTIVE' label='Active' formName=form.ACTIVE %}
+                {% for error in form.ACTIVE.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
             <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H1' label='Check Facility H1' %}
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H1' label='Check Facility H1' formName=form.CHECK_FACILITY_H1 %}
+                {% for error in form.CHECK_FACILITY_H1.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
             <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H2' label='Check Facility H2' %}
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H2' label='Check Facility H2' formName=form.CHECK_FACILITY_H2 %}
+                {% for error in form.CHECK_FACILITY_H2.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
             <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H3' label='Check Facility H3' %}
-            </div>
-        </div>
-
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
-            <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_ASC' label='Check Facility ASC' %}
-            </div>
-            <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_PCF' label='Check Facility PCF' %}
-            </div>
-        </div>
-
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
-            <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_MAT' label='Check Facility MAT' %}
-            </div>
-            <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_FSDC' label='Check Facility FSDC' %}
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_H3' label='Check Facility H3' formName=form.CHECK_FACILITY_H3 %}
+                {% for error in form.CHECK_FACILITY_H3.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
         </div>
 
-        <div class="w-full flex flex-row items-start justify-between space-x-14 ">
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
             <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_DIRECT_FILING' label='Check Direct Filing' %}
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_ASC' label='Check Facility ASC' formName=form.CHECK_FACILITY_ASC %}
+                {% for error in form.CHECK_FACILITY_ASC.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
             <div class="w-full">
-                {% include "components/true-false-checkbox.html" with name='CHECK_GIDAS' label='Check GIDAS' %}
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_PCF' label='Check Facility PCF' formName=form.CHECK_FACILITY_PCF %}
+                {% for error in form.CHECK_FACILITY_PCF.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
+            <div class="w-full">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_MAT' label='Check Facility MAT' formName=form.CHECK_FACILITY_MAT %}
+                {% for error in form.CHECK_FACILITY_MAT.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
+            </div>
+            <div class="w-full">
+                {% include "components/true-false-checkbox.html" with name='CHECK_FACILITY_FSDC' label='Check Facility FSDC' formName=form.CHECK_FACILITY_FSDC %}
+                {% for error in form.CHECK_FACILITY_FSDC.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
+            </div>
+        </div>
+
+        <div class="w-full flex flex-row items-start justify-between space-x-8 ">
+            <div class="w-full">
+                {% include "components/true-false-checkbox.html" with name='CHECK_DIRECT_FILING' label='Check Direct Filing' formName=form.CHECK_DIRECT_FILING %}
+                {% for error in form.CHECK_DIRECT_FILING.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
+            </div>
+            <div class="w-full">
+                {% include "components/true-false-checkbox.html" with name='CHECK_GIDAS' label='Check GIDAS' formName=form.CHECK_GIDAS %}
+                {% for error in form.CHECK_GIDAS.errors %}
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endfor %} 
             </div>
         </div>
 

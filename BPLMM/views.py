@@ -8,10 +8,16 @@ from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from .decorators import encoder_required, approver_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout # type: ignore
-from .services import ACR_GROUPS_SERVICE, ACR_GROUPS_RVS_SERVICE, ACR_PERRVS_RULES_SERVICE
-from .repositories import ACR_GROUPS_REPOSITORY, ACR_GROUPS_RVS_REPOSITORY, ACR_PERRVS_RULES_REPOSITORY
 from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULES, RVS_CODE_MOCK, SPC_CODE_MOCK
 from .models import CLAIM_VALIDATION_INFOS, ACR_GROUPS_RVS_TEMP, ACR_GROUPS_ICDS_TEMP, ACR_GROUPS_ICDS
+
+#services
+from .services.group_service import ACR_GROUPS_SERVICE
+from .services.rvs_service import ACR_GROUPS_RVS_SERVICE
+
+#repositories
+from .repositories.group_repository import ACR_GROUPS_REPOSITORY
+from .repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 
 
 #-------------------------------------------------
@@ -72,18 +78,20 @@ def acr(request):
     request.session['icd_search'] = icd_search
 
     group = None
+    main_rvs_single = None
+    temp_rvs_single = None
     context = {}
 
     if group_id_search:
         group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id_search).first()
 
     elif rvs_search:
-        main_rvs = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search).first()
-        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search).first()
-        if main_rvs:
-            group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_rvs.ACR_GROUPID).first()
-        elif temp_rvs:
-            group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_rvs.ACR_GROUPID).first()
+        main_rvs_single = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search).first()
+        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search).first()
+        if main_rvs_single:
+            group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_rvs_single.ACR_GROUPID).first()
+        elif temp_rvs_single:
+            group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_rvs_single.ACR_GROUPID).first()
 
     elif icd_search:
         main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=icd_search).first()
@@ -109,7 +117,16 @@ def acr(request):
         else:
             button = None
 
-        context = {'group': group, 'temp_rvs': temp_rvs, 'main_rvs': main_rvs, 'temp_icds': temp_icds, 'main_icds': main_icds, 'button': button}
+        context = {
+            'group': group, 
+            'temp_rvs': temp_rvs, 
+            'main_rvs': main_rvs, 
+            'temp_icds': temp_icds, 
+            'main_icds': main_icds, 
+            'button': button, 
+            'main_rvs_single': main_rvs_single, 
+            'temp_rvs_single': temp_rvs_single
+            }
 
     return render(request, 'pages/acr/acr.html', context)
 
@@ -157,25 +174,26 @@ def rvs_create(request, group_id):
 
 
 def rvs_create_modal(request, group_id):
+    template = 'components/acr/fieldsets/acr-rvs.html'
     acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
     form = SAVE_RVS_FORM(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
 
             try:
-                acr_groups_rvs = acr_groups_rvs_service.create(form, group_id, request)
+                acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(form, group_id, request)
 
                 if acr_groups_rvs is not None:  
                     form = SAVE_RVS_FORM()
                     messages.success(request, 'RVS has been saved successfully.')
-                    return render(request, 'components/acr/fieldsets/acr-rvs.html', {'form': form, 'group_id': group_id})
+                    return render(request, template, {'form': form, 'group_id': group_id})
                 else:
                     raise Exception('An error occurred while saving RVS.')
             except Exception as e:
                 messages.error(request, str(e))
         else:
              messages.error(request, 'Please make sure all fields are filled out.')
-    return render(request, 'components/acr/fieldsets/acr-rvs.html', {'form': form, 'group_id': group_id})
+    return render(request, template, {'form': form, 'group_id': group_id})
 
 # rvs/<str:group_id>/temp
 # returns group related RVS from temporary table
@@ -228,7 +246,6 @@ def rvs_update(request):
 
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
     acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
-    acr_perrvs_rules_service = ACR_PERRVS_RULES_SERVICE(ACR_PERRVS_RULES_REPOSITORY())
 
     if request.method == 'POST':
 
@@ -374,6 +391,18 @@ def claim_validation_rules(request):
     return render(request, 'components/mocks/claim-validation-rules.html', {'rules': rules})
 
 
+def check_if_rvscode_exists(request):
+    code = request.GET.get('RVSCODE', None)
+    rvscode = None
+    rvscode_main = ACR_GROUPS_RVS.objects.filter(RVSCODE=code).exists()
+    rvscode_temp = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code).exists()
+    if rvscode_main:
+        rvscode = rvscode_main
+    elif rvscode_temp:
+        rvscode = rvscode_temp
+    return render(request, 'components/check_rvscode_existence.html', {'rvscode': rvscode})
+    
+    
 def paginate(request, data, items_per_page):
     paginator = Paginator(data, items_per_page) 
     page_number = request.GET.get('page', 1)

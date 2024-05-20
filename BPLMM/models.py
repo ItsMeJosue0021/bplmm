@@ -98,7 +98,7 @@ class ACR_GROUPS_RVS_LOG(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERRVS_RULES(models.Model):
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255) 
     RVSCODE = models.CharField(max_length=255) 
     EFF_DATE = models.DateField()
     PRIMARY_AMOUNT = models.DecimalField(max_digits=10, decimal_places=2)  
@@ -149,7 +149,7 @@ class ACR_PERRVS_RULES(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERRVS_RULES_TEMP(models.Model):
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255, null=True) 
     RVSCODE = models.CharField(max_length=255) 
     EFF_DATE = models.DateField()
     PRIMARY_AMOUNT = models.DecimalField(max_digits=10, decimal_places=2)  
@@ -211,7 +211,7 @@ class ACR_PERRVS_RULES_LOG(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERICD_RULES(models.Model):
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255) 
     ICDCODE = models.CharField(max_length=255) 
     EFF_DATE = models.DateField()
     PRIMARY_AMOUNT = models.DecimalField(max_digits=10, decimal_places=2)  
@@ -261,7 +261,7 @@ class ACR_PERICD_RULES(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERICD_RULES_TEMP(models.Model):
-    ACR_GROUPID = models.ForeignKey(ACR_GROUPS, on_delete=models.CASCADE)
+    ACR_GROUPID = models.CharField(max_length=255, null=True) 
     ICDCODE = models.CharField(max_length=255) 
     EFF_DATE = models.DateField()
     PRIMARY_AMOUNT = models.DecimalField(max_digits=10, decimal_places=2)  

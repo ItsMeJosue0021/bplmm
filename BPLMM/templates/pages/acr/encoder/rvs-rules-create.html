@@ -2,76 +2,22 @@
 {% load static %}
 
 {% block content %}
+<div class="flex items-center mb-4 group">
+    <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
+    <a href="{% url 'acr' %}"
+        class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back to Home</a>
+</div>
 <div class="h-auto">
-    <div class="">
-        <ol
-            class="flex items-center w-full text-sm font-medium text-center text-white dark:text-gray-400 sm:text-base">
-            <li
-                class="  flex md:w-full items-center sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section1" style="background-color: #43B02A;"
-                    class="stepper-nav-button  rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-white dark:after:text-gray-500 cursor-pointer">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
-                </span>
-            </li>
-            <li
-                class="flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section2"
-                    class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white">></span>
-                </span>
-            </li>
-            <li
-                class=" flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section3"
-                    class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white  rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white ">></span>
-                </span>
-            </li>
-            <li
-                class=" flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section4"
-                    class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white  rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white ">></span>
-                </span>
-            </li>
-            <li
-                class=" flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section5"
-                    class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white  rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white ">></span>
-                </span>
-            </li>
-            <li
-                class=" flex md:w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-white after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
-                <span data-next="section6"
-                    class="stepper-nav-button rounded-full flex items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500 cursor-pointer">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white  rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white ">></span>
-                </span>
-            </li>
-            <li class=" flex items-center cursor-pointer">
-                <span data-next="section7" class="stepper-nav-button rounded-full">
-                    <span
-                        class="core w-6 h-6 bg-transparent border-2 border-white  rounded-full flex justify-center items-center mx-auto text-2xl  lg:w-10 lg:h-10 text-white ">></span>
-                </span>
-            </li>
-        </ol>
-    </div>
-
+    {% include 'components/stepper_v2.html' %}
     <div class="h-full">
         <form action="{% url 'set_rvs_rules' group_id=group_id %}" method="POST">
-            <div class="flex flex-col space-y-4">
+            <div class="flex flex-col">
                 {% csrf_token %}
                 <div>
                     <div id="section1" data-section="1" class="form-section">
                         {% include "components/acr/fieldsets/acr-inputs.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a href="{% url 'rvs_create' group_id=group_id %}" class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
+                            <a href="{% url 'acr' %}" class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
                             <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
                                 data-next="section2">Next</a>
                         </div>
