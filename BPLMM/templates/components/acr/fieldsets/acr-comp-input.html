@@ -52,11 +52,11 @@
                 <div class="w-full flex flex-col space-y-1 ">
                     <div class="w-full">
                         <label for="CHECK_AGE" class="text-gray-700 uppercase text-sm font-medium">Check Age</label>
-                        <input type="hidden" name="CHECK_AGE" id="CHECK_AGE">
+                        <input type="hidden" name="CHECK_AGE" id="CHECK_AGE" value="{{ form.CHECK_AGE.value|default:''|escape }}">
                     </div>
                     <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-300">
                         <div class="w-full flex items-center">
-                            <input id="CHECK_AGE_NOT_APPLICABLE" type="checkbox" name="CHECK_AGE" value="N/A"
+                            <input id="CHECK_AGE_NOT_APPLICABLE" type="checkbox" value="N/A" {% if 'N/A' in form.CHECK_AGE.value %} checked {% endif %}
                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                             <label for="CHECK_AGE" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not
                                 Applicable</label>
@@ -66,44 +66,44 @@
                         <div class="w-full flex items-start justify-between space-x-4">
                             <div class="w-1/5">
                                 <label for="OPERATOR" class="text-sm">Operator</label>
-                                <select id="OPERATOR" type="text"
+                                <select id="OPERATOR" type="text" name="OPERATOR"
                                     class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 bg-white bg-opacity-40">
-                                    <option disabled></option>
+                                    <option selected disabled value="">Select</option>
                                     <option value="">N/A</option>
-                                    <option value="<"><</option>
-                                    <option value=">">></option>
-                                    <option value="<="><=</option>
-                                    <option value=">=">>=</option>
+                                    <option value="<" {% if '<' in form.OPERATOR.value %} selected {% endif %}><</option>
+                                    <option value=">" {% if '>' in form.OPERATOR.value %} selected {% endif %}>></option>
+                                    <option value="<=" {% if '<=' in form.OPERATOR.value %} selected {% endif %}><=</option>
+                                    <option value=">=" {% if '>=' in form.OPERATOR.value %} selected {% endif %}>>=</option>
                                 </select>
                             </div>
                             <div class="w-1/5">
                                 <label for="MINIMUM" class="text-sm">Minimun</label>
-                                <input id="MINIMUM" type="number" placeholder="0"
+                                <input id="MINIMUM" type="number" placeholder="0" name="MINIMUM" value="{{ form.MINIMUM.value|default:''|escape }}"
                                     class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic bg-white bg-opacity-40">
                             </div>
                             <div class="w-1/5">
                                 <label for="MINIMUM_Y_D" class="text-sm">Day/Year</label>
-                                <select id="MINIMUM_Y_D" type="text"
+                                <select id="MINIMUM_Y_D" type="text" name="MINIMUM_YD" 
                                     class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 bg-white bg-opacity-40">
-                                    <option selected disabled value="">--Select--</option>
+                                    <option selected disabled value="">Select</option>
                                     <option value="">N/A</option>
-                                    <option value="y">Year/s</option>
-                                    <option value="d">Day/s</option>
+                                    <option value="y" {% if 'y' in form.MINIMUM_YD.value %} selected {% endif %}>Year/s</option>
+                                    <option value="d" {% if 'd' in form.MINIMUM_YD.value %} selected {% endif %}>Day/s</option>
                                 </select>
                             </div>
                             <div class="w-1/5">
                                 <label for="MAXIMUM" class="text-sm">Maximum</label>
-                                <input id="MAXIMUM" type="number" placeholder="0"
+                                <input id="MAXIMUM" type="number" placeholder="0" name="MAXIMUM" value="{{ form.MAXIMUM.value|default:''|escape }}"
                                     class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 placeholder:italic bg-white bg-opacity-40">
                             </div>
                             <div class="w-1/5">
                                 <label for="MAXIMUM_Y_D" class="text-sm">Day/Year</label>
-                                <select id="MAXIMUM_Y_D" type="text"
+                                <select id="MAXIMUM_Y_D" type="text" name="MAXIMUM_YD"
                                     class="w-full px-4 py-2.5 text-base rounded-lg border border-gray-300 bg-white bg-opacity-40 ">
-                                    <option selected disabled value="">--Select--</option>
+                                    <option selected disabled value="">Select</option>
                                     <option value="">N/A</option>
-                                    <option value="y">Year/s</option>
-                                    <option value="d">Day/s</option>
+                                    <option value="y" {% if 'y' in form.MAXIMUM_YD.value %} selected {% endif %}>Year/s</option>
+                                    <option value="d" {% if 'd' in form.MAXIMUM_YD.value %} selected {% endif %}>Day/s</option>
                                 </select>
                             </div>
                         </div>
@@ -122,20 +122,20 @@
             <div class="w-full flex flex-col space-y-1 ">
                 <div class="w-full">
                     <label for="DEDUCT_FROM_45DAYS" class="text-gray-700 uppercase text-sm font-medium">Deduct from 45 days</label>
-                    <input type="hidden" name="DEDUCT_FROM_45DAYS" id="DEDUCT_FROM_45DAYS_INPUT">
+                    <input type="hidden" name="DEDUCT_FROM_45DAYS" id="DEDUCT_FROM_45DAYS_INPUT" value="{{ form.DEDUCT_FROM_45DAYS.value|default:''|escape }}">
                 </div>
                 <div class="w-full flex items-start justify-between py-2.5 border-t border-gray-300">
                     <div class="w-full flex items-center">
                         <input id="DEDUCT_FROM_45DAYS_CONDITIONAL" type="radio" name="DEDUCT_FROM_45DAYS_RADIO"
                             value="N/A"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            class="w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-green-400 dark:focus:ring-green-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="DEDUCT_FROM_45DAYS"
                             class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Conditional</label>
                     </div>
                     <div class="w-full flex items-center">
-                        <input id="DEDUCT_FROM_45DAYS_NOTAPPLICABLE" type="radio" name="DEDUCT_FROM_45DAYS_RADIO"
+                        <input id="DEDUCT_FROM_45DAYS_NOTAPPLICABLE" type="radio" name="DEDUCT_FROM_45DAYS_RADIO" {% if 'N/A' in form.DEDUCT_FROM_45DAYS.value %} checked {% endif %}
                             value="N/A"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            class="w-4 h-4 text-green-500 bg-gray-100 border-gray-300 rounded focus:ring-green-400 dark:focus:ring-green-500 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="DEDUCT_FROM_45DAYS" class="ms-2 text-sm  text-gray-700 dark:text-gray-300">Not
                             Applicable</label>
                     </div>
@@ -144,34 +144,34 @@
                     <div class="w-1/2 flex items-center justify-between">
                         <div class="flex flex-col ">
                             <label class="text-sm">Days</label>
-                            <input type="number" id="DEDUCT_FROM_45DAYS_DAYS"
+                            <input type="number" id="DEDUCT_FROM_45DAYS_DAYS" name="DEDUCT_FROM_45DAYS_DAYS" value="{{ form.DEDUCT_FROM_45DAYS_DAYS.value|default:''|escape }}"
                                 class="w-32 py-2.5 px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                                 placeholder="0">
                         </div>
                         <span class="text-lg">Per</span>
                         <div class="flex flex-col ">
                             <label class="text-sm">Number</label>
-                            <input type="number" id="DEDUCT_FROM_45DAYS_NUMBER"
+                            <input type="number" id="DEDUCT_FROM_45DAYS_NUMBER" name="DEDUCT_FROM_45DAYS_NUMBER" value="{{ form.DEDUCT_FROM_45DAYS_NUMBER.value|default:''|escape }}"
                                 class="w-32 py-2.5 px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                                 placeholder="0">
                         </div>
                     </div>
                     <div class="w-1/2 flex flex-col ">
                         <label class="text-sm">Type</label>
-                        <select id="DEDUCT_FROM_45DAYS_TYPE"
+                        <select id="DEDUCT_FROM_45DAYS_TYPE" name="DEDUCT_FROM_45DAYS_TYPE"
                             class="py-2.5 px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                             placeholder="0">
-                            <option selected disabled value="">--Select--</option>
+                            <option selected disabled value="">Select</option>
                             <option value="">N/A</option>
-                            <option value="Cycle" >Cycle</option>
-                            <option value="Session">Session</option>
+                            <option value="Cycle" {% if 'Cycle' in form.DEDUCT_FROM_45DAYS_TYPE.value %} selected {% endif %}>Cycle</option>
+                            <option value="Session" {% if 'Session' in form.DEDUCT_FROM_45DAYS_TYPE.value %} selected {% endif %}>Session</option>
                         </select>
                     </div>
                 </div>
                 <div id="condition-cntr">
                     <div class="flex flex-col ">
                         <label class="text-sm">Condition</label>
-                        <input type="text"
+                        <input type="text" id="CONDITIONAL" name="CONDITIONAL" value="{{ form.CONDITIONAL.value|default:''|escape }}"
                             class="py-2.5 text-base px-4 rounded-md border border-gray-300 bg-white bg-opacity-40 placeholder:italic"
                             placeholder="Condition..">
                     </div>
@@ -189,88 +189,4 @@
         </div>
     </div>
 </div>
-
-<script>
-    const DEDUCT_FROM_45DAYS_INPUT = document.getElementById('DEDUCT_FROM_45DAYS_INPUT');
-    const DEDUCT_FROM_45DAYS_DAYS = document.getElementById('DEDUCT_FROM_45DAYS_DAYS');
-    const DEDUCT_FROM_45DAYS_NUMBER = document.getElementById('DEDUCT_FROM_45DAYS_NUMBER');
-    const DEDUCT_FROM_45DAYS_TYPE = document.getElementById('DEDUCT_FROM_45DAYS_TYPE');
-    const DEDUCT_FROM_45DAYS_CONDITIONAL = document.getElementById('DEDUCT_FROM_45DAYS_CONDITIONAL');
-    const DEDUCT_FROM_45DAYS_NOTAPPLICABLE = document.getElementById('DEDUCT_FROM_45DAYS_NOTAPPLICABLE');
-    const initialInputs = document.getElementById('initial-inputs');
-    const conditionCntr = document.getElementById('condition-cntr');
-    const conditionInput = conditionCntr.querySelector('input');
-    const previewSpan = document.getElementById('deduct-45-days-preview');
-
-    conditionCntr.style.display = 'none';
-
-    let lastChecked = null;
-
-    function updateInputValue() {
-        let value;
-        if (DEDUCT_FROM_45DAYS_CONDITIONAL.checked) {
-            value = 'CONDITION: ' + conditionInput.value.toUpperCase();
-        } else if (DEDUCT_FROM_45DAYS_NOTAPPLICABLE.checked) {
-            value = 'N/A';
-        } else {
-            let type = DEDUCT_FROM_45DAYS_TYPE.value;
-            if (DEDUCT_FROM_45DAYS_TYPE.value !== "" && DEDUCT_FROM_45DAYS_NUMBER.value > 1) {
-                type += 's';
-            }
-            value = DEDUCT_FROM_45DAYS_DAYS.value;
-            if (DEDUCT_FROM_45DAYS_NUMBER.value) {
-                value += ' DAYS PER ' + DEDUCT_FROM_45DAYS_NUMBER.value;
-            }
-            value += ' ' + type;
-            value = value.toUpperCase();
-        }
-        DEDUCT_FROM_45DAYS_INPUT.value = value;
-        previewSpan.textContent = value;
-    }
-
-    function updateDisplay() {
-        if (DEDUCT_FROM_45DAYS_CONDITIONAL.checked) {
-            initialInputs.style.display = 'none';
-            conditionCntr.style.display = 'block';
-        } else if (DEDUCT_FROM_45DAYS_NOTAPPLICABLE.checked) {
-            DEDUCT_FROM_45DAYS_DAYS.disabled = true;
-            DEDUCT_FROM_45DAYS_NUMBER.disabled = true;
-            DEDUCT_FROM_45DAYS_TYPE.disabled = true;
-            conditionInput.disabled = true;
-        } else {
-            DEDUCT_FROM_45DAYS_DAYS.disabled = false;
-            DEDUCT_FROM_45DAYS_NUMBER.disabled = false;
-            DEDUCT_FROM_45DAYS_TYPE.disabled = false;
-            conditionInput.disabled = false;
-            initialInputs.style.display = 'flex';
-            conditionCntr.style.display = 'none';
-        }
-    }
-
-    DEDUCT_FROM_45DAYS_CONDITIONAL.addEventListener('click', function() {
-        if (lastChecked === this) {
-            this.checked = false;
-            lastChecked = null;
-        } else {
-            lastChecked = this;
-        }
-        updateDisplay();
-        updateInputValue();
-    });
-
-    DEDUCT_FROM_45DAYS_NOTAPPLICABLE.addEventListener('click', function() {
-        if (lastChecked === this) {
-            this.checked = false;
-            lastChecked = null;
-        } else {
-            lastChecked = this;
-        }
-        updateDisplay();
-        updateInputValue();
-    });
-
-    DEDUCT_FROM_45DAYS_DAYS.addEventListener('input', updateInputValue);
-    DEDUCT_FROM_45DAYS_NUMBER.addEventListener('input', updateInputValue);
-    DEDUCT_FROM_45DAYS_TYPE.addEventListener('change', updateInputValue);
-    conditionInput.addEventListener('input', updateInputValue);
-</script>
+<script src="{% static 'js/acr/acr_comp_input.js' %}"></script>

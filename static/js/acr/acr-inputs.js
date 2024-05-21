@@ -94,6 +94,8 @@ window.onload = function() {
         PREVIEW = getElement('PREVIEW'),
         CHECK_AGE_NOT_APPLICABLE = getElement('CHECK_AGE_NOT_APPLICABLE', 'change', disableAgeInputFields);
     
+    PREVIEW.textContent = "Preview: " + CHECK_AGE.value
+
     function updateCheckAge() {
         var checkAgeValue = OPERATOR.value + MINIMUM.value + MINIMUM_Y_D.value;
         if (MAXIMUM.value) {

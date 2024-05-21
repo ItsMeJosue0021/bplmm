@@ -73,6 +73,17 @@ class SAVE_GROUP_RVS_RULES(forms.Form):
     DEDUCT_FROM_45DAYS = forms.CharField(max_length=255)
     VALIDATION_RULES = forms.CharField(widget=forms.Textarea)
     
+    OPERATOR = forms.CharField(max_length=255)
+    MINIMUM = forms.CharField(max_length=255)
+    MINIMUM_YD = forms.CharField(max_length=255)
+    MAXIMUM = forms.CharField(max_length=255)
+    MAXIMUM_YD = forms.CharField(max_length=255)
+    
+    CONDITIONAL = forms.CharField(max_length=255)
+    DEDUCT_FROM_45DAYS_TYPE = forms.CharField(max_length=255)
+    DEDUCT_FROM_45DAYS_NUMBER = forms.CharField(max_length=255)
+    DEDUCT_FROM_45DAYS_DAYS = forms.CharField(max_length=255)
+    
 class SAVE_RVS_RULES(forms.Form):
     EFF_DATE = forms.DateField()
     EFF_END_DATE = forms.DateField()
