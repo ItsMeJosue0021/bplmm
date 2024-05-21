@@ -7,15 +7,16 @@
         <div class="flex space-x-4">
             <label for="" class="text-gray-700 uppercase text-sm font-medium">Validation Rules</label>
             {% for error in form.VALIDATION_RULES.errors %}
-            <div class="flex items-center space-x-1 text-sm text-red-500">
-                <i class='bx bx-error-circle text-base'></i>
-                <span>{{ error }}</span>
-            </div>
+                <div class="flex items-center space-x-1 text-sm text-red-500">
+                    <i class='bx bx-error-circle text-base'></i>
+                    <span>{{ error }}</span>
+                </div>
             {% endfor %} 
         </div>
         <textarea name="VALIDATION_RULES" id="textarea"
             class="w-full h-auto min-h-52 rounded-lg border border-gray-300 bg-white bg-opacity-60"
             placeholder="Validation Rules..">
+            {% if form.VALIDATION_RULES %}{{ form.VALIDATION_RULES.value|escape }} {% endif %}
         </textarea>
     </div>
     <div class="w-full py-2 flex flex-col items-start justify-between space-y-6">
