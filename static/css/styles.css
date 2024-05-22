@@ -1142,10 +1142,6 @@ input:checked + .toggle-bg{
   right: 1rem;
 }
 
-.right-5{
-  right: 1.25rem;
-}
-
 .start-0{
   inset-inline-start: 0px;
 }
@@ -1164,6 +1160,10 @@ input:checked + .toggle-bg{
 
 .top-2{
   top: 0.5rem;
+}
+
+.right-5{
+  right: 1.25rem;
 }
 
 .top-5{
@@ -2163,11 +2163,6 @@ input:checked + .toggle-bg{
   background-color: rgb(67 176 42 / var(--tw-bg-opacity));
 }
 
-.bg-red-200{
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 213 213 / var(--tw-bg-opacity));
-}
-
 .bg-red-50{
   --tw-bg-opacity: 1;
   background-color: rgb(253 242 242 / var(--tw-bg-opacity));
@@ -2199,6 +2194,11 @@ input:checked + .toggle-bg{
 .bg-yellow-50{
   --tw-bg-opacity: 1;
   background-color: rgb(253 253 234 / var(--tw-bg-opacity));
+}
+
+.bg-red-200{
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 213 213 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-10{
@@ -2507,6 +2507,11 @@ input:checked + .toggle-bg{
   line-height: 1rem;
 }
 
+.text-3xl{
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .font-light{
   font-weight: 300;
 }
@@ -2521,6 +2526,10 @@ input:checked + .toggle-bg{
 
 .font-semibold{
   font-weight: 600;
+}
+
+.font-thin{
+  font-weight: 100;
 }
 
 .uppercase{
@@ -2641,6 +2650,11 @@ input:checked + .toggle-bg{
 .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(114 59 19 / var(--tw-text-opacity));
+}
+
+.text-gray-300{
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
 .opacity-0{
@@ -3115,11 +3129,6 @@ input:checked + .toggle-bg{
   --tw-ring-color: rgb(249 128 128 / var(--tw-ring-opacity));
 }
 
-.focus\:ring-green-500:focus{
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(14 159 110 / var(--tw-ring-opacity));
-}
-
 .focus-visible\:outline:focus-visible{
   outline-style: solid;
 }
@@ -3423,14 +3432,14 @@ input:checked + .toggle-bg{
   --tw-ring-color: rgb(75 85 99 / var(--tw-ring-opacity));
 }
 
-.dark\:focus\:ring-green-600:focus:is(.dark *){
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(5 122 85 / var(--tw-ring-opacity));
-}
-
 .dark\:focus\:ring-green-500:focus:is(.dark *){
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(14 159 110 / var(--tw-ring-opacity));
+}
+
+.dark\:focus\:ring-green-600:focus:is(.dark *){
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(5 122 85 / var(--tw-ring-opacity));
 }
 
 .group:hover .dark\:group-hover\:text-white:is(.dark *){

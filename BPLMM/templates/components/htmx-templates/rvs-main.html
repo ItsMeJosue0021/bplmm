@@ -15,7 +15,7 @@
             <tr>
                 <td class="p-2 border border-gray-300">{{ item.ACR_GROUPID }}</td>
                 <td class="p-2 border border-gray-300">{{ item.RVSCODE }}</td>
-                <td class="p-2 border border-gray-300">{{ item.DESCRIPTION }}</td>
+                <td class="p-2 border border-gray-300">{{ item.DESCRIPTION|default:""|truncatechars:40 }}</td>
                 <td class="p-2 border border-gray-300">{{ item.RVU }}</td>
                 <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
                 <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>

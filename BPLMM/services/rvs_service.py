@@ -1,51 +1,38 @@
-import random
+from django.utils import timezone # type: ignore
 
 class ACR_GROUPS_RVS_SERVICE:
 
     def __init__(self, _repository):
-        self.repository = _repository
+        self.repository = _repository        
 
-    def create_temp(self, form, group_id, request):
-        if form.is_valid():
-            data = form.cleaned_data
-            acr_groups_rvs_data = {
-                'RVSCODE': data['RVSCODE'],
-                'ACR_GROUPID': group_id,
-                'DESCRIPTION': data['RVS_DESCRIPTION'],
-                'RVU': data['RVU'],
-                'EFF_DATE': data['RVS_EFF_DATE'],
-                'END_DATE': data['RVS_END_DATE'],
-                'USERNAME': request.user.username
-            }
-            return self.repository.create_temp(acr_groups_rvs_data)
-        else:
-            return None
+    def create_temp(self, data, group_id, request):
+        return self.repository.create_temp(self.to_rvs_array(data, group_id, request)) 
         
-    def create_temp_modal(self, form, group_id, request):
-        if form.is_valid():
-            data = form.cleaned_data
-            acr_groups_rvs_data = {
-                'RVSCODE': data['RVSCODE'],
-                'ACR_GROUPID': group_id,
-                'DESCRIPTION': data['DESCRIPTION'],
-                'RVU': data['RVU'],
-                'EFF_DATE': data['EFF_DATE'],
-                'END_DATE': data['END_DATE'],
-                'USERNAME': request.user.username
-            }
-            return self.repository.create_temp(acr_groups_rvs_data)
-        else:
-            return None
+    def create_temp_modal(self, data, group_id, request):
+        return self.repository.create_temp(self.to_rvs_array(data, group_id, request))   
     
     def create_main_rvs_rules(self, data, group_id, rvs_code):
         return self.repository.create_main_rvs_rules(self.to_rules_array(data, group_id, rvs_code))
         
-    def create_temp_rvs_rules(self, data, group_id, rvs_code):
-            return self.repository.create_temp_rvs_rules(self.to_rules_array(data, group_id, rvs_code))
-        
-        
-    def to_rules_array(self, data, group_id, rvs_code):
-        return {
+    def create_temp_rvs_rules(self, data, group_id, rvs_code, username):
+            return self.repository.create_temp_rvs_rules(self.to_rules_array(data, group_id, rvs_code, username))
+     
+    def to_rvs_array(self, data, group_id, request):
+        rvs_array = {
+            'RVSCODE': data['RVSCODE'],
+            'ACR_GROUPID': group_id,
+            'DESCRIPTION': data.get('DESCRIPTION', data.get('RVS_DESCRIPTION')),
+            'RVU': data['RVU'],
+            'EFF_DATE': data.get('EFF_DATE', data.get('RVS_EFF_DATE')),
+            'END_DATE': data.get('END_DATE', data.get('RVS_END_DATE')),
+            'USERNAME': request.user.username,
+            'created_at': timezone.now(),
+            'updated_at': timezone.now(),
+        }
+        return rvs_array  
+    
+    def to_rules_array(self, data, group_id, rvs_code, username = None):
+        rules_array = {
             'ACR_GROUPID': group_id,
             'RVSCODE': rvs_code,
             'EFF_DATE': data['EFF_DATE'],
@@ -55,12 +42,12 @@ class ACR_GROUPS_RVS_SERVICE:
             'SECONDARY_AMOUNT': data['SECONDARY_HOSP_SHARE'] + data['SECONDARY_PROF_SHARE'],
             'SECONDARY_HOSP_SHARE': data['SECONDARY_HOSP_SHARE'],
             'SECONDARY_PROF_SHARE': data['SECONDARY_PROF_SHARE'],
-            'PCF_AMOUNT': data['PCF_AMOUNT'],
+            'PCF_AMOUNT': data['PCF_HOSP_SHARE'] + data['PCF_PROF_SHARE'],
             'PCF_HOSP_SHARE': data['PCF_HOSP_SHARE'],
             'PCF_PROF_SHARE': data['PCF_PROF_SHARE'],
             'CHECK_OCCURS_PER_CLAIM': data['CHECK_OCCURS_PER_CLAIM'],
             'CHECK_OCCURS_PER_PERSON': data['CHECK_OCCURS_PER_PERSON'],
-            'CHECK_LATERALITY': data['HECK_LATERALITY'],
+            'CHECK_LATERALITY': data['CHECK_LATERALITY'],
             'CHECK_GENDER': data['CHECK_GENDER'],
             'CHECK_AGE': data['CHECK_AGE'],
             'CHECK_FACILITY_H1': data['CHECK_FACILITY_H1'],
@@ -71,10 +58,10 @@ class ACR_GROUPS_RVS_SERVICE:
             'CHECK_FACILITY_MAT': data['CHECK_FACILITY_MAT'],
             'CHECK_FACILITY_FSDC': data['CHECK_FACILITY_FSDC'],
             'CHECK_SINGLE_PERIOD_DAYS': data['CHECK_SINGLE_PERIOD_DAYS'],
-            'CHECK_ADDITIONAL_CODES': data['CHECK_ADDITIONAL_CODES'], # temporarily filled with mock data | data['CHECK_ADDITIONAL_CODES']
+            'CHECK_ADDITIONAL_CODES': data['CHECK_ADDITIONAL_CODES'], 
             'CHECK_PREAUTHORIZATION': data['CHECK_PREAUTHORIZATION'],
             'CHECK_QUALIFIER': data['CHECK_QUALIFIER'],
-            'DEDUCT_FROM_45DAYS': data['DEDUCT_FROM_45DAYS'], # temporarily filled with mock data | data['DEDUCT_FROM_45DAYS']
+            'DEDUCT_FROM_45DAYS': data['DEDUCT_FROM_45DAYS'], 
             'CHECK_GIDAS': data['CHECK_GIDAS'],
             'FIXED_COPAY': data['FIXED_COPAY'],
             'CHECK_DIRECT_FILING': data['CHECK_DIRECT_FILING'],
@@ -87,11 +74,17 @@ class ACR_GROUPS_RVS_SERVICE:
             'CHECK_FACILITY_TBDOTSC': data['CHECK_FACILITY_TBDOTSC'],
             'CHECK_FACILITY_OPMC': data['CHECK_FACILITY_OPMC'],
             'CHECK_WHAT_IS_COVERED_BY_AMT': data['CHECK_WHAT_IS_COVERED_BY_AMT'],
-            'CHECK_SPC_RELATED_BEN_CODES': data['CHECK_SPC_RELATED_BEN_CODES'], # temporarily filled with mock data | data['CHECK_SPC_RELATED_BEN_CODES']
+            'CHECK_SPC_RELATED_BEN_CODES': data['CHECK_SPC_RELATED_BEN_CODES'], 
             'CHECK_LENGTH_OF_STAY': data['CHECK_LENGTH_OF_STAY'],
-            'VALIDATION_RULES': data['VALIDATION_RULES'], # temporarily fill with mock data | data['VALIDATION_RULES'] | "[[ {'Procedure is performed by an HCP whose PAN begins with any of the following numbers','1304,1501'} = 'true' ,'A86' ]]"
+            'VALIDATION_RULES': data['VALIDATION_RULES'],
             'TO_BE_TAGGED_FOR_POST_AUDIT': data['TO_BE_TAGGED_FOR_POST_AUDIT'],
             'CHECK_FACILITY_RHU': data['CHECK_FACILITY_RHU'],
-            'CHECK_FACILITY_PCB': data['CHECK_FACILITY_PCB']
+            'CHECK_FACILITY_PCB': data['CHECK_FACILITY_PCB'],
         }
+        
+        if username is not None:
+            rules_array['USERNAME'] = username
+        return rules_array
+        
+        
         

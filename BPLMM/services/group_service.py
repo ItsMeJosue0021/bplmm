@@ -5,13 +5,12 @@ class ACR_GROUPS_SERVICE:
         self.repository = _repository
 
     # Add a new object to the TEMPORARY ACR GROUPS table
-    def create_temp(self, form, request):    
-        data = form.cleaned_data
+    def create_temp(self, data, request):
         acr_temp_group_data = {
-            'DESCRIPTION': data['DESCRIPTION'],
-            'EFF_DATE': data['EFF_DATE'],
+            'DESCRIPTION': data['GROUP_DESCRIPTION'],
+            'EFF_DATE': data['GROUP_EFF_DATE'],
             'ACTIVE': 'F',
-            'END_DATE': data['END_DATE'],
+            'END_DATE': data['GROUP_END_DATE'],
             'USERNAME': request.user.username
         }
         return self.repository.create_temp(acr_temp_group_data)

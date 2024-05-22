@@ -1,19 +1,15 @@
-import random
-from django.db.models import Q # type: ignore
+from ..forms import *
+from ..models import *
 from datetime import datetime
+from django.db.models import Q # type: ignore
 from django.contrib import messages # type: ignore
 from django.core.paginator import Paginator # type: ignore
-from ..forms import SAVE_RVS_FORM, ACR_GROUPS_FORM, SAVE_RVS_RULES, SAVE_GROUP_RVS_RULES
-from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from ..decorators import encoder_required, approver_required
-from ..models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS
-from ..models import ACR_GROUPS_RVS_TEMP, ACR_GROUPS_ICDS_TEMP, ACR_GROUPS_ICDS
-
+from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 #services
 from ..services.group_service import ACR_GROUPS_SERVICE
 from ..services.rvs_service import ACR_GROUPS_RVS_SERVICE
-
 #repositories
 from ..repositories.group_repository import ACR_GROUPS_REPOSITORY
 from ..repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
@@ -22,41 +18,40 @@ from ..repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
 
+exception_error_message = 'Something went wrong while trying to save'
+please_try_again = 'Please try again.'
 
+@login_required
+@encoder_required
 def groups_rvs_new(request):
-    exception_error_message = 'An error occurred while saving the group.'
     template = 'pages/acr/encoder/new_group_rvs_rules.html'
     
     if request.method == 'POST':
         form = SAVE_GROUP_RVS_RULES(request.POST)
-        
+
         print(request.POST) # testing
-        
         if form.is_valid():
             data = form.cleaned_data
             try:
                 group = acr_groups_service.create_temp(data, request)
                 if group is not None:
                     rvs = acr_groups_rvs_service.create_temp(data, group.ACR_GROUPID, request)
-                    rules = acr_groups_rvs_service.create_temp_rvs_rules(data, group.ACR_GROUPID, data['RVSCODE'])
+                    rules = acr_groups_rvs_service.create_temp_rvs_rules(data, group.ACR_GROUPID, data['RVSCODE'], request.user.username)
                     if rvs is not None and rules is not None:
                         messages.success(request, 'Form saved successfully.')
-                        return redirect('acr')
+                        return render(request, template, {'form': form})
                     else:
-                        raise Exception(exception_error_message)
+                        raise Exception(exception_error_message + ' RVS and its Rules. ' + please_try_again)
                 else:
-                    raise Exception(exception_error_message)
+                    raise Exception(exception_error_message + ' Group. ' + please_try_again)
             except Exception as e:
-                messages.error(request, str(e))   
+                messages.error(request, str(e))
+                return render(request, template, {'form': form})   
         else:
             messages.error(request, 'Please make sure all fields are filled out.')
             return render(request, template, {'form': form})
-            
     return render(request, template)
 
-#-------------------------------------------------
-# GROUPS
-#-------------------------------------------------
 @login_required
 @encoder_required
 def groups(request):

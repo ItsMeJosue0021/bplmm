@@ -1,5 +1,6 @@
 from django.urls import path # type: ignore
-from .controllers.group_view import *
+from .model_views.group_view import *
+from .model_views.rvs_view import *
 from . import views
 
 urlpatterns = [
@@ -16,7 +17,7 @@ urlpatterns = [
     #-------------------------------------------------
         path('acr/', views.acr, name='acr'),
         
-        path('acr/<str:group_id>/rvs/create', views.rvs_create_modal, name='rvs_create_modal'), 
+        path('acr/<str:group_id>/rvs/create', rvs_create_modal, name='rvs_create_modal'), 
 
     
     # Groups' URLs

@@ -68,34 +68,30 @@ def get_current_user(request):
 #-------------------------------------------------
 
 def acr(request):
-    group_id_search = request.GET.get('group_id_search', request.session.get('group_id_search', ''))
-    rvs_search = request.GET.get('rvs_search', request.session.get('rvs_search', ''))
-    icd_search = request.GET.get('icd_search', request.session.get('icd_search', ''))
-
-    # Store the search parameters in the session
-    request.session['group_id_search'] = group_id_search
-    request.session['rvs_search'] = rvs_search
-    request.session['icd_search'] = icd_search
+    code = request.GET.get('code', request.session.get('code', ''))
+    filter = request.GET.get('filter', request.session.get('filter', ''))
+    request.session['code'] = code
+    request.session['filter'] = filter
 
     group = None
     main_rvs_single = None
     temp_rvs_single = None
     context = {}
 
-    if group_id_search:
-        group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id_search).first()
+    if filter == 'group':
+        group = ACR_GROUPS.objects.filter(ACR_GROUPID=code).first()
 
-    elif rvs_search:
-        main_rvs_single = ACR_GROUPS_RVS.objects.filter(RVSCODE=rvs_search).first()
-        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvs_search).first()
+    elif filter == 'rvs':
+        main_rvs_single = ACR_GROUPS_RVS.objects.filter(RVSCODE=code).first()
+        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code).first()
         if main_rvs_single:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_rvs_single.ACR_GROUPID).first()
         elif temp_rvs_single:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_rvs_single.ACR_GROUPID).first()
 
-    elif icd_search:
-        main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=icd_search).first()
-        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=icd_search).first()
+    elif filter == 'icd':
+        main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=code).first()
+        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=code).first()
         if main_icds:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_icds.ACR_GROUPID).first()
         elif temp_icds:
@@ -150,27 +146,26 @@ def acr(request):
 # @encoder_required
 @login_required
 def rvs_create(request, group_id):
+    template = 'pages/acr/encoder/rvs-create.html'
     acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
     form = SAVE_RVS_FORM(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-
             print(request.POST) #remove after testing
-
             try:
                 acr_groups_rvs = acr_groups_rvs_service.create(form, group_id, request)
 
                 if acr_groups_rvs is not None:  
                     form = SAVE_RVS_FORM()
                     messages.success(request, 'RVS has been saved successfully.')
-                    return render(request, 'pages/acr/encoder/rvs-create.html', {'form': form, 'group_id': group_id})
+                    return render(request, template, {'form': form, 'group_id': group_id})
                 else:
                     raise Exception('An error occurred while saving RVS.')
             except Exception as e:
                 messages.error(request, str(e))
         else:
              messages.error(request, 'Please make sure all fields are filled out.')
-    return render(request, 'pages/acr/encoder/rvs-create.html', {'form': form, 'group_id': group_id})
+    return render(request, template, {'form': form, 'group_id': group_id})
 
 
 def rvs_create_modal(request, group_id):
@@ -179,7 +174,6 @@ def rvs_create_modal(request, group_id):
     form = SAVE_RVS_FORM(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
-
             try:
                 acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(form, group_id, request)
 
@@ -337,6 +331,7 @@ def set_icds_rules(request):
 #----------------------------------------------------------------------------------------------------------
 
 def approver_groups(request):
+    template = 'pages/acr/approver/group-list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
     data = ACR_GROUPS.objects.all()
@@ -363,7 +358,7 @@ def approver_groups(request):
                 acr_groups = acr_groups_service.create_temp(form, request)
                 if acr_groups is not None:
                     messages.success(request, 'Form saved successfully.')
-                    return render(request, 'pages/acr/approver/group-list.html', context)
+                    return render(request, template, context)
                 else:
                     raise Exception('An error occurred while saving the form.')
             except Exception as e:
@@ -371,7 +366,7 @@ def approver_groups(request):
         else:
             messages.error(request, 'Please make sure all fields are filled out.')
 
-    return render(request, 'pages/acr/approver/group-list.html', context)
+    return render(request, template, context)
 
 
 # -------------------------------------- MOCK VIEWS ----------------------------------------

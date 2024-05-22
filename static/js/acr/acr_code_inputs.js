@@ -57,10 +57,8 @@ function addAdditionalCode(button) {
         updateCodeCntr('.current-additional-codes-container', codes);
     } else {
         let errorMessageDiv = document.createElement('div');
-        errorMessageDiv.innerHTML = `
-            <div class="absolute top-5 right-5 w-fit rounded p-2 bg-red-200 text-red-800">
-                <span>This code has already been added.</span>
-            </div>`;
+        errorMessageDiv.classList.add('absolute', 'top-5', 'right-5');
+        errorMessageDiv.innerHTML = `<span class="w-fit rounded p-2 bg-red-200 text-red-800" >This code has already been added.</span>`;
         document.querySelector('#additional-code-cntr').appendChild(errorMessageDiv);
 
         setTimeout(function() {
@@ -121,10 +119,8 @@ function addSPCcode(button) {
         updateCodeCntr('.current-spc-codes-container', SPCcodes);
     } else {
         let errorMessageDiv = document.createElement('div');
-        errorMessageDiv.innerHTML = `
-            <div class="absolute top-5 right-5 w-fit rounded p-2 bg-red-200 text-red-800">
-                <span>This code has already been added.</span>
-            </div>`;
+        errorMessageDiv.classList.add('absolute', 'top-5', 'right-5', 'w-fit', 'rounded', 'p-2', 'bg-red-200', 'text-red-800');
+        errorMessageDiv.innerHTML = `<span>This code has already been added.</span>`;
         document.querySelector('#spc-code-cntr').appendChild(errorMessageDiv);
 
         setTimeout(function() {
