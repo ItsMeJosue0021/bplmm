@@ -99,6 +99,7 @@ class SAVE_RVS_RULES(forms.Form):
     CHECK_SINGLE_PERIOD_DAYS = forms.CharField(max_length=255)
     CHECK_OCCURS_PER_PERSON = forms.CharField(max_length=255)
     CHECK_AGE = forms.CharField(max_length=255)
+    CHECK_LENGTH_OF_STAY = forms.CharField(max_length=255)
     CHECK_GENDER = forms.ChoiceField(choices=[('M', 'Male'), ('F', 'Female'), ('B', 'Both')])
 
     ACTIVE = forms.ChoiceField(choices=[('T', 'True'), ('F', 'False')])
@@ -126,11 +127,21 @@ class SAVE_RVS_RULES(forms.Form):
     CHECK_FACILITY_PCB = forms.ChoiceField(choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_QUALIFIER = forms.ChoiceField(choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_WHAT_IS_COVERED_BY_AMT = forms.CharField(max_length=255)
-    CHECK_LENGTH_OF_STAY = forms.CharField(max_length=255)
 
     CHECK_ADDITIONAL_CODES = forms.CharField(widget=forms.Textarea)
     CHECK_SPC_RELATED_BEN_CODES = forms.CharField(widget=forms.Textarea)
     DEDUCT_FROM_45DAYS = forms.CharField(max_length=255)
     VALIDATION_RULES = forms.CharField(widget=forms.Textarea)
+    
+    OPERATOR = forms.CharField(max_length=255, required=False)
+    MINIMUM = forms.CharField(max_length=255, required=False)
+    MINIMUM_YD = forms.CharField(max_length=255, required=False)
+    MAXIMUM = forms.CharField(max_length=255, required=False)
+    MAXIMUM_YD = forms.CharField(max_length=255, required=False)
+    
+    CONDITIONAL = forms.CharField(max_length=255, required=False)
+    DEDUCT_FROM_45DAYS_TYPE = forms.CharField(max_length=255, required=False)
+    DEDUCT_FROM_45DAYS_NUMBER = forms.CharField(max_length=255, required=False)
+    DEDUCT_FROM_45DAYS_DAYS = forms.CharField(max_length=255, required=False)
     
 

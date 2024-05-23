@@ -1,4 +1,5 @@
 from django.utils import timezone # type: ignore
+from ..models import *
 
 class ACR_GROUPS_RVS_SERVICE:
 
@@ -13,10 +14,14 @@ class ACR_GROUPS_RVS_SERVICE:
     
     def create_main_rvs_rules(self, data, group_id, rvs_code):
         return self.repository.create_main_rvs_rules(self.to_rules_array(data, group_id, rvs_code))
-        
+                    
     def create_temp_rvs_rules(self, data, group_id, rvs_code, username):
-            return self.repository.create_temp_rvs_rules(self.to_rules_array(data, group_id, rvs_code, username))
-     
+        temp_rule_exists = ACR_PERRVS_RULES_TEMP.objects.filter(ACR_GROUPID=group_id, RVSCODE=rvs_code, EFF_DATE=data['EFF_DATE']).exists()
+        main_rule_exists = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=group_id, RVSCODE=rvs_code, EFF_DATE=data['EFF_DATE']).exists()
+        if temp_rule_exists or main_rule_exists:
+            raise Exception('A rule with the same effectivity date already exists.')
+        return self.repository.create_temp_rvs_rules(self.to_rules_array(data, group_id, rvs_code, username))
+
     def to_rvs_array(self, data, group_id, request):
         rvs_array = {
             'RVSCODE': data['RVSCODE'],

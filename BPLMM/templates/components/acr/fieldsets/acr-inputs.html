@@ -8,7 +8,12 @@
 
         <div class="w-full flex flex-row items-start justify-between space-x-10">
             <div class="w-full ">
-                {% include "components/date-input.html" with name='EFF_DATE' label='Effectivity Date' old=form.EFF_DATE %}
+                <!-- {% include "components/date-input.html" with name='EFF_DATE' label='Effectivity Date' old=form.EFF_DATE %} -->
+                <div class="w-full flex flex-col space-y-1">
+                    <label for="EFF_DATE" class="text-gray-700 uppercase text-sm font-medium">'Effectivity Date</label>
+                    <input hx-get="{% url 'check_if_rvs_effdate_exist' %}" hx-trigger="change delay:500ms" hx-target="#eff_date_error" type="date" id="EFF_DATE" name="EFF_DATE" value="{{ form.EFF_DATE.value|default:''|escape }}" class="w-full bg-transparent px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-200">
+                </div>
+                <div id="eff_date_error"></div>
                 {% for error in form.EFF_DATE.errors %}
                 <div class="flex items-center space-x-1 text-sm text-red-500">
                     <i class='bx bx-error-circle text-base'></i>

@@ -29,7 +29,7 @@
                     {% endfor %}
                 </div>
 
-                {% if request.path == "/groups/rvs/new/" %}
+                {% if 'rvs' in request.path %} 
                     <div class="w-full">
                         <div class="w-full flex flex-col space-y-1">
                             <label id="CHECK_WHAT_IS_COVERED_BY_AMT_LABEL" for="CHECK_WHAT_IS_COVERED_BY_AMT" class="text-gray-700 uppercase text-sm font-medium">Check what is covered by AMT</label>

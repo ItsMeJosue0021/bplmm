@@ -8,7 +8,11 @@
     <div class="flex flex-col space-y-4 p-4 rounded-b-md bg-white shadow">
         <div class="w-full flex items-start justify-between space-x-6">
             <div class="w-full">
-                {% include "components/text-input.html" with name='RVSCODE' label='RVS CODE' old=form.RVSCODE %}
+                <div class="flex flex-col space-y-1">
+                    <label for="RVSCODE" class="text-gray-700 uppercase text-sm font-medium">RVS CODE</label>
+                    <input hx-get="{% url 'check_rvscode_existence' %}" hx-trigger="keyup delay:500ms" hx-target="#rvs_exists_cntr" type="text" id="RVSCODE" name="RVSCODE" placeholder="RVSCODE" value="{{ form.RVSCODE.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
+                </div>
+                <div id="rvs_exists_cntr"></div>
                 {% for error in form.RVSCODE.errors %}
                     <div class="text-sm text-red-500">{{ error }}</div>
                 {% endfor %}

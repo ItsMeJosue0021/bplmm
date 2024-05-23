@@ -66,7 +66,7 @@ def get_current_user(request):
 #-------------------------------------------------
 # ACR
 #-------------------------------------------------
-
+@login_required
 def acr(request):
     code = request.GET.get('code', request.session.get('code', ''))
     filter = request.GET.get('filter', request.session.get('filter', ''))
@@ -134,12 +134,6 @@ def acr(request):
 
 
 
-
-
-
-
-
-
 #-------------------------------------------------
 # CREATE RVS (with GROUP)
 #-------------------------------------------------
@@ -166,63 +160,6 @@ def rvs_create(request, group_id):
         else:
              messages.error(request, 'Please make sure all fields are filled out.')
     return render(request, template, {'form': form, 'group_id': group_id})
-
-
-def rvs_create_modal(request, group_id):
-    template = 'components/acr/fieldsets/acr-rvs.html'
-    acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
-    form = SAVE_RVS_FORM(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            try:
-                acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(form, group_id, request)
-
-                if acr_groups_rvs is not None:  
-                    form = SAVE_RVS_FORM()
-                    messages.success(request, 'RVS has been saved successfully.')
-                    return render(request, template, {'form': form, 'group_id': group_id})
-                else:
-                    raise Exception('An error occurred while saving RVS.')
-            except Exception as e:
-                messages.error(request, str(e))
-        else:
-             messages.error(request, 'Please make sure all fields are filled out.')
-    return render(request, template, {'form': form, 'group_id': group_id})
-
-# rvs/<str:group_id>/temp
-# returns group related RVS from temporary table
-def temp_rvs_by_group(request, group_id):
-    desc_search_query = request.GET.get('description_search', '')
-    date_search_query = request.GET.get('date_search', '')
-    
-    if date_search_query:
-        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
-        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id).order_by('-created_at')
-    else:
-        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id).order_by('-created_at')
-    # rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id)
-    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
-
-# rvs/<str:group_id>/main
-# returns group related RVS from main table
-def main_rvs_by_group(request, group_id):
-    desc_search_query = request.GET.get('description_search', '')
-    date_search_query = request.GET.get('date_search', '')
-    
-    if date_search_query:
-        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
-        rvs = ACR_GROUPS_RVS.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id)
-    else:
-        rvs = ACR_GROUPS_RVS.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id)
-    # rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
-    return render(request, 'components/htmx-templates/rvs-main.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
-
-#-------------------------------------------------
-# GENERATE ACR GROUP ID
-#-------------------------------------------------
-def generate_acr_group_id():
-    return 'CR' + str(random.randint(1000, 9999))
-
 
 
 #-------------------------------------------------
@@ -294,16 +231,13 @@ def rvs_edit(request):
 def rvs_delete(request):
     pass
 
-def set_rvs_rules(request, group_id):
-
-    if request.method == 'POST':
-
-        form = SAVE_RVS_RULES(request.POST)
-        print(request.POST)
-        return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'form': form, 'group_id': group_id})
-
-    else:
-        return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'group_id': group_id})
+# def set_rvs_rules(request, group_id):
+#     if request.method == 'POST':
+#         form = SAVE_RVS_RULES(request.POST)
+#         print(request.POST)
+#         return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'form': form, 'group_id': group_id})
+#     else:
+#         return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'group_id': group_id})
 
 
 #-------------------------------------------------
@@ -395,7 +329,7 @@ def check_if_rvscode_exists(request):
         rvscode = rvscode_main
     elif rvscode_temp:
         rvscode = rvscode_temp
-    return render(request, 'components/check_rvscode_existence.html', {'rvscode': rvscode})
+    return render(request, 'components/htmx-templates/check_rvscode_existence.html', {'rvscode': rvscode})
     
     
 def paginate(request, data, items_per_page):

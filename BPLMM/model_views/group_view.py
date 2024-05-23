@@ -34,16 +34,10 @@ def groups_rvs_new(request):
             data = form.cleaned_data
             try:
                 group = acr_groups_service.create_temp(data, request)
-                if group is not None:
-                    rvs = acr_groups_rvs_service.create_temp(data, group.ACR_GROUPID, request)
-                    rules = acr_groups_rvs_service.create_temp_rvs_rules(data, group.ACR_GROUPID, data['RVSCODE'], request.user.username)
-                    if rvs is not None and rules is not None:
-                        messages.success(request, 'Form saved successfully.')
-                        return render(request, template, {'form': form})
-                    else:
-                        raise Exception(exception_error_message + ' RVS and its Rules. ' + please_try_again)
-                else:
-                    raise Exception(exception_error_message + ' Group. ' + please_try_again)
+                acr_groups_rvs_service.create_temp(data, group.ACR_GROUPID, request)
+                acr_groups_rvs_service.create_temp_rvs_rules(data, group.ACR_GROUPID, data['RVSCODE'], request.user.username)
+                messages.success(request, 'Form saved successfully.')
+                return render(request, template, {'form': form})
             except Exception as e:
                 messages.error(request, str(e))
                 return render(request, template, {'form': form})   

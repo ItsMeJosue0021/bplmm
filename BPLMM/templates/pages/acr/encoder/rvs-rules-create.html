@@ -7,10 +7,11 @@
     <a href="{% url 'acr' %}"
         class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back to Home</a>
 </div>
+{% include 'components/alerts/messages.html' %}
 <div class="h-auto">
     {% include 'components/stepper_v2.html' %}
     <div class="h-full">
-        <form action="{% url 'set_rvs_rules' group_id=group_id %}" method="POST">
+        <form action="{% url 'set_rvs_rules' group_id=group_id rvs_code=rvs_code %}" method="POST">
             <div class="flex flex-col">
                 {% csrf_token %}
                 <div>

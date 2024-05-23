@@ -21,7 +21,7 @@
                 <td class="p-2 border border-gray-300">{{ item.END_DATE }}</td>
                 <td class="w-40 p-2 border border-gray-300">
                     <div class="flex items-center justify-end space-x-1 px-4">
-                        <a href="{% url 'set_rvs_rules' group_id=item.ACR_GROUPID %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+                        <a href="{% url 'set_rvs_rules' group_id=item.ACR_GROUPID rvs_code=item.RVSCODE %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
                             <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
                         <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
                             <i class='bx bx-trash text-red-500 text-base'></i>
