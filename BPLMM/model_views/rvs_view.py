@@ -25,7 +25,7 @@ def rvs_create_modal(request, group_id):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(data, group_id, request)
+                acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(data, group_id, request.user.username)
                 if acr_groups_rvs is not None:  
                     form = SAVE_RVS_FORM()
                     messages.success(request, 'RVS has been saved successfully.')
@@ -50,7 +50,6 @@ def temp_rvs_by_group(request, group_id):
         rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id).order_by('-created_at')
     else:
         rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id).order_by('-created_at')
-    # rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group_id)
     return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
 
 # rvs/<str:group_id>/main

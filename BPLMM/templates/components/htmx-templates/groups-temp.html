@@ -37,22 +37,16 @@
                     {% for group in user.groups.all %}
                         {% if group.name == "Approver" %}
                             {% if item.ACTIVE == "F" %}
-                                <form method="post" action="{% url 'groups_approve' id=item.ID %}">
-                                    {% csrf_token %}
-                                    <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
-                                </form>
+                               <a href="{% url 'temp_group_rvs_rules_details' id=item.ID %}" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">Review</a>
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                    <!-- <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
                         <i class='bx bx-trash text-red-500 text-base'></i>
                     </a>
                     <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
                         <i class='bx bx-edit text-yellow-400 text-base'></i>
-                    </a>
-                    <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
-                        <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
-                    </a>
+                    </a> -->
                 </div>
             </td>
         </tr>

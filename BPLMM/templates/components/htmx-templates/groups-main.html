@@ -54,7 +54,7 @@
                             {% endif %}
                         {% endif %}
                     {% endfor %}
-                    <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                    <a href="{% url 'main_groups_rvs_rules_details' group_id=item.ACR_GROUPID %}" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
                 </div>
             </td>
         </tr>

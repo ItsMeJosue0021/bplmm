@@ -1,5 +1,6 @@
 from django import forms # type: ignore
-from .models import ACR_GROUPS, ACR_GROUPS_ICDS, ACR_GROUPS_RVS, ACR_PERRVS_RULES
+from .models import *
+from django.core.exceptions import ValidationError # type: ignore
 
 class ACR_GROUPS_FORM(forms.Form):
     DESCRIPTION = forms.CharField(widget=forms.Textarea)
@@ -12,6 +13,12 @@ class SAVE_RVS_FORM(forms.Form):
     RVU = forms.IntegerField()
     EFF_DATE = forms.DateField()
     END_DATE = forms.DateField()
+    
+    def clean_RVSCODE(self):
+        RVSCODE = self.cleaned_data.get('RVSCODE')
+        if ACR_GROUPS_RVS.objects.filter(RVSCODE=RVSCODE).exists() or ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=RVSCODE).exists():
+            raise ValidationError("RVSCODE already exists.")
+        return RVSCODE
 
 class SAVE_GROUP_RVS_RULES(forms.Form):
     
@@ -25,6 +32,12 @@ class SAVE_GROUP_RVS_RULES(forms.Form):
     RVS_EFF_DATE = forms.DateField()
     RVS_END_DATE = forms.DateField()
     
+    def clean_RVSCODE(self):
+        RVSCODE = self.cleaned_data.get('RVSCODE')
+        if ACR_GROUPS_RVS.objects.filter(RVSCODE=RVSCODE).exists() or ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=RVSCODE).exists():
+            raise ValidationError("RVSCODE already exists.")
+        return RVSCODE
+    
     EFF_DATE = forms.DateField()
     EFF_END_DATE = forms.DateField()
     PRIMARY_HOSP_SHARE = forms.DecimalField(max_digits=10, decimal_places=2)
@@ -34,7 +47,7 @@ class SAVE_GROUP_RVS_RULES(forms.Form):
     PCF_HOSP_SHARE = forms.DecimalField(max_digits=10, decimal_places=2)
     PCF_PROF_SHARE = forms.DecimalField(max_digits=10, decimal_places=2)
 
-    FIXED_COPAY = forms.DecimalField(max_digits=10, decimal_places=2)
+    FIXED_COPAY = forms.CharField(max_length=255)
     CHECK_OCCURS_PER_CLAIM = forms.CharField(max_length=255)
     CHECK_SINGLE_PERIOD_DAYS = forms.CharField(max_length=255)
     CHECK_OCCURS_PER_PERSON = forms.CharField(max_length=255)

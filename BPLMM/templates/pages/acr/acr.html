@@ -4,23 +4,40 @@
 
 {% block content %}
 <div class="flex flex-col space-y-4">
+    {% for group in user.groups.all %}
+        {% if group.name == "Approver" %}
+            <div class="flex items-center">
+                <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-base">
+                    <li>
+                        <a href="{% url 'acr' %}" class="text-primary underline dark:text-white hover:underline " aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'approver_pending_groups_list' %}" class="text-gray-900 dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'approver_approved_groups_list' %}" class="text-gray-900 underline dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(Main)</span></a>
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
     <div class="w-full flex items-center justify-center space-x-4">
         <div class="w-full flex items-center">
             <div class="w-full bg-white rounded-md p-3 px-4 shadow-sm">
                 <form action="{% url 'acr' %}" class="flex items-center justify-evenly gap-4">
                     <!-- {% csrf_token %} -->
-                    <div class="flex">
-                        {% if user.is_authenticated %}
-                            {% for group in user.groups.all %}
-                                {% if group.name == "Encoder" %}
-                                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="w-40 py-2.5 text-sm rounded-md bg-primary text-white flex items-center justify-center">
-                                        <i class='bx bx-list-plus text-2xl'></i>
-                                        <span class="ml-2">NEW GROUP</span>
-                                    </button>
-                                {% endif %}
-                            {% endfor %}
+                    
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Encoder" %}
+                        <div class="flex">
+                            <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="w-40 py-2.5 text-sm rounded-md bg-primary text-white flex items-center justify-center">
+                                <i class='bx bx-list-plus text-2xl'></i>
+                                <span class="ml-2">NEW GROUP</span>
+                            </button>
+                        </div>
                         {% endif %}
-                    </div>
+                    {% endfor %}
+                    
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -123,7 +140,7 @@
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                        <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                                        <a href="{% url 'main_groups_rvs_rules_details' group_id=group.ACR_GROUPID %}" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
                                     </div>
                                 </td>
                             </tr>
@@ -173,9 +190,13 @@
                                             <td class="p-2 border border-gray-300">{{ main_rvs_single.EFF_DATE }}</td>
                                             <td class="p-2 border border-gray-300">{{ main_rvs_single.END_DATE }}</td>
                                             <td class="w-40 p-2 border border-gray-300">
-                                                <div class="flex items-center justify-end space-x-1 px-4">
-                                                    <a href="{% url 'set_rvs_rules' group_id=main_rvs_single.ACR_GROUPID rvs_code=main_rvs_single.RVSCODE %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
-                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
+                                                <div class="flex items-center justify-center space-x-1 px-4">
+                                                    {% for group in user.groups.all %}
+                                                        {% if group.name == "Encoder" %}
+                                                            <a href="{% url 'set_rvs_rules' group_id=main_rvs_single.ACR_GROUPID rvs_code=main_rvs_single.RVSCODE %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
+                                                                <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
+                                                        {% endif %}
+                                                    {% endfor %}
                                                     <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
                                                         <i class='bx bx-trash text-red-500 text-base'></i>
                                                     </a>
@@ -435,54 +456,57 @@
         </div>
     {% endif %}
 
-    {% if group %}
-        <div id="default-modal-{{ group_id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div class="relative w-full max-w-[1300px] max-h-full">
-                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    <div class="flex items-center justify-between px-5 py-2 border-b rounded-t dark:border-gray-600">
-                        <button hx-get="{% url 'temp_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="click" hx-target="#temp_rvs_cntr" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-{{ group_id }}">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <div class="p-4 space-y-4">
-                        <form hx-post="{% url 'rvs_create_modal' group_id=group.ACR_GROUPID %}" hx-trigger="submit" hx-target="#form-cntr" method="POST">
-                            {% csrf_token %}
-                            <div class="flex flex-col">
-                                <div id="form-cntr">
-                                    {% include "components/acr/fieldsets/acr-rvs.html" %}
-                                </div>
+    {% for user_group in user.groups.all %}
+        {% if user_group.name == "Encoder" %}
+            {% if group %}
+                <div id="default-modal-{{ group_id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative w-full max-w-[1300px] max-h-full">
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <div class="flex items-center justify-between px-5 py-2 border-b rounded-t dark:border-gray-600">
+                                <button hx-get="{% url 'temp_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="click" hx-target="#temp_rvs_cntr" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-{{ group_id }}">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
                             </div>
-                        </form>
+                            <div class="p-4 space-y-4">
+                                <form hx-post="{% url 'rvs_create_modal' group_id=group.ACR_GROUPID %}" hx-trigger="submit" hx-target="#form-cntr" method="POST">
+                                    {% csrf_token %}
+                                    <div class="flex flex-col">
+                                        <div id="form-cntr">
+                                            {% include "components/acr/fieldsets/acr-rvs.html" %}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
+            {% endif %}
 
-    <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-fit ">
-            <div class="relative flex flex-col space-y-2 bg-white rounded-lg shadow dark:bg-gray-700 p-6 border-t-4 border-primary">
-                <div class="flex items-center justify-between">
-                    <p class="text-base">CREATE GROUP FOR:</p>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <div class="flex w-96 text-center">
-                    <div class="w-full flex items-center space-x-6">
-                        <a href="{% url 'groups_rvs_new' %}" class="bg-white hover:text-primary border border-gray-200 hover:border-primary shadow rounded-md p-5 w-full text-center text-gray-700 text-xl">RVS</a>
-                        <a href="" class="bg-white hover:text-primary border border-gray-200 hover:border-primary shadow rounded-md p-5 w-full text-center text-gray-700 text-xl">ICD</a>
+            <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-fit ">
+                    <div class="relative flex flex-col space-y-2 bg-white rounded-lg shadow dark:bg-gray-700 p-6 border-t-4 border-primary">
+                        <div class="flex items-center justify-between">
+                            <p class="text-base">CREATE GROUP FOR:</p>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <div class="flex w-96 text-center">
+                            <div class="w-full flex items-center space-x-6">
+                                <a href="{% url 'groups_rvs_new' %}" class="bg-white hover:text-primary border border-gray-200 hover:border-primary shadow rounded-md p-5 w-full text-center text-gray-700 text-xl">RVS</a>
+                                <a href="" class="bg-white hover:text-primary border border-gray-200 hover:border-primary shadow rounded-md p-5 w-full text-center text-gray-700 text-xl">ICD</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        {% endif %}
+    {% endfor %}
     
 {% endblock content %}

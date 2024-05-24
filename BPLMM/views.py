@@ -20,52 +20,41 @@ from .repositories.group_repository import ACR_GROUPS_REPOSITORY
 from .repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 
 
-#-------------------------------------------------
 # LOGIN
-#-------------------------------------------------
 def login(request):
+    template = 'pages/login.html'
     if request.method == 'POST':
         print(request.POST) #remove after testing
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            print('nag login')
             auth_login(request, user)
             if user.groups.filter(name='Encoder').exists():
                 return redirect('acr')
             elif user.groups.filter(name='Approver').exists():
-                return redirect('approver_groups')
+                return redirect('approver_pending_groups_list')
             else:
                 auth_logout(request)
-                print('nag logout')
                 return redirect('login')  
         else:
             print('hindi nag login')
-            return render(request, 'pages/login.html', {'error': 'Invalid login credentials.'})
+            return render(request, template, {'error': 'Invalid login credentials.'})
     else:
-        return render(request, 'pages/login.html')
+        return render(request, template)
     
-    
-#-------------------------------------------------
 # LOGOUT
-#-------------------------------------------------
 def logout(request):
     auth_logout(request)
     print('nag logout')
     return redirect('login')
 
-#-------------------------------------------------
 # USER INFORMATION
-#-------------------------------------------------
 def get_current_user(request):
     user = request.user
     return render(request, 'components/auth/user-info-preview.html', {'user': user})
 
-
-#-------------------------------------------------
 # ACR
-#-------------------------------------------------
 @login_required
 def acr(request):
     code = request.GET.get('code', request.session.get('code', ''))
@@ -126,141 +115,15 @@ def acr(request):
 
     return render(request, 'pages/acr/acr.html', context)
 
-
-
-
-
-
-
-
-
-#-------------------------------------------------
-# CREATE RVS (with GROUP)
-#-------------------------------------------------
-# @encoder_required
-@login_required
-def rvs_create(request, group_id):
-    template = 'pages/acr/encoder/rvs-create.html'
-    acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
-    form = SAVE_RVS_FORM(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            print(request.POST) #remove after testing
-            try:
-                acr_groups_rvs = acr_groups_rvs_service.create(form, group_id, request)
-
-                if acr_groups_rvs is not None:  
-                    form = SAVE_RVS_FORM()
-                    messages.success(request, 'RVS has been saved successfully.')
-                    return render(request, template, {'form': form, 'group_id': group_id})
-                else:
-                    raise Exception('An error occurred while saving RVS.')
-            except Exception as e:
-                messages.error(request, str(e))
-        else:
-             messages.error(request, 'Please make sure all fields are filled out.')
-    return render(request, template, {'form': form, 'group_id': group_id})
-
-
-#-------------------------------------------------
 # CREATE RVS 
-#-------------------------------------------------
 def rvs(request):
     return render(request, 'pages/acr/encoder/rvs-list.html')
 
-
-#-------------------------------------------------
-# UPDATE RVS
-#-------------------------------------------------
-@login_required
-def rvs_update(request):
-
-    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
-    acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
-
-    if request.method == 'POST':
-
-        print(request.POST) #remove after testing
-
-        form = SAVE_RVS_FORM(request.POST)
-
-        try:
-            acr_groups = acr_groups_service.create(form)
-            acr_groups_rvs = acr_groups_rvs_service.create(form, acr_groups)
-            #acr_perrvs_rules = acr_perrvs_rules_service.create(form, acr_groups.ACR_GROUPID, acr_groups_rvs.RVSCODE)
-
-            if acr_groups is not None and acr_groups_rvs is not None:  
-                print("ACR_GROUPS created successfully") #remove after testing
-                form = SAVE_RVS_FORM()
-                return render(request, 'pages/acr/encoder/create-rvs.html', {'form': form})
-            else:
-                print("Form is not valid") #remove after testing
-                print(form.errors) #remove after testing
-                return render(request, 'pages/acr/encoder/create-rvs.html', {'form': form})
-        
-        except Exception as e:
-            
-            print(f"An error occurred: {e}") #remove after testing
-            return render(request, 'pages/acr/encoder/create-rvs.html', {'error_message': str(e)})
-    
-    form = SAVE_RVS_FORM()
-    return render(request, 'pages/acr/encoder/create-rvs.html', {'form': form})
-
-
-#-------------------------------------------------
-# GENERATE ACR GROUP ID
-#-------------------------------------------------
-def generate_acr_group_id():
-    return 'CR' + str(random.randint(1000, 9999))
-
-#-------------------------------------------------
-# SHOW RVS
-#-------------------------------------------------
-def rvs_show(request):
-    pass
-
-#-------------------------------------------------
-# EDIT RVS 
-#-------------------------------------------------
-def rvs_edit(request):
-    pass
-
-#-------------------------------------------------
-# DELETE RVS
-#-------------------------------------------------
-def rvs_delete(request):
-    pass
-
-# def set_rvs_rules(request, group_id):
-#     if request.method == 'POST':
-#         form = SAVE_RVS_RULES(request.POST)
-#         print(request.POST)
-#         return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'form': form, 'group_id': group_id})
-#     else:
-#         return render(request, 'pages/acr/encoder/rvs-rules-create.html', {'group_id': group_id})
-
-
-#-------------------------------------------------
 # LIST OF ICDS 
-#-------------------------------------------------
 def icds(request):
     return render(request, 'pages/acr/encoder/icds-list.html')
 
-#-------------------------------------------------
-# CREATE ICDS
-#-------------------------------------------------
-# @approver_required
-@login_required
-def create_icds(request, group_id):
-    return render(request, 'pages/acr/encoder/icds-create.html')
 
-def set_icds_rules(request):
-    return render(request, 'pages/acr/encoder/icds-rules-create.html')
-
-
-
-
-#----------------------------------------------------------------------------------------------------------
 # APPROVER'S VIEWS
 #----------------------------------------------------------------------------------------------------------
 
@@ -275,9 +138,9 @@ def approver_groups(request):
     
     if date_search_query:
         date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
-        temp_groups = ACR_GROUPS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query))
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query)).order_by('-created_at')
     else:
-        temp_groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query)
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query).order_by('-created_at')
 
     temp_data_paginator = Paginator(temp_groups, 8) 
     page_number = request.GET.get('page', 1)

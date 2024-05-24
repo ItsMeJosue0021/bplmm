@@ -34,8 +34,8 @@ def groups_rvs_new(request):
             data = form.cleaned_data
             try:
                 group = acr_groups_service.create_temp(data, request)
-                acr_groups_rvs_service.create_temp(data, group.ACR_GROUPID, request)
-                acr_groups_rvs_service.create_temp_rvs_rules(data, group.ACR_GROUPID, data['RVSCODE'], request.user.username)
+                acr_groups_rvs_service.create_temp(data, group.ID, request.user.username)
+                acr_groups_rvs_service.create_temp_rvs_rules(data, group.ID, data['RVSCODE'], request.user.username)
                 messages.success(request, 'Form saved successfully.')
                 return render(request, template, {'form': form})
             except Exception as e:
@@ -73,7 +73,7 @@ def groups(request):
     if request.method == 'POST':
         if form.is_valid():
             try:
-                acr_groups = acr_groups_service.create_temp(form, request)
+                acr_groups = acr_groups_service.create_temp(form, request.user.username)
                 if acr_groups is not None:
                     form = SAVE_RVS_FORM()
                     messages.success(request, 'Form saved successfully.')
@@ -134,7 +134,7 @@ def groups_temporary(request):
     else:
         groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=description_search, ACTIVE='F').order_by('-ID')
 
-    return render(request, 'components/htmx-templates/groups-temp.html', {'groups': paginate(request, groups, 2)})
+    return render(request, 'components/htmx-templates/groups-temp.html', {'groups': paginate(request, groups, 10)})
 
 
 # /groups/main
@@ -174,14 +174,105 @@ def check_rvs_or_icd_exists(request, group_id):
 
     return render(request, 'components/htmx-templates/rvs-icd-buttons.html', {'button': button, 'group_id': group_id})
 
-#-------------------------------------------------
-# SHOW GROUP
-#-------------------------------------------------
-def groups_show(request):
-    pass
+def temp_group_rvs_rules_details(request, id):
+    template = 'pages/acr/temp_group_rvs_rules_details.html'
+        
+    group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
+    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=id).first() 
+    rule = None
+    if rvs is not None:
+        rule = ACR_PERRVS_RULES_TEMP.objects.filter(ACR_GROUPID=id, RVSCODE=rvs.RVSCODE).first()
+        
+    context = { 'group': group, 'rvs': rvs, 'rule': rule }
+    
+    if request.POST:
+        try:
+            main_group = acr_groups_service.create_main(group)
+            if main_group is not None:
+                group.ACTIVE = 'T'
+                group.save()
+                acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+                acr_groups_rvs_service.create_main_rvs_rules(rule, main_group.ACR_GROUPID, rvs.RVSCODE)
+                messages.success(request, 'Succesfully approved.')
+                return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
+        except Exception as e:
+            messages.error(request, str(e))
+            return render(request, template, context)   
+    else: 
+        return render(request, template, context)
+    
+def main_groups_rvs_rules_details(request, group_id):
+    template = 'pages/acr/main_group_rvs_rules_details.html'
+    
+    group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id).first() 
+    rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id).first() 
+    rule = None
+    if rvs is not None:
+        rule = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=group_id, RVSCODE=rvs.RVSCODE).first()
+            
+    context = { 'group': group, 'rvs': rvs, 'rule': rule }
+    return render(request, template, context)
+    
+
+def approver_groups(request):
+    template = 'pages/acr/approver/group-list.html'
+    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+
+    data = ACR_GROUPS.objects.all()
+
+    temp_search_query = request.GET.get('temp_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query)).order_by('-created_at')
+    else:
+        temp_groups = ACR_GROUPS_TEMP.objects.filter(DESCRIPTION__icontains=temp_search_query).order_by('-created_at')
+
+    temp_data_paginator = Paginator(temp_groups, 8) 
+    page_number = request.GET.get('page', 1)
+    temp_data = temp_data_paginator.get_page(page_number)
+
+    form = ACR_GROUPS_FORM(request.POST or None)
+    context = {'data': data, 'temp_data': temp_data, 'form': form}
+
+    # if request.method == 'POST':
+    #     if form.is_valid():
+    #         try:
+    #             acr_groups = acr_groups_service.create_temp(form, request)
+    #             if acr_groups is not None:
+    #                 messages.success(request, 'Form saved successfully.')
+    #                 return render(request, template, context)
+    #             else:
+    #                 raise Exception('An error occurred while saving the form.')
+    #         except Exception as e:
+    #             messages.error(request, str(e))
+    #     else:
+    #         messages.error(request, 'Please make sure all fields are filled out.')
+
+    return render(request, template, context)
 
 
-#-------------------------------------------------
+def pending_groups(request):
+    template = 'pages/acr/approver/approved_group_list.html'
+    
+    temp_search_query = request.GET.get('temp_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        groups = ACR_GROUPS.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query)).order_by('-created_at')
+    else:
+        groups = ACR_GROUPS.objects.filter(DESCRIPTION__icontains=temp_search_query).order_by('-created_at')
+
+    temp_data_paginator = Paginator(groups, 8) 
+    page_number = request.GET.get('page', 1)
+    temp_data = temp_data_paginator.get_page(page_number)
+    
+    context = {'groups': groups}
+
+    return render(request, template, context)
+
 # EDIT GROUP
 #-------------------------------------------------
 def groups_edit(request, group_id):

@@ -16,16 +16,15 @@ class ACR_GROUPS_SERVICE:
         return self.repository.create_temp(acr_temp_group_data)
     
     # Add new object to the MAIN ACR GROUPS table
-    def create_main(self, acr_group_data):
-
-        acr_group_data = {
+    def create_main(self, group):
+        group_data = {
             'ACR_GROUPID': self.generate_acr_group_id(),
-            'DESCRIPTION': acr_group_data.DESCRIPTION,
-            'EFF_DATE': acr_group_data.EFF_DATE,
+            'DESCRIPTION': group.DESCRIPTION,
+            'EFF_DATE': group.EFF_DATE,
             'ACTIVE': 'T',
-            'END_DATE': acr_group_data.END_DATE
+            'END_DATE': group.END_DATE
         }
-        return self.repository.create_main(acr_group_data)
+        return self.repository.create_main(group_data)
     
     # Generates a mock ACR_GROUPID by getting the most recent ACR_GROUPID and incrementing it
     def generate_acr_group_id(self):
@@ -34,7 +33,7 @@ class ACR_GROUPS_SERVICE:
             prefix = group_id[:2]  
             number = int(group_id[2:])  
             number += 1 
-            new_group_id = prefix + str(number) 
+            new_group_id = prefix + str(number).zfill(4)  # Add leading zeros to make it 4 digits
             return new_group_id
         else:
-            return 'CR1000'
+            return 'CR0000'

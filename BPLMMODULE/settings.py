@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BPLMM',
-    'django_htmx'
+    'django_htmx',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [

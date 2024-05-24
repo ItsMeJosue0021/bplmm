@@ -12,10 +12,10 @@
                         <a href="{% url 'acr' %}" class="text-gray-900 underline dark:text-white hover:underline " aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="{% url 'approver_pending_groups_list' %}" class="text-primary underline dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                        <a href="{% url 'approver_pending_groups_list' %}" class="text-gray-900 underline dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(For Approval)</span></a>
                     </li>
                     <li>
-                        <a href="{% url 'approver_approved_groups_list' %}" class="text-gray-900 underline dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(Main)</span></a>
+                        <a href="{% url 'approver_approved_groups_list' %}" class="text-primary underline dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(Main)</span></a>
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,7 @@
                             class="italic text-base font-light text-red-800">(Waiting for approval)</span></p>
                         <div class="flex space-x-4 items-center">
                             <form class="flex items-center space-x-2">
-                                <input type="date" id="date_search" name="date_search" hx-get="{% url 'groups_temporary' %}" hx-trigger="change delay:500ms" hx-target="#temp-group"
+                                <input type="date" id="date_search" name="date_search" hx-get="{% url 'groups_main' %}" hx-trigger="change delay:500ms" hx-target="#main-group"
                                     class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </form>
                             <div class="flex items-center">
@@ -48,7 +48,7 @@
                                                 clip-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <input type="text" id="temp_search" name="description_search" hx-get="{% url 'groups_temporary' %}"  hx-trigger="keyup delay:500ms" hx-target="#temp-group"
+                                    <input type="text" id="temp_search" name="description_search" hx-get="{% url 'groups_main' %}"  hx-trigger="keyup delay:500ms" hx-target="#main-group"
                                         class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Search Description..">
                                 </div>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
         
-                    <div hx-get="{% url 'groups_temporary' %}" hx-trigger="load" id="temp-group" class="h-fit overflow-y-auto ">
+                    <div hx-get="{% url 'groups_main' %}" hx-trigger="load" id="main-group" class="h-fit overflow-y-auto ">
                     </div>           
                 </div>
             </div>  

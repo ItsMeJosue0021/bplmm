@@ -1,3 +1,4 @@
+import random
 from django.db import models # type: ignore
 from django.contrib.auth.models import AbstractUser # type: ignore
 
@@ -18,7 +19,7 @@ class ACR_GROUPS(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_TEMP(models.Model):
-    ID = models.AutoField(primary_key=True)
+    ID = models.CharField(max_length=255, primary_key=True)
     ACR_GROUPID = models.CharField(max_length=255, null=True, default='N/A')
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
@@ -27,6 +28,11 @@ class ACR_GROUPS_TEMP(models.Model):
     USERNAME = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.ID:
+            self.ID = random.randint(1, 9999)
+        return super().save(*args, **kwargs)
 
 class ACR_GROUPS_LOG(models.Model):
     ACR_GROUPID = models.CharField(max_length=255)
@@ -47,7 +53,6 @@ class ACR_GROUPS_ICDS(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_ICDS_TEMP(models.Model):
-    ID = models.AutoField(primary_key=True)
     ICDCODE = models.CharField(max_length=255, null=True, default='N/A')
     ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
@@ -57,7 +62,7 @@ class ACR_GROUPS_ICDS_TEMP(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_GROUPS_ICDS_LOG(models.Model):
-    ICDCODE = models.CharField(max_length=255)
+    ICDCODE = models.CharField(max_length=255, primary_key=True)
     LOG_DATE_TIME = models.DateTimeField(auto_now_add=True)
     REMARKS = models.TextField()
     USERNAME = models.CharField(max_length=255)
@@ -179,7 +184,7 @@ class ACR_PERRVS_RULES_TEMP(models.Model):
     CHECK_QUALIFIER = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     DEDUCT_FROM_45DAYS = models.CharField(max_length=255)  
     CHECK_GIDAS = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
-    FIXED_COPAY = models.DecimalField(max_digits=10, decimal_places=2)  
+    FIXED_COPAY = models.CharField(max_length=255) 
     CHECK_DIRECT_FILING = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
     CHECK_PCF_SECONDARY_CR =models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
     CHECK_ASC_SECONDARY_CR = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
