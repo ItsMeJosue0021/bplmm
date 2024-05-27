@@ -251,7 +251,7 @@
                             </tr>
                             <tr>
                                 <td class="p-2 border border-gray-200 w-80 font-medium">FIXED_COPAY</td>
-                                <td class="p-2 border border-gray-200">{{ rule.FIXED_COPAY }}</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.FIXED_COPAY|floatformat:2|intcomma }}</td>
                             </tr>
                             <tr>
                                 <td class="p-2 border border-gray-200 w-80 font-medium">CHECK_DIRECT_FILING</td>

@@ -24,18 +24,24 @@
                         {% for group in user.groups.all %}
                             {% if group.name == "Encoder" %}
                                 <a href="{% url 'set_rvs_rules' group_id=item.ACR_GROUPID rvs_code=item.RVSCODE %}" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
-                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
+                                <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>Rules</a>
+                                <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                                    <i class='bx bx-trash text-red-500 text-base'></i>
+                                </a>
+                                <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
+                                    <i class='bx bx-edit text-yellow-400 text-base'></i>
+                                </a>
+                                <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
+                                    <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
+                                </a>
                             {% endif %}
                         {% endfor %}
-                        <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
-                            <i class='bx bx-trash text-red-500 text-base'></i>
-                        </a>
-                        <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
-                            <i class='bx bx-edit text-yellow-400 text-base'></i>
-                        </a>
-                        <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
-                            <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
-                        </a>
+                        {% for group in user.groups.all %}
+                            {% if group.name == "Approver" %}
+                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                            {% endif %}
+                        {% endfor %}
+                        
                     </div>
                 </td>
             </tr>
@@ -47,23 +53,46 @@
             </tr>
         {% endfor %}
     </tbody>
-    <tfoot class="pagination">
-        <tr class="step-links">
-            <td colspan="8">
-                <div class="flex space-x-4 items-center mt-3">
-                    {% if rvs.has_previous %}
-                    <a hx-get="/groups/main?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#main-group"
-                        class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
-                    {% endif %}
-                    <span class="current text-sm">
-                        Page {{ rvs.number }} of {{ rvs.paginator.num_pages }}.
-                    </span>
-                    {% if rvs.has_next %}
-                    <a hx-get="/groups/main?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#main-group" 
-                        class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
-                    {% endif %}
-                </div> 
-            </td>
-        </tr>
-    </tfoot>
+    <!-- {% if apvr %}
+        <tfoot class="pagination">
+            <tr class="step-links">
+                <td colspan="8">
+                    <div class="flex space-x-4 items-center mt-3">
+                        {% if rvs.has_previous %}
+                        <a hx-get="/groups/main?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#main-group"
+                            class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
+                        {% endif %}
+                        <span class="current text-sm">
+                            Page {{ rvs.number }} of {{ rvs.paginator.num_pages }}.
+                        </span>
+                        {% if rvs.has_next %}
+                        <a hx-get="/groups/main?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#main-group" 
+                            class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
+                        {% endif %}
+                    </div> 
+                </td>
+            </tr>
+        </tfoot>
+    {% else %}
+        <tfoot class="pagination">
+            <tr class="step-links">
+                <td colspan="8">
+                    <div class="flex space-x-4 items-center mt-3">
+                        {% if rvs.has_previous %}
+                        <a hx-get="/groups/main?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#main-group"
+                            class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
+                        {% endif %}
+                        <span class="current text-sm">
+                            Page {{ rvs.number }} of {{ rvs.paginator.num_pages }}.
+                        </span>
+                        {% if rvs.has_next %}
+                        <a hx-get="/groups/main?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#main-group" 
+                            class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
+                        {% endif %}
+                    </div> 
+                </td>
+            </tr>
+        </tfoot>
+    {% endif %} -->
+    
 </table>

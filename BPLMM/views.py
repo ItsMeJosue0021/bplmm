@@ -72,7 +72,7 @@ def acr(request):
 
     elif filter == 'rvs':
         main_rvs_single = ACR_GROUPS_RVS.objects.filter(RVSCODE=code).first()
-        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code).first()
+        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code, is_approved=False).first()
         if main_rvs_single:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_rvs_single.ACR_GROUPID).first()
         elif temp_rvs_single:
@@ -80,17 +80,17 @@ def acr(request):
 
     elif filter == 'icd':
         main_icds = ACR_GROUPS_ICDS.objects.filter(ICDCODE=code).first()
-        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=code).first()
+        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=code, is_approved=False).first()
         if main_icds:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_icds.ACR_GROUPID).first()
         elif temp_icds:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_icds.ACR_GROUPID).first()
 
     if group:
-        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
+        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID, is_approved=False)
         main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
 
-        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
+        temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID, is_approved=False)
         main_icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
         
         button = None
@@ -164,6 +164,14 @@ def approver_groups(request):
             messages.error(request, 'Please make sure all fields are filled out.')
 
     return render(request, template, context)
+
+# ----------------------------------Z BENEFITS' TEMPORARY URLS-------------------------------
+def z_benefits_home(request):
+    return render(request, 'pages/z_benefits/home.html')
+
+# ----------------------------------DRG'S TEMPORARY URLS-------------------------------
+def drg_home(request):
+    return render(request, 'pages/drg/home.html')
 
 
 # -------------------------------------- MOCK VIEWS ----------------------------------------

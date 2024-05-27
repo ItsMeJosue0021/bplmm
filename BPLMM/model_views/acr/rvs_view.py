@@ -1,5 +1,5 @@
-from ..forms import *
-from ..models import *
+from ...forms import *
+from ...models import *
 from django.db.models import Q # type: ignore
 from datetime import datetime
 from django.contrib import messages # type: ignore
@@ -7,12 +7,12 @@ from django.core.paginator import Paginator # type: ignore
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
-from ..decorators import encoder_required, approver_required
+from ...decorators import encoder_required, approver_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout # type: ignore
 #services
-from ..services.rvs_service import ACR_GROUPS_RVS_SERVICE
+from ...services.rvs_service import ACR_GROUPS_RVS_SERVICE
 #repositories
-from ..repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
+from ...repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 
 acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
 
@@ -66,6 +66,28 @@ def main_rvs_by_group(request, group_id):
         rvs = ACR_GROUPS_RVS.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id)
     return render(request, 'components/htmx-templates/rvs-main.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
 
+def main_rvs(request):
+    desc_search_query = request.GET.get('description_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        rvs = ACR_GROUPS_RVS.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query))
+    else:
+        rvs = ACR_GROUPS_RVS.objects.filter(DESCRIPTION__icontains=desc_search_query)
+    return render(request, 'components/htmx-templates/rvs-main.html', {'rvs': paginate(request, rvs, 10), 'apvr': True})
+
+def temp_rvs(request):
+    desc_search_query = request.GET.get('description_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), is_approved=False)
+    else:
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, is_approved=False)
+    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'apvr':True})
+
 
 def set_rvs_rules(request, group_id, rvs_code):
     template = 'pages/acr/encoder/rvs-rules-create.html'
@@ -93,7 +115,14 @@ def check_if_rvs_effdate_exist(request):
     main_rule_exists = ACR_PERRVS_RULES.objects.filter(EFF_DATE=eff_date).exists()
     return render(request, 'components/htmx-templates/check_rvs_rvs_eff_date_existence.html', {'temp_rules': temp_rule_exists, 'main_rules': main_rule_exists})
 
+
+def approver_pending_rvs(request):
+    template = 'pages/acr/approver/pending_rvs_list.html'
+    return render(request, template)
     
+def approver_approved_rvs(request):
+    template = 'pages/acr/approver/approved_rvs_list.html'
+    return render(request, template)
 
 def paginate(request, data, items_per_page):
     paginator = Paginator(data, items_per_page) 

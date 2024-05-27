@@ -26,6 +26,7 @@ class ACR_GROUPS_TEMP(models.Model):
     ACTIVE = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False')])
     END_DATE = models.DateField(null=True, blank=True)
     USERNAME = models.CharField(max_length=255)
+    is_approved = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -58,6 +59,7 @@ class ACR_GROUPS_ICDS_TEMP(models.Model):
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
     USERNAME = models.CharField(max_length=255)
+    is_approved = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -89,6 +91,7 @@ class ACR_GROUPS_RVS_TEMP(models.Model):
     EFF_DATE = models.DateField()
     END_DATE = models.DateField(null=True, blank=True)
     USERNAME = models.CharField(max_length=255)
+    is_approved = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -202,6 +205,7 @@ class ACR_PERRVS_RULES_TEMP(models.Model):
     CHECK_FACILITY_RHU = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_PCB = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     USERNAME = models.CharField(max_length=255)
+    is_approved = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -313,6 +317,7 @@ class ACR_PERICD_RULES_TEMP(models.Model):
     CHECK_FACILITY_RHU = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     CHECK_FACILITY_PCB = models.CharField(max_length=3, choices=[('T', 'True'), ('F', 'False'), ('N/A', 'Not Applicable')])
     USERNAME = models.CharField(max_length=255)
+    is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -335,6 +340,9 @@ class SPC_CODE_MOCK(models.Model):
 
 class CLAIM_VALIDATION_INFOS(models.Model):
     CONTENT = models.TextField()
+    
+    
+# is_approved = models.BooleanField(default=False)
 
 
 

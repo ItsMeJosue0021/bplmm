@@ -15,7 +15,13 @@
                         <a href="{% url 'approver_pending_groups_list' %}" class="text-gray-900 dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(For Approval)</span></a>
                     </li>
                     <li>
-                        <a href="{% url 'approver_approved_groups_list' %}" class="text-gray-900 underline dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(Main)</span></a>
+                        <a href="{% url 'approver_approved_groups_list' %}" class="text-gray-900 dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(Main)</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'approver_pending_rvs_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'approver_approved_rvs_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS <span class="text-xs italic font-normal ">(Main)</span></a>
                     </li>
                 </ul>
             </div>
@@ -37,6 +43,18 @@
                         </div>
                         {% endif %}
                     {% endfor %}
+
+                    <div class="w-fit flex items-center space-x-4">
+                        <div class="p-1 px-2 rounded flex items-center space-x-1">
+                            <span class="text-base ">SEARCH </span>
+                            <span class="text-base ">BY</span>
+                        </div>
+                        <select name="filter" id="filter" class="w-42 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="group">GROUP ID</option>
+                            <option value="rvs">RVS CODE</option>
+                            <option value="icd">ICD CODE</option>
+                        </select>
+                    </div>
                     
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -48,19 +66,8 @@
                             </svg>
                         </div>
                         <input type="text" id="code" name="code"
-                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="w-full bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Code here.." >
-                    </div>
-                    <div class="w-fit flex items-center space-x-4">
-                        <div class="p-1 px-2 rounded flex items-center space-x-1">
-                            <span class="text-base ">SEARCH </span>
-                            <span class="text-base ">BY</span>
-                        </div>
-                        <select name="filter" id="filter" class="w-42 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="group">GROUP ID</option>
-                            <option value="rvs">RVS CODE</option>
-                            <option value="icd">ICD CODE</option>
-                        </select>
                     </div>
                     <button
                         class="ml-2 text-white bg-primary focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
@@ -106,40 +113,7 @@
                                     {% endif %}
                                 </td>
                                 <td class="w-40 p-2 border border-gray-200">
-                                    <div class="flex items-center justify-end space-x-1 px-4">
-                                        {% for user_group in user.groups.all %}
-                                            {% if user_group.name == "Approver" %}
-                                                {% if group.ACTIVE == "F" %}
-                                                    <form method="post" action="{% url 'groups_approve' id=group.ID %}">
-                                                        {% csrf_token %}
-                                                        <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
-                                                    </form>
-                                                {% endif %}
-                            
-                                                {% if group.ACTIVE == "T" %}
-                                                    <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Deactivate</a>
-                                                {% endif %}
-                                            {% elif user_group.name == "Encoder" %}
-                                                {% if group.ACTIVE == "T" %}
-                                                        <div class="flex items-center space-x-2">
-                                                            {% if button %}
-                                                                {% if button == 'rvs' %}
-                                                                    <a data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center cursor-pointer">
-                                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
-                                                                {% elif button == 'icd' %}
-                                                                    <a class="py-1 px-2 rounded text-primary border border-primary bg-white text-xs font-light flex items-center">
-                                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
-                                                                {% endif %}
-                                                            {% else %}
-                                                                <a data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-1 px-2 rounded text-white border border-primary bg-primary text-xs font-light flex items-center">
-                                                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</a>
-                                                                <a href="{% url 'icds_create' group.ACR_GROUPID %}" class="py-1 px-2 rounded text-primary border border-primary bg-white text-xs font-light flex items-center">
-                                                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</a>
-                                                            {% endif %}
-                                                        </div>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endfor %}
+                                    <div class="flex items-center justify-center space-x-1 px-4">
                                         <a href="{% url 'main_groups_rvs_rules_details' group_id=group.ACR_GROUPID %}" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
                                     </div>
                                 </td>
@@ -303,13 +277,35 @@
                 </div>
             </div>
             {% endif %}
-            {% if temp_rvs %}
+           
             <div class="p-4 rounded-md bg-white border-t-4 border-red-800 shadow">
                 <div class="flex flex-col h-fit">
                     <div class="flex items-start justify-between w-full pb-4">
                         <p class="w-fit text-base font-medium py-2 drop-shadow-lg text-red-800">RELATED ACR RVS<span
                             class="italic text-base font-light">(Waiting for approval)</span></p>
                         <div class="flex space-x-4 items-center">
+                            {% for user_group in user.groups.all %}
+                                {% if user_group.name == "Encoder" %}
+                                    {% if group.ACTIVE == "T" %}
+                                            <div class="flex items-center space-x-2">
+                                                {% if button %}
+                                                    {% if button == 'rvs' %}
+                                                        <button data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center cursor-pointer">
+                                                            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</button>
+                                                    {% elif button == 'icd' %}
+                                                        <button class="py-2 px-4 text-sm rounded-md text-primary border border-primary bg-white font-light flex items-center">
+                                                            <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</button>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <button data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center">
+                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</button>
+                                                    <button href="{% url 'icds_create' group.ACR_GROUPID %}" class="py-2 px-4 text-sm rounded-md text-primary border border-primary bg-white font-light flex items-center">
+                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</button>
+                                                {% endif %}
+                                            </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
                             <div class="flex items-center space-x-2">
                                 <input type="date" id="date_search" name="date_search" hx-get="{% url 'temp_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="change delay:500ms" hx-target="#temp_rvs_cntr"
                                     class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
@@ -338,7 +334,7 @@
                     </div>              
                 </div>
             </div>
-            {% endif %}
+            
         </div>
     {% endif %}
 

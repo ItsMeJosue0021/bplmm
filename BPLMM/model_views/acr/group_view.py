@@ -1,18 +1,18 @@
-from ..forms import *
-from ..models import *
+from ...forms import *
+from ...models import *
 from datetime import datetime
 from django.db.models import Q # type: ignore
 from django.contrib import messages # type: ignore
 from django.core.paginator import Paginator # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
-from ..decorators import encoder_required, approver_required
+from ...decorators import encoder_required, approver_required
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 #services
-from ..services.group_service import ACR_GROUPS_SERVICE
-from ..services.rvs_service import ACR_GROUPS_RVS_SERVICE
+from ...services.group_service import ACR_GROUPS_SERVICE
+from ...services.rvs_service import ACR_GROUPS_RVS_SERVICE
 #repositories
-from ..repositories.group_repository import ACR_GROUPS_REPOSITORY
-from ..repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
+from ...repositories.group_repository import ACR_GROUPS_REPOSITORY
+from ...repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 
 
 acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
@@ -174,6 +174,7 @@ def check_rvs_or_icd_exists(request, group_id):
 
     return render(request, 'components/htmx-templates/rvs-icd-buttons.html', {'button': button, 'group_id': group_id})
 
+# This is also the view that handles the approving of GROUP, RVS and RVS RULES
 def temp_group_rvs_rules_details(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
@@ -190,9 +191,14 @@ def temp_group_rvs_rules_details(request, id):
             main_group = acr_groups_service.create_main(group)
             if main_group is not None:
                 group.ACTIVE = 'T'
+                group.is_approved = True
                 group.save()
                 acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+                rvs.is_approved = True
+                rvs.save()
                 acr_groups_rvs_service.create_main_rvs_rules(rule, main_group.ACR_GROUPID, rvs.RVSCODE)
+                rule.is_approved = True
+                rule.save()
                 messages.success(request, 'Succesfully approved.')
                 return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
         except Exception as e:
@@ -214,8 +220,8 @@ def main_groups_rvs_rules_details(request, group_id):
     return render(request, template, context)
     
 
-def approver_groups(request):
-    template = 'pages/acr/approver/group-list.html'
+def approver_approved_groups(request):
+    template = 'pages/acr/approver/pending_group_list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
     data = ACR_GROUPS.objects.all()
@@ -236,24 +242,10 @@ def approver_groups(request):
     form = ACR_GROUPS_FORM(request.POST or None)
     context = {'data': data, 'temp_data': temp_data, 'form': form}
 
-    # if request.method == 'POST':
-    #     if form.is_valid():
-    #         try:
-    #             acr_groups = acr_groups_service.create_temp(form, request)
-    #             if acr_groups is not None:
-    #                 messages.success(request, 'Form saved successfully.')
-    #                 return render(request, template, context)
-    #             else:
-    #                 raise Exception('An error occurred while saving the form.')
-    #         except Exception as e:
-    #             messages.error(request, str(e))
-    #     else:
-    #         messages.error(request, 'Please make sure all fields are filled out.')
-
     return render(request, template, context)
 
 
-def pending_groups(request):
+def approver_pending_groups(request):
     template = 'pages/acr/approver/approved_group_list.html'
     
     temp_search_query = request.GET.get('temp_search', '')

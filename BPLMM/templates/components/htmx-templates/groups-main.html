@@ -33,7 +33,7 @@
                 {% endif %}
             </td>
             <td class="w-40 p-2 border border-gray-200">
-                <div class="flex items-center justify-end space-x-1 px-4">
+                <div class="flex items-center justify-center space-x-1 px-4">
                     {% for group in user.groups.all %}
                         {% if group.name == "Approver" %}
                             {% if item.ACTIVE == "F" %}
@@ -41,10 +41,6 @@
                                     {% csrf_token %}
                                     <input type="submit" value="Approve" class="py-1 px-2 rounded text-white bg-primary text-xs font-light">
                                 </form>
-                            {% endif %}
-
-                            {% if item.ACTIVE == "T" %}
-                                <a href="" class="py-1 px-2 rounded text-red-700 bg-red-50 border border-red-300 text-xs font-light">Deactivate</a>
                             {% endif %}
                         {% elif group.name == "Encoder" %}
                             {% if item.ACTIVE == "T" %}
