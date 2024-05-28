@@ -65,6 +65,12 @@ urlpatterns = [
         
         path('acr/apvr/rvs-main', rvs_view.main_rvs, name='main_rvs'),
         path('acr/apvr/rvs-temp', rvs_view.temp_rvs, name='temp_rvs'),
+        
+        path('acr/apvr/rvs/main/<str:rvscode>/details', rvs_view.main_rvs_details, name='main_rvs_details'),
+        path('acr/apvr/rvs/temporary/<str:rvscode>/details', rvs_view.temp_rvs_details, name='temp_rvs_details'),
+        
+        path('rvs/temp/count/', rvs_view.temp_rvs_count, name='temp_rvs_count'),
+        path('groups/temp/count/', rvs_view.temp_groups_count, name='temp_groups_count'),
 
     # ICDS' URLs
     #-------------------------------------------------

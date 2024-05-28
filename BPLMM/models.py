@@ -55,6 +55,7 @@ class ACR_GROUPS_ICDS(models.Model):
 
 class ACR_GROUPS_ICDS_TEMP(models.Model):
     ICDCODE = models.CharField(max_length=255, null=True, default='N/A')
+    TEMP_ACR_GROUPID = models.CharField(max_length=255)
     ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
     EFF_DATE = models.DateField()
@@ -85,6 +86,7 @@ class ACR_GROUPS_RVS(models.Model):
 
 class ACR_GROUPS_RVS_TEMP(models.Model):
     RVSCODE = models.CharField(max_length=255, primary_key=True)
+    TEMP_ACR_GROUPID = models.CharField(max_length=255)
     ACR_GROUPID = models.CharField(max_length=255)
     DESCRIPTION = models.TextField()
     RVU = models.IntegerField()

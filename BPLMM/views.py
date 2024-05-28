@@ -11,6 +11,9 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from .models import ACR_GROUPS, ACR_GROUPS_TEMP, ACR_GROUPS_RVS, ACR_PERRVS_RULES, RVS_CODE_MOCK, SPC_CODE_MOCK
 from .models import CLAIM_VALIDATION_INFOS, ACR_GROUPS_RVS_TEMP, ACR_GROUPS_ICDS_TEMP, ACR_GROUPS_ICDS
 
+# auth
+from .services.auth_service import AUTH_SERVICE
+
 #services
 from .services.group_service import ACR_GROUPS_SERVICE
 from .services.rvs_service import ACR_GROUPS_RVS_SERVICE
@@ -22,31 +25,24 @@ from .repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 
 # LOGIN
 def login(request):
-    template = 'pages/login.html'
+    TEMPLATE = 'pages/login.html'
+    ERROR_MESSAGE = 'Invalid login credentials.'
     if request.method == 'POST':
-        print(request.POST) #remove after testing
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            auth_login(request, user)
-            if user.groups.filter(name='Encoder').exists():
-                return redirect('acr')
-            elif user.groups.filter(name='Approver').exists():
-                return redirect('approver_pending_groups_list')
+        try:
+            user = AUTH_SERVICE.authenticate_user(request, username=request.POST['username'], password=request.POST['password'])
+            if user is not None:
+                AUTH_SERVICE.login_user(request, user)
+                return redirect(AUTH_SERVICE.authenticated_redirect(user))
             else:
-                auth_logout(request)
-                return redirect('login')  
-        else:
-            print('hindi nag login')
-            return render(request, template, {'error': 'Invalid login credentials.'})
+                raise Exception(ERROR_MESSAGE)
+        except Exception:
+            return render(request, TEMPLATE, {'error': ERROR_MESSAGE})
     else:
-        return render(request, template)
-    
+        return render(request, TEMPLATE)
+                
 # LOGOUT
 def logout(request):
-    auth_logout(request)
-    print('nag logout')
+    AUTH_SERVICE.logout_user(request)
     return redirect('login')
 
 # USER INFORMATION
@@ -128,7 +124,7 @@ def icds(request):
 #----------------------------------------------------------------------------------------------------------
 
 def approver_groups(request):
-    template = 'pages/acr/approver/group-list.html'
+    TEMPLATE = 'pages/acr/approver/group-list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
     data = ACR_GROUPS.objects.all()
@@ -155,7 +151,7 @@ def approver_groups(request):
                 acr_groups = acr_groups_service.create_temp(form, request)
                 if acr_groups is not None:
                     messages.success(request, 'Form saved successfully.')
-                    return render(request, template, context)
+                    return render(request, TEMPLATE, context)
                 else:
                     raise Exception('An error occurred while saving the form.')
             except Exception as e:
@@ -163,7 +159,7 @@ def approver_groups(request):
         else:
             messages.error(request, 'Please make sure all fields are filled out.')
 
-    return render(request, template, context)
+    return render(request, TEMPLATE, context)
 
 # ----------------------------------Z BENEFITS' TEMPORARY URLS-------------------------------
 def z_benefits_home(request):

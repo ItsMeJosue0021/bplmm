@@ -4,43 +4,37 @@
 {% block content %}
 
 <div class="h-screen w-full flex items-center justify-center bg-gradient-to-tr from-primary to-[#F6EB61] ">
-    <div class="flex flex-col justify-center p-8 h-fit m-auto w-fit rounded-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
-        <div class="w-52 h-16 m-auto mb-4">
-            <img src="{% static 'images/images_Philhealth_Logo.png' %}" alt="logo" class="w-full h-full">
-        </div>
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 class="text-center font-light text-base text-gray-800">Sign in to your account</h2>
+    <div class="flex flex-col justify-center space-y-6 p-8 h-fit m-auto w-96 rounded-lg bg-white backdrop-filter backdrop-blur-md ">
+        <div class="flex flex-col space-y-2 justify-center items-center">
+            <div class="w-48 h-14">
+                <img src="{% static 'images/images_Philhealth_Logo.png' %}" alt="logo" class="w-full h-full">
+            </div>
+            <div class="">
+                <h2 class="text-center font-normal text-base text-gray-800">Benefit Package Library Management System</h2>
+            </div>
         </div>
 
-        <div class="sm:mx-auto w-full md:w-72">
-            <form class="flex flex-col space-y-6 " action="{% url 'login' %}" method="POST">
+        <div class="w-full">
+            <form class="flex flex-col gap-6 " action="{% url 'login' %}" method="POST">
               {% csrf_token %}
-                <!-- <div class="input-group">
-                    <input id="username" required="" type="text" name="username" autocomplete="off" class="login-input">
-                    <label for="name" class="user-label">First Name</label>
-                </div> -->
-
-                <div class="relative">
-                    <input type="text" name="username" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                    <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Floating outlined</label>
+                <div class="relative z-0 w-full group rounded">
+                    <input type="text" name="username" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-600 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
                 </div>
 
-                <div class="relative">
-                    <input type="password" name="password" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                    <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-inherit dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">Password</label>
+                <div class="relative z-0 w-full group rounded">
+                    <input type="password" name="password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label for="floating_password" class="peer-focus:font-medium bg-transparent appearance-none absolute text-sm text-gray-600 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 focus:bg-transparent">Password</label>
                 </div>
 
-
-                <!-- <div class="input-group">
-                    <input id="password" required="" type="password" name="password" autocomplete="off" class="login-input bg-black">
-                    <label for="email" class="user-label">Password</label>
-                </div> -->
+                {% if error %}
                 <div>
-                  <button type="submit"
-                    class="flex w-full justify-center transition-all ease-in-out hover:scale-[.99] rounded-md bg-primary px-3 py-2 text-sm font-light leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                    in
-                  </button>
-              </div>
+                    <span  class="text-red-500 text-sm">{{ error }}</span>
+                </div>
+                {% endif %}
+                <div class="pt-2">
+                  <button type="submit" class="flex w-full justify-center transition-all ease-in-out hover:scale-[.99] rounded-md bg-primary px-3 py-2 text-sm font-light leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                </div>
             </form>
         </div>
     </div>

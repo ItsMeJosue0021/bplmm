@@ -11,14 +11,18 @@
                     <li>
                         <a href="{% url 'acr' %}" class="text-primary underline dark:text-white hover:underline " aria-current="page">Home</a>
                     </li>
-                    <li>
+                    <li class="relative">
                         <a href="{% url 'approver_pending_groups_list' %}" class="text-gray-900 dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                        <div hx-get="{% url 'temp_groups_count' %}" hx-trigger="load" id="temp_groups_count_cntr" class="absolute -top-3 -right-3">
+                        </div>
                     </li>
                     <li>
                         <a href="{% url 'approver_approved_groups_list' %}" class="text-gray-900 dark:text-white hover:underline ">Groups <span class="text-xs italic font-normal ">(Main)</span></a>
                     </li>
-                    <li>
-                        <a href="{% url 'approver_pending_rvs_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                    <li class="relative">
+                        <a  href="{% url 'approver_pending_rvs_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                        <div hx-get="{% url 'temp_rvs_count' %}" hx-trigger="load" id="temp_rvs_count_cntr" class="absolute -top-3 -right-3">
+                        </div>
                     </li>
                     <li>
                         <a href="{% url 'approver_approved_rvs_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS <span class="text-xs italic font-normal ">(Main)</span></a>

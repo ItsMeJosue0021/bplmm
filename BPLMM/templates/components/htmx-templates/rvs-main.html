@@ -38,7 +38,7 @@
                         {% endfor %}
                         {% for group in user.groups.all %}
                             {% if group.name == "Approver" %}
-                            <a href="" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                            <a href="{% url 'main_rvs_details' rvscode=item.RVSCODE %}" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
                             {% endif %}
                         {% endfor %}
                         

@@ -10,7 +10,7 @@
             <th class="p-2 border border-gray-300">ACTIONS</th>
         </tr>
     </thead>
-    <tbody  id="temp-group" class="text-gray-700 ">
+    <tbody  id="temp-rvs" class="text-gray-700 ">
         {% for item in rvs %}
             <tr>
                 <td class="p-2 border border-gray-300">{{ item.ACR_GROUPID }}</td>
@@ -37,7 +37,7 @@
                         
                         {% for group in user.groups.all %}
                             {% if group.name == "Approver" %}
-                            <a href="" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">Review</a>
+                            <a href="{% url 'temp_rvs_details' rvscode=item.RVSCODE %}" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">Review</a>
                             {% endif %}
                         {% endfor %}
                         
