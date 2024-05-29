@@ -32,14 +32,14 @@ urlpatterns = [
         # checks whether RVS or ICD exist in a GROUP
         path('groups/<str:group_id>/check-related', group_view.check_rvs_or_icd_exists, name='check_rvs_or_icd_exists'),
         
-     # APPROVER'S GROUP URLs
-    #-------------------------------------------------
+        path('acr/temp-group/<str:temp_group_id>/rvs/', group_view.temp_group_rvs, name="temp_group_rvs"),
+        
         # URL for approver's pending group list
         path('acr/apvr/groups/temporary', group_view.approver_approved_groups, name='approver_pending_groups_list'),
         # URL for approver's approved group list
         path('acr/apvr/groups/main', group_view.approver_pending_groups, name='approver_approved_groups_list'),
         # details of a temporary/pending group, rvs and rules
-        path('acr/apvr/groups/<int:id>/details', group_view.temp_group_rvs_rules_details, name='temp_group_rvs_rules_details'),
+        path('acr/apvr/groups/<int:id>/details', group_view.temp_group_rvs_rules_details__demo, name='temp_group_rvs_rules_details'),
         # details of a main/approved group, rvs and rules
         path('acr/apvr/groups/<str:group_id>/details', group_view.main_groups_rvs_rules_details, name='main_groups_rvs_rules_details'),
 

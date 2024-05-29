@@ -4,8 +4,6 @@
 
 {% block content %}
 <div class="flex flex-col space-y-4">
-    {% for group in user.groups.all %}
-        {% if group.name == "Approver" %}
             <div class="flex items-center">
                 <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-base">
                     <li>
@@ -29,8 +27,6 @@
                     </li>
                 </ul>
             </div>
-        {% endif %}
-    {% endfor %}
     <div>
         {% include "components/alerts/messages.html" %}
         <div>

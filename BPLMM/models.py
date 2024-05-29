@@ -159,6 +159,7 @@ class ACR_PERRVS_RULES(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERRVS_RULES_TEMP(models.Model):
+    TEMP_ACR_GROUPID = models.CharField(max_length=255)
     ACR_GROUPID = models.CharField(max_length=255, null=True) 
     RVSCODE = models.CharField(max_length=255) 
     EFF_DATE = models.DateField()
@@ -272,6 +273,7 @@ class ACR_PERICD_RULES(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class ACR_PERICD_RULES_TEMP(models.Model):
+    TEMP_ACR_GROUPID = models.CharField(max_length=255)
     ACR_GROUPID = models.CharField(max_length=255, null=True) 
     ICDCODE = models.CharField(max_length=255) 
     EFF_DATE = models.DateField()
@@ -343,8 +345,6 @@ class SPC_CODE_MOCK(models.Model):
 class CLAIM_VALIDATION_INFOS(models.Model):
     CONTENT = models.TextField()
     
-    
-# is_approved = models.BooleanField(default=False)
 
 
 

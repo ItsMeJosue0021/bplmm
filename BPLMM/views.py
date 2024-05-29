@@ -22,7 +22,8 @@ from .services.rvs_service import ACR_GROUPS_RVS_SERVICE
 from .repositories.group_repository import ACR_GROUPS_REPOSITORY
 from .repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 
-
+# 
+# 
 # LOGIN
 def login(request):
     TEMPLATE = 'pages/login.html'
@@ -39,17 +40,23 @@ def login(request):
             return render(request, TEMPLATE, {'error': ERROR_MESSAGE})
     else:
         return render(request, TEMPLATE)
-                
+
+#
+#  
 # LOGOUT
 def logout(request):
     AUTH_SERVICE.logout_user(request)
     return redirect('login')
 
+# 
+# 
 # USER INFORMATION
 def get_current_user(request):
     user = request.user
     return render(request, 'components/auth/user-info-preview.html', {'user': user})
 
+# 
+# 
 # ACR
 @login_required
 def acr(request):
@@ -68,7 +75,7 @@ def acr(request):
 
     elif filter == 'rvs':
         main_rvs_single = ACR_GROUPS_RVS.objects.filter(RVSCODE=code).first()
-        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code, is_approved=False).first()
+        temp_rvs_single = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code, is_approved=False, ACR_GROUPID__exact='').first()
         if main_rvs_single:
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=main_rvs_single.ACR_GROUPID).first()
         elif temp_rvs_single:
@@ -83,7 +90,7 @@ def acr(request):
             group = ACR_GROUPS.objects.filter(ACR_GROUPID=temp_icds.ACR_GROUPID).first()
 
     if group:
-        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID, is_approved=False)
+        temp_rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID, is_approved=False, ACR_GROUPID__exact='')
         main_rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group.ACR_GROUPID)
 
         temp_icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group.ACR_GROUPID, is_approved=False)
@@ -111,18 +118,22 @@ def acr(request):
 
     return render(request, 'pages/acr/acr.html', context)
 
+# 
+# 
 # CREATE RVS 
 def rvs(request):
     return render(request, 'pages/acr/encoder/rvs-list.html')
 
+# 
+# 
 # LIST OF ICDS 
 def icds(request):
     return render(request, 'pages/acr/encoder/icds-list.html')
 
 
+# 
 # APPROVER'S VIEWS
 #----------------------------------------------------------------------------------------------------------
-
 def approver_groups(request):
     TEMPLATE = 'pages/acr/approver/group-list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
@@ -161,32 +172,45 @@ def approver_groups(request):
 
     return render(request, TEMPLATE, context)
 
+# 
+# 
 # ----------------------------------Z BENEFITS' TEMPORARY URLS-------------------------------
 def z_benefits_home(request):
     return render(request, 'pages/z_benefits/home.html')
 
+# 
+# 
 # ----------------------------------DRG'S TEMPORARY URLS-------------------------------
 def drg_home(request):
     return render(request, 'pages/drg/home.html')
 
-
+# 
+# 
 # -------------------------------------- MOCK VIEWS ----------------------------------------
 def rvs_codes(request):
     code_search_query = request.GET.get('code_search', '')
     codes = RVS_CODE_MOCK.objects.filter(CODE__icontains=code_search_query)
     return render(request, 'components/mocks/rvs-code.html', {'codes': codes})
 
+# 
+# 
+# 
 def spc_codes(request):
     code_search_query = request.GET.get('spc_code_search', '')
     codes = SPC_CODE_MOCK.objects.filter(CODE__icontains=code_search_query)
     return render(request, 'components/mocks/spc-code.html', {'codes': codes})
 
+# 
+# 
+# 
 def claim_validation_rules(request):
     validation_rules_query_search_query = request.GET.get('validation_rules_search', '')
     rules = CLAIM_VALIDATION_INFOS.objects.filter(CONTENT__icontains=validation_rules_query_search_query)
     return render(request, 'components/mocks/claim-validation-rules.html', {'rules': rules})
 
-
+# 
+# 
+# 
 def check_if_rvscode_exists(request):
     code = request.GET.get('RVSCODE', None)
     rvscode = None
@@ -198,7 +222,9 @@ def check_if_rvscode_exists(request):
         rvscode = rvscode_temp
     return render(request, 'components/htmx-templates/check_rvscode_existence.html', {'rvscode': rvscode})
     
-    
+# 
+#    
+# 
 def paginate(request, data, items_per_page):
     paginator = Paginator(data, items_per_page) 
     page_number = request.GET.get('page', 1)

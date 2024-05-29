@@ -1,68 +1,33 @@
-{% extends 'layouts/main.html' %}
 {% load static %}
-
-{% block content %}
-<div class="flex items-center mb-4 group">
-    <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
-    <a href="{% url 'acr' %}"
-        class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back to Home</a>
-</div>
-{% include 'components/alerts/messages.html' %}
 <div class="h-auto">
-    {% include 'components/stepper.html' %}
+    {% include 'components/stepper-v3.html' %}
+    {% include 'components/alerts/modal-messages.html' %}
     <div class="h-full">
-        <form action="{% url 'groups_rvs_new' %}" method="POST">
+        <form  method="POST">
             {% csrf_token %}
             <div class="flex flex-col">
                 <div>
                     <div id="section1" data-section="1" class="form-section">
                         <div>
                             <div class="w-full px-4 bg-primary">
-                                <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">NEW ACR GROUP</p>
+                                <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">NEW ACR RVS</p>
                             </div>
-                            <div class="flex flex-col space-y-4 p-4 mb-4 rounded-b-md bg-white shadow">
-                                <div class="w-full flex items-start justify-between space-x-6">
-                                    <div class="w-full">
-                                        {% include "components/date-input.html" with name='GROUP_EFF_DATE' label='Effectivity Date' old=form.GROUP_EFF_DATE %}
-                                        {% for error in form.GROUP_EFF_DATE.errors %}
-                                            <div class="text-sm text-red-500">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="w-full">
-                                        {% include "components/date-input.html" with name='GROUP_END_DATE' label='Effectivity End Date' old=form.GROUP_END_DATE %}
-                                        {% for error in form.GROUP_END_DATE.errors %}
-                                            <div class="text-sm text-red-500">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                                <div class="w-full">
-                                    {% include "components/text-field.html" with name='GROUP_DESCRIPTION' label='Description' old=form.GROUP_DESCRIPTION %}
-                                    {% for error in form.GROUP_DESCRIPTION.errors %}
-                                        <div class="text-sm text-red-500">{{ error }}</div>
-                                    {% endfor %}
-                                </div>
-                                <div class="flex items-center justify-start">
-                                    <span>STATUS: <span class="ml-2 py-1 px-2 rounded text-red-800 bg-red-50 bg-opacity-80 text-xs font-light">INACTIVE</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a href="{% url 'acr' %}" class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section2">Next</a>
-                        </div>
-                    </div>
-                    <div id="section2" data-section="2" style="display: none;" class="form-section">
-                        <div>
-                            <div class="w-full px-4 bg-primary">
-                                <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">NEW ACR  RVS</p>
-                            </div>
-                            <div class="flex flex-col space-y-4 p-4 rounded-b-md bg-white shadow">
-                                <div class="w-full flex items-start justify-between space-x-6">
+                            <div
+                                class="flex flex-col space-y-4 p-4 rounded-b-md bg-white shadow">
+                                <div
+                                    class="w-full flex items-start justify-between space-x-6">
                                     <div class="w-full">
                                         <div class="flex flex-col space-y-1">
-                                            <label for="RVSCODE" class="text-gray-700 uppercase text-sm font-medium">RVS CODE</label>
-                                            <input hx-get="{% url 'check_rvscode_existence' %}" hx-trigger="keyup delay:500ms" hx-target="#rvs_exists_cntr" type="text" id="RVSCODE" name="RVSCODE" placeholder="RVSCODE" value="{{ form.RVSCODE.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
+                                            <label for="RVSCODE"
+                                                class="text-gray-700 uppercase text-sm font-medium">RVS CODE</label>
+                                            <input
+                                                hx-get="{% url 'check_rvscode_existence' %}"
+                                                hx-trigger="keyup delay:500ms"
+                                                hx-target="#rvs_exists_cntr" type="text"
+                                                id="RVSCODE" name="RVSCODE"
+                                                placeholder="RVSCODE"
+                                                value="{{ form.RVSCODE.value|default:''|escape }}"
+                                                class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
                                         </div>
                                         <div id="rvs_exists_cntr"></div>
                                         {% for error in form.RVSCODE.errors %}
@@ -98,14 +63,24 @@
                             </div>
                         </div>
                         <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300 " 
-                                data-back="section1">Back</a>
+                            
+                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                                data-next="section2">Next</a>
+                        </div>
+                    </div>
+                    <div id="section2" data-section="2" style="display: none;"
+                        class="form-section">
+                        {% include 'components/acr/fieldsets/acr-inputs.html' %}
+                        <div class="flex items-start space-x-6 mt-4 text-sm">
+                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300 "
+                            data-back="section1">Back</a>
                             <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
                                 data-next="section3">Next</a>
                         </div>
                     </div>
-                    <div id="section3" data-section="3" style="display: none;" class="form-section">
-                        {% include 'components/acr/fieldsets/acr-inputs.html' %}
+                    <div id="section3" data-section="3" style="display: none;"
+                        class="form-section">
+                        {% include "components/acr/fieldsets/acr-inputs-2.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section2">Back</a>
@@ -113,8 +88,9 @@
                                 data-next="section4">Next</a>
                         </div>
                     </div>
-                    <div id="section4" data-section="4" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-inputs-2.html" %}
+                    <div id="section4" data-section="4" style="display: none;"
+                        class="form-section">
+                        {% include "components/acr/fieldsets/acr-checkboxes.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section3">Back</a>
@@ -122,8 +98,9 @@
                                 data-next="section5">Next</a>
                         </div>
                     </div>
-                    <div id="section5" data-section="5" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-checkboxes.html" %}
+                    <div id="section5" data-section="5" style="display: none;"
+                        class="form-section">
+                        {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section4">Back</a>
@@ -131,8 +108,9 @@
                                 data-next="section6">Next</a>
                         </div>
                     </div>
-                    <div id="section6" data-section="6" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
+                    <div id="section6" data-section="6" style="display: none;"
+                        class="form-section">
+                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section5">Back</a>
@@ -140,8 +118,10 @@
                                 data-next="section7">Next</a>
                         </div>
                     </div>
-                    <div id="section7" data-section="7" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
+
+                    <div id="section7" data-section="7" style="display: none;"
+                        class="form-section">
+                        {% include "components/acr/fieldsets/acr-code-inputs.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
                                 data-back="section6">Back</a>
@@ -150,21 +130,12 @@
                         </div>
                     </div>
 
-                    <div id="section8" data-section="8" style="display: none;" class="form-section">
-                        {% include "components/acr/fieldsets/acr-code-inputs.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section7">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section9">Next</a>
-                        </div>
-                    </div>
-
-                    <div id="section9" data-section="9" style="display: none;" class="form-section">
+                    <div id="section8" data-section="8" style="display: none;"
+                        class="form-section">
                         {% include "components/acr/fieldsets/acr-validation-rules.html" %}
                         <div class="flex items-start space-x-6 mt-4 text-sm">
                             <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section8">Back</a>
+                                data-back="section7">Back</a>
                             <button
                                 class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white">Submit</button>
                         </div>
@@ -173,6 +144,6 @@
             </div>
         </form>
     </div>
+    <script src="{% static 'js/acr/create-rvs.js' %}"></script>
 </div>
-<script src="{% static 'js/acr/create-rvs.js' %}"></script>
-{% endblock %}
+

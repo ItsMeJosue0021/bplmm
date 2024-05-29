@@ -21,6 +21,9 @@ acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
 exception_error_message = 'Something went wrong while trying to save'
 please_try_again = 'Please try again.'
 
+# 
+# 
+# 
 @login_required
 @encoder_required
 def groups_rvs_new(request):
@@ -34,8 +37,8 @@ def groups_rvs_new(request):
             data = form.cleaned_data
             try:
                 group = acr_groups_service.create_temp(data, request)
-                acr_groups_rvs_service.create_temp(data, group.ID, request.user.username)
-                acr_groups_rvs_service.create_temp_rvs_rules(data, group.ID, data['RVSCODE'], request.user.username)
+                acr_groups_rvs_service.create_temp(data, username=request.user.username, temp_acr_groupid=group.ID)
+                acr_groups_rvs_service.create_temp_rvs_rules(data, data['RVSCODE'], request.user.username, temp_acr_groupid=group.ID)
                 messages.success(request, 'Form saved successfully.')
                 return render(request, template, {'form': form})
             except Exception as e:
@@ -46,6 +49,35 @@ def groups_rvs_new(request):
             return render(request, template, {'form': form})
     return render(request, template)
 
+# 
+# 
+# 
+# def rvs_rules_new(request, temp_acr_groupid):
+#     TEMPLATE = 'components/acr/new_rvs_rules_modal_form.html'
+    
+#     if request.method == 'POST':
+#         form = SAVE_RVS_AND_RULES(request.POST)
+        
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             try:
+#                 group = acr_groups_service.create_temp(data, request)
+#                 acr_groups_rvs_service.create_temp(data, username=request.user.username, temp_acr_groupid=group.ID)
+#                 acr_groups_rvs_service.create_temp_rvs_rules(data, data['RVSCODE'], request.user.username, temp_acr_groupid=group.ID)
+#                 messages.success(request, 'Form saved successfully.')
+#                 return render(request, template, {'form': form})
+#             except Exception as e:
+#                 messages.error(request, str(e))
+#                 return render(request, template, {'form': form})   
+#         else:
+            
+#     else:
+#         return render(request, TEMPLATE, {'temp_acr_groupid': temp_acr_groupid})
+    
+
+# 
+# 
+# 
 @login_required
 @encoder_required
 def groups(request):
@@ -153,7 +185,8 @@ def groups_main(request):
 
     return render(request, 'components/htmx-templates/groups-main.html', {'groups': paginate(request, groups, 2)})
 
-
+# 
+# 
 # checks whether RVS or ICD exists in a GROUP
 def check_rvs_or_icd_exists(request, group_id):
 
@@ -174,15 +207,17 @@ def check_rvs_or_icd_exists(request, group_id):
 
     return render(request, 'components/htmx-templates/rvs-icd-buttons.html', {'button': button, 'group_id': group_id})
 
+# 
+# 
 # This is also the view that handles the approving of GROUP, RVS and RVS RULES
 def temp_group_rvs_rules_details(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
     group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
-    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(ACR_GROUPID=id).first() 
+    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id).first() 
     rule = None
     if rvs is not None:
-        rule = ACR_PERRVS_RULES_TEMP.objects.filter(ACR_GROUPID=id, RVSCODE=rvs.RVSCODE).first()
+        rule = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id, RVSCODE=rvs.RVSCODE).first()
         
     context = { 'group': group, 'rvs': rvs, 'rule': rule }
     
@@ -195,9 +230,11 @@ def temp_group_rvs_rules_details(request, id):
                 group.save()
                 acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
                 rvs.is_approved = True
+                rvs.ACR_GROUPID = main_group.ACR_GROUPID
                 rvs.save()
-                acr_groups_rvs_service.create_main_rvs_rules(rule, main_group.ACR_GROUPID, rvs.RVSCODE)
+                acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
                 rule.is_approved = True
+                rvs.ACR_GROUPID = main_group.ACR_GROUPID
                 rule.save()
                 messages.success(request, 'Succesfully approved.')
                 return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
@@ -206,7 +243,45 @@ def temp_group_rvs_rules_details(request, id):
             return render(request, template, context)   
     else: 
         return render(request, template, context)
+ 
+# 
+# 
+#    
+def temp_group_rvs_rules_details__demo(request, id):
+    template = 'pages/acr/temp_group_rvs_rules_details.html'
+        
+    group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
+    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
+    rules = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
+        
+    context = { 'group': group, 'rvs': rvs, 'rules': rules }
     
+    # if request.POST:
+        # try:
+        #     main_group = acr_groups_service.create_main(group)
+        #     if main_group is not None:
+        #         group.ACTIVE = 'T'
+        #         group.is_approved = True
+        #         group.save()
+        #         acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+        #         rvs.is_approved = True
+        #         rvs.ACR_GROUPID = main_group.ACR_GROUPID
+        #         rvs.save()
+        #         acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
+        #         rule.is_approved = True
+        #         rvs.ACR_GROUPID = main_group.ACR_GROUPID
+        #         rule.save()
+        #         messages.success(request, 'Succesfully approved.')
+        #         return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
+        # except Exception as e:
+        #     messages.error(request, str(e))
+        #     return render(request, template, context)   
+    # else: 
+    return render(request, template, context)
+
+# 
+# 
+# 
 def main_groups_rvs_rules_details(request, group_id):
     template = 'pages/acr/main_group_rvs_rules_details.html'
     
@@ -219,7 +294,9 @@ def main_groups_rvs_rules_details(request, group_id):
     context = { 'group': group, 'rvs': rvs, 'rule': rule }
     return render(request, template, context)
     
-
+# 
+# 
+# 
 def approver_approved_groups(request):
     template = 'pages/acr/approver/pending_group_list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
@@ -244,7 +321,9 @@ def approver_approved_groups(request):
 
     return render(request, template, context)
 
-
+# 
+# 
+# 
 def approver_pending_groups(request):
     template = 'pages/acr/approver/approved_group_list.html'
     
@@ -265,18 +344,36 @@ def approver_pending_groups(request):
 
     return render(request, template, context)
 
+# 
+# 
+# 
+def temp_group_rvs(request, temp_group_id):
+    desc_search_query = request.GET.get('description_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
+    else:
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
+    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'temp_group_id':temp_group_id})
+
+# 
 # EDIT GROUP
 #-------------------------------------------------
 def groups_edit(request, group_id):
     pass
 
 
-#-------------------------------------------------
+#
 # DELETE GROUP
 #-------------------------------------------------
 def groups_delete(request, group_id):
     pass
 
+# 
+# 
+# 
 def paginate(request, data, items_per_page):
     paginator = Paginator(data, items_per_page) 
     page_number = request.GET.get('page', 1)

@@ -28,7 +28,7 @@ def rvs_create_modal(request, group_id):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(data, group_id, request.user.username)
+                acr_groups_rvs = acr_groups_rvs_service.create_temp_modal(data, request.user.username, group_id = group_id)
                 if acr_groups_rvs is not None:  
                     form = SAVE_RVS_FORM()
                     messages.success(request, 'RVS has been saved successfully.')
@@ -51,9 +51,9 @@ def temp_rvs_by_group(request, group_id):
     
     if date_search_query:
         date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
-        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id).order_by('-created_at')
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), ACR_GROUPID=group_id, is_approved=False).order_by('-created_at')
     else:
-        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id).order_by('-created_at')
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, ACR_GROUPID=group_id, is_approved=False).order_by('-created_at')
     return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'group_id':group_id})
 
 # 
@@ -105,9 +105,9 @@ def temp_rvs(request):
     
     if date_search_query:
         date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
-        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), is_approved=False, TEMP_ACR_GROUPID__isnull=True)
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), is_approved=False, TEMP_ACR_GROUPID__exact='')
     else:
-        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, is_approved=False, TEMP_ACR_GROUPID__isnull=True)
+        rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, is_approved=False, TEMP_ACR_GROUPID__exact='')
     return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 10), 'apvr':True})
 
 # 
@@ -132,7 +132,7 @@ def set_rvs_rules(request, group_id, rvs_code):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                acr_groups_rvs_service.create_temp_rvs_rules(data, group_id, rvs_code, request.user.username)  
+                acr_groups_rvs_service.create_temp_rvs_rules(data, rvs_code, request.user.username, temp_acr_groupid = group_id)  
                 messages.success(request, 'RVS RULES has been saved successfully.')
                 return render(request, template, {'form': form, 'group_id': group_id, 'rvs_code': rvs_code})
             except Exception as e:
@@ -171,7 +171,7 @@ def approver_approved_rvs(request):
 # 
 # 
 def temp_rvs_count(request):
-    count = ACR_GROUPS_RVS_TEMP.objects.filter(is_approved=False, TEMP_ACR_GROUPID__isnull=True).count()
+    count = ACR_GROUPS_RVS_TEMP.objects.filter(is_approved=False, TEMP_ACR_GROUPID__exact='').count()
     return render(request, 'components/htmx-templates/temp_rvs_count.html', {'count': count})
 
 # 
