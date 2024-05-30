@@ -159,7 +159,7 @@ def groups_main(request):
     else:
         groups = ACR_GROUPS.objects.filter(DESCRIPTION__icontains=description_search).order_by('-ACR_GROUPID')
 
-    return render(request, 'components/htmx-templates/groups-main.html', {'groups': paginate(request, groups, 2)})
+    return render(request, 'components/htmx-templates/groups-main.html', {'groups': paginate(request, groups, 10)})
 
 # 
 # 
@@ -250,6 +250,8 @@ def temp_group_rvs_rules_details__demo(request, id):
                     rvs.save()
                     
                     for rule in rules:
+                        if rule.RVSCODE != rvs.RVSCODE:
+                            continue
                         acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
                         rule.is_approved = True
                         rvs.ACR_GROUPID = main_group.ACR_GROUPID
@@ -271,12 +273,10 @@ def main_groups_rvs_rules_details(request, group_id):
     template = 'pages/acr/main_group_rvs_rules_details.html'
     
     group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id).first() 
-    rvs = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id).first() 
-    rule = None
-    if rvs is not None:
-        rule = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=group_id, RVSCODE=rvs.RVSCODE).first()
+    rvs_list = ACR_GROUPS_RVS.objects.filter(ACR_GROUPID=group_id)
+    rules = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=group_id)
             
-    context = { 'group': group, 'rvs': rvs, 'rule': rule }
+    context = { 'group': group, 'rvs': rvs_list, 'rules': rules }
     return render(request, template, context)
     
 # 
