@@ -1,9 +1,9 @@
 
 // CHECK ADDITIONAL CODES
 
-let codes = [];
-let codesValue = document.querySelector('#CHECK_ADDITIONAL_CODES').value;
-let currentCodesContainer = document.querySelector('.current-additional-codes-container');
+var codes = [];
+var codesValue = document.querySelector('#CHECK_ADDITIONAL_CODES').value;
+var currentCodesContainer = document.querySelector('.current-additional-codes-container');
 
 updateCodeCntr('.current-additional-codes-container', codes);
 
@@ -70,9 +70,9 @@ function addAdditionalCode(button) {
 
 // CHECK SPC RELATED BEN CODES  
 
-let SPCcodes = [];
-let SPCCodesValue = document.querySelector('#CHECK_SPC_RELATED_BEN_CODES').value;
-let currentSPCCodesContainer = document.querySelector('.current-spc-codes-container');
+var SPCcodes = [];
+var SPCCodesValue = document.querySelector('#CHECK_SPC_RELATED_BEN_CODES').value;
+var currentSPCCodesContainer = document.querySelector('.current-spc-codes-container');
 
 updateCodeCntr('.current-spc-codes-container', SPCcodes);
 

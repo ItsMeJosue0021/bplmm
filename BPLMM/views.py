@@ -51,6 +51,7 @@ def logout(request):
 # 
 # 
 # USER INFORMATION
+@login_required
 def get_current_user(request):
     user = request.user
     return render(request, 'components/auth/user-info-preview.html', {'user': user})
@@ -134,6 +135,7 @@ def icds(request):
 # 
 # APPROVER'S VIEWS
 #----------------------------------------------------------------------------------------------------------
+@login_required
 def approver_groups(request):
     TEMPLATE = 'pages/acr/approver/group-list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
@@ -175,12 +177,14 @@ def approver_groups(request):
 # 
 # 
 # ----------------------------------Z BENEFITS' TEMPORARY URLS-------------------------------
+@login_required
 def z_benefits_home(request):
     return render(request, 'pages/z_benefits/home.html')
 
 # 
 # 
 # ----------------------------------DRG'S TEMPORARY URLS-------------------------------
+@login_required
 def drg_home(request):
     return render(request, 'pages/drg/home.html')
 
@@ -211,6 +215,7 @@ def claim_validation_rules(request):
 # 
 # 
 # 
+@login_required
 def check_if_rvscode_exists(request):
     code = request.GET.get('RVSCODE', None)
     rvscode = None

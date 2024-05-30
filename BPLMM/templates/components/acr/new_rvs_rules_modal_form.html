@@ -3,147 +3,131 @@
     {% include 'components/stepper-v3.html' %}
     {% include 'components/alerts/modal-messages.html' %}
     <div class="h-full">
-        <form  method="POST">
-            {% csrf_token %}
-            <div class="flex flex-col">
-                <div>
-                    <div id="section1" data-section="1" class="form-section">
-                        <div>
-                            <div class="w-full px-4 bg-primary">
-                                <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">NEW ACR RVS</p>
-                            </div>
-                            <div
-                                class="flex flex-col space-y-4 p-4 rounded-b-md bg-white shadow">
-                                <div
-                                    class="w-full flex items-start justify-between space-x-6">
-                                    <div class="w-full">
-                                        <div class="flex flex-col space-y-1">
-                                            <label for="RVSCODE"
-                                                class="text-gray-700 uppercase text-sm font-medium">RVS CODE</label>
-                                            <input
-                                                hx-get="{% url 'check_rvscode_existence' %}"
-                                                hx-trigger="keyup delay:500ms"
-                                                hx-target="#rvs_exists_cntr" type="text"
-                                                id="RVSCODE" name="RVSCODE"
-                                                placeholder="RVSCODE"
-                                                value="{{ form.RVSCODE.value|default:''|escape }}"
-                                                class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
-                                        </div>
-                                        <div id="rvs_exists_cntr"></div>
-                                        {% for error in form.RVSCODE.errors %}
-                                            <div class="text-sm text-red-500">{{ error }}</div>
-                                        {% endfor %}
+        <div class="flex flex-col">
+            <div>
+                <div id="section1" data-section="1" class="form-section">
+                    <div>
+                        <div class="w-full px-4 bg-primary">
+                            <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">NEW ACR RVS</p>
+                        </div>
+                        <div class="flex flex-col space-y-4 p-4 rounded-b-md bg-white shadow">
+                            <div class="w-full flex items-start justify-between space-x-6">
+                                <div class="w-full">
+                                    <div class="flex flex-col space-y-1">
+                                        <label for="RVSCODE" class="text-gray-700 uppercase text-sm font-medium">RVS
+                                            CODE</label>
+                                        <input hx-get="{% url 'check_rvscode_existence' %}"
+                                            hx-trigger="keyup delay:500ms" hx-target="#rvs_exists_cntr" type="text"
+                                            id="RVSCODE" name="RVSCODE" placeholder="RVSCODE"
+                                            value="{{ form.RVSCODE.value|default:''|escape }}"
+                                            class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
                                     </div>
+                                    <div id="rvs_exists_cntr"></div>
+                                    {% for error in form.RVSCODE.errors %}
+                                    <div class="text-sm text-red-500">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
 
-                                    <div class="w-full">
-                                        {% include "components/date-input.html" with name='RVS_EFF_DATE' label='Effectivity Date' old=form.RVS_EFF_DATE %}
-                                        {% for error in form.RVS_EFF_DATE.errors %}
-                                            <div class="text-sm text-red-500">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="w-full">
-                                        {% include "components/date-input.html" with name='RVS_END_DATE' label='Effectivity End Date' old=form.RVS_END_DATE %}
-                                        {% for error in form.RVS_END_DATE.errors %}
-                                            <div class="text-sm text-red-500">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="w-full">
-                                        {% include "components/number-input.html" with name='RVU' label='RVU' pholder='0' old=form.RVU %}
-                                        {% for error in form.RVU.errors %}
-                                            <div class="text-sm text-red-500">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
+                                <div class="w-full">
+                                    {% include "components/date-input.html" with name='RVS_EFF_DATE' label='Effectivity ate' old=form.RVS_EFF_DATE %}
+                                    {% for error in form.RVS_EFF_DATE.errors %}
+                                    <div class="text-sm text-red-500">{{ error }}</div>
+                                    {% endfor %}
                                 </div>
                                 <div class="w-full">
-                                    {% include "components/text-field.html" with name='RVS_DESCRIPTION' label='Description' old=form.RVS_DESCRIPTION %}
-                                    {% for error in form.RVS_DESCRIPTION.errors %}
-                                        <div class="text-sm text-red-500">{{ error }}</div>
+                                    {% include "components/date-input.html" with name='RVS_END_DATE' label='Effectivity End Date' old=form.RVS_END_DATE %}
+                                    {% for error in form.RVS_END_DATE.errors %}
+                                    <div class="text-sm text-red-500">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="w-full">
+                                    {% include "components/number-input.html" with name='RVU' label='RVU' pholder='0' old=form.RVU %}
+                                    {% for error in form.RVU.errors %}
+                                    <div class="text-sm text-red-500">{{ error }}</div>
                                     {% endfor %}
                                 </div>
                             </div>
-                        </div>
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section2">Next</a>
+                            <div class="w-full">
+                                {% include "components/text-field.html" with name='RVS_DESCRIPTION' label='Description' old=form.RVS_DESCRIPTION %}
+                                {% for error in form.RVS_DESCRIPTION.errors %}
+                                <div class="text-sm text-red-500">{{ error }}</div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    <div id="section2" data-section="2" style="display: none;"
-                        class="form-section">
-                        {% include 'components/acr/fieldsets/acr-inputs.html' %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300 "
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section2">Next</a>
+                    </div>
+                </div>
+                <div id="section2" data-section="2" style="display: none;" class="form-section">
+                    {% include 'components/acr/fieldsets/acr-inputs.html' %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300 "
                             data-back="section1">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section3">Next</a>
-                        </div>
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section3">Next</a>
                     </div>
-                    <div id="section3" data-section="3" style="display: none;"
-                        class="form-section">
-                        {% include "components/acr/fieldsets/acr-inputs-2.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section2">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section4">Next</a>
-                        </div>
+                </div>
+                <div id="section3" data-section="3" style="display: none;" class="form-section">
+                    {% include "components/acr/fieldsets/acr-inputs-2.html" %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
+                            data-back="section2">Back</a>
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section4">Next</a>
                     </div>
-                    <div id="section4" data-section="4" style="display: none;"
-                        class="form-section">
-                        {% include "components/acr/fieldsets/acr-checkboxes.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section3">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section5">Next</a>
-                        </div>
+                </div>
+                <div id="section4" data-section="4" style="display: none;" class="form-section">
+                    {% include "components/acr/fieldsets/acr-checkboxes.html" %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
+                            data-back="section3">Back</a>
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section5">Next</a>
                     </div>
-                    <div id="section5" data-section="5" style="display: none;"
-                        class="form-section">
-                        {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section4">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section6">Next</a>
-                        </div>
+                </div>
+                <div id="section5" data-section="5" style="display: none;" class="form-section">
+                    {% include "components/acr/fieldsets/acr-checkboxes-2.html" %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
+                            data-back="section4">Back</a>
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section6">Next</a>
                     </div>
-                    <div id="section6" data-section="6" style="display: none;"
-                        class="form-section">
-                        {% include "components/acr/fieldsets/acr-comp-input.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section5">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section7">Next</a>
-                        </div>
+                </div>
+                <div id="section6" data-section="6" style="display: none;" class="form-section">
+                    {% include "components/acr/fieldsets/acr-comp-input.html" %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
+                            data-back="section5">Back</a>
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section7">Next</a>
                     </div>
+                </div>
 
-                    <div id="section7" data-section="7" style="display: none;"
-                        class="form-section">
-                        {% include "components/acr/fieldsets/acr-code-inputs.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section6">Back</a>
-                            <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
-                                data-next="section8">Next</a>
-                        </div>
+                <div id="section7" data-section="7" style="display: none;" class="form-section">
+                    {% include "components/acr/fieldsets/acr-code-inputs.html" %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
+                            data-back="section6">Back</a>
+                        <a class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white"
+                            data-next="section8">Next</a>
                     </div>
+                </div>
 
-                    <div id="section8" data-section="8" style="display: none;"
-                        class="form-section">
-                        {% include "components/acr/fieldsets/acr-validation-rules.html" %}
-                        <div class="flex items-start space-x-6 mt-4 text-sm">
-                            <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
-                                data-back="section7">Back</a>
-                            <button
-                                class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white">Submit</button>
-                        </div>
+                <div id="section8" data-section="8" style="display: none;" class="form-section">
+                    {% include "components/acr/fieldsets/acr-validation-rules.html" %}
+                    <div class="flex items-start space-x-6 mt-4 text-sm">
+                        <a class="nav-button previous py-2.5 px-6 bg-gray-200 text-gray-600 rounded-md cursor-pointer hover:bg-gray-300"
+                            data-back="section7">Back</a>
+                        <button type="submit"
+                            class="nav-button next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white">Submit</button>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-    <script src="{% static 'js/acr/create-rvs.js' %}"></script>
 </div>
-
+<script src="{% static 'js/acr/create-rvs.js' %}"></script>

@@ -32,14 +32,16 @@
                                                 stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                         </svg>
                                     </div>
-                                    <input type="search" name="code_search" id="default-search" hx-get="/rvs/codes/" hx-trigger="keyup delay:500ms" hx-target="#aditional-codes-results"
+                                    <input type="search" name="code_search" id="default-search" hx-get="{% url 'rvs_codes' %}"hx-trigger="keyup delay:500ms" hx-target="#aditional-codes-results"
                                         class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Search Additional Code..." />
                                 </div>
                             </div>
                         </div>
-                        <div id="aditional-codes-results" hx-get="/rvs/codes/" hx-trigger="load" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
-                           <!-- Code container -->
+                        <div hx-get="{% url 'rvs_codes' %}" hx-trigger="load" hx-target="#aditional-codes-results">
+                           <div id="aditional-codes-results" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
+                            <!-- Code container -->
+                           </div>
                         </div>
                     </div>
     
@@ -92,14 +94,16 @@
                                                 stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                         </svg>
                                     </div>
-                                    <input name="spc_code_search" type="search" id="default-search" hx-get="/spc/codes/" hx-trigger="keyup delay:500ms" hx-target="#spc-code-results"
+                                    <input name="spc_code_search" type="search" id="default-search" hx-get="{% url 'spc_codes' %}" hx-trigger="keyup delay:500ms" hx-target="#spc-code-results"
                                         class="block w-full h-12 p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white bg-opacity-60 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Search SPC Related BEN Codes..." />
                                 </div>
                             </div>
                         </div>
-                        <div hx-get="/spc/codes/" hx-trigger="load" id="spc-code-results" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
-                            <!-- spc code container -->
+                        <div hx-get="{% url 'spc_codes' %}" hx-trigger="load" hx-target="#spc-code-results">
+                            <div id="spc-code-results" class="w-full mt-0 py-2 flex flex-col space-y-1 h-40 overflow-y-scroll rounded-lg pr-2">
+                                <!-- spc code container -->
+                            </div>
                         </div>
                     </div>
     

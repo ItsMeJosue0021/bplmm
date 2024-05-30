@@ -2132,6 +2132,11 @@ input:checked + .toggle-bg{
   background-color: rgb(253 253 234 / var(--tw-bg-opacity));
 }
 
+.bg-green-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 159 110 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-10{
   --tw-bg-opacity: 0.1;
 }
@@ -2529,11 +2534,6 @@ input:checked + .toggle-bg{
 .text-yellow-800{
   --tw-text-opacity: 1;
   color: rgb(114 59 19 / var(--tw-text-opacity));
-}
-
-.text-blue-500{
-  --tw-text-opacity: 1;
-  color: rgb(63 131 248 / var(--tw-text-opacity));
 }
 
 .underline{

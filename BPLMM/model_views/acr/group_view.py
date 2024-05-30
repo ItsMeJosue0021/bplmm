@@ -48,31 +48,6 @@ def groups_rvs_new(request):
             messages.error(request, 'Please make sure all fields are filled out.')
             return render(request, template, {'form': form})
     return render(request, template)
-
-# 
-# 
-# 
-# def rvs_rules_new(request, temp_acr_groupid):
-#     TEMPLATE = 'components/acr/new_rvs_rules_modal_form.html'
-    
-#     if request.method == 'POST':
-#         form = SAVE_RVS_AND_RULES(request.POST)
-        
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             try:
-#                 group = acr_groups_service.create_temp(data, request)
-#                 acr_groups_rvs_service.create_temp(data, username=request.user.username, temp_acr_groupid=group.ID)
-#                 acr_groups_rvs_service.create_temp_rvs_rules(data, data['RVSCODE'], request.user.username, temp_acr_groupid=group.ID)
-#                 messages.success(request, 'Form saved successfully.')
-#                 return render(request, template, {'form': form})
-#             except Exception as e:
-#                 messages.error(request, str(e))
-#                 return render(request, template, {'form': form})   
-#         else:
-            
-#     else:
-#         return render(request, TEMPLATE, {'temp_acr_groupid': temp_acr_groupid})
     
 
 # 
@@ -128,7 +103,7 @@ def groups(request):
 # EFF_DATE = ACR_GROUPS_TEMP.EFF_DATE
 # ACTIVE = ACR_GROUPS_TEMP.ACTIVE 
 # END_DATE = ACR_GROUPS_TEMP.END_DATE
-
+@login_required
 def groups_approve(request, id):
 
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
@@ -155,7 +130,7 @@ def groups_approve(request, id):
 # this will return all the groups that are in the temporary groups table
 # this url will support searching, by description and by start and end date
 # returns ajax rendered template
-
+@login_required
 def groups_temporary(request):
     description_search = request.GET.get('description_search', '')
     date_search = request.GET.get('date_search', '')
@@ -173,6 +148,7 @@ def groups_temporary(request):
 # this will return all the groups that are in main groups table, the ones that have been approved
 # this url will support searching, by description and by start and end date
 # returns ajax rendered template
+@login_required
 def groups_main(request):
     description_search = request.GET.get('description_search', '')
     date_search = request.GET.get('date_search', '')
@@ -188,6 +164,7 @@ def groups_main(request):
 # 
 # 
 # checks whether RVS or ICD exists in a GROUP
+@login_required
 def check_rvs_or_icd_exists(request, group_id):
 
     # group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id).first()
@@ -210,6 +187,7 @@ def check_rvs_or_icd_exists(request, group_id):
 # 
 # 
 # This is also the view that handles the approving of GROUP, RVS and RVS RULES
+@login_required
 def temp_group_rvs_rules_details(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
@@ -246,42 +224,49 @@ def temp_group_rvs_rules_details(request, id):
  
 # 
 # 
-#    
+#   
+@login_required
 def temp_group_rvs_rules_details__demo(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
     group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
-    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
+    rvs_list = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
     rules = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
         
-    context = { 'group': group, 'rvs': rvs, 'rules': rules }
+    context = { 'group': group, 'rvs': rvs_list, 'rules': rules }
     
-    # if request.POST:
-        # try:
-        #     main_group = acr_groups_service.create_main(group)
-        #     if main_group is not None:
-        #         group.ACTIVE = 'T'
-        #         group.is_approved = True
-        #         group.save()
-        #         acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
-        #         rvs.is_approved = True
-        #         rvs.ACR_GROUPID = main_group.ACR_GROUPID
-        #         rvs.save()
-        #         acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
-        #         rule.is_approved = True
-        #         rvs.ACR_GROUPID = main_group.ACR_GROUPID
-        #         rule.save()
-        #         messages.success(request, 'Succesfully approved.')
-        #         return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
-        # except Exception as e:
-        #     messages.error(request, str(e))
-        #     return render(request, template, context)   
-    # else: 
-    return render(request, template, context)
+    if request.POST:
+        try:
+            main_group = acr_groups_service.create_main(group)
+            if main_group is not None:
+                group.ACTIVE = 'T'
+                group.is_approved = True
+                group.save()
+                
+                for rvs in rvs_list: 
+                    acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+                    rvs.is_approved = True
+                    rvs.ACR_GROUPID = main_group.ACR_GROUPID
+                    rvs.save()
+                    
+                    for rule in rules:
+                        acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
+                        rule.is_approved = True
+                        rvs.ACR_GROUPID = main_group.ACR_GROUPID
+                        rule.save()
+                
+                messages.success(request, 'Succesfully approved.')
+                return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
+        except Exception as e:
+            messages.error(request, str(e))
+            return render(request, template, context)   
+    else: 
+        return render(request, template, context)
 
 # 
 # 
 # 
+@login_required
 def main_groups_rvs_rules_details(request, group_id):
     template = 'pages/acr/main_group_rvs_rules_details.html'
     
@@ -297,6 +282,7 @@ def main_groups_rvs_rules_details(request, group_id):
 # 
 # 
 # 
+@login_required
 def approver_approved_groups(request):
     template = 'pages/acr/approver/pending_group_list.html'
     acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
@@ -324,6 +310,7 @@ def approver_approved_groups(request):
 # 
 # 
 # 
+@login_required
 def approver_pending_groups(request):
     template = 'pages/acr/approver/approved_group_list.html'
     
@@ -347,6 +334,7 @@ def approver_pending_groups(request):
 # 
 # 
 # 
+@login_required
 def temp_group_rvs(request, temp_group_id):
     desc_search_query = request.GET.get('description_search', '')
     date_search_query = request.GET.get('date_search', '')
@@ -361,6 +349,7 @@ def temp_group_rvs(request, temp_group_id):
 # 
 # EDIT GROUP
 #-------------------------------------------------
+@login_required
 def groups_edit(request, group_id):
     pass
 
@@ -368,6 +357,7 @@ def groups_edit(request, group_id):
 #
 # DELETE GROUP
 #-------------------------------------------------
+@login_required
 def groups_delete(request, group_id):
     pass
 

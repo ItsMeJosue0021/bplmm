@@ -35,13 +35,16 @@ urlpatterns = [
         path('acr/temp-group/<str:temp_group_id>/rvs/', group_view.temp_group_rvs, name="temp_group_rvs"),
         
         # URL for approver's pending group list
-        path('acr/apvr/groups/temporary', group_view.approver_approved_groups, name='approver_pending_groups_list'),
+        path('acr/shrd/groups/temporary', group_view.approver_approved_groups, name='approver_pending_groups_list'),
         # URL for approver's approved group list
-        path('acr/apvr/groups/main', group_view.approver_pending_groups, name='approver_approved_groups_list'),
+        path('acr/shrd/groups/main', group_view.approver_pending_groups, name='approver_approved_groups_list'),
         # details of a temporary/pending group, rvs and rules
-        path('acr/apvr/groups/<int:id>/details', group_view.temp_group_rvs_rules_details__demo, name='temp_group_rvs_rules_details'),
+        path('acr/shrd/groups/<int:id>/details', group_view.temp_group_rvs_rules_details__demo, name='temp_group_rvs_rules_details'),
         # details of a main/approved group, rvs and rules
-        path('acr/apvr/groups/<str:group_id>/details', group_view.main_groups_rvs_rules_details, name='main_groups_rvs_rules_details'),
+        path('acr/shrd/groups/<str:group_id>/details', group_view.main_groups_rvs_rules_details, name='main_groups_rvs_rules_details'),
+        
+        # Adding of new RVS and RVS RULES to a pending GROUP
+        path('acr/groups/<str:temp_group_id>/rvs/create', rvs_view.rvs_rules_new_modal, name='rvs_rules_new_modal'),
 
     # RVS' URLs
     #-------------------------------------------------
@@ -60,8 +63,8 @@ urlpatterns = [
         
         
         # APPROVER'S RVS URLs
-        path('acr/apvr/rvs/temporary', rvs_view.approver_pending_rvs, name='approver_pending_rvs_list'),
-        path('acr/apvr/rvs/main', rvs_view.approver_approved_rvs, name='approver_approved_rvs_list'),
+        path('acr/shrd/rvs/temporary', rvs_view.approver_pending_rvs, name='approver_pending_rvs_list'),
+        path('acr/shrd/rvs/main', rvs_view.approver_approved_rvs, name='approver_approved_rvs_list'),
         
         path('acr/apvr/rvs-main', rvs_view.main_rvs, name='main_rvs'),
         path('acr/apvr/rvs-temp', rvs_view.temp_rvs, name='temp_rvs'),
@@ -78,9 +81,9 @@ urlpatterns = [
 
 
     # -------------------------------- MOCK URL ---------------------------------------
-        path('rvs/codes/', views.rvs_codes),
-        path('spc/codes/', views.spc_codes),
-        path('claim-valitaions-rules/', views.claim_validation_rules),
+        path('rvs/codes/', views.rvs_codes, name="rvs_codes"),
+        path('spc/codes/', views.spc_codes, name='spc_codes'),
+        path('claim-valitaions-rules/', views.claim_validation_rules, name="claim_validation_rules"),
         
     #----------------------------------------------------------------------------------
         path('acr/groups/rvs/new/', group_view.groups_rvs_new, name='groups_rvs_new'),

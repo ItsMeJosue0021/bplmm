@@ -1,17 +1,17 @@
-const DEDUCT_FROM_45DAYS_INPUT = document.getElementById('DEDUCT_FROM_45DAYS_INPUT');
-const DEDUCT_FROM_45DAYS_DAYS = document.getElementById('DEDUCT_FROM_45DAYS_DAYS');
-const DEDUCT_FROM_45DAYS_NUMBER = document.getElementById('DEDUCT_FROM_45DAYS_NUMBER');
-const DEDUCT_FROM_45DAYS_TYPE = document.getElementById('DEDUCT_FROM_45DAYS_TYPE');
-const DEDUCT_FROM_45DAYS_CONDITIONAL = document.getElementById('DEDUCT_FROM_45DAYS_CONDITIONAL');
-const DEDUCT_FROM_45DAYS_NOTAPPLICABLE = document.getElementById('DEDUCT_FROM_45DAYS_NOTAPPLICABLE');
-const initialInputs = document.getElementById('initial-inputs');
-const conditionCntr = document.getElementById('condition-cntr');
-const conditionInput = conditionCntr.querySelector('input');
-const previewSpan = document.getElementById('deduct-45-days-preview');
+var DEDUCT_FROM_45DAYS_INPUT = document.getElementById('DEDUCT_FROM_45DAYS_INPUT');
+var DEDUCT_FROM_45DAYS_DAYS = document.getElementById('DEDUCT_FROM_45DAYS_DAYS');
+var DEDUCT_FROM_45DAYS_NUMBER = document.getElementById('DEDUCT_FROM_45DAYS_NUMBER');
+var DEDUCT_FROM_45DAYS_TYPE = document.getElementById('DEDUCT_FROM_45DAYS_TYPE');
+var DEDUCT_FROM_45DAYS_CONDITIONAL = document.getElementById('DEDUCT_FROM_45DAYS_CONDITIONAL');
+var DEDUCT_FROM_45DAYS_NOTAPPLICABLE = document.getElementById('DEDUCT_FROM_45DAYS_NOTAPPLICABLE');
+var initialInputs = document.getElementById('initial-inputs');
+var conditionCntr = document.getElementById('condition-cntr');
+var conditionInput = conditionCntr.querySelector('input');
+var previewSpan = document.getElementById('deduct-45-days-preview');
 
 conditionCntr.style.display = 'none';
 
-let lastChecked = null;
+var lastChecked = null;
 
 previewSpan.textContent = DEDUCT_FROM_45DAYS_INPUT.value.toUpperCase();
 
