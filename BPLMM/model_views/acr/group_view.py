@@ -333,7 +333,7 @@ def approver_pending_groups(request):
 
 # 
 # 
-# 
+# return all the rvs in the temporary table that is related in a group by temporary group id
 @login_required
 def temp_group_rvs(request, temp_group_id):
     desc_search_query = request.GET.get('description_search', '')
@@ -344,7 +344,7 @@ def temp_group_rvs(request, temp_group_id):
         rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
     else:
         rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
-    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'temp_group_id':temp_group_id})
+    return render(request, 'components/htmx-templates/rvs-temp-with-group-and-rules.html', {'rvs': paginate(request, rvs, 2), 'temp_group_id':temp_group_id})
 
 # 
 # EDIT GROUP

@@ -23,6 +23,11 @@
             <li>
                 <a href="{% url 'approver_approved_rvs_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS <span class="text-xs italic font-normal ">(Main)</span></a>
             </li>
+            <li class="relative">
+                <a href="{% url 'temp_rvs_rules_list' %}" class="text-gray-900 dark:text-white hover:underline ">RVS RULES <span class="text-xs italic font-normal ">(For Approval)</span></a>
+                <div hx-get="{% url 'temp_rvs_rules_count' %}" hx-trigger="load" id="temp_rvs_rules_count_cntr" class="absolute -top-3 -right-3">
+                </div>
+            </li>
         </ul>
     </div>
     <div class="flex">

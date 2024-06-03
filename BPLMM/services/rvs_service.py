@@ -16,14 +16,17 @@ class ACR_GROUPS_RVS_SERVICE:
         return self.repository.create_temp(self.to_rvs_array(data, group_id = group_id, username = username))   
     
     def create_main_rvs_rules(self, data, group_id, rvs_code):
+        main_rule_exists = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=group_id, RVSCODE=rvs_code, EFF_DATE=getattr(data, 'EFF_DATE')).exists()
+        if main_rule_exists:
+            raise Exception('A RVS rule with the same effectivity date already exists.')
         return self.repository.create_main_rvs_rules(self.rvs_rules(data, rvs_code = rvs_code, group_id = group_id))
                     
-    def create_temp_rvs_rules(self, data, rvs_code, username, temp_acr_groupid = None):
+    def create_temp_rvs_rules(self, data, rvs_code, username, group_id = None, temp_acr_groupid = None):
         temp_rule_exists = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=temp_acr_groupid, RVSCODE=rvs_code, EFF_DATE=data['EFF_DATE']).exists()
         main_rule_exists = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=temp_acr_groupid, RVSCODE=rvs_code, EFF_DATE=data['EFF_DATE']).exists()
         if temp_rule_exists or main_rule_exists:
             raise Exception('A RVS rule with the same effectivity date already exists.')
-        return self.repository.create_temp_rvs_rules(self.rvs_rules(data, rvs_code = rvs_code, temp_acr_groupid = temp_acr_groupid, username = username))
+        return self.repository.create_temp_rvs_rules(self.rvs_rules(data, rvs_code = rvs_code, group_id = group_id, temp_acr_groupid = temp_acr_groupid, username = username))
 
     def to_rvs_array(self, data, group_id = None, temp_acr_groupid = None, username = None):
         rvs_array = {

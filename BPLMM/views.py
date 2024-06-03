@@ -28,6 +28,10 @@ from .repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
 def login(request):
     TEMPLATE = 'pages/login.html'
     ERROR_MESSAGE = 'Invalid login credentials.'
+    
+    if request.user.is_authenticated:
+        return redirect('acr')
+    
     if request.method == 'POST':
         try:
             user = AUTH_SERVICE.authenticate_user(request, username=request.POST['username'], password=request.POST['password'])

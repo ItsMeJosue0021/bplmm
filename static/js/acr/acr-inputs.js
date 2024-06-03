@@ -1,6 +1,6 @@
-window.onload = function() {
+// window.onload = function() {
     function getElement(id, event, handler) {
-        const element = document.getElementById(id);
+        var element = document.getElementById(id);
         if (event && handler) {
             element.addEventListener(event, handler);
         }
@@ -125,4 +125,4 @@ window.onload = function() {
             PREVIEW.textContent = "Preview: ";;
         }
     }
-}
+// }

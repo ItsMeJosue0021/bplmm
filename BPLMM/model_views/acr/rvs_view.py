@@ -41,7 +41,6 @@ def rvs_create_modal(request, group_id):
              messages.error(request, 'Please make sure all fields are filled out.')
     return render(request, template, {'form': form, 'group_id': group_id})
 
-
 # 
 # 
 # 
@@ -51,6 +50,8 @@ def rvs_rules_new_modal(request, temp_group_id):
     
     if request.method == 'POST':
         form = SAVE_RVS_AND_RULES(request.POST or None)
+        
+        print(request.POST)
         
         if form.is_valid():
             data = form.cleaned_data
@@ -66,7 +67,6 @@ def rvs_rules_new_modal(request, temp_group_id):
             messages.error(request, 'Please make sure all fields are filled out.')
             return render(request, TEMPLATE, {'form': form})
     return render(request, TEMPLATE, {'temp_acr_groupid': temp_group_id})
-
 
 # 
 # rvs/<str:group_id>/temp
@@ -145,12 +145,40 @@ def temp_rvs(request):
 # 
 @login_required
 def temp_rvs_details(request, rvscode):
+    TEMPLATE = 'pages/acr/temp_rvs_details.html'
     try:
         rvs = get_object_or_404(ACR_GROUPS_RVS_TEMP, RVSCODE=rvscode)
-        return render(request, 'pages/acr/temp_rvs_details.html', {'rvs': rvs})
+        
+        if request.method == 'POST':
+            try:
+                acr_groups_rvs_service.create_main(rvs, rvs.ACR_GROUPID)
+                rvs.is_approved = True
+                rvs.save()
+                messages.success(request, 'RVS has been approved successfully.')
+                return redirect('main_rvs_details', rvscode=rvscode)
+            except Exception as e:
+                messages.error(request, str(e))
+                return render(request, TEMPLATE, {'rvs': rvs})
+        return render(request, TEMPLATE, {'rvs': rvs})
     except Exception as e:
         messages.error(request, str(e))
         return redirect('approver_pending_rvs_list')
+    
+# 
+# 
+# 
+def temp_rvs_with_rules_details(request, rvscode, temp_group_id):
+    TEMPLATE = 'pages/acr/rvs-temp-with-group-and-rules-details.html'
+    try:
+        rvs = get_object_or_404(ACR_GROUPS_RVS_TEMP, RVSCODE=rvscode)
+        rules = None
+        if rvs:
+            rules = ACR_PERRVS_RULES_TEMP.objects.filter(RVSCODE=rvscode)
+        
+        return render(request, TEMPLATE, {'rvs': rvs, 'rules': rules, 'temp_group_id': temp_group_id})
+    except Exception as e:
+        messages.error(request, str(e))
+        return redirect('approver_pending_groups_list')
 
 # 
 # 
@@ -164,7 +192,7 @@ def set_rvs_rules(request, group_id, rvs_code):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                acr_groups_rvs_service.create_temp_rvs_rules(data, rvs_code, request.user.username, temp_acr_groupid = group_id)  
+                acr_groups_rvs_service.create_temp_rvs_rules(data, rvs_code, request.user.username, group_id = group_id)  
                 messages.success(request, 'RVS RULES has been saved successfully.')
                 return render(request, template, {'form': form, 'group_id': group_id, 'rvs_code': rvs_code})
             except Exception as e:
@@ -202,6 +230,58 @@ def approver_approved_rvs(request):
     template = 'pages/acr/approver/approved_rvs_list.html'
     return render(request, template)
 
+# 
+# 
+# 
+def temp_rvs_rules_list(request):
+    TEMPLATE = 'pages/acr/tem_rvs_rules_list.html'
+    return render(request, TEMPLATE)
+
+
+# 
+# 
+# 
+def get_temp_rvs_rules(request):
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        rules = ACR_PERRVS_RULES_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), is_approved=False, TEMP_ACR_GROUPID__exact='')
+    else:
+        rules = ACR_PERRVS_RULES_TEMP.objects.filter(is_approved=False, TEMP_ACR_GROUPID__exact='')
+    return render(request, 'components/htmx-templates/temp_rvs_rules.html', {'rules': rules})
+
+# 
+# 
+# 
+def temp_rvs_rules_details(request, rvscode):
+    TEMPLATE = 'pages/acr/temp_rvs_rules_details.html'
+    EFF_DATE = request.GET.get('eff_date', '')
+    
+    if request.method == 'POST':
+        try:
+            rule = get_object_or_404(ACR_PERRVS_RULES_TEMP, RVSCODE=rvscode, EFF_DATE=EFF_DATE)
+            acr_groups_rvs_service.create_main_rvs_rules(data=rule, group_id=rule.ACR_GROUPID, rvs_code=rvscode)
+            rule.is_approved = True
+            rule.save()
+            messages.success(request, 'RVS RULES has been saved successfully.')
+            return redirect('temp_rvs_rules_list')
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect('temp_rvs_rules_details' , rvscode=rvscode, eff_date=EFF_DATE)
+    else:
+        try:
+            rule = get_object_or_404(ACR_PERRVS_RULES_TEMP, RVSCODE=rvscode, EFF_DATE=EFF_DATE)
+            return render(request, TEMPLATE, {'rule': rule})
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect('temp_rvs_rules_list')
+# 
+# 
+# 
+def temp_rvs_rules_count(request):
+    count = ACR_PERRVS_RULES_TEMP.objects.filter(is_approved=False, TEMP_ACR_GROUPID__exact='').count()
+    return render(request, 'components/htmx-templates/temp_rvs_rules_count.html', {'count': count})
 # 
 # 
 # 

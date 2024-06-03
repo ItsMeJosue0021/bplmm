@@ -1,0 +1,39 @@
+{% load humanize %}
+<table class="w-full text-center border-collapse">
+    <thead class="bg-gray-100 sticky top-0 z-10">
+        <tr>
+            <th class="p-2 border border-gray-300">GROUP ID</th>
+            <th class="p-2 border border-gray-300">RVS CODE</th>
+            <th class="p-2 border border-gray-300">EFF DATE</th>
+            <th class="p-2 border border-gray-300">PRIMARY AMMOUNT</th>
+            <th class="p-2 border border-gray-300">SECONDARY AMMOUNT</th>
+            <th class="p-2 border border-gray-300">END DATE</th>
+            <th class="p-2 border border-gray-300">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+        {% for rule in rules %}
+            <tr>
+                <td class="p-2 border border-gray-300">{{ rule.ACR_GROUPID }}</td>
+                <td class="p-2 border border-gray-300">{{ rule.RVSCODE }}</td>
+                <td class="p-2 border border-gray-300">₱{{ rule.PRIMARY_AMOUNT|floatformat:2|intcomma }}</td>
+                <td class="p-2 border border-gray-300">₱{{ rule.SECONDARY_AMOUNT|floatformat:2|intcomma }}</td>
+                <td class="p-2 border border-gray-300">{{ rule.EFF_DATE }}</td>
+                <td class="p-2 border border-gray-300">{{ rule.END_DATE }}</td>
+                <td class="w-40 p-2 border border-gray-300">
+                    <div class="flex items-center justify-center space-x-1 px-4">
+                        <a href="{% url 'temp_rvs_rules_details' rvscode=rule.RVSCODE %}?eff_date={{ rule.EFF_DATE|date:'Y-m-d' }}" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
+                    </div>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="8" class="pt-4">
+                    <span class=" text-red-600">No Record Found</span>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+   
+    
+</table>

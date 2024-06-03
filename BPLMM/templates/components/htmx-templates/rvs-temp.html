@@ -31,7 +31,7 @@
                     <div class="flex items-center justify-center space-x-1 px-4">
                         {% for group in user.groups.all %}
                             {% if group.name == "Encoder" %}
-                                <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
+                                <!-- <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
                                     <i class='bx bx-trash text-red-500 text-base'></i>
                                 </a>
                                 <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
@@ -39,7 +39,8 @@
                                 </a>
                                 <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
                                     <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
-                                </a>
+                                </a> -->
+                                <a href="{% url 'temp_rvs_details' rvscode=item.RVSCODE %}" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">View</a>
                             {% endif %}
                         {% endfor %}
                         

@@ -119,11 +119,15 @@ urlpatterns = [
         
         # 
         # 
-        path('acr/apvr/rvs/main/<str:rvscode>/details', rvs_view.main_rvs_details, name='main_rvs_details'),
+        path('acr/shrd/rvs/main/<str:rvscode>/details', rvs_view.main_rvs_details, name='main_rvs_details'),
         
         # 
         # 
-        path('acr/apvr/rvs/temporary/<str:rvscode>/details', rvs_view.temp_rvs_details, name='temp_rvs_details'),
+        path('acr/shrd/rvs/temp/<str:rvscode>/details', rvs_view.temp_rvs_details, name='temp_rvs_details'),
+        
+        # 
+        # 
+        path('acr/shrd/<str:temp_group_id>/rvs_w_rules/temp/<str:rvscode>/details', rvs_view.temp_rvs_with_rules_details, name='temp_rvs_with_rules_details'),
         
         # 
         # 
@@ -132,6 +136,22 @@ urlpatterns = [
         # 
         # 
         path('groups/temp/count/', rvs_view.temp_groups_count, name='temp_groups_count'),
+        
+        # 
+        # 
+        path('rvs-rules/temp/count/', rvs_view.temp_rvs_rules_count, name='temp_rvs_rules_count'),
+        
+        # 
+        # 
+        path('acr/shrd/rvs_rules/temporary', rvs_view.temp_rvs_rules_list, name='temp_rvs_rules_list'),
+        
+        # 
+        # 
+        path('acr/shrd/rvs_rules/<str:rvscode>/', rvs_view.temp_rvs_rules_details, name='temp_rvs_rules_details'),
+        
+        # 
+        # 
+        path('acr/get_rvs_rules/temp', rvs_view.get_temp_rvs_rules, name='get_temp_rvs_rules'),
 
     # ICDS' URLs
     #-------------------------------------------------
@@ -168,10 +188,15 @@ urlpatterns = [
     # Z BENEFITS URLs
     # ===============================================================================================
     
+    # 
+    # 
     path('zbenefits/', views.z_benefits_home, name='z_benefits_home'),
     
     # DRG URLs
     # ===============================================================================================
+    
+    # 
+    # 
     path('drg/', views.drg_home, name='drg_home'),
     
 

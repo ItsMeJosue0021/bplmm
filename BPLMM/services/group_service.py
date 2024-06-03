@@ -4,6 +4,8 @@ class ACR_GROUPS_SERVICE:
     def __init__(self, _repository):
         self.repository = _repository
 
+    # 
+    # 
     # Add a new object to the TEMPORARY ACR GROUPS table
     def create_temp(self, data, request):
         acr_temp_group_data = {
@@ -14,7 +16,8 @@ class ACR_GROUPS_SERVICE:
             'USERNAME': request.user.username
         }
         return self.repository.create_temp(acr_temp_group_data)
-    
+    # 
+    # 
     # Add new object to the MAIN ACR GROUPS table
     def create_main(self, group):
         group_data = {
@@ -26,6 +29,8 @@ class ACR_GROUPS_SERVICE:
         }
         return self.repository.create_main(group_data)
     
+    # 
+    # 
     # Generates a mock ACR_GROUPID by getting the most recent ACR_GROUPID and incrementing it
     def generate_acr_group_id(self):
         group_id = self.repository.get_most_recent_groupid()

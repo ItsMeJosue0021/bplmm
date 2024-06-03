@@ -1,0 +1,288 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+{% load humanize %}
+{% load group_checker %}
+
+{% block content %}
+<div>
+    <div>
+        <div class="flex items-center mb-2 group">
+            <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
+            <a href="{% url 'temp_rvs_rules_list' %}"
+                class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back
+            </a>
+        </div>
+           
+        {% include "components/alerts/messages.html" %}
+        <div class="flex flex-col space-y-4 text-sm">
+            <div>
+                <div class="w-full  rounded-t-md bg-gray-400 px-4">
+                    <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">RVS <span
+                            class="italic font-normal text-xs">(Temporary)</span></p>
+                </div>
+                <div class="h-fit min-h-24 w-full bg-white shadow p-4 rounded-md ">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-100 sticky top-0 z-10">
+                            <tr>
+                                <th class="p-2 border border-gray-200 w-80">FIELD NAME</th>
+                                <th class="p-2 border border-gray-200">VALUE</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    ACR_GROUPID</td>
+                                <td class="p-2 border border-gray-200">{{ rule.ACR_GROUPID }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">RVSCODE
+                                </td>
+                                <td class="p-2 border border-gray-200">{{ rule.RVSCODE }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    PRIMARY_AMOUNT</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.PRIMARY_AMOUNT|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    PRIMARY_HOSP_SHARE</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.PRIMARY_HOSP_SHARE|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    PRIMARY_PROF_SHARE</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.PRIMARY_PROF_SHARE|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    SECONDARY_AMOUNT</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.SECONDARY_AMOUNT|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    SECONDARY_HOSP_SHARE</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.SECONDARY_HOSP_SHARE|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    SECONDARY_PROF_SHARE</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.SECONDARY_PROF_SHARE|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    PCF_AMOUNT</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.PCF_AMOUNT|floatformat:2|intcomma }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    PCF_HOSP_SHARE</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.PCF_HOSP_SHARE|floatformat:2|intcomma }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    PCF_PROF_SHARE</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.PCF_PROF_SHARE|floatformat:2|intcomma }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_OCCURS_PER_CLAIM</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_OCCURS_PER_CLAIM }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_OCCURS_PER_PERSON</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_OCCURS_PER_PERSON }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_LATERALITY</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_LATERALITY }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_GENDER</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_GENDER }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_AGE</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_AGE }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_H1</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_H1 }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_H2</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_H2 }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_H3</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_H3 }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_ASC</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_ASC }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_PCF</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_PCF }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_MAT</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_MAT }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_FSDC</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_FSDC }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_SINGLE_PERIOD_DAYS</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_SINGLE_PERIOD_DAYS }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_ADDITIONAL_CODES</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_ADDITIONAL_CODES }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_PREAUTHORIZATION</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_PREAUTHORIZATION }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_QUALIFIER</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_QUALIFIER }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    DEDUCT_FROM_45DAYS</td>
+                                <td class="p-2 border border-gray-200">{{ rule.DEDUCT_FROM_45DAYS }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_GIDAS</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_GIDAS }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    FIXED_COPAY</td>
+                                <td class="p-2 border border-gray-200">₱{{ rule.FIXED_COPAY|floatformat:2|intcomma }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_DIRECT_FILING</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_DIRECT_FILING }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_PCF_SECONDARY_CR</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_PCF_SECONDARY_CR }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_ASC_SECONDARY_CR</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_ASC_SECONDARY_CR }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">ACTIVE
+                                </td>
+                                <td class="p-2 border border-gray-200">{{ rule.ACTIVE }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    EFF_END_DATE</td>
+                                <td class="p-2 border border-gray-200">{{ rule.EFF_END_DATE }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_TSEKAP</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_TSEKAP }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_ABTC</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_ABTC }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_TBDOTSC</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_TBDOTSC }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_OPMC</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_OPMC }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_WHAT_IS_COVERED_BY_AMT
+                                </td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_WHAT_IS_COVERED_BY_AMT }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_SPC_RELATED_BEN_CODES</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_SPC_RELATED_BEN_CODES }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_LENGTH_OF_STAY</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_LENGTH_OF_STAY }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    VALIDATION_RULES</td>
+                                <td class="p-2 border border-gray-200">{{ rule.VALIDATION_RULES }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    TO_BE_TAGGED_FOR_POST_AUDIT</td>
+                                <td class="p-2 border border-gray-200">{{ rule.TO_BE_TAGGED_FOR_POST_AUDIT }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_RHU</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_RHU }}</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-gray-200 w-80 font-medium">
+                                    CHECK_FACILITY_PCB</td>
+                                <td class="p-2 border border-gray-200">{{ rule.CHECK_FACILITY_PCB }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        {% for group in user.groups.all %}
+            {% if group.name == "Approver" %}
+                <div class="mt-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="px-6 py-2.5 text-sm text-white bg-primary rounded-md">Approve</button>
+                    </form>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
