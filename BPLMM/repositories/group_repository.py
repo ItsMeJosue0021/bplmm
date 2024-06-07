@@ -12,11 +12,6 @@ class ACR_GROUPS_REPOSITORY:
         acr_groups_temp.save()
         return acr_groups_temp
     
-    def update(self, data):
-        acr_groups = ACR_GROUPS(**data)
-        acr_groups.save()
-        return acr_groups
-    
     def get_most_recent_groupid(self):
         try:
             return ACR_GROUPS.objects.latest('created_at').ACR_GROUPID

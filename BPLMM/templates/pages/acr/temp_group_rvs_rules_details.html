@@ -27,7 +27,9 @@
         {% include "components/alerts/messages.html" %}
         <div class="flex flex-col space-y-4 text-sm">
             {% if group %}
-                <div>
+                <form action="{% url 'temp_group_rvs_rules_details' id=group.ID %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="w-full  rounded-t-md bg-gray-400 px-4">
                         <p class="w-fit text-sm font-medium py-2 drop-shadow-lg text-white">GROUP <span
                                 class="italic font-normal text-xs">(Temporary)</span></p>
@@ -51,31 +53,42 @@
                                 </tr>
                                 <tr>
                                     <td class="p-2 border border-gray-200 w-80 font-medium">DESCRIPTION</td>
-                                    <td class="p-2 border border-gray-200">{{ group.DESCRIPTION }}</td>
+                                    <td class="p-2 border border-gray-200">
+                                        <textarea name="DESCRIPTION" class="w-full text-sm h-32 border border-gray-200 rounded">{{ group.DESCRIPTION }}</textarea>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="p-2 border border-gray-200 w-80 font-medium">EFF DATE</td>
-                                    <td class="p-2 border border-gray-200">{{ group.EFF_DATE }}</td>
+                                    <td class="p-2 border border-gray-200">
+                                        <div class="w-full items-center flex justify-between">
+                                            <span>{{ group.EFF_DATE }}</span>
+                                            <input type="date" name="EFF_DATE" value="{{ group.EFF_DATE|date:'Y-m-d' }}" class="rounded w-60 text-sm py-2 px-4 border border-gray-300">
+                                        </div>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="p-2 border border-gray-200 w-80 font-medium">END DATE</td>
-                                    <td class="p-2 border border-gray-200">{{ group.END_DATE }}</td>
+                                    <td class="p-2 border border-gray-200">
+                                        <div class="w-full items-center flex justify-between">
+                                            <span>{{ group.END_DATE }}</span>
+                                            <input type="date"  name="END_DATE" value="{{ group.END_DATE|date:'Y-m-d' }}" class="rounded w-60 text-sm py-2 px-4 border border-gray-300">
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="flex items-start space-x-2 mt-4">
+                            <button type="submit" class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white border border-blue-500 hover:border-blue-600 rounded text-sm font-light flex items-center">
+                                <i class='bx bx-edit -ml-1 mr-1 text-white text-lg'></i>
+                                Update
+                            </button>
+                            <a href="" class="py-2 px-4 bg-red-500 hover:bg-red-600 text-white border border-red-500 hover:border-red-600 rounded text-sm font-light flex items-center">
+                                <i class='bx bx-trash -ml-1 mr-1 text-white text-lg'></i>
+                                Delete
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="flex items-start space-x-2">
-                    
-                    <a href="" class="py-2 px-4 bg-red-500 hover:bg-red-600 text-white border border-red-500 hover:border-red-600 rounded text-sm font-light flex items-center">
-                        <i class='bx bx-trash -ml-1 mr-1 text-white text-lg'></i>
-                        Delete
-                    </a>
-                    <a href="" class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white border border-blue-500 hover:border-blue-600 rounded text-sm font-light flex items-center">
-                        <i class='bx bx-edit -ml-1 mr-1 text-white text-lg'></i>
-                        Edit
-                    </a>
-                </div>
+                </form>
             {% endif %}
 
             <div class="p-4 rounded-md bg-white border-t-4 border-gray-400 shadow text-xs">
@@ -136,7 +149,11 @@
         <div class="mt-4">
             <form method="POST">
                 {% csrf_token %}
-                <button type="submit" class="px-5 py-2.5 text-sm text-white bg-primary rounded-md">Approve all</button>
+                <input type="hidden" name="_method" value="POST">
+                <button type="submit" class="px-4 py-2 text-sm text-white bg-primary border border-primary rounded-md flex items-center">
+                    <i class='bx bx-check-circle -ml-1 mr-1 text-white text-lg'></i>
+                    Approve
+                </button>
             </form>
         </div>
         {% endif %}

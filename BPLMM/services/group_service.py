@@ -31,6 +31,15 @@ class ACR_GROUPS_SERVICE:
     
     # 
     # 
+    # 
+    def update_temp(self, data, group):
+        group.DESCRIPTION = data['DESCRIPTION']
+        group.EFF_DATE = data['EFF_DATE']
+        group.END_DATE = data['END_DATE']
+        group.save()
+    
+    # 
+    # 
     # Generates a mock ACR_GROUPID by getting the most recent ACR_GROUPID and incrementing it
     def generate_acr_group_id(self):
         group_id = self.repository.get_most_recent_groupid()

@@ -192,6 +192,7 @@ def temp_group_rvs_rules_details(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
     group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
+    # group.EFF_DATE = 
     rvs = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id).first() 
     rule = None
     if rvs is not None:
@@ -223,7 +224,7 @@ def temp_group_rvs_rules_details(request, id):
         return render(request, template, context)
  
 # 
-# 
+# Hanldes approving of Pending Group, RVS and RVS RULES
 #   
 @login_required
 def temp_group_rvs_rules_details__demo(request, id):
@@ -236,33 +237,52 @@ def temp_group_rvs_rules_details__demo(request, id):
     context = { 'group': group, 'rvs': rvs_list, 'rules': rules }
     
     if request.POST:
-        try:
-            main_group = acr_groups_service.create_main(group)
-            if main_group is not None:
-                group.ACTIVE = 'T'
-                group.is_approved = True
-                group.save()
-                
-                for rvs in rvs_list: 
-                    acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
-                    rvs.is_approved = True
-                    rvs.ACR_GROUPID = main_group.ACR_GROUPID
-                    rvs.save()
+        _method = request.POST.get('_method', 'POST')
+        if _method == 'POST':
+            try:
+                main_group = acr_groups_service.create_main(group)
+                if main_group is not None:
+                    group.ACTIVE = 'T'
+                    group.is_approved = True
+                    group.save()
                     
-                    for rule in rules:
-                        if rule.RVSCODE != rvs.RVSCODE:
-                            continue
-                        acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
-                        rule.is_approved = True
+                    for rvs in rvs_list: 
+                        acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+                        rvs.is_approved = True
                         rvs.ACR_GROUPID = main_group.ACR_GROUPID
-                        rule.save()
-                
-                messages.success(request, 'Succesfully approved.')
-                return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
-        except Exception as e:
-            messages.error(request, str(e))
-            return render(request, template, context)   
-    else: 
+                        rvs.save()
+                        
+                        for rule in rules:
+                            if rule.RVSCODE != rvs.RVSCODE:
+                                continue
+                            acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
+                            rule.is_approved = True
+                            rvs.ACR_GROUPID = main_group.ACR_GROUPID
+                            rule.save()
+                    
+                    messages.success(request, 'Succesfully approved.')
+                    return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
+            except Exception as e:
+                messages.error(request, str(e))
+                return render(request, template, context)  
+            
+        elif _method == 'PUT':
+            form = UPDATE_GROUP(request.POST)
+            print(request.POST)
+            
+            if form.is_valid():
+                data = form.cleaned_data
+                try:
+                    acr_groups_service.update_temp(data, group)
+                    messages.success(request, 'Succesfully updated.')
+                    return redirect('temp_group_rvs_rules_details', id=id)
+                except Exception as e:
+                    messages.error(request, str(e))
+                    return redirect('temp_group_rvs_rules_details', id=id)
+            else:
+                context = { 'group': group, 'rvs': rvs_list, 'rules': rules, 'form': form }
+                return render(request, template, context)      
+    else:
         return render(request, template, context)
 
 # 

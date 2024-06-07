@@ -111,11 +111,11 @@ urlpatterns = [
         
         # 
         # 
-        path('acr/apvr/rvs-main', rvs_view.main_rvs, name='main_rvs'),
+        path('acr/shrd/rvs-main', rvs_view.main_rvs, name='main_rvs'),
         
         # 
         # 
-        path('acr/apvr/rvs-temp', rvs_view.temp_rvs, name='temp_rvs'),
+        path('acr/shrd/rvs-temp', rvs_view.temp_rvs, name='temp_rvs'),
         
         # 
         # 
@@ -152,6 +152,10 @@ urlpatterns = [
         # 
         # 
         path('acr/get_rvs_rules/temp', rvs_view.get_temp_rvs_rules, name='get_temp_rvs_rules'),
+        
+        # 
+        # 
+        path('rvs/<str:rvscode>/update', rvs_view.update_temp_rvs, name="update_temp_rvs"),
 
     # ICDS' URLs
     #-------------------------------------------------

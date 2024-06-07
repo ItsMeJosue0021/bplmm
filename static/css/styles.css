@@ -1413,6 +1413,10 @@ input:checked + .toggle-bg{
   height: 100vh;
 }
 
+.h-32{
+  height: 8rem;
+}
+
 .max-h-10{
   max-height: 2.5rem;
 }
@@ -1556,6 +1560,14 @@ input:checked + .toggle-bg{
 
 .w-full{
   width: 100%;
+}
+
+.w-52{
+  width: 13rem;
+}
+
+.w-56{
+  width: 14rem;
 }
 
 .max-w-12{
@@ -1821,6 +1833,12 @@ input:checked + .toggle-bg{
   --tw-space-y-reverse: 0;
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.space-x-12 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(3rem * var(--tw-space-x-reverse));
+  margin-left: calc(3rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-y > :not([hidden]) ~ :not([hidden]){
@@ -2137,11 +2155,6 @@ input:checked + .toggle-bg{
   background-color: rgb(253 253 234 / var(--tw-bg-opacity));
 }
 
-.bg-red-800{
-  --tw-bg-opacity: 1;
-  background-color: rgb(155 28 28 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-10{
   --tw-bg-opacity: 0.1;
 }
@@ -2316,6 +2329,11 @@ input:checked + .toggle-bg{
   padding-bottom: 2rem;
 }
 
+.px-8{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .pb-2{
   padding-bottom: 0.5rem;
 }
@@ -2425,6 +2443,10 @@ input:checked + .toggle-bg{
 
 .font-semibold{
   font-weight: 600;
+}
+
+.font-thin{
+  font-weight: 100;
 }
 
 .uppercase{

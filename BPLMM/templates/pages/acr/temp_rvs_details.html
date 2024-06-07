@@ -6,23 +6,13 @@
 {% block content %}
 <div>
     <div>
-        {% for group in user.groups.all %}
-            {% if group.name == "Approver" %}
-                <div class="flex items-center mb-2 group">
-                    <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
-                    <a href="{% url 'approver_pending_rvs_list' %}"
-                        class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back
-                    </a>
-                </div>
-            {% elif group.name == "Encoder"  %}
-                <div class="flex items-center mb-2 group">
-                    <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
-                    <a href="{% url 'acr' %}"
-                        class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back to home
-                    </a>
-                </div>
-            {% endif %}
-        {% endfor %}
+        <div class="flex items-center mb-2 group">
+            <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
+            <a href="{% url 'approver_pending_rvs_list' %}"
+                class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back
+            </a>
+        </div>
+            
         {% include "components/alerts/messages.html" %}
         <div class="flex flex-col space-y-4 text-sm">
             {% if rvs %}
@@ -50,7 +40,9 @@
                             </tr>
                             <tr>
                                 <td class="p-2 border border-gray-200 w-80 font-medium">DESCRIPTION</td>
-                                <td class="p-2 border border-gray-200">{{ rvs.DESCRIPTION }}</td>
+                                <td class="p-2 border border-gray-200">
+                                    <textarea name="DESCRIPTION" class="w-full text-sm h-32 border border-gray-200 rounded">{{ rvs.DESCRIPTION }}</textarea>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="p-2 border border-gray-200 w-80 font-medium">RVU</td>
@@ -58,7 +50,12 @@
                             </tr>
                             <tr>
                                 <td class="p-2 border border-gray-200 w-80 font-medium">EFF DATE</td>
-                                <td class="p-2 border border-gray-200">{{ rvs.EFF_DATE }}</td>
+                                <td class="p-2 border border-gray-200">
+                                    <div class="w-full items-center flex justify-between">
+                                        <span>{{ rvs.EFF_DATE }}</span>
+                                        <input type="date" name="EFF_DATE" value="{{ rvs.EFF_DATE|date:'Y-m-d' }}" class="rounded w-60 text-sm py-2 px-4 border border-gray-300">
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td class="p-2 border border-gray-200 w-80 font-medium">END DATE</td>
@@ -78,11 +75,26 @@
             </div>
             {% endif %}
 
-        <div class="mt-4">
-            <form method="POST">
-                {% csrf_token %}
-                <button type="submit" class="px-6 py-2.5 text-sm text-white bg-primary rounded-md">Approve</button>
-            </form>
+        <div class="flex items-start space-x-2 ">
+            {% for group in user.groups.all %}
+                {% if group.name == "Approver" %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="px-4 py-2 text-sm text-white bg-primary border border-primary rounded-md flex items-center">
+                                <i class='bx bx-check-circle -ml-1 mr-1 text-white text-lg'></i>
+                                Approve
+                            </button>
+                        </form>
+                {% endif %}
+            {% endfor %}
+            <a href="" class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white border border-blue-500 hover:border-blue-600 rounded text-sm font-light flex items-center">
+                <i class='bx bx-edit -ml-1 mr-1 text-white text-lg'></i>
+                Edit
+            </a>
+            <a href="" class="py-2 px-4 bg-red-500 hover:bg-red-600 text-white border border-red-500 hover:border-red-600 rounded text-sm font-light flex items-center">
+                <i class='bx bx-trash -ml-1 mr-1 text-white text-lg'></i>
+                Delete
+            </a>
         </div>
     </div>
 </div>

@@ -111,7 +111,7 @@ def main_rvs(request):
         rvs = ACR_GROUPS_RVS.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query))
     else:
         rvs = ACR_GROUPS_RVS.objects.filter(DESCRIPTION__icontains=desc_search_query)
-    return render(request, 'components/htmx-templates/rvs-main.html', {'rvs': paginate(request, rvs, 10), 'apvr': True})
+    return render(request, 'components/htmx-templates/rvs-main.html', {'rvs': paginate(request, rvs, 2), 'apvr': True})
 
 # 
 # 
@@ -138,7 +138,7 @@ def temp_rvs(request):
         rvs = ACR_GROUPS_RVS_TEMP.objects.filter(Q(END_DATE=date_search_query) | Q(EFF_DATE=date_search_query), is_approved=False, TEMP_ACR_GROUPID__exact='')
     else:
         rvs = ACR_GROUPS_RVS_TEMP.objects.filter(DESCRIPTION__icontains=desc_search_query, is_approved=False, TEMP_ACR_GROUPID__exact='')
-    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 10), 'apvr':True})
+    return render(request, 'components/htmx-templates/rvs-temp.html', {'rvs': paginate(request, rvs, 2), 'apvr':True})
 
 # 
 # 
@@ -179,6 +179,34 @@ def temp_rvs_with_rules_details(request, rvscode, temp_group_id):
     except Exception as e:
         messages.error(request, str(e))
         return redirect('approver_pending_groups_list')
+    
+# 
+# 
+# 
+def update_temp_rvs(request, rvscode):
+    
+    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvscode)
+    form = UPDATE_RVS(request.POST)
+    print(request.POST)
+    
+    if form.is_valid():
+        data = form.cleaned_data
+        try:
+            rvs.RVSCODE = data['RVSCODE']
+            rvs.DESCRIPTION = data['DESCRIPTION']
+            rvs.RVU = data['RVU']
+            rvs.EFF_DATE = data['EFF_DATE']
+            rvs.END_DATE = data['END_DATE']
+            rvs.save()
+            
+            messages.success(request, 'Succesfully updated.')
+            return redirect('temp_group_rvs_rules_details', id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect('temp_group_rvs_rules_details', id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
+    else:
+        messages.error(request, str(e))
+        return redirect('temp_group_rvs_rules_details', id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE) 
 
 # 
 # 
@@ -298,6 +326,9 @@ def temp_groups_count(request):
     count = ACR_GROUPS_TEMP.objects.filter(is_approved=False).count()
     return render(request, 'components/htmx-templates/temp_groups_count.html', {'count': count})
 
+
+            
+    
 # 
 # 
 # 

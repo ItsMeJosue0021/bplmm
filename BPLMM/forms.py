@@ -230,4 +230,20 @@ class SAVE_RVS_RULES(forms.Form):
     DEDUCT_FROM_45DAYS_NUMBER = forms.CharField(max_length=255, required=False)
     DEDUCT_FROM_45DAYS_DAYS = forms.CharField(max_length=255, required=False)
     
+    
+    
+    # ----------------------------UPDATES FORM--------------------------
+class UPDATE_GROUP(forms.Form):
+    DESCRIPTION = forms.CharField(widget=forms.Textarea)
+    EFF_DATE = forms.DateField()
+    END_DATE = forms.DateField()
+    
+class UPDATE_RVS(forms.Form):
+    DESCRIPTION = forms.CharField(widget=forms.Textarea)
+    RVSCODE = forms.CharField(max_length=255)
+    RVU = forms.IntegerField()
+    EFF_DATE = forms.DateField()
+    END_DATE = forms.DateField()
+        
+    
 
