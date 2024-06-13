@@ -185,9 +185,10 @@ def temp_rvs_with_rules_details(request, rvscode, temp_group_id):
 # 
 def update_temp_rvs(request, rvscode):
     
-    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvscode)
+    rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvscode).first()
     form = UPDATE_RVS(request.POST)
-    print(request.POST)
+        
+    print(request.POST) # for debugging purposes
     
     if form.is_valid():
         data = form.cleaned_data
@@ -200,14 +201,84 @@ def update_temp_rvs(request, rvscode):
             rvs.save()
             
             messages.success(request, 'Succesfully updated.')
-            return redirect('temp_group_rvs_rules_details', id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
+            return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
         except Exception as e:
             messages.error(request, str(e))
-            return redirect('temp_group_rvs_rules_details', id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
+            return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
     else:
-        messages.error(request, str(e))
-        return redirect('temp_group_rvs_rules_details', id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE) 
+        messages.error(request, 'Something went wrong. Please try again.')
+        return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE) 
 
+# 
+# 
+# 
+def update_temp_rvs_rules(request, rvscode):
+    eff_date = request.GET.get('eff_date', '')
+    rule  = ACR_PERRVS_RULES_TEMP.objects.filter(RVSCODE=rvscode, EFF_DATE=eff_date).first()
+    form = UPDATE_RVS_RULES(request.POST)
+    
+    # print(request.POST) # for debugging purposes
+    print(form.errors) # for debugging purposes
+    
+    if form.is_valid():
+        data = form.cleaned_data
+        try:
+            rule.RVSCODE = data['RVSCODE']
+            rule.EFF_DATE = data['EFF_DATE']
+            rule.EFF_END_DATE = data['EFF_END_DATE']
+            rule.PRIMARY_AMOUNT = data['PRIMARY_HOSP_SHARE'] + data['PRIMARY_PROF_SHARE']
+            rule.PRIMARY_HOSP_SHARE = data['PRIMARY_HOSP_SHARE']
+            rule.PRIMARY_PROF_SHARE = data['PRIMARY_PROF_SHARE']
+            rule.SECONDARY_AMOUNT = data['SECONDARY_HOSP_SHARE'] + data['SECONDARY_PROF_SHARE']
+            rule.SECONDARY_HOSP_SHARE = data['SECONDARY_HOSP_SHARE']
+            rule.SECONDARY_PROF_SHARE = data['SECONDARY_PROF_SHARE']
+            rule.PCF_AMOUNT = data['PCF_HOSP_SHARE'] + data['PCF_PROF_SHARE']
+            rule.PCF_HOSP_SHARE = data['PCF_HOSP_SHARE']
+            rule.PCF_PROF_SHARE = data['PCF_PROF_SHARE']
+            rule.FIXED_COPAY = data['FIXED_COPAY']
+            rule.CHECK_OCCURS_PER_CLAIM = data['CHECK_OCCURS_PER_CLAIM']
+            rule.CHECK_SINGLE_PERIOD_DAYS = data['CHECK_SINGLE_PERIOD_DAYS']
+            rule.CHECK_OCCURS_PER_PERSON = data['CHECK_OCCURS_PER_PERSON']
+            rule.CHECK_AGE = data['CHECK_AGE']
+            rule.CHECK_LENGTH_OF_STAY = data['CHECK_LENGTH_OF_STAY']
+            rule.ACTIVE = data['ACTIVE']
+            rule.CHECK_FACILITY_H1 = data['CHECK_FACILITY_H1']
+            rule.CHECK_FACILITY_H2 = data['CHECK_FACILITY_H2']
+            rule.CHECK_FACILITY_H3 = data['CHECK_FACILITY_H3']
+            rule.CHECK_FACILITY_ASC = data['CHECK_FACILITY_ASC']
+            rule.CHECK_FACILITY_PCF = data['CHECK_FACILITY_PCF']
+            rule.CHECK_FACILITY_MAT = data['CHECK_FACILITY_MAT']
+            rule.CHECK_FACILITY_FSDC = data['CHECK_FACILITY_FSDC']
+            rule.CHECK_DIRECT_FILING = data['CHECK_DIRECT_FILING']
+            rule.CHECK_GIDAS = data['CHECK_GIDAS']
+            rule.CHECK_PCF_SECONDARY_CR = data['CHECK_PCF_SECONDARY_CR']
+            rule.CHECK_ASC_SECONDARY_CR = data['CHECK_ASC_SECONDARY_CR']
+            rule.CHECK_PREAUTHORIZATION = data['CHECK_PREAUTHORIZATION']
+            rule.CHECK_LATERALITY = data['CHECK_LATERALITY']
+            rule.CHECK_FACILITY_OPMC = data['CHECK_FACILITY_OPMC']
+            rule.CHECK_FACILITY_TBDOTSC = data['CHECK_FACILITY_TBDOTSC']
+            rule.CHECK_FACILITY_TSEKAP = data['CHECK_FACILITY_TSEKAP']
+            rule.CHECK_FACILITY_ABTC = data['CHECK_FACILITY_ABTC']
+            rule.TO_BE_TAGGED_FOR_POST_AUDIT = data['TO_BE_TAGGED_FOR_POST_AUDIT']
+            rule.CHECK_FACILITY_RHU = data['CHECK_FACILITY_RHU']
+            rule.CHECK_FACILITY_PCB = data['CHECK_FACILITY_PCB']
+            rule.CHECK_QUALIFIER = data['CHECK_QUALIFIER']
+            rule.CHECK_WHAT_IS_COVERED_BY_AMT = data['CHECK_WHAT_IS_COVERED_BY_AMT']
+            rule.CHECK_ADDITIONAL_CODES = data['CHECK_ADDITIONAL_CODES']
+            rule.CHECK_SPC_RELATED_BEN_CODES = data['CHECK_SPC_RELATED_BEN_CODES']
+            rule.DEDUCT_FROM_45DAYS = data['DEDUCT_FROM_45DAYS']
+            rule.VALIDATION_RULES = data['VALIDATION_RULES']
+            
+            rule.save()
+            
+            messages.success(request, 'Succesfully updated.')
+            return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
+        except Exception as e:
+            messages.error(request, str(e))
+            return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
+    else:
+        messages.error(request, 'Something went wrong. Please try again.')
+        return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
 # 
 # 
 # 

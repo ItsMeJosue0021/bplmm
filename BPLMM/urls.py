@@ -156,6 +156,10 @@ urlpatterns = [
         # 
         # 
         path('rvs/<str:rvscode>/update', rvs_view.update_temp_rvs, name="update_temp_rvs"),
+        
+        # 
+        # 
+        path('rvs/<str:rvscode>/rules/update', rvs_view.update_temp_rvs_rules, name="update_temp_rvs_rules"),
 
     # ICDS' URLs
     #-------------------------------------------------
