@@ -42,9 +42,14 @@ class ACR_GROUPS_RVS_SERVICE:
     def update_main_rvs_rules(self, data, rvscode):
         pass
     
-    def update_temp_rvs_rules(self, data, rvscode):
-        pass
-    
+    def update_temp_rvs_rules(self, rule, data):
+        try:
+            self.to_update_rvs_rules_array(rule, data)
+            rule.save()
+        except Exception as e:
+            raise Exception('An error has occured while trying to update the rules: ' + str(e))
+            
+        
     def to_update_rvs_array(self, rvs, data):
         rvs.RVSCODE = data['RVSCODE'],
         rvs.DESCRIPTION = data['DESCRIPTION'],
@@ -52,52 +57,52 @@ class ACR_GROUPS_RVS_SERVICE:
         rvs.EFF_DATE = data['EFF_DATE'],
         rvs.END_DATE = data['END_DATE']
         
-    def to_update_rvs_rules_array(self, rvs_rule, data):
-        rvs_rule.RVSCODE = data['RVSCODE'],
-        rvs_rule.EFF_DATE = data['EFF_DATE'],
-        rvs_rule.PRIMARY_AMOUNT = data['PRIMARY_HOSP_SHARE'] + data['PRIMARY_PROF_SHARE'],
-        rvs_rule.PRIMARY_HOSP_SHARE = data['PRIMARY_HOSP_SHARE'],
-        rvs_rule.PRIMARY_PROF_SHARE = data['PRIMARY_PROF_SHARE'],
-        rvs_rule.SECONDARY_AMOUNT = data['SECONDARY_HOSP_SHARE'] + data['SECONDARY_PROF_SHARE'],
-        rvs_rule.SECONDARY_HOSP_SHARE = data['SECONDARY_HOSP_SHARE'],
-        rvs_rule.SECONDARY_PROF_SHARE = data['SECONDARY_PROF_SHARE'],
-        rvs_rule.PCF_AMOUNT = data['PCF_HOSP_SHARE'] + data['PCF_PROF_SHARE'],
-        rvs_rule.PCF_HOSP_SHARE = data['PCF_HOSP_SHARE'],
-        rvs_rule.PCF_PROF_SHARE = data['PCF_PROF_SHARE'],
-        rvs_rule.CHECK_OCCURS_PER_CLAIM = data['CHECK_OCCURS_PER_CLAIM'],
-        rvs_rule.CHECK_OCCURS_PER_PERSON = data['CHECK_OCCURS_PER_PERSON'],
-        rvs_rule.CHECK_LATERALITY = data['CHECK_LATERALITY'],
-        rvs_rule.CHECK_GENDER = data['CHECK_GENDER'],
-        rvs_rule.CHECK_AGE = data['CHECK_AGE'],
-        rvs_rule.CHECK_FACILITY_H1 = data['CHECK_FACILITY_H1'],
-        rvs_rule.CHECK_FACILITY_H2 = data['CHECK_FACILITY_H2'],
-        rvs_rule.CHECK_FACILITY_H3 = data['CHECK_FACILITY_H3'],
-        rvs_rule.CHECK_FACILITY_ASC = data['CHECK_FACILITY_ASC'],
-        rvs_rule.CHECK_FACILITY_PCF = data['CHECK_FACILITY_PCF'],
-        rvs_rule.CHECK_FACILITY_MAT = data['CHECK_FACILITY_MAT'],
-        rvs_rule.CHECK_FACILITY_FSDC = data['CHECK_FACILITY_FSDC'],
-        rvs_rule.CHECK_SINGLE_PERIOD_DAYS = data['CHECK_SINGLE_PERIOD_DAYS'],
-        rvs_rule.CHECK_ADDITIONAL_CODES = data['CHECK_ADDITIONAL_CODES'],
-        rvs_rule.CHECK_PREAUTHORIZATION = data['CHECK_PREAUTHORIZATION'],
-        rvs_rule.CHECK_QUALIFIER = data['CHECK_QUALIFIER'],
-        rvs_rule.DEDUCT_FROM_45DAYS = data['DEDUCT_FROM_45DAYS'],
-        rvs_rule.CHECK_GIDAS = data['CHECK_GIDAS'],
-        rvs_rule.FIXED_COPAY = data['FIXED_COPAY'],
-        rvs_rule.CHECK_DIRECT_FILING = data['CHECK_DIRECT_FILING'],
-        rvs_rule.CHECK_PCF_SECONDARY_CR = data['CHECK_PCF_SECONDARY_CR'],
-        rvs_rule.CHECK_ASC_SECONDARY_CR = data['CHECK_ASC_SECONDARY_CR'],
-        rvs_rule.ACTIVE = data['ACTIVE'],
-        rvs_rule.EFF_END_DATE = data['EFF_END_DATE'],
-        rvs_rule.CHECK_FACILITY_TSEKAP = data['CHECK_FACILITY_TSEKAP'],
-        rvs_rule.CHECK_FACILITY_ABTC = data['CHECK_FACILITY_ABTC'],
-        rvs_rule.CHECK_FACILITY_TBDOTSC = data['CHECK_FACILITY_TBDOTSC'],
-        rvs_rule.CHECK_FACILITY_OPMC = data['CHECK_FACILITY_OPMC'],
-        rvs_rule.CHECK_WHAT_IS_COVERED_BY_AMT = data['CHECK_WHAT_IS_COVERED_BY_AMT'],
-        rvs_rule.CHECK_SPC_RELATED_BEN_CODES = data['CHECK_SPC_RELATED_BEN_CODES'],
-        rvs_rule.VALIDATION_RULES = data['VALIDATION_RULES'],
-        rvs_rule.TO_BE_TAGGED_FOR_POST_AUDIT = data['TO_BE_TAGGED_FOR_POST_AUDIT'],
-        rvs_rule.CHECK_FACILITY_RHU = data['CHECK_FACILITY_RHU'],
-        rvs_rule.CHECK_FACILITY_PCB = data['CHECK_FACILITY_PCB'], 
+    def to_update_rvs_rules_array(self, rule, data):
+        rule.RVSCODE = data['RVSCODE']
+        rule.EFF_DATE = data['EFF_DATE']
+        rule.EFF_END_DATE = data['EFF_END_DATE']
+        rule.PRIMARY_AMOUNT = data['PRIMARY_HOSP_SHARE'] + data['PRIMARY_PROF_SHARE']
+        rule.PRIMARY_HOSP_SHARE = data['PRIMARY_HOSP_SHARE']
+        rule.PRIMARY_PROF_SHARE = data['PRIMARY_PROF_SHARE']
+        rule.SECONDARY_AMOUNT = data['SECONDARY_HOSP_SHARE'] + data['SECONDARY_PROF_SHARE']
+        rule.SECONDARY_HOSP_SHARE = data['SECONDARY_HOSP_SHARE']
+        rule.SECONDARY_PROF_SHARE = data['SECONDARY_PROF_SHARE']
+        rule.PCF_AMOUNT = data['PCF_HOSP_SHARE'] + data['PCF_PROF_SHARE']
+        rule.PCF_HOSP_SHARE = data['PCF_HOSP_SHARE']
+        rule.PCF_PROF_SHARE = data['PCF_PROF_SHARE']
+        rule.FIXED_COPAY = data['FIXED_COPAY']
+        rule.CHECK_OCCURS_PER_CLAIM = data['CHECK_OCCURS_PER_CLAIM']
+        rule.CHECK_SINGLE_PERIOD_DAYS = data['CHECK_SINGLE_PERIOD_DAYS']
+        rule.CHECK_OCCURS_PER_PERSON = data['CHECK_OCCURS_PER_PERSON']
+        rule.CHECK_AGE = data['CHECK_AGE']
+        rule.CHECK_LENGTH_OF_STAY = data['CHECK_LENGTH_OF_STAY']
+        rule.ACTIVE = data['ACTIVE']
+        rule.CHECK_FACILITY_H1 = data['CHECK_FACILITY_H1']
+        rule.CHECK_FACILITY_H2 = data['CHECK_FACILITY_H2']
+        rule.CHECK_FACILITY_H3 = data['CHECK_FACILITY_H3']
+        rule.CHECK_FACILITY_ASC = data['CHECK_FACILITY_ASC']
+        rule.CHECK_FACILITY_PCF = data['CHECK_FACILITY_PCF']
+        rule.CHECK_FACILITY_MAT = data['CHECK_FACILITY_MAT']
+        rule.CHECK_FACILITY_FSDC = data['CHECK_FACILITY_FSDC']
+        rule.CHECK_DIRECT_FILING = data['CHECK_DIRECT_FILING']
+        rule.CHECK_GIDAS = data['CHECK_GIDAS']
+        rule.CHECK_PCF_SECONDARY_CR = data['CHECK_PCF_SECONDARY_CR']
+        rule.CHECK_ASC_SECONDARY_CR = data['CHECK_ASC_SECONDARY_CR']
+        rule.CHECK_PREAUTHORIZATION = data['CHECK_PREAUTHORIZATION']
+        rule.CHECK_LATERALITY = data['CHECK_LATERALITY']
+        rule.CHECK_FACILITY_OPMC = data['CHECK_FACILITY_OPMC']
+        rule.CHECK_FACILITY_TBDOTSC = data['CHECK_FACILITY_TBDOTSC']
+        rule.CHECK_FACILITY_TSEKAP = data['CHECK_FACILITY_TSEKAP']
+        rule.CHECK_FACILITY_ABTC = data['CHECK_FACILITY_ABTC']
+        rule.TO_BE_TAGGED_FOR_POST_AUDIT = data['TO_BE_TAGGED_FOR_POST_AUDIT']
+        rule.CHECK_FACILITY_RHU = data['CHECK_FACILITY_RHU']
+        rule.CHECK_FACILITY_PCB = data['CHECK_FACILITY_PCB']
+        rule.CHECK_QUALIFIER = data['CHECK_QUALIFIER']
+        rule.CHECK_WHAT_IS_COVERED_BY_AMT = data['CHECK_WHAT_IS_COVERED_BY_AMT']
+        rule.CHECK_ADDITIONAL_CODES = data['CHECK_ADDITIONAL_CODES']
+        rule.CHECK_SPC_RELATED_BEN_CODES = data['CHECK_SPC_RELATED_BEN_CODES']
+        rule.DEDUCT_FROM_45DAYS = data['DEDUCT_FROM_45DAYS']
+        rule.VALIDATION_RULES = data['VALIDATION_RULES'] 
     
     def to_rvs_array(self, data, group_id = None, temp_acr_groupid = None, username = None):
         rvs_array = {

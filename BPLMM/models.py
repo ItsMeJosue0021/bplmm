@@ -32,7 +32,7 @@ class ACR_GROUPS_TEMP(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.ID:
-            self.ID = random.randint(1, 9999)
+            self.ID = random.randint(1, 999999)
         return super().save(*args, **kwargs)
 
 class ACR_GROUPS_LOG(models.Model):

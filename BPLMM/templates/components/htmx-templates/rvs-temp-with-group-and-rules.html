@@ -67,14 +67,14 @@
                 <td colspan="8">
                     <div class="flex space-x-4 items-center mt-3">
                         {% if rvs.has_previous %}
-                        <a hx-get="/acr/apvr/rvs-temp?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr"
+                        <a hx-get="/acr/shrd/rvs-temp?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr"
                             class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
                         {% endif %}
                         <span class="current text-sm">
                             Page {{ rvs.number }} of {{ rvs.paginator.num_pages }}.
                         </span>
                         {% if rvs.has_next %}
-                        <a hx-get="/acr/apvr/rvs-temp?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr" 
+                        <a hx-get="/acr/shrd/rvs-temp?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr" 
                             class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
                         {% endif %}
                     </div> 
@@ -87,14 +87,14 @@
                 <td colspan="8">
                     <div class="flex space-x-4 items-center mt-3">
                         {% if rvs.has_previous %}
-                        <a hx-get="/acr/rvs/{{ group_id }}/temp?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr"
+                        <a hx-get="/acr/temp-group/{{ temp_group_id }}/rvs?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr"
                             class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
                         {% endif %}
                         <span class="current text-sm">
                             Page {{ rvs.number }} of {{ rvs.paginator.num_pages }}.
                         </span>
                         {% if rvs.has_next %}
-                        <a hx-get="/acr/rvs/{{ group_id }}/temp?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr" 
+                        <a hx-get="/acr/temp-group/{{ temp_group_id }}/rvs?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#temp_rvs_cntr" 
                             class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
                         {% endif %}
                     </div> 

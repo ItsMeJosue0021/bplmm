@@ -2,6 +2,7 @@ from ...forms import *
 from ...models import *
 from django.db.models import Q # type: ignore
 from datetime import datetime
+from django.urls import reverse # type: ignore
 from django.contrib import messages # type: ignore
 from django.core.paginator import Paginator # type: ignore
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
@@ -118,9 +119,12 @@ def main_rvs(request):
 # 
 @login_required
 def main_rvs_details(request, rvscode):
+    TEMPLATE = 'pages/acr/main_rvs_details.html'
     try:
         rvs = get_object_or_404(ACR_GROUPS_RVS, RVSCODE=rvscode)
-        return render(request, 'pages/acr/main_rvs_details.html', {'rvs': rvs})
+        group =  get_object_or_404(ACR_GROUPS, ACR_GROUPID=rvs.ACR_GROUPID)
+        rules = ACR_PERRVS_RULES.objects.filter(RVSCODE=rvscode)
+        return render(request, TEMPLATE, {'rvs': rvs, 'group': group, 'rules':rules})
     except Exception as e:
         messages.error(request, str(e))
         return redirect('approver_approved_rvs_list')    
@@ -148,6 +152,7 @@ def temp_rvs_details(request, rvscode):
     TEMPLATE = 'pages/acr/temp_rvs_details.html'
     try:
         rvs = get_object_or_404(ACR_GROUPS_RVS_TEMP, RVSCODE=rvscode)
+        group = get_object_or_404(ACR_GROUPS, ACR_GROUPID=rvs.ACR_GROUPID)
         
         if request.method == 'POST':
             try:
@@ -158,8 +163,8 @@ def temp_rvs_details(request, rvscode):
                 return redirect('main_rvs_details', rvscode=rvscode)
             except Exception as e:
                 messages.error(request, str(e))
-                return render(request, TEMPLATE, {'rvs': rvs})
-        return render(request, TEMPLATE, {'rvs': rvs})
+                return render(request, TEMPLATE, {'rvs': rvs, 'group': group})
+        return render(request, TEMPLATE, {'rvs': rvs, 'group': group})
     except Exception as e:
         messages.error(request, str(e))
         return redirect('approver_pending_rvs_list')
@@ -187,6 +192,9 @@ def update_temp_rvs(request, rvscode):
     
     rvs = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=rvscode).first()
     form = UPDATE_RVS(request.POST)
+    
+    # this gets the page where the update request has been submitted from
+    page_of_origin = request.GET.get('from', '')
         
     print(request.POST) # for debugging purposes
     
@@ -201,14 +209,23 @@ def update_temp_rvs(request, rvscode):
             rvs.save()
             
             messages.success(request, 'Succesfully updated.')
-            return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
+            return check_page_redirect_for_update_temp_rvs(page_of_origin, rvs)
+            
         except Exception as e:
             messages.error(request, str(e))
-            return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
+            return check_page_redirect_for_update_temp_rvs(page_of_origin, rvs)
     else:
         messages.error(request, 'Something went wrong. Please try again.')
-        return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE) 
+        return check_page_redirect_for_update_temp_rvs(page_of_origin, rvs)
 
+# 
+# 
+# funcion for checking where to recdirect in the function update_temp_rvs to avoid redundancy
+def check_page_redirect_for_update_temp_rvs(page_of_origin, rvs):
+    if page_of_origin and page_of_origin == 'temp_rvs_details':
+        return redirect('temp_rvs_details', rvscode=rvs.RVSCODE)
+    else:
+        return redirect('temp_rvs_with_rules_details', temp_group_id=rvs.TEMP_ACR_GROUPID, rvscode=rvs.RVSCODE)
 # 
 # 
 # 
@@ -217,68 +234,41 @@ def update_temp_rvs_rules(request, rvscode):
     rule  = ACR_PERRVS_RULES_TEMP.objects.filter(RVSCODE=rvscode, EFF_DATE=eff_date).first()
     form = UPDATE_RVS_RULES(request.POST)
     
+    page_of_origin = request.GET.get('from', '')
+    
     # print(request.POST) # for debugging purposes
     print(form.errors) # for debugging purposes
     
     if form.is_valid():
         data = form.cleaned_data
         try:
-            rule.RVSCODE = data['RVSCODE']
-            rule.EFF_DATE = data['EFF_DATE']
-            rule.EFF_END_DATE = data['EFF_END_DATE']
-            rule.PRIMARY_AMOUNT = data['PRIMARY_HOSP_SHARE'] + data['PRIMARY_PROF_SHARE']
-            rule.PRIMARY_HOSP_SHARE = data['PRIMARY_HOSP_SHARE']
-            rule.PRIMARY_PROF_SHARE = data['PRIMARY_PROF_SHARE']
-            rule.SECONDARY_AMOUNT = data['SECONDARY_HOSP_SHARE'] + data['SECONDARY_PROF_SHARE']
-            rule.SECONDARY_HOSP_SHARE = data['SECONDARY_HOSP_SHARE']
-            rule.SECONDARY_PROF_SHARE = data['SECONDARY_PROF_SHARE']
-            rule.PCF_AMOUNT = data['PCF_HOSP_SHARE'] + data['PCF_PROF_SHARE']
-            rule.PCF_HOSP_SHARE = data['PCF_HOSP_SHARE']
-            rule.PCF_PROF_SHARE = data['PCF_PROF_SHARE']
-            rule.FIXED_COPAY = data['FIXED_COPAY']
-            rule.CHECK_OCCURS_PER_CLAIM = data['CHECK_OCCURS_PER_CLAIM']
-            rule.CHECK_SINGLE_PERIOD_DAYS = data['CHECK_SINGLE_PERIOD_DAYS']
-            rule.CHECK_OCCURS_PER_PERSON = data['CHECK_OCCURS_PER_PERSON']
-            rule.CHECK_AGE = data['CHECK_AGE']
-            rule.CHECK_LENGTH_OF_STAY = data['CHECK_LENGTH_OF_STAY']
-            rule.ACTIVE = data['ACTIVE']
-            rule.CHECK_FACILITY_H1 = data['CHECK_FACILITY_H1']
-            rule.CHECK_FACILITY_H2 = data['CHECK_FACILITY_H2']
-            rule.CHECK_FACILITY_H3 = data['CHECK_FACILITY_H3']
-            rule.CHECK_FACILITY_ASC = data['CHECK_FACILITY_ASC']
-            rule.CHECK_FACILITY_PCF = data['CHECK_FACILITY_PCF']
-            rule.CHECK_FACILITY_MAT = data['CHECK_FACILITY_MAT']
-            rule.CHECK_FACILITY_FSDC = data['CHECK_FACILITY_FSDC']
-            rule.CHECK_DIRECT_FILING = data['CHECK_DIRECT_FILING']
-            rule.CHECK_GIDAS = data['CHECK_GIDAS']
-            rule.CHECK_PCF_SECONDARY_CR = data['CHECK_PCF_SECONDARY_CR']
-            rule.CHECK_ASC_SECONDARY_CR = data['CHECK_ASC_SECONDARY_CR']
-            rule.CHECK_PREAUTHORIZATION = data['CHECK_PREAUTHORIZATION']
-            rule.CHECK_LATERALITY = data['CHECK_LATERALITY']
-            rule.CHECK_FACILITY_OPMC = data['CHECK_FACILITY_OPMC']
-            rule.CHECK_FACILITY_TBDOTSC = data['CHECK_FACILITY_TBDOTSC']
-            rule.CHECK_FACILITY_TSEKAP = data['CHECK_FACILITY_TSEKAP']
-            rule.CHECK_FACILITY_ABTC = data['CHECK_FACILITY_ABTC']
-            rule.TO_BE_TAGGED_FOR_POST_AUDIT = data['TO_BE_TAGGED_FOR_POST_AUDIT']
-            rule.CHECK_FACILITY_RHU = data['CHECK_FACILITY_RHU']
-            rule.CHECK_FACILITY_PCB = data['CHECK_FACILITY_PCB']
-            rule.CHECK_QUALIFIER = data['CHECK_QUALIFIER']
-            rule.CHECK_WHAT_IS_COVERED_BY_AMT = data['CHECK_WHAT_IS_COVERED_BY_AMT']
-            rule.CHECK_ADDITIONAL_CODES = data['CHECK_ADDITIONAL_CODES']
-            rule.CHECK_SPC_RELATED_BEN_CODES = data['CHECK_SPC_RELATED_BEN_CODES']
-            rule.DEDUCT_FROM_45DAYS = data['DEDUCT_FROM_45DAYS']
-            rule.VALIDATION_RULES = data['VALIDATION_RULES']
-            
-            rule.save()
-            
+            acr_groups_rvs_service.update_temp_rvs_rules(rule, data)
             messages.success(request, 'Succesfully updated.')
-            return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
+            
+            if page_of_origin and page_of_origin == 'temp_rvs_rules_details':
+                url = reverse('temp_rvs_rules_details', args=[rvscode])
+                parameter = '?eff_date=' + eff_date
+                return redirect(url + parameter)
+            else:
+                return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
         except Exception as e:
             messages.error(request, str(e))
-            return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
+            if page_of_origin and page_of_origin == 'temp_rvs_rules_details':
+                # return redirect('temp_rvs_rules_details', rvscode=rule.RVSCODE)
+                url = reverse('temp_rvs_rules_details', args=[rvscode])
+                parameter = '?eff_date=' + eff_date
+                return redirect(url + parameter)
+            else:
+                return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE)  
     else:
         messages.error(request, 'Something went wrong. Please try again.')
-        return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
+        if page_of_origin and page_of_origin == 'temp_rvs_rules_details':
+            # return redirect('temp_rvs_rules_details', rvscode=rule.RVSCODE)
+            url = reverse('temp_rvs_rules_details', args=[rvscode])
+            parameter = '?eff_date=' + eff_date
+            return redirect(url + parameter)
+        else:
+            return redirect('temp_rvs_with_rules_details', temp_group_id=rule.TEMP_ACR_GROUPID, rvscode=rule.RVSCODE) 
 # 
 # 
 # 
@@ -367,11 +357,15 @@ def temp_rvs_rules_details(request, rvscode):
             return redirect('temp_rvs_rules_list')
         except Exception as e:
             messages.error(request, str(e))
-            return redirect('temp_rvs_rules_details' , rvscode=rvscode, eff_date=EFF_DATE)
+            # return redirect('temp_rvs_rules_details' , rvscode=rvscode, eff_date=EFF_DATE)
+            url = reverse('temp_rvs_rules_details', args=[rvscode])
+            parameter = '?eff_date=' + EFF_DATE
+            return redirect(url + parameter)
     else:
         try:
             rule = get_object_or_404(ACR_PERRVS_RULES_TEMP, RVSCODE=rvscode, EFF_DATE=EFF_DATE)
-            return render(request, TEMPLATE, {'rule': rule})
+            rvs = get_object_or_404(ACR_GROUPS_RVS, RVSCODE=rvscode)
+            return render(request, TEMPLATE, {'rule': rule, 'rvs': rvs})
         except Exception as e:
             messages.error(request, str(e))
             return redirect('temp_rvs_rules_list')

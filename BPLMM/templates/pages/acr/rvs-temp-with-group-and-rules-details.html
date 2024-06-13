@@ -19,7 +19,6 @@
                     <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
                     <a href="{% url 'temp_group_rvs_rules_details' id=temp_group_id %}"
                         class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back
-                        to home
                     </a>
                 </div>
             {% endif %}
@@ -126,7 +125,7 @@
 
                             <div class="flex flex-col space-y-2">
                                 {% for rule in rules %}
-                                        <div>
+                                        <div class="bg-white">
                                             <div id="toggleButton" class="flex items-center justify-between p-3 border border-gray-300"
                                                 onclick="toggleContent(this)">
                                                 <span class="">EFF DATE: {{ rule.EFF_DATE }}</span>
@@ -402,7 +401,7 @@
                                                                 <td class="p-2 border border-gray-200">
                                                                     <div class="w-full items-center flex justify-between">
                                                                         <span>{{ rule.CHECK_SINGLE_PERIOD_DAYS }}</span>
-                                                                        <input type="number" name="CHECK_SINGLE_PERIOD_DAYS" value="{{ rule.CHECK_SINGLE_PERIOD_DAYS }}" class="rounded w-60 text-sm py-2 px-4 border border-gray-300">
+                                                                        <input type="text" name="CHECK_SINGLE_PERIOD_DAYS" value="{{ rule.CHECK_SINGLE_PERIOD_DAYS }}" class="rounded w-60 text-sm py-2 px-4 border border-gray-300">
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -654,7 +653,7 @@
                                                                     <div class="w-full items-center flex justify-between">
                                                                         <span>{{ rule.CHECK_FACILITY_PCB }}</span>
                                                                         <select type="text" name="CHECK_FACILITY_PCB" class="rounded w-60 text-sm py-2 px-4 border border-gray-300">
-                                                                            <option value="T" {% if rule.CHECK_FACILITY_PCB == 'T' %}selected{% endif %} >True</option>
+                                                                            <option value="T" {% if rule.CHECK_FACILITY_PCB == 'T' %}selected{% endif %}>True</option>
                                                                             <option value="F" {% if rule.CHECK_FACILITY_PCB == 'F' %}selected{% endif %}>False</option>
                                                                         </select>
                                                                     </div>
@@ -687,31 +686,13 @@
                     const contentContainer = element.nextElementSibling;
                     const icon = element.querySelector('.bx');
 
-                    //if (contentContainer.classList.contains('hidden')) {
-                    //    contentContainer.classList.remove('hidden');
-                    //    icon.classList.replace('bx-chevron-down', 'bx-chevron-up');
-                    //} else {
-                    //    contentContainer.classList.add('hidden');
-                    //    icon.classList.replace('bx-chevron-up', 'bx-chevron-down');
-                    //}
-
-                    // Check if 'hidden' state is saved in localStorage
-                    if (localStorage.getItem('isHidden') === 'true') {
-                        document.getElementById('myDiv').classList.add('hidden');
-                        icon.classList.replace('bx-chevron-up', 'bx-chevron-down');
-                       
-                    } else {
-                        document.getElementById('myDiv').classList.remove('hidden');
+                    if (contentContainer.classList.contains('hidden')) {
+                        contentContainer.classList.remove('hidden');
                         icon.classList.replace('bx-chevron-down', 'bx-chevron-up');
+                    } else {
+                        contentContainer.classList.add('hidden');
+                        icon.classList.replace('bx-chevron-up', 'bx-chevron-down');
                     }
-
-                    document.getElementById('toggleButton').addEventListener('click', function() {
-                        var div = document.getElementById('myDiv');
-
-                        div.classList.toggle('hidden');
-
-                        localStorage.setItem('isHidden', div.classList.contains('hidden'));
-                    });
                 }
             </script>
         </div>
