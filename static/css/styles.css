@@ -1663,14 +1663,6 @@ input:checked + .toggle-bg{
   cursor: pointer;
 }
 
-.cursor-none{
-  cursor: none;
-}
-
-.cursor-zoom-in{
-  cursor: zoom-in;
-}
-
 .resize{
   resize: both;
 }
@@ -2563,10 +2555,6 @@ input:checked + .toggle-bg{
 
 .opacity-100{
   opacity: 1;
-}
-
-.opacity-50{
-  opacity: 0.5;
 }
 
 .opacity-70{

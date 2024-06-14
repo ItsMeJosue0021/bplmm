@@ -10,16 +10,16 @@ from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 #services
 from ...services.group_service import ACR_GROUPS_SERVICE
 from ...services.rvs_service import ACR_GROUPS_RVS_SERVICE
+from ...services.icd_service import ACR_GROUPS_ICD_SERVICE
 #repositories
 from ...repositories.group_repository import ACR_GROUPS_REPOSITORY
 from ...repositories.rvs_repository import ACR_GROUPS_RVS_REPOSITORY
+from ...repositories.icd_repository import ACR_GROUPS_ICD_REPOSITORY
 
 
-acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
-acr_groups_rvs_service = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
-
-exception_error_message = 'Something went wrong while trying to save'
-please_try_again = 'Please try again.'
+GROUPS_SERVICE = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+GROUP_RVS_SERVICE = ACR_GROUPS_RVS_SERVICE(ACR_GROUPS_RVS_REPOSITORY())
+GROUP_ICD_SERVICE = ACR_GROUPS_ICD_SERVICE(ACR_GROUPS_ICD_REPOSITORY())
 
 # 
 # 
@@ -27,7 +27,7 @@ please_try_again = 'Please try again.'
 @login_required
 @encoder_required
 def groups_rvs_new(request):
-    template = 'pages/acr/encoder/new_group_rvs_rules.html'
+    TEMPLATE = 'pages/acr/encoder/new_group_rvs_rules.html'
     
     if request.method == 'POST':
         form = SAVE_GROUP_RVS_RULES(request.POST)
@@ -36,19 +36,46 @@ def groups_rvs_new(request):
         if form.is_valid():
             data = form.cleaned_data
             try:
-                group = acr_groups_service.create_temp(data, request)
-                acr_groups_rvs_service.create_temp(data, username=request.user.username, temp_acr_groupid=group.ID)
-                acr_groups_rvs_service.create_temp_rvs_rules(data, data['RVSCODE'], request.user.username, temp_acr_groupid=group.ID)
+                group = GROUPS_SERVICE.create_temp(data, request)
+                GROUP_RVS_SERVICE.create_temp(data, username=request.user.username, temp_acr_groupid=group.ID)
+                GROUP_RVS_SERVICE.create_temp_rvs_rules(data, data['RVSCODE'], request.user.username, temp_acr_groupid=group.ID)
                 messages.success(request, 'Form saved successfully.')
-                return render(request, template, {'form': form})
+                return render(request, TEMPLATE, {'form': form})
             except Exception as e:
                 messages.error(request, str(e))
-                return render(request, template, {'form': form})   
+                return render(request, TEMPLATE, {'form': form})   
         else:
             messages.error(request, 'Please make sure all fields are filled out.')
-            return render(request, template, {'form': form})
-    return render(request, template)
+            return render(request, TEMPLATE, {'form': form})
+    return render(request, TEMPLATE)
+
+# 
+# 
+# 
+def groups_icd_new(request):
+    TEMPLATE = 'pages/acr/encoder/new_groups_icd_rules.html'
+    form = SAVE_ICD_FORM(request.POST or None)
     
+    print(request.POST) # testing
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            data =  form.cleaned_data
+            print(data) # testing
+            try:
+                group = GROUPS_SERVICE.create_temp(data, request)
+                GROUP_ICD_SERVICE.create_temp(data, username=request.user.username, temp_acr_groupid=group.ID)
+                GROUP_ICD_SERVICE.create_temp_icd_rules(data, data['ICDCODE'], request.user.username, temp_acr_groupid=group.ID)
+                messages.success(request, 'Form saved successfully.')
+                return render(request, TEMPLATE, {'form': form})
+            except Exception as e:
+                messages.error(request, str(e))
+                return render(request, TEMPLATE, {'form': form})
+        else:
+            messages.error(request, 'Please make sure all fields are filled out.')
+            return render(request, TEMPLATE, {'form': form})
+    else:
+        return render(request, TEMPLATE)  
 
 # 
 # 
@@ -57,7 +84,7 @@ def groups_rvs_new(request):
 @encoder_required
 def groups(request):
     
-    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+    # acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
     data = ACR_GROUPS.objects.all()
 
@@ -80,7 +107,7 @@ def groups(request):
     if request.method == 'POST':
         if form.is_valid():
             try:
-                acr_groups = acr_groups_service.create_temp(form, request.user.username)
+                acr_groups = GROUPS_SERVICE.create_temp(form, request.user.username)
                 if acr_groups is not None:
                     form = SAVE_RVS_FORM()
                     messages.success(request, 'Form saved successfully.')
@@ -106,12 +133,12 @@ def groups(request):
 @login_required
 def groups_approve(request, id):
 
-    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+    # acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
     temp_group = get_object_or_404(ACR_GROUPS_TEMP, ID=id)
 
     try:
-        acr_group = acr_groups_service.create_main(temp_group)
+        acr_group = GROUPS_SERVICE.create_main(temp_group)
         if acr_group is not None:
             messages.success(request, 'Group approved successfully.')
             temp_group.ACTIVE = 'T'
@@ -202,16 +229,16 @@ def temp_group_rvs_rules_details(request, id):
     
     if request.POST:
         try:
-            main_group = acr_groups_service.create_main(group)
+            main_group = GROUPS_SERVICE.create_main(group)
             if main_group is not None:
                 group.ACTIVE = 'T'
                 group.is_approved = True
                 group.save()
-                acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+                GROUP_RVS_SERVICE.create_main(rvs, main_group.ACR_GROUPID)
                 rvs.is_approved = True
                 rvs.ACR_GROUPID = main_group.ACR_GROUPID
                 rvs.save()
-                acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
+                GROUP_RVS_SERVICE.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
                 rule.is_approved = True
                 rvs.ACR_GROUPID = main_group.ACR_GROUPID
                 rule.save()
@@ -240,14 +267,14 @@ def temp_group_rvs_rules_details__demo(request, id):
         _method = request.POST.get('_method', 'POST')
         if _method == 'POST':
             try:
-                main_group = acr_groups_service.create_main(group)
+                main_group = GROUPS_SERVICE.create_main(group)
                 if main_group is not None:
                     group.ACTIVE = 'T'
                     group.is_approved = True
                     group.save()
                     
                     for rvs in rvs_list: 
-                        acr_groups_rvs_service.create_main(rvs, main_group.ACR_GROUPID)
+                        GROUP_RVS_SERVICE.create_main(rvs, main_group.ACR_GROUPID)
                         rvs.is_approved = True
                         rvs.ACR_GROUPID = main_group.ACR_GROUPID
                         rvs.save()
@@ -255,7 +282,7 @@ def temp_group_rvs_rules_details__demo(request, id):
                         for rule in rules:
                             if rule.RVSCODE != rvs.RVSCODE:
                                 continue
-                            acr_groups_rvs_service.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
+                            GROUP_RVS_SERVICE.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
                             rule.is_approved = True
                             rvs.ACR_GROUPID = main_group.ACR_GROUPID
                             rule.save()
@@ -273,7 +300,7 @@ def temp_group_rvs_rules_details__demo(request, id):
             if form.is_valid():
                 data = form.cleaned_data
                 try:
-                    acr_groups_service.update_temp(data, group)
+                    GROUPS_SERVICE.update_temp(data, group)
                     messages.success(request, 'Succesfully updated.')
                     return redirect('temp_group_rvs_rules_details', id=id)
                 except Exception as e:
@@ -305,7 +332,7 @@ def main_groups_rvs_rules_details(request, group_id):
 @login_required
 def approver_approved_groups(request):
     template = 'pages/acr/approver/pending_group_list.html'
-    acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
+    # acr_groups_service = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
     data = ACR_GROUPS.objects.all()
 

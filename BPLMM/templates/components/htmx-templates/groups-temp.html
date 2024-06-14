@@ -65,14 +65,14 @@
             <td colspan="8">
                 <div class="flex space-x-4 items-center mt-3">
                     {% if groups.has_previous %}
-                    <a hx-get="/groups/temporary?page={{ groups.previous_page_number }}" hx-trigger="click" hx-target="#temp-group"
+                    <a hx-get="/acr/groups/temporary?page={{ groups.previous_page_number }}" hx-trigger="click" hx-target="#temp-group"
                         class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
                     {% endif %}
                     <span class="current text-sm">
                         Page {{ groups.number }} of {{ groups.paginator.num_pages }}.
                     </span>
                     {% if groups.has_next %}
-                    <a hx-get="/groups/temporary?page={{ groups.next_page_number }}" hx-trigger="click" hx-target="#temp-group" 
+                    <a hx-get="/acr/groups/temporary?page={{ groups.next_page_number }}" hx-trigger="click" hx-target="#temp-group" 
                         class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
                     {% endif %}
                 </div> 

@@ -166,7 +166,11 @@ urlpatterns = [
     
         # 
         # 
-        path('groups/icds/', views.icds, name='icds'),
+        path('acr/groups/icds/', views.icds, name='icds'),
+        
+        # 
+        # 
+        path('acr/groups/icds/create', group_view.groups_icd_new, name='groups_icd_new'),
 
 
     # -------------------------------- MOCK URL ---------------------------------------

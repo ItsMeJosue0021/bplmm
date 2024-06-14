@@ -7,21 +7,31 @@ class ACR_GROUPS_RVS_SERVICE:
     def __init__(self, _repository):
         self.repository = _repository   
     
+    # 
+    # 
     def create_main(self, data, group_id):     
         return self.repository.create_main(self.to_rvs_array(data, group_id)) 
 
+    # 
+    # 
     def create_temp(self, data, username, temp_acr_groupid = None):
         return self.repository.create_temp(self.to_rvs_array(data, temp_acr_groupid = temp_acr_groupid, username = username)) 
         
+    # 
+    # 
     def create_temp_modal(self, data, username, group_id):
         return self.repository.create_temp(self.to_rvs_array(data, group_id = group_id, username = username))   
     
+    # 
+    # 
     def create_main_rvs_rules(self, data, group_id, rvs_code):
         main_rule_exists = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=group_id, RVSCODE=rvs_code, EFF_DATE=getattr(data, 'EFF_DATE')).exists()
         if main_rule_exists:
-            raise Exception('A RVS rule with the same effectivity date already exists.')
+            raise Exception('An RVS rule with the same effectivity date already exists.')
         return self.repository.create_main_rvs_rules(self.rvs_rules(data, rvs_code = rvs_code, group_id = group_id))
-                    
+    
+    # 
+    #  
     def create_temp_rvs_rules(self, data, rvs_code, username, group_id = None, temp_acr_groupid = None):
         temp_rule_exists = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=temp_acr_groupid, RVSCODE=rvs_code, EFF_DATE=data['EFF_DATE']).exists()
         main_rule_exists = ACR_PERRVS_RULES.objects.filter(ACR_GROUPID=temp_acr_groupid, RVSCODE=rvs_code, EFF_DATE=data['EFF_DATE']).exists()
@@ -29,6 +39,8 @@ class ACR_GROUPS_RVS_SERVICE:
             raise Exception('A RVS rule with the same effectivity date already exists.')
         return self.repository.create_temp_rvs_rules(self.rvs_rules(data, rvs_code = rvs_code, group_id = group_id, temp_acr_groupid = temp_acr_groupid, username = username))
 
+    # 
+    # 
     def update_temp(self, data, rvscode):
         rvs = get_object_or_404(ACR_GROUPS_RVS_TEMP, RVSCODE=rvscode)
         
@@ -36,12 +48,18 @@ class ACR_GROUPS_RVS_SERVICE:
         
         rvs.save()
     
+    # 
+    # 
     def update_main(self, data, id):
         pass
     
+    # 
+    # 
     def update_main_rvs_rules(self, data, rvscode):
         pass
     
+    # 
+    # 
     def update_temp_rvs_rules(self, rule, data):
         try:
             self.to_update_rvs_rules_array(rule, data)
@@ -49,14 +67,17 @@ class ACR_GROUPS_RVS_SERVICE:
         except Exception as e:
             raise Exception('An error has occured while trying to update the rules: ' + str(e))
             
-        
+    # 
+    # 
     def to_update_rvs_array(self, rvs, data):
         rvs.RVSCODE = data['RVSCODE'],
         rvs.DESCRIPTION = data['DESCRIPTION'],
         rvs.RVU = data['RVU'],
         rvs.EFF_DATE = data['EFF_DATE'],
         rvs.END_DATE = data['END_DATE']
-        
+    
+    # 
+    # 
     def to_update_rvs_rules_array(self, rule, data):
         rule.RVSCODE = data['RVSCODE']
         rule.EFF_DATE = data['EFF_DATE']
@@ -104,6 +125,8 @@ class ACR_GROUPS_RVS_SERVICE:
         rule.DEDUCT_FROM_45DAYS = data['DEDUCT_FROM_45DAYS']
         rule.VALIDATION_RULES = data['VALIDATION_RULES'] 
     
+    # 
+    # 
     def to_rvs_array(self, data, group_id = None, temp_acr_groupid = None, username = None):
         rvs_array = {
             'RVSCODE': data['RVSCODE'] if isinstance(data, dict) else getattr(data, 'RVSCODE'),
@@ -126,6 +149,8 @@ class ACR_GROUPS_RVS_SERVICE:
             
         return rvs_array     
     
+    # 
+    # 
     def rvs_rules(self, data, rvs_code, group_id = None, temp_acr_groupid = None, username = None):
         rules_array = {
             'RVSCODE': rvs_code,
