@@ -17,7 +17,7 @@
         {% elif group.name == "Encoder" %}
         <div class="flex items-center mb-2 group">
             <i class='bx bx-left-arrow-alt text-xl group-hover:text-blue-600'></i>
-            <a href="{% url 'acr' %}"
+            <a href="{% url 'approver_pending_groups_list' %}"
                 class="nav-button previous text-sm py-2 px-1 text-gray-600 cursor-pointer group-hover:underline group-hover:text-blue-600">Back
                 to home
             </a>
@@ -91,103 +91,197 @@
                 </form>
             {% endif %}
 
-            <div class="p-4 rounded-md bg-white border-t-4 border-gray-400 shadow text-xs">
-                <div class="flex flex-col h-fit">
-                    <div class="flex items-start justify-between w-full pb-4">
-                        <p class="w-fit text-base font-medium py-2 drop-shadow-lg text-red-800">RELATED ACR RVS<span
-                                class="italic text-base font-light">(Waiting for approval)</span></p>
-                        <div class="flex space-x-4 items-center">
-                            {% for user_group in user.groups.all %}
-                            {% if user_group.name == "Encoder" %}
-                            <div class="flex items-center space-x-2">
-                                <button data-modal-target="default-modal-{{ group_id }}"
-                                    data-modal-toggle="default-modal-{{ group_id }}" type="button"
-                                    class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center cursor-pointer">
-                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>
-                                    RVS
-                                </button>
-                            </div>
-                            {% endif %}
-                            {% endfor %}
-                            <div class="flex items-center space-x-2">
-                                <input type="date" id="date_search" name="date_search"
-                                    hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}"
-                                    hx-trigger="change delay:500ms" hx-target="#temp_rvs_cntr"
-                                    class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            </div>
-                            <div class="flex items-center">
-                                <label for="temp_search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="temp_search" name="description_search"
+            {% if rvs %}
+                <div class="p-4 rounded-md bg-white border-t-4 border-gray-400 shadow text-xs">
+                    <div class="flex flex-col h-fit">
+                        <div class="flex items-start justify-between w-full pb-4">
+                            <p class="w-fit text-base font-medium py-2 drop-shadow-lg text-red-800">RELATED ACR RVS<span
+                                    class="italic text-base font-light">(Waiting for approval)</span></p>
+                            <div class="flex space-x-4 items-center">
+                                {% for user_group in user.groups.all %}
+                                {% if user_group.name == "Encoder" %}
+                                <div class="flex items-center space-x-2">
+                                    <button data-modal-target="default-modal-{{ group_id }}"
+                                        data-modal-toggle="default-modal-{{ group_id }}" type="button"
+                                        class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center cursor-pointer">
+                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>
+                                        RVS
+                                    </button>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                <div class="flex items-center space-x-2">
+                                    <input type="date" id="date_search" name="date_search"
                                         hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}"
-                                        hx-trigger="keyup delay:500ms" hx-target="#temp_rvs_cntr"
-                                        class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search Description..">
+                                        hx-trigger="change delay:500ms" hx-target="#temp_rvs_cntr"
+                                        class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                </div>
+                                <div class="flex items-center">
+                                    <label for="temp_search" class="sr-only">Search</label>
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="temp_search" name="description_search"
+                                            hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}"
+                                            hx-trigger="keyup delay:500ms" hx-target="#temp_rvs_cntr"
+                                            class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search Description..">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}" hx-trigger="load "
-                        id="temp_rvs_cntr" class="h-fit max-h-60 overflow-y-auto ">
-                        {% comment %} Temporary RVS container {% endcomment %}
+                        <div hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}" hx-trigger="load "
+                            id="temp_rvs_cntr" class="h-fit max-h-60 overflow-y-auto ">
+                            {% comment %} Temporary RVS container {% endcomment %}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% elif icds %}
+                <div class="p-4 rounded-md bg-white border-t-4 border-gray-400 shadow text-xs">
+                    <div class="flex flex-col h-fit">
+                        <div class="flex items-start justify-between w-full pb-4">
+                            <p class="w-fit text-base font-medium py-2 drop-shadow-lg text-red-800">RELATED ACR ICDS <span
+                                    class="italic text-base font-light">(Waiting for approval)</span></p>
+                            <div class="flex space-x-4 items-center">
+                                {% for user_group in user.groups.all %}
+                                    {% if user_group.name == "Encoder" %}
+                                        <div class="flex items-center space-x-2">
+                                            <button data-modal-target="default-modal-{{ group_id }}"
+                                                data-modal-toggle="default-modal-{{ group_id }}" type="button"
+                                                class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center cursor-pointer">
+                                                <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>
+                                                RVS
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="flex items-center space-x-2">
+                                    <input type="date" id="date_search" name="date_search"
+                                        hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}"
+                                        hx-trigger="change delay:500ms" hx-target="#temp_rvs_cntr"
+                                        class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                </div>
+                                <div class="flex items-center">
+                                    <label for="temp_search" class="sr-only">Search</label>
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="temp_search" name="description_search"
+                                            hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}"
+                                            hx-trigger="keyup delay:500ms" hx-target="#temp_rvs_cntr"
+                                            class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search Description..">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div hx-get="{% url 'temp_icds_by_group' temp_group_id=group.ID %}" hx-trigger="load "
+                            id="temp_icd_cntr" class="h-fit max-h-60 overflow-y-auto ">
+                            {% comment %} Temporary RVS container {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+
+
+           
+
+
         </div>
 
         {% for user_group in user.groups.all %}
-        {% if user_group.name == "Approver" %}
-        <div class="mt-4">
-            <form method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="_method" value="POST">
-                <button type="submit" class="px-4 py-2 text-sm text-white bg-primary border border-primary rounded-md flex items-center">
-                    <i class='bx bx-check-circle -ml-1 mr-1 text-white text-lg'></i>
-                    Approve
-                </button>
-            </form>
-        </div>
-        {% endif %}
-        {% endfor %}
-
-        <div id="default-modal-{{ group_id }}" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div class="relative w-full max-w-[1300px] max-h-full">
-                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    <div class="flex items-center justify-between px-5 py-2 border-b rounded-t dark:border-gray-600">
-
-                        <button type="button" hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}" hx-trigger="click" hx-target="#temp_rvs_cntr"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="default-modal-{{ group_id }}">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <form hx-post="{% url 'rvs_rules_new_modal' temp_group_id=group.ID %}" hx-trigger="submit"
-                        hx-target="#rvs-form-cntr" method="POST" class="p-4 space-y-4">
+            {% if user_group.name == "Approver" %}
+                <div class="mt-4">
+                    <form method="POST">
                         {% csrf_token %}
-                        <div class="flex flex-col">
-                            <div hx-get="{% url 'rvs_rules_new_modal' temp_group_id=group.ID %}" hx-trigger="load"
-                                id="rvs-form-cntr">
-                            </div>
-                        </div>
+                        <input type="hidden" name="_method" value="POST">
+                        <button type="submit" class="px-4 py-2 text-sm text-white bg-primary border border-primary rounded-md flex items-center">
+                            <i class='bx bx-check-circle -ml-1 mr-1 text-white text-lg'></i>
+                            Approve
+                        </button>
                     </form>
                 </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if rvs %}
+            <div id="default-modal-{{ group_id }}" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-full max-w-[1300px] max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex items-center justify-between px-5 py-2 border-b rounded-t dark:border-gray-600">
+
+                            <button type="button" hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}" hx-trigger="click" hx-target="#temp_rvs_cntr"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="default-modal-{{ group_id }}">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <form hx-post="{% url 'rvs_rules_new_modal' temp_group_id=group.ID %}" hx-trigger="submit"
+                            hx-target="#rvs-form-cntr" method="POST" class="p-4 space-y-4">
+                            {% csrf_token %}
+                            <div class="flex flex-col">
+                                <div hx-get="{% url 'rvs_rules_new_modal' temp_group_id=group.ID %}" hx-trigger="load"
+                                    id="rvs-form-cntr">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
+        {% endif %}
+
+        {% if icds %}
+            <div id="default-modal-{{ group_id }}" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative w-full max-w-[1300px] max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex items-center justify-between px-5 py-2 border-b rounded-t dark:border-gray-600">
+
+                            <button type="button" hx-get="{% url 'temp_group_rvs' temp_group_id=group.ID %}" hx-trigger="click" hx-target="#temp_rvs_cntr"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="default-modal-{{ group_id }}">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <form hx-post="{% url 'rvs_rules_new_modal' temp_group_id=group.ID %}" hx-trigger="submit"
+                            hx-target="#rvs-form-cntr" method="POST" class="p-4 space-y-4">
+                            {% csrf_token %}
+                            <div class="flex flex-col">
+                                <div hx-get="{% url 'rvs_rules_new_modal' temp_group_id=group.ID %}" hx-trigger="load"
+                                    id="rvs-form-cntr">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.urls import path # type: ignore
 from .model_views.acr import group_view
 from .model_views.acr import rvs_view
+from .model_views.acr import icd_view
 from . import views
 
 urlpatterns = [
@@ -161,6 +162,11 @@ urlpatterns = [
         # 
         path('rvs/<str:rvscode>/rules/update', rvs_view.update_temp_rvs_rules, name="update_temp_rvs_rules"),
 
+    
+    # 
+    # 
+    # 
+    # 
     # ICDS' URLs
     #-------------------------------------------------
     
@@ -169,10 +175,19 @@ urlpatterns = [
         path('acr/groups/icds/', views.icds, name='icds'),
         
         # 
-        # 
+        # creating new group with icd and rules
         path('acr/groups/icds/create', group_view.groups_icd_new, name='groups_icd_new'),
+        
+        # 
+        # 
+        path('acr/<str:temp_group_id>/icds/temp/', icd_view.temp_icds_by_group, name='temp_icds_by_group'),
 
 
+    # 
+    # 
+    # 
+    # 
+    # 
     # -------------------------------- MOCK URL ---------------------------------------
         # 
         # 

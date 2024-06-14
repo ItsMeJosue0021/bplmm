@@ -1,0 +1,70 @@
+<table class="w-full text-center border-collapse h-20 overflow-y-auto ">
+    <thead class="bg-gray-100 sticky top-0 z-10 ">
+        <tr>
+            {% if item.TEMP_ACR_GROUPID != '' %}
+                <th class="p-2 border border-gray-300">TEMP GROUPID</th>
+            {% elif item.ACR_GROUPID != '' %}
+                <th class="p-2 border border-gray-300">GROUPID</th>
+            {% endif %}
+            <th class="p-2 border border-gray-300">RVSCODE</th>
+            <th class="p-2 border border-gray-300">DESCRIPTION</th>
+            <th class="p-2 border border-gray-300">EFF_DATE</th>
+            <th class="p-2 border border-gray-300">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody  id="temp-rvs" class="text-gray-700 ">
+        {% for item in icds %}
+            <tr> 
+                {% if item.TEMP_ACR_GROUPID != '' %}
+                    <td class="p-2 border border-gray-300">{{ item.TEMP_ACR_GROUPID }}</td>
+                {% elif item.ACR_GROUPID != '' %}
+                    <td class="p-2 border border-gray-300">{{ item.ACR_GROUPID }}</td>
+                {% endif %}
+                <td class="p-2 border border-gray-300">{{ item.ICDCODE }}</td>
+                <td class="p-2 border border-gray-300">{{ item.DESCRIPTION|default:""|truncatechars:40 }}</td>
+                <td class="p-2 border border-gray-300">{{ item.EFF_DATE }}</td>
+                <td class="w-40 p-2 border border-gray-300">
+                    <div class="flex items-center justify-center space-x-1 px-4">
+                        {% for group in user.groups.all %}
+                            {% if group.name == "Encoder" %}
+                                <a href="" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">View</a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% for group in user.groups.all %}
+                            {% if group.name == "Approver" %}
+                            <a href="" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">Review</a>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </div>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="8" class="pt-4">
+                    <span class=" text-red-600">No Record Found</span>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot class="pagination">
+        <tr class="step-links">
+            <td colspan="8">
+                <div class="flex space-x-4 items-center mt-3">
+                    {% if icds.has_previous %}
+                    <a hx-get="/acr/{{ temp_group_id }}/icds/temp?page={{ rvs.previous_page_number }}" hx-trigger="click" hx-target="#temp_icds_cntr"
+                        class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Previous</a>
+                    {% endif %} 
+                    <span class="current text-sm">
+                        Page {{ icds.number }} of {{ icds.paginator.num_pages }}.
+                    </span>
+                    {% if icds.has_next %}
+                    <a hx-get="/acr/{{ temp_group_id }}/icds/temp?page={{ rvs.next_page_number }}" hx-trigger="click" hx-target="#temp_icds_cntr" 
+                        class="py-1 px-2 text-sm rounded bg-white bg-opacity-40 hover:bg-opacity-60 cursor-pointer hover:underline hover:text-blue-600">Next</a>
+                    {% endif %}
+                </div> 
+            </td>
+        </tr>
+    </tfoot>
+</table> 

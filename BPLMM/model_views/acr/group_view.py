@@ -258,10 +258,11 @@ def temp_group_rvs_rules_details__demo(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
     group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
-    rvs_list = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
+    rvs_list = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id, is_approved=False) or None
+    icds_list = ACR_GROUPS_ICDS_TEMP.objects.filter(TEMP_ACR_GROUPID=id, is_approved=False) or None
     rules = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
         
-    context = { 'group': group, 'rvs': rvs_list, 'rules': rules }
+    context = { 'group': group, 'rvs': rvs_list, 'icds': icds_list, 'rules': rules }
     
     if request.POST:
         _method = request.POST.get('_method', 'POST')
@@ -307,7 +308,7 @@ def temp_group_rvs_rules_details__demo(request, id):
                     messages.error(request, str(e))
                     return redirect('temp_group_rvs_rules_details', id=id)
             else:
-                context = { 'group': group, 'rvs': rvs_list, 'rules': rules, 'form': form }
+                context = { 'group': group, 'rvs': rvs_list, 'icds': icds_list, 'rules': rules, 'form': form }
                 return render(request, template, context)      
     else:
         return render(request, template, context)
