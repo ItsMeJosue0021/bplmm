@@ -243,7 +243,7 @@ def temp_group_rvs_rules_details(request, id):
                 rvs.ACR_GROUPID = main_group.ACR_GROUPID
                 rule.save()
                 messages.success(request, 'Succesfully approved.')
-                return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
+                return redirect('main_groups_rvs_or_icd_rules_details', group_id=main_group.ACR_GROUPID)
         except Exception as e:
             messages.error(request, str(e))
             return render(request, template, context)   
@@ -254,42 +254,59 @@ def temp_group_rvs_rules_details(request, id):
 # Hanldes approving of Pending Group, RVS and RVS RULES
 #   
 @login_required
-def temp_group_rvs_rules_details__demo(request, id):
+def temp_group_rvs_or_icd_rules_details(request, id):
     template = 'pages/acr/temp_group_rvs_rules_details.html'
         
     group = ACR_GROUPS_TEMP.objects.filter(ID=id).first() 
     rvs_list = ACR_GROUPS_RVS_TEMP.objects.filter(TEMP_ACR_GROUPID=id, is_approved=False) or None
     icds_list = ACR_GROUPS_ICDS_TEMP.objects.filter(TEMP_ACR_GROUPID=id, is_approved=False) or None
-    rules = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
+    rvs_rules = ACR_PERRVS_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
+    icd_rules = ACR_PERICD_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=id)
         
-    context = { 'group': group, 'rvs': rvs_list, 'icds': icds_list, 'rules': rules }
+    context = { 'group': group, 'rvs': rvs_list, 'icds': icds_list }
     
     if request.POST:
         _method = request.POST.get('_method', 'POST')
         if _method == 'POST':
-            try:
+            try: 
                 main_group = GROUPS_SERVICE.create_main(group)
                 if main_group is not None:
                     group.ACTIVE = 'T'
                     group.is_approved = True
-                    group.save()
+                    group.save() 
                     
-                    for rvs in rvs_list: 
-                        GROUP_RVS_SERVICE.create_main(rvs, main_group.ACR_GROUPID)
-                        rvs.is_approved = True
-                        rvs.ACR_GROUPID = main_group.ACR_GROUPID
-                        rvs.save()
-                        
-                        for rule in rules:
-                            if rule.RVSCODE != rvs.RVSCODE:
-                                continue
-                            GROUP_RVS_SERVICE.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
-                            rule.is_approved = True
+                    if icds_list:
+                        for icd in icds_list:
+                            GROUP_ICD_SERVICE.create_main(icd, main_group.ACR_GROUPID)
+                            icd.is_approved = True
+                            icd.ACR_GROUPID = main_group.ACR_GROUPID
+                            icd.save()
+                            
+                            for rule in icd_rules:
+                                if rule.ICDCODE != icd.ICDCODE:
+                                    continue
+                                GROUP_ICD_SERVICE.create_main_icd_rules(rule, group_id=main_group.ACR_GROUPID, icdcode=icd.ICDCODE)
+                                rule.is_approved = True
+                                icd.ACR_GROUPID = main_group.ACR_GROUPID
+                                rule.save()
+                                
+                    elif rvs_list:            
+                        for rvs in rvs_list: 
+                            GROUP_RVS_SERVICE.create_main(rvs, main_group.ACR_GROUPID)
+                            rvs.is_approved = True
                             rvs.ACR_GROUPID = main_group.ACR_GROUPID
-                            rule.save()
+                            rvs.save()
+                            
+                            for rule in rvs_rules:
+                                if rule.RVSCODE != rvs.RVSCODE:
+                                    continue
+                                GROUP_RVS_SERVICE.create_main_rvs_rules(rule, group_id=main_group.ACR_GROUPID, rvs_code=rvs.RVSCODE)
+                                rule.is_approved = True
+                                rvs.ACR_GROUPID = main_group.ACR_GROUPID
+                                rule.save()
                     
                     messages.success(request, 'Succesfully approved.')
-                    return redirect('main_groups_rvs_rules_details', group_id=main_group.ACR_GROUPID)
+                    return redirect('main_groups_rvs_or_icd_rules_details', group_id=main_group.ACR_GROUPID)
             except Exception as e:
                 messages.error(request, str(e))
                 return render(request, template, context)  
@@ -308,7 +325,7 @@ def temp_group_rvs_rules_details__demo(request, id):
                     messages.error(request, str(e))
                     return redirect('temp_group_rvs_rules_details', id=id)
             else:
-                context = { 'group': group, 'rvs': rvs_list, 'icds': icds_list, 'rules': rules, 'form': form }
+                context = { 'group': group, 'rvs': rvs_list, 'icds': icds_list, 'form': form }
                 return render(request, template, context)      
     else:
         return render(request, template, context)
@@ -317,7 +334,7 @@ def temp_group_rvs_rules_details__demo(request, id):
 # 
 # 
 @login_required
-def main_groups_rvs_rules_details(request, group_id):
+def main_groups_rvs_or_icd_rules_details(request, group_id):
     template = 'pages/acr/main_group_rvs_rules_details.html'
     
     group = ACR_GROUPS.objects.filter(ACR_GROUPID=group_id).first() 

@@ -69,11 +69,11 @@ urlpatterns = [
         
         # 
         # details of a temporary/pending group, rvs and rules
-        path('acr/shrd/groups/<int:id>/details', group_view.temp_group_rvs_rules_details__demo, name='temp_group_rvs_rules_details'),
+        path('acr/shrd/groups/<int:id>/details', group_view.temp_group_rvs_or_icd_rules_details, name='temp_group_rvs_or_icd_rules_details'),
         
         # 
         # details of a main/approved group, rvs and rules
-        path('acr/shrd/groups/<str:group_id>/details', group_view.main_groups_rvs_rules_details, name='main_groups_rvs_rules_details'),
+        path('acr/shrd/groups/<str:group_id>/details', group_view.main_groups_rvs_or_icd_rules_details, name='main_groups_rvs_or_icd_rules_details'),
         
         # 
         # Adding of new RVS and RVS RULES to a pending GROUP
@@ -181,6 +181,12 @@ urlpatterns = [
         # 
         # 
         path('acr/<str:temp_group_id>/icds/temp/', icd_view.temp_icds_by_group, name='temp_icds_by_group'),
+        
+        
+        # 
+        # 
+        path('acr/icd/<str:icdcode>/rules/temp/', icd_view.temp_icd_with_rules_details, name='temp_icd_with_rules_details'),
+       
 
 
     # 
@@ -209,7 +215,11 @@ urlpatterns = [
         
         # 
         # 
-        path('rvscode/existence-check', views.check_if_rvscode_exists, name='check_rvscode_existence'),
+        path('rvscode/existence-check', rvs_view.check_if_rvscode_exists, name='check_rvscode_existence'),
+        
+        # 
+        # 
+        path('icdcode/existence-check', icd_view.check_if_icdcode_exists, name='check_if_icdcode_exists'),
         
         
     # Z BENEFITS URLs

@@ -391,8 +391,20 @@ def temp_groups_count(request):
     count = ACR_GROUPS_TEMP.objects.filter(is_approved=False).count()
     return render(request, 'components/htmx-templates/temp_groups_count.html', {'count': count})
 
-
-            
+# 
+# 
+# 
+@login_required
+def check_if_rvscode_exists(request):
+    code = request.GET.get('RVSCODE', None)
+    rvscode = None
+    rvscode_main = ACR_GROUPS_RVS.objects.filter(RVSCODE=code).exists()
+    rvscode_temp = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code).exists()
+    if rvscode_main:
+        rvscode = rvscode_main
+    elif rvscode_temp:
+        rvscode = rvscode_temp
+    return render(request, 'components/htmx-templates/check_rvscode_existence.html', {'rvscode': rvscode})      
     
 # 
 # 

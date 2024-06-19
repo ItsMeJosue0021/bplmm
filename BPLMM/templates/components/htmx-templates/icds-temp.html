@@ -27,13 +27,13 @@
                     <div class="flex items-center justify-center space-x-1 px-4">
                         {% for group in user.groups.all %}
                             {% if group.name == "Encoder" %}
-                                <a href="" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">View</a>
+                                <a href="{% url 'temp_icd_with_rules_details' icdcode=item.ICDCODE %}" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">View</a>
                             {% endif %}
                         {% endfor %}
                         
                         {% for group in user.groups.all %}
                             {% if group.name == "Approver" %}
-                            <a href="" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">Review</a>
+                            <a href="{% url 'temp_icd_with_rules_details' icdcode=item.ICDCODE %}" class="py-1 px-2 rounded bg-green-50 border border-opacity-50 border-primary text-primary text-xs font-light hover:bg-primary hover:text-white">Review</a>
                             {% endif %}
                         {% endfor %}
                         

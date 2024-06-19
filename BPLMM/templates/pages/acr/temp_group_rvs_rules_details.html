@@ -27,7 +27,7 @@
         {% include "components/alerts/messages.html" %}
         <div class="flex flex-col space-y-4 text-sm">
             {% if group %}
-                <form action="{% url 'temp_group_rvs_rules_details' id=group.ID %}" method="POST">
+                <form action="{% url 'temp_group_rvs_or_icd_rules_details' id=group.ID %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="_method" value="PUT">
                     <div class="w-full  rounded-t-md bg-gray-400 px-4">

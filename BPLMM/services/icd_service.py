@@ -25,8 +25,11 @@ class ACR_GROUPS_ICD_SERVICE:
     
     # 
     # 
-    def create_main_icd_rules():
-        pass
+    def create_main_icd_rules(self, data, group_id, icdcode):
+        main_rule_exists = ACR_PERICD_RULES.objects.filter(ACR_GROUPID=group_id, ICDCODE=icdcode, EFF_DATE=getattr(data, 'EFF_DATE')).exists()
+        if main_rule_exists:
+            raise Exception('An ICD rule with the same effectivity date already exists.')
+        return self.repository.create_main_icd_rules(self.to_icd_rules_array(data, icdcode = icdcode, group_id = group_id))
     
     # 
     # 

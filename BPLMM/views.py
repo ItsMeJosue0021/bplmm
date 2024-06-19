@@ -215,22 +215,7 @@ def claim_validation_rules(request):
     validation_rules_query_search_query = request.GET.get('validation_rules_search', '')
     rules = CLAIM_VALIDATION_INFOS.objects.filter(CONTENT__icontains=validation_rules_query_search_query)
     return render(request, 'components/mocks/claim-validation-rules.html', {'rules': rules})
-
-# 
-# 
-# 
-@login_required
-def check_if_rvscode_exists(request):
-    code = request.GET.get('RVSCODE', None)
-    rvscode = None
-    rvscode_main = ACR_GROUPS_RVS.objects.filter(RVSCODE=code).exists()
-    rvscode_temp = ACR_GROUPS_RVS_TEMP.objects.filter(RVSCODE=code).exists()
-    if rvscode_main:
-        rvscode = rvscode_main
-    elif rvscode_temp:
-        rvscode = rvscode_temp
-    return render(request, 'components/htmx-templates/check_rvscode_existence.html', {'rvscode': rvscode})
-    
+  
 # 
 #    
 # 

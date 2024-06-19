@@ -65,8 +65,7 @@
                                     <div class="w-full">
                                         <div class="flex flex-col space-y-1">
                                             <label for="ICDCODE" class="text-gray-700 uppercase text-sm font-medium">ICDCODE</label>
-                                            <input type="text" id="ICDCODE" name="ICDCODE" placeholder="ICDCODE" value="{{ form.ICDCODE.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
-                                            
+                                            <input hx-get="{% url 'check_if_icdcode_exists' %}" hx-trigger="keyup delay:500ms" hx-target="#icd_exists_cntr" type="text" id="ICDCODE" name="ICDCODE" placeholder="ICDCODE" value="{{ form.ICDCODE.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
                                         </div>
                                         <div id="icd_exists_cntr"></div>
                                         {% for error in form.ICDCODE.errors %}
