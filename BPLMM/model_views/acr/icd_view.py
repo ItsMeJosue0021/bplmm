@@ -1,4 +1,6 @@
 from ...models import *
+from datetime import datetime
+from django.db.models import Q # type: ignore
 from django.shortcuts import render, get_object_or_404 # type: ignore
 from django.core.paginator import Paginator # type: ignore
 
@@ -8,9 +10,31 @@ from django.core.paginator import Paginator # type: ignore
 # 
 def temp_icds_by_group(request, temp_group_id):
     icds = ACR_GROUPS_ICDS_TEMP.objects.filter(TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
-    return render(request, 'components/htmx-templates/icds-temp.html', {'temp_group_id': temp_group_id, 'icds': paginate(request, icds, 2)})
+    return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'temp_group_id': temp_group_id, 'icds': paginate(request, icds, 2)})
 
 
+# 
+# 
+def temp_icds_by_approved_group(request, group_id):
+    icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id).order_by('-created_at')
+    return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'temp_group_id': group_id, 'icds': paginate(request, icds, 2)})
+  
+    
+# 
+# 
+# 
+def main_icds_by_group(request, group_id):
+    desc_search_query = request.GET.get('description_search', '')
+    date_search_query = request.GET.get('date_search', '')
+    
+    if date_search_query:
+        date_search_query = datetime.strptime(date_search_query, '%Y-%m-%d').date()
+        icds = ACR_GROUPS_ICDS.objects.filter(Q(END_DATE=date_search_query), ACR_GROUPID=group_id).order_by('-created_at')
+    elif desc_search_query:
+        icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id, DESCRIPTION__icontains=desc_search_query).order_by('-created_at')
+    else:
+        icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id).order_by('-created_at')
+    return render(request, 'components/htmx-templates/icds-main-by-group.html', {'group_id': group_id, 'icds': paginate(request, icds, 2)})
 # 
 # 
 # 

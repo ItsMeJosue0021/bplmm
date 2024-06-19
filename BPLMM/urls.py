@@ -182,6 +182,14 @@ urlpatterns = [
         # 
         path('acr/<str:temp_group_id>/icds/temp/', icd_view.temp_icds_by_group, name='temp_icds_by_group'),
         
+        # 
+        # 
+        path('acr/<str:group_id>/icds/temp/', icd_view.temp_icds_by_approved_group, name='temp_icds_by_approved_group'),
+        
+        # 
+        # 
+        path('acr/<str:group_id>/icds/main/', icd_view.main_icds_by_group, name='main_icds_by_group'),
+        
         
         # 
         # 

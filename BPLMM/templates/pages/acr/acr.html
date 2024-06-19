@@ -148,7 +148,6 @@
 
     {% if main_rvs or temp_rvs %}
         <div class="rounded-md h-full flex flex-col space-y-4">
-
             {% if main_rvs_single or temp_rvs_single %}
                 {% if main_rvs_single %}
                     <div class="p-4 rounded-md bg-white border-t-4 border-primary shadow">
@@ -188,16 +187,6 @@
                                                     {% endfor %}
 
                                                     <a href="{% url 'main_rvs_details' rvscode=main_rvs_single.RVSCODE %}" class="py-1 px-2 rounded text-blue-700 bg-blue-50 border border-blue-300 text-xs font-light">View</a>
-
-                                                    <!-- <a href="" class="p-1 bg-gray-100 hover:bg-red-100 rounded">
-                                                        <i class='bx bx-trash text-red-500 text-base'></i>
-                                                    </a>
-                                                    <a href="" class="p-1 bg-gray-100 hover:bg-yellow-100 rounded">
-                                                        <i class='bx bx-edit text-yellow-400 text-base'></i>
-                                                    </a>
-                                                    <a href="" class="p-1 bg-gray-100 hover:bg-blue-100 rounded">
-                                                        <i class='bx bx-message-square-detail text-blue-600 text-base'></i>
-                                                    </a> -->
                                                 </div>
                                             </td>
                                         </tr>
@@ -257,41 +246,41 @@
             {% endif %} 
 
             {% if main_rvs %}
-            <div class="p-4 rounded-md bg-white border-t-4 border-primary shadow">
-                <div class="flex flex-col h-full">
-                    <div class="flex items-start justify-between w-full pb-4">
-                        <p class="w-fit text-base font-medium py-2 drop-shadow-xl text-green-800">RELATED ACR RVS <span
-                            class="italic text-base font-light">(Main)</span></p>
-        
-                        <div class="flex space-x-4 items-center">
-                            <div class="flex items-center space-x-2">
-                                <input type="date" id="date_search" name="date_search" hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="change delay:500ms" hx-target="#main_rvs_cntr"
-                                    class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            </div>
-                            <form action="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" class="flex items-center">
-                                <label for="temp_search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="temp_search" name="description_search" hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="keyup delay:500ms" hx-target="#main_rvs_cntr"
-                                        class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search Description..">
+                <div class="p-4 rounded-md bg-white border-t-4 border-primary shadow">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-start justify-between w-full pb-4">
+                            <p class="w-fit text-base font-medium py-2 drop-shadow-xl text-green-800">RELATED ACR RVS <span
+                                class="italic text-base font-light">(Main)</span></p>
+            
+                            <div class="flex space-x-4 items-center">
+                                <div class="flex items-center space-x-2">
+                                    <input type="date" id="date_search" name="date_search" hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="change delay:500ms" hx-target="#main_rvs_cntr"
+                                        class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 </div>
-                            </form>
+                                <form action="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" class="flex items-center">
+                                    <label for="temp_search" class="sr-only">Search</label>
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="temp_search" name="description_search" hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="keyup delay:500ms" hx-target="#main_rvs_cntr"
+                                            class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search Description..">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+            
+                        <div hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="load" id="main_rvs_cntr" class="h-fit max-h-80 overflow-y-auto ">
+                            {% comment %} Main RVS container {% endcomment %}
                         </div>
                     </div>
-        
-                    <div hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="load" id="main_rvs_cntr" class="h-fit max-h-80 overflow-y-auto ">
-                        {% comment %} Main RVS container {% endcomment %}
-                    </div>
                 </div>
-            </div>
             {% endif %}
            
             <div class="p-4 rounded-md bg-white border-t-4 border-red-800 shadow">
@@ -350,123 +339,113 @@
                     </div>              
                 </div>
             </div>
-            
         </div>
     {% endif %}
 
 
     {% if main_icds or temp_icds %}
-        <div class="rounded-md bg-white h-full shadow">
-            <div id="navigationn" class="w-full flex items-center bg-primary rounded-t-md border-t-2 border-primary">
-                <a href="#" id="tab3-link" class=" py-2 px-4 bg-white rounded-t-md text-sm italic">MAIN ICDs</a>
-                <a href="#" id="tab4-link" class=" py-2 px-4 bg-primary text-white rounded-t-md text-sm italic">TEMPORARY ICDs</a>
-            </div>
-            <div id="tab3" class="p-4 rounded-b-md bg-white">
-                <div class="flex flex-col h-full">
-                    <div class="flex items-start justify-between w-full pb-4">
-                        <p class="w-fit text-lg font-medium py-2 drop-shadow-xl text-green-800">ACR ICDs <span
-                            class="italic text-base font-light">(Main)</span></p>
-        
-                        <div class="flex space-x-4 items-center">
-                            <form action="{% url 'groups' %}" class="flex items-center space-x-2">
-                                <input type="date" id="date_search" name="date_search" 
-                                    class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            </form>
-                            <form action="{% url 'groups' %}" class="flex items-center">
-                                <label for="temp_search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="temp_search" name="description_search" 
-                                        class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search Description..">
+        <div class="rounded-md h-full flex flex-col space-y-4">
+            {% if main_icds %}
+                <div class="p-4 rounded-md bg-white border-t-4 border-primary shadow">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-start justify-between w-full pb-4">
+                            <p class="w-fit text-base font-medium py-2 drop-shadow-xl text-green-800">RELATED ACR ICDs<span
+                                class="italic text-base font-light">(Main)</span></p>
+            
+                            <div class="flex space-x-4 items-center">
+                                <div class="flex items-center space-x-2">
+                                    <input type="date" id="date_search" name="date_search" hx-get="{% url 'main_rvs_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="change delay:500ms" hx-target="#main_icd_cntr"
+                                        class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 </div>
-                            </form>
+                                <form action="{% url 'main_icds_by_group' group_id=group.ACR_GROUPID %}" class="flex items-center">
+                                    <label for="temp_search" class="sr-only">Search</label>
+                                    <div class="relative w-full">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <input type="text" id="temp_search" name="description_search" hx-get="{% url 'main_icds_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="keyup delay:500ms" hx-target="#main_icd_cntr"
+                                            class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search Description..">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+            
+                        <div hx-get="{% url 'main_icds_by_group' group_id=group.ACR_GROUPID %}" hx-trigger="load" id="main_icd_cntr" class="h-fit max-h-80 overflow-y-auto ">
+                           
                         </div>
                     </div>
-        
-                    <div class="h-fit max-h-80 overflow-y-auto ">
-                        <table class="w-full text-center border-collapse">
-                            <thead class="bg-gray-100 sticky top-0 z-10">
-                                <tr>
-                                    <th class="p-2 border border-gray-200">GROUP ID</th>
-                                    <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                                    <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                                    <th class="p-2 border border-gray-200">END DATE</th>
-                                    <th class="p-2 border border-gray-200">STATUS</th>
-                                    <th class="p-2 border border-gray-200">ACTIONS</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-gray-700 h-10 max-h-10 overflow-y-hidden">
-                                
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-            </div>
+            {% endif %}
+        </div>
 
-        
-            <div id="tab4" style="display: none;" class="p-4 rounded-b-md bg-white">
-                <div class="flex flex-col h-fit">
-                    <div class="flex items-start justify-between w-full pb-4">
-                        <p class="w-fit text-lg font-medium py-2 drop-shadow-lg text-red-800">ACR ICDs <span
-                            class="italic text-base font-light">(Waiting for approval)</span></p>
-                        <div class="flex space-x-4 items-center">
-                            <form class="flex items-center space-x-2">
-                                <input type="date" id="date_search" name="date_search" 
-                                    class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            </form>
-                            <div class="flex items-center">
-                                <label for="temp_search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <input type="text" id="temp_search" name="description_search" 
-                                        class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Search Description..">
+
+        <div class="p-4 rounded-md bg-white border-t-4 border-red-800 shadow">
+            <div class="flex flex-col h-fit">
+                <div class="flex items-start justify-between w-full pb-4">
+                    <p class="w-fit text-base font-medium py-2 drop-shadow-lg text-red-800">RELATED ACR ICDs<span
+                        class="italic text-base font-light">(Waiting for approval)</span></p>
+                    <div class="flex space-x-4 items-center">
+                        {% for user_group in user.groups.all %}
+                            {% if user_group.name == "Encoder" %}
+                                {% if group.ACTIVE == "T" %}
+                                        <div class="flex items-center space-x-2">
+                                            {% if button %}
+                                                {% if button == 'rvs' %}
+                                                    <button data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center cursor-pointer">
+                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</button>
+                                                {% elif button == 'icd' %}
+                                                    <button class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center cursor-pointer">
+                                                        <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</button>
+                                                {% endif %}
+                                            {% else %}
+                                                <button data-modal-target="default-modal-{{ group_id }}" data-modal-toggle="default-modal-{{ group_id }}" type="button" class="py-2 px-4 text-sm rounded-md text-white border border-primary bg-primary font-light flex items-center">
+                                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>RVS</button>
+                                                <button href="{% url 'icds_create' group.ACR_GROUPID %}" class="py-2 px-4 text-sm rounded-md text-primary border border-primary bg-white font-light flex items-center">
+                                                    <i class='bx bx-plus -ml-1 mr-1 text-sm'></i>ICD</button>
+                                            {% endif %}
+                                        </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        <div class="flex items-center space-x-2">
+                            <input type="date" id="date_search" name="date_search" hx-get="{% url 'temp_icds_by_approved_group' group_id=group.ACR_GROUPID %}" hx-trigger="change delay:500ms" hx-target="#temp_icd_cntr"
+                                class="bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        </div>
+                        <div class="flex items-center">
+                            <label for="temp_search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd" />
+                                    </svg>
                                 </div>
+                                <input type="text" id="temp_search" name="description_search" hx-get="{% url 'temp_icds_by_approved_group' group_id=group.ACR_GROUPID %}" hx-trigger="keyup delay:500ms" hx-target="#temp_icd_cntr"
+                                    class="w-80 bg-gray-50 bg-opacity-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block pl-10 py-2.5 px-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Search Description..">
                             </div>
                         </div>
                     </div>
-        
-                    <div class="h-fit max-h-60 overflow-y-auto ">
-                        <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
-                            <thead class="bg-gray-100 sticky top-0 z-10 ">
-                                <tr>
-                                    <th class="p-2 border border-gray-200">TEMP ID</th>
-                                    <th class="p-2 border border-gray-200">DESCRIPTION</th>
-                                    <th class="p-2 border border-gray-200">EFFECTIVE DATE</th>
-                                    <th class="p-2 border border-gray-200">END DATE</th>
-                                    <th class="p-2 border border-gray-200">STATUS</th>
-                                    <th class="p-2 border border-gray-200">ACTIONS</th>
-                                </tr>
-                            </thead>
-        
-                            <tbody id="temp-group" class="text-gray-700 ">
-                                <tr>
-                                    <td colspan="6" class="pt-4">
-                                        <span class=" text-red-600">No Record Found</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>               
                 </div>
+    
+                <div hx-get="{% url 'temp_icds_by_approved_group' group_id=group.ACR_GROUPID %}" hx-trigger="load " id="temp_icd_cntr" class="h-fit max-h-60 overflow-y-auto ">
+                    {% comment %} Temporary RVS container {% endcomment %}
+                </div>              
             </div>
         </div>
     {% endif %}
+
+
+
+
 
     {% for user_group in user.groups.all %}
         {% if user_group.name == "Encoder" %}
