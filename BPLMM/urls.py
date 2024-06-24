@@ -176,7 +176,11 @@ urlpatterns = [
         
         # 
         # creating new group with icd and rules
-        path('acr/groups/icds/create', group_view.groups_icd_new, name='groups_icd_new'),
+        path('acr/groups/icds/create/', group_view.groups_icd_new, name='groups_icd_new'),
+        
+        # 
+        # 
+        path('acr/icd/<str:group_id>/create/', icd_view.create_temp_icd_modal, name='create_temp_icd_modal'),
         
         # 
         # 
@@ -184,7 +188,7 @@ urlpatterns = [
         
         # 
         # 
-        path('acr/<str:group_id>/icds/temp/', icd_view.temp_icds_by_approved_group, name='temp_icds_by_approved_group'),
+        path('acr/group/<str:group_id>/icds/temp/', icd_view.temp_icds_by_approved_group, name='temp_icds_by_approved_group'),
         
         # 
         # 

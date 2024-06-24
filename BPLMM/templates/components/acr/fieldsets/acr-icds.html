@@ -1,39 +1,39 @@
 <div>
-    <div id="alert-border-2" class="flex items-center p-4 rounded-t-lg text-green-800 border-t-4 border-[#1ED760] bg-white backdrop-filter backdrop-blur-md bg-opacity-40 dark:bg-gray-800 dark:border-green-800" role="alert">
-        <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-        </svg>
-        <div class="px-1 text-lg font-medium">
-            Add new ICD
+    <div id="alert-border-2" class="flex items-center px-4 py-2 rounded-t-md text-green-800 bg-primary shadow dark:bg-gray-800 dark:border-green-800" role="alert">
+        <div class="px-1 text-base text-white">
+            CREATION OF NEW ACR ICD
           </div>
     </div>
-    <div class="flex flex-col space-y-4 p-5  rounded-b-lg bg-white backdrop-filter backdrop-blur-md bg-opacity-40">
+    {% include "components/alerts/modal-messages.html" %}
+    <div class="flex flex-col space-y-4 p-4 rounded-b-md bg-white shadow">
         <div class="w-full flex items-start justify-between space-x-6">
             <div class="w-full">
-                {% include "components/text-input.html" with name='ICDCODE' label='ICD CODE' %}
-            </div>
-            <div class="w-full">
-                {% include "components/date-input.html" with name='ACR_GROUPS_RVS_EFF_DATE' label='Effectivity Date' old=form.ACR_GROUPS_RVS_EFF_DATE %}
-                {% for error in form.ACR_GROUPS_RVS_EFF_DATE.errors %}
+                <div class="flex flex-col space-y-1">
+                    <label for="ICDCODE" class="text-gray-700 uppercase text-sm font-medium">ICD CODE</label>
+                    <input hx-get="{% url 'check_if_icdcode_exists' %}" hx-trigger="keyup delay:500ms" hx-target="#icd_exists_cntr" type="text" id="ICDCODE" name="ICDCODE" placeholder="ICDCODE" value="{{ form.ICDCODE.value|default:''|escape }}" class="px-4 py-2.5 text-base rounded-md border border-gray-300 bg-white placeholder:italic placeholder:text-gray-300">
+                </div>
+                <div id="icd_exists_cntr"></div>
+                {% for error in form.ICDCODE.errors %}
                     <div class="text-sm text-red-500">{{ error }}</div>
                 {% endfor %}
             </div>
             <div class="w-full">
-                {% include "components/date-input.html" with name='ACR_GROUPS_RVS_END_DATE' label='Effectivity End Date' old=form.ACR_GROUPS_RVS_END_DATE %}
-                {% for error in form.ACR_GROUPS_RVS_END_DATE.errors %}
+                {% include "components/date-input.html" with name='ICD_EFF_DATE' label='Effectivity Date' old=form.ICD_EFF_DATE %}
+                {% for error in form.ICD_EFF_DATE.errors %}
                     <div class="text-sm text-red-500">{{ error }}</div>
                 {% endfor %}
             </div>
         </div>
         <div class="w-full">
-            {% include "components/text-field.html" with name='ACR_GROUPS_RVS_DESCRIPTION' label='Description' old=form.ACR_GROUPS_RVS_DESCRIPTION %}
-            {% for error in form.ACR_GROUPS_RVS_DESCRIPTION.errors %}
+            {% include "components/text-field.html" with name='ICD_DESCRIPTION' label='Description' old=form.ICD_DESCRIPTION %}
+            {% for error in form.ICD_DESCRIPTION.errors %}
                 <div class="text-sm text-red-500">{{ error }}</div>
             {% endfor %}
         </div>
         <div class="flex items-start space-x-4 mt-4">
-            <button class="nav-button text-sm next py-2.5 px-6 rounded-md cursor-pointer bg-[#1ED760] text-white">Save</button>
+            <button type="submit" class="nav-button text-sm next py-2.5 px-6 rounded-md cursor-pointer bg-primary text-white">SAVE</button>
         </div>
     </div>
 </div>
+
 

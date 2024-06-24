@@ -229,8 +229,18 @@ class SAVE_RVS_RULES(forms.Form):
     DEDUCT_FROM_45DAYS_NUMBER = forms.CharField(max_length=255, required=False)
     DEDUCT_FROM_45DAYS_DAYS = forms.CharField(max_length=255, required=False)
     
-    
 class SAVE_ICD_FORM(forms.Form):
+    ICD_DESCRIPTION = forms.CharField(widget=forms.Textarea)
+    ICDCODE = forms.CharField(max_length=255)
+    ICD_EFF_DATE = forms.DateField()
+    
+    def clean_ICDCODE(self):
+        ICDCODE = self.cleaned_data.get('ICDCODE')
+        if ACR_GROUPS_ICDS.objects.filter(ICDCODE=ICDCODE).exists() or ACR_GROUPS_ICDS_TEMP.objects.filter(ICDCODE=ICDCODE).exists():
+            raise ValidationError("ICDCODE already exists.")
+        return ICDCODE
+    
+class SAVE_GROUP_ICD_RULES_FORM(forms.Form):
     GROUP_DESCRIPTION = forms.CharField(widget=forms.Textarea)
     GROUP_EFF_DATE = forms.DateField()
     GROUP_END_DATE = forms.DateField()

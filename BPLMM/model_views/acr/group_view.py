@@ -54,7 +54,7 @@ def groups_rvs_new(request):
 # 
 def groups_icd_new(request):
     TEMPLATE = 'pages/acr/encoder/new_groups_icd_rules.html'
-    form = SAVE_ICD_FORM(request.POST or None)
+    form = SAVE_GROUP_ICD_RULES_FORM(request.POST or None)
     
     print(request.POST) # testing
     

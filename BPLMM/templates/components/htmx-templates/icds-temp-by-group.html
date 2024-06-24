@@ -1,9 +1,13 @@
 <table class="w-full text-center border-collapse h-20 overflow-y-auto ">
     <thead class="bg-gray-100 sticky top-0 z-10 ">
         <tr>
-            {% if item.TEMP_ACR_GROUPID != '' %}
-                <th class="p-2 border border-gray-300">TEMP GROUPID</th>
-            {% elif item.ACR_GROUPID != '' %}
+            {% if icds %}
+                {% if item.TEMP_ACR_GROUPID != '' %}
+                    <th class="p-2 border border-gray-300">TEMP GROUPID</th>
+                {% elif item.ACR_GROUPID != '' %}
+                    <th class="p-2 border border-gray-300">GROUPID</th>
+                {% endif %}
+            {% else %}
                 <th class="p-2 border border-gray-300">GROUPID</th>
             {% endif %}
             <th class="p-2 border border-gray-300">RVSCODE</th>

@@ -1,10 +1,48 @@
 from ...models import *
+from ...forms import *
 from datetime import datetime
 from django.db.models import Q # type: ignore
-from django.shortcuts import render, get_object_or_404 # type: ignore
+from django.contrib import messages # type: ignore
+
 from django.core.paginator import Paginator # type: ignore
+from django.shortcuts import render, get_object_or_404 # type: ignore
+
+#services
+from ...services.icd_service import ACR_GROUPS_ICD_SERVICE
+
+#repositories
+from ...repositories.icd_repository import ACR_GROUPS_ICD_REPOSITORY
 
 
+GROUP_ICD_SERVICE = ACR_GROUPS_ICD_SERVICE(ACR_GROUPS_ICD_REPOSITORY())
+
+
+# 
+# 
+#  
+def create_temp_icd_modal(request, group_id):
+    TEMPLATE = 'components/acr/fieldsets/acr-icds.html'
+    form = SAVE_ICD_FORM(request.POST or None)
+    
+    print(request.POST)
+    print(form.errors.as_data())
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            data = form.cleaned_data
+            try:
+                GROUP_ICD_SERVICE.create_temp_modal(data, request.user.username, group_id)
+                messages.success(request, 'ICD has been successfully added.')
+                return render(request, TEMPLATE, {'form': form, 'group_id': group_id})
+            except Exception as e:
+                messages.error(request, str(e))
+                return render(request, TEMPLATE, {'form': form, 'group_id': group_id}) 
+        else:
+            messages.error(request, 'Please make sure all fields are filled out.')
+            return render(request, TEMPLATE, {'form': form, 'group_id': group_id}) 
+    else:
+        return render(request, TEMPLATE, {'form': form, 'group_id': group_id})
+    
 # 
 # 
 # 
@@ -12,14 +50,13 @@ def temp_icds_by_group(request, temp_group_id):
     icds = ACR_GROUPS_ICDS_TEMP.objects.filter(TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
     return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'temp_group_id': temp_group_id, 'icds': paginate(request, icds, 2)})
 
-
+# 
 # 
 # 
 def temp_icds_by_approved_group(request, group_id):
-    icds = ACR_GROUPS_ICDS.objects.filter(ACR_GROUPID=group_id).order_by('-created_at')
-    return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'temp_group_id': group_id, 'icds': paginate(request, icds, 2)})
-  
-    
+    icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group_id, is_approved=False).order_by('-created_at')
+    return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'group_id': group_id, 'icds': paginate(request, icds, 2)})
+     
 # 
 # 
 # 

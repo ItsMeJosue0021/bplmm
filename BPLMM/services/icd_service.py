@@ -16,6 +16,11 @@ class ACR_GROUPS_ICD_SERVICE:
     
     # 
     # 
+    def create_temp_modal(self, data, username, group_id):
+        return self.repository.create_temp(self.to_icd_array(data, group_id = group_id, username = username))
+    
+    # 
+    # 
     def create_temp_icd_rules(self, data, icdcode, username, group_id = None, temp_acr_groupid = None):
         temp_rule_exists = ACR_PERICD_RULES_TEMP.objects.filter(TEMP_ACR_GROUPID=temp_acr_groupid, ICDCODE=icdcode, EFF_DATE=data['EFF_DATE']).exists()
         main_rule_exists = ACR_PERICD_RULES.objects.filter(ACR_GROUPID=temp_acr_groupid, ICDCODE=icdcode, EFF_DATE=data['EFF_DATE']).exists()
