@@ -1,41 +1,49 @@
-# bplmm
-BENEFIT PACKAGE LIBRARY MANAGEMENT SYSTEM DOCUMENTATION
 
-#INSTALLATION
-**Bold text**Clone the repository
+# BENEFIT PACKAGE LIBRARY MANAGEMENT SYSTEM DOCUMENTATION
 
-   ```cmd
-   git clone https://github.com/Philhealth-Joc/bplmm.git
+## INSTALLATION
+Clone the repository
 
-**Bold text**After cloning, activate your vritaul environment
+```cmd
+git clone https://github.com/Philhealth-Joc/bplmm.git
+```
 
-   ```cmd
-   venv\Scripts\activate
+Install Dependencies
 
-**Bold text**Install Dependencies
+```cmd
+venv\Scripts\activate
+```
 
-   ```cmd
-   pip install -r requirements.txt
+Install Dependencies
 
-   ```cmd
-   npm install
-   
-**Bold text**Run the migrations and seeders to set up the database schema.
+```cmd
+pip install -r requirements.txt
+```
 
-    ```cmd
-   python manage.py migrate
+Install npm
+```cmd
+npm install
+```
 
-   these following command will run the files located in the 'management/commands' directory, these files serve as seeders of the validation rules and codes that are use to simulate the process of adding of codes as part of ICD or RVS rule located in the forms for adding them. 
+Run the migrations and seeders to set up the database schema.
 
-   ```cmd
-   py manage.py claimvalidationinfoseeder
-   py manage.py rvscodeseeder
-   py manage.py spccodeseeder
- 
-**Bold text**Create a superuser to access the Django admin interface.
+```cmd
+python manage.py migrate
+```
 
-    ```cmd
-    python manage.py createsuperuser
+These following command will run the files located in the 'management/commands' directory, these files serve as seeders of the validation rules and codes that are use to simulate the process of adding of codes as part of ICD or RVS rule located in the forms for adding them. 
+
+```cmd
+py manage.py claimvalidationinfoseeder
+py manage.py rvscodeseeder
+py manage.py spccodeseeder
+```
+
+Create a superuser to access the Django admin interface.
+
+```cmd
+python manage.py createsuperuser
+```
 
 Once the superuser has been created, I normally add two user groups in the    Groups table namely 'Encoder' and 'Approver' and set their permisions respectively.
 
