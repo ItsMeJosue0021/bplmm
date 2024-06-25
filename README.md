@@ -88,7 +88,7 @@ GROUPS_SERVICE = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
 Using **GROUPS_SERVICE**, you can easily call a function from the service class to view file.
 
-```cmd
+```bash
  GROUPS_SERVICE.create_temp(data, request)
 ```
 
