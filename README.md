@@ -1,7 +1,7 @@
 
 # BENEFIT PACKAGE LIBRARY MANAGEMENT SYSTEM DOCUMENTATION
 
-## INSTALLATION
+## Setting up the Application
 Clone the repository
 
 ```cmd
@@ -47,7 +47,7 @@ python manage.py createsuperuser
 
 Once the superuser has been created, I normally add two user groups in the    Groups table namely 'Encoder' and 'Approver' and set their permisions respectively.
 
-## RUNNING THE APPLICATION
+## Running the Application
 
 To run the application, open a Command Prompt in VS Code
 Navigate to the directory where your virtual environment is located and have it activated
@@ -64,8 +64,7 @@ Navigate back to you project's directory and run the following command
 ```cmd
 npm run dev
 ```
-
-## FILE AND FOLDER STRUCTURE
+## Files and Folder Structure
 
 ### Views
 Aside from the **views.py** file in the app, there is a **model_views** folder which contains another folders namely: **acr, drg, z_benefits**, the **acr** folder then contains the model specific views file for the models **ACR_GROUPS** => **group_view.py**, **ACR_GROUPS_ICDS** => **icd_view.py**, **ACR_GROUPS_RVS** => **rvs_view.py**, these files then handles every HTTP request that are concerned specifically to a model.
@@ -88,11 +87,122 @@ GROUPS_SERVICE = ACR_GROUPS_SERVICE(ACR_GROUPS_REPOSITORY())
 
 Using **GROUPS_SERVICE**, you can easily call a function from the service class to view file.
 
-```bash
+```cmd
  GROUPS_SERVICE.create_temp(data, request)
+```
+
+The functions from the repository class can then be access through the **repository** which is the instance of the repository class passed in as a paramter of the service class constructor in the view file.
+
+```cmd
+return self.repository.create_main(self.to_icd_array(data, group_id))
 ```
 
 
 ### Repositories
 The actual database operations are also separated through repository classes which is located in each model specific repository file. There is nothing really complicated about it, repository classes just includes functions that invoke the **save()** method in order to save an object to the database.
+
+
+## Tailwind CSS Installation
+Run the following command the install Tailwind CSS as a dev dependency using NPM:
+
+```cmd
+npm install -D tailwindcss
+```
+
+Create a new tailwind.config.js file:
+
+```cmd
+npx tailwindcss init
+```
+
+Configure the template paths using the content value inside the Tailwind configuration file:
+
+```cmd
+module.exports = {
+  content: [
+      './templates/**/*.html'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Import the Tailwind CSS directives inside the input.css file:
+
+```cmd
+/* static/src/input.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Flowbite Installation
+
+Install Flowbite as a dependency using NPM:
+
+```cmd
+npm install flowbite
+```
+
+Require Flowbite as a plugin inside the tailwind.config.js file:
+
+```cmd
+module.exports = {
+
+    plugins: [
+        require('flowbite/plugin')
+    ]
+
+}
+```
+
+Include Flowbite inside the content value of the tailwind.config.js file:
+
+```cmd
+module.exports = {
+  content: [
+      './templates/**/*.html',
+      './node_modules/flowbite/**/*.js'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+# HTMX Installation
+
+Install django-htmx using pip
+
+```cmd
+pip install django-htmx
+```
+
+Add 'django_htmx' to your INSTALLED_APPS in your settings.py file:
+
+```cmd
+INSTALLED_APPS = [
+    ...
+    'django_htmx',
+]
+```
+
+Add the HTMXMiddleware to your MIDDLEWARE in settings.py:
+
+```cmd
+MIDDLEWARE = [
+    ...
+    'django_htmx.middleware.HtmxMiddleware',
+]
+```
+
+
+Add the following script at the bottom of your layout template.
+```cmd
+<script src="{% static 'js/htmx.min.js' %}" defer></script>
+```
 
