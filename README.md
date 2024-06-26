@@ -172,6 +172,7 @@ Paste the code to the js file you created then add the following script at the b
 
 
 ## Files and Folder Structure
+As this was my Django exploratory project, I tried to apply the repository pattern in the codebase which basically separates each concern. From handling HTTP requests, to handling logics and data preparations to the actual database operations. For this application a Service and Repository layered approach was used. **Please not that this might not be the actual/proper way of implementing this pattern/approach in Django.**
 
 ### Views/Controller
 Aside from the **views.py** file in the app, there is a **model_views** folder which contains another folders namely: **acr, drg, z_benefits**, the **acr** folder then contains the model specific views file for the models **ACR_GROUPS** => **group_view.py**, **ACR_GROUPS_ICDS** => **icd_view.py**, **ACR_GROUPS_RVS** => **rvs_view.py**, these files then handles every HTTP request that are concerned specifically to a model.
