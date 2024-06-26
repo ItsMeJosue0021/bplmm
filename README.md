@@ -164,7 +164,7 @@ MIDDLEWARE = [
 ```
 
 Create a **htmx.min.js** file inside **static/js/** directory
-download the **htmx.min.js** code from this website https://unpkg.com/browse/htmx.org@1.9.12/dist/htmx.min.js (https://unpkg.com/browse/htmx.org@1.9.12/dist/htmx.min.js)
+download the **htmx.min.js** code from this website https://unpkg.com/browse/htmx.org@1.9.12/dist/htmx.min.js
 Paste the code to the js file you created then add the following script at the bottom of your layout template.
 ```cmd
 <script src="{% static 'js/htmx.min.js' %}" defer></script>
