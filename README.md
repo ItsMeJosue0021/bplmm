@@ -8,7 +8,7 @@ Clone the repository
 git clone https://github.com/Philhealth-Joc/bplmm.git
 ```
 
-Install Dependencies
+Activate your Virtual Environment
 
 ```cmd
 venv\Scripts\activate
@@ -28,10 +28,11 @@ npm install
 Run the migrations and seeders to set up the database schema.
 
 ```cmd
-python manage.py migrate
+py manage.py makemigrations
+py manage.py migrate
 ```
 
-These following command will run the files located in the 'management/commands' directory, these files serve as seeders of the validation rules and codes to the database that are used to simulate the process of adding validation rules and codes as part of ICD or RVS rules located in each form for saving an ICD or RVS
+These following command will run the files located in the 'management/commands' directory, these files serve as seeders of the validation rules and codes to the database that are used to simulate the process of adding validation rules and codes as part of ICD or RVS rules found in each form for saving an ICD or RVS
 
 ```cmd
 py manage.py claimvalidationinfoseeder
@@ -40,28 +41,27 @@ py manage.py spccodeseeder
 ```
 
 Create a superuser to access the Django admin interface.
-
 ```cmd
 python manage.py createsuperuser
 ```
 
-Once the superuser has been created, I normally add two user groups in the    Groups table namely 'Encoder' and 'Approver' and set their permisions respectively.
+Once the superuser has been created, it is advisable to add two user groups in the **Groups** table namely **'Encoder'** and **'Approver'** and set their permisions respectively.
 
 ## Add Initial Users
 Since the authentication of the application has ben set up, pages are only available to authenticated users.
-Using the access of the superuser you created, access the admin panel and create 2 users. One user as an Approver and another as an Encoder.
+Using the access of the superuser you created, access the admin panel and create 2 users. One user as an **Approver** and another as an **Encoder**.
 
 ## Running the Application
 
 To run the application, open a Command Prompt in VS Code
 Navigate to the directory where your virtual environment is located and have it activated
-Navigate back to you project's directory and run the following command
+Navigate back to your project's directory and run the following command
 
 ```cmd
 py manage.py runserver
 ```
 
-Open another Commant Prompt in VS Code terminal
+Open another Command Prompt in VS Code terminal
 Navigate to the directory where your virtual environment is located and have it activated
 Navigate back to you project's directory and run the following command
 
@@ -76,7 +76,7 @@ Run the following command the install Tailwind CSS as a dev dependency using NPM
 npm install -D tailwindcss
 ```
 
-Create a new tailwind.config.js file:
+Create a tailwind.config.js file:
 
 ```cmd
 npx tailwindcss init
@@ -176,13 +176,13 @@ Paste the code to the js file you created then add the following script at the b
 
 
 ## Files and Folder Structure
-As this was a Django exploratory project, I tried to apply the repository pattern in the codebase which basically separates each concern. From handling HTTP requests, to handling logics and data preparations to the actual database operations. For this application a Service and Repository layered approach was used. **Please note that this might not be the actual/proper way of implementing this pattern/approach in Django.**
+As this was a exploratory Django project, I tried to apply the repository pattern in the codebase which basically separates each concern. From handling HTTP requests, to handling logics and data preparations to the actual database operations. For this application a Service and Repository layered approach was used. **Please note that this might not be the actual/proper way of implementing this pattern/approach in Django.**
 
 ### Views/Controller
-Aside from the **views.py** file in the app, there is a **model_views** folder which contains another folders namely: **acr, drg, z_benefits**, the **acr** folder then contains the model specific views file for the models **ACR_GROUPS** => **group_view.py**, **ACR_GROUPS_ICDS** => **icd_view.py**, **ACR_GROUPS_RVS** => **rvs_view.py**, these files then handles every HTTP request that are concerned specifically to a model.
+Aside from the **views.py** file in the app, there is a **model_views** folder which contains other folders namely: **acr, drg, z_benefits**, the **acr** folder then contains the model specific views file for the models **ACR_GROUPS** => **group_view.py**, **ACR_GROUPS_ICDS** => **icd_view.py**, **ACR_GROUPS_RVS** => **rvs_view.py**, these files then handles every HTTP request that are concerned specifically to a model.
 
 ### Services
-Handling of HTTP request were separated from some of the business logic and the preparation of data to be saved in the database. Service classes are located in the **Services** folder. The files located in the folder are the following **group_service.py**, **icd_service.py**, **rvs_service.py** and the **auth_Service.py** for the authentication. Defined in the service classes are the way how the data are prepared and some of the logic needed to save them in the  database.
+Handling of HTTP request were separated from some of the business logic and the preparation of data to be saved in the database. Service classes are located in the **Services** folder. The files located in the folder are the following **group_service.py**, **icd_service.py**, **rvs_service.py** and the **auth_Service.py** for the authentication. Defined in the service classes are the way how the data are prepared and some of the logic and validations needed to save them in the  database.
 
 A service class has a constructor that accepts an instance of the repository class of a related model, in this case the service class for the model **ACR_GROUPS_RVS** accepts an instance of a repository class which will be the instance of this class **ACR_GROUPS_REPOSITORY**
 ```cmd
@@ -212,9 +212,9 @@ return self.repository.create_main(self.to_icd_array(data, group_id))
 
 ### Repositories
 The actual database operations are also separated through repository classes which are located in each model specific repository file. There is nothing really complicated about it, for now, each model specific repository classes just includes functions that invoke the **save()** method in order to save an object to the database. The **save()** method is used for both adding and editing an object in the database. 
-Separating the logics and functions that actually touches the database is somehow a good parctice specially for large scale applications. This prevents unnecessary code revisions whenever there will be a need to change a database or a database operation within the application. This also promotes reusability of methods that executes database queries. 
+Separating the logics and functions that actually touches the database is somehow a good practice specially for large scale applications. This prevents unnecessary code revisions whenever there will be a need to change a database or a database operation within the application. This also promotes reusability of methods that executes database queries. Overall it promotes single responsability and separation of concern thus making the application easier to test. 
 
-Sample, from **ACR_GROUPS_REPOSITORY**
+Sample repository class, from **ACR_GROUPS_REPOSITORY**
 ```cmd
 class ACR_GROUPS_REPOSITORY:
     def create_main(self, data):
@@ -264,8 +264,8 @@ def approver_required(function):
 ## Some Things Worth Noting:
 
 1. Avoid adding raw CSS styles in the **style.css** file as it changes each time that resources gets watched and compiled through **npm run dev**. Instead, you can add your CSS styles in the **input.css** file.
-2. Some of the view function does not have a decorator tags yet especially the newly created ones.
-3. Some of the background image, and colors used in the html templates as custom tailwind classes are found in the tailwind.config.js file
+2. Some of the view function does not have a custom decorator tags yet especially the newly created ones in the **icd_view.py**.
+3. Some of the background image, and colors used in the HTML templates as custom tailwind classes are found in the **tailwind.config.js** file
 
 ```cmd
   theme: {
