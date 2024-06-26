@@ -210,6 +210,19 @@ return self.repository.create_main(self.to_icd_array(data, group_id))
 The actual database operations are also separated through repository classes which are located in each model specific repository file. There is nothing really complicated about it, for now, each model specific repository classes just includes functions that invoke the **save()** method in order to save an object to the database. The **save()** method is used for both adding and editing an object in the database. 
 Separating the logics and functions that actually touches the database is somehow a good parctice specially for large scale applications. This prevents unnecessary code revisions whenever there will be a need to change a database or a database operation within the application. This also promotes reusability of methods that executes database queries. 
 
+Sample, from **ACR_GROUPS_REPOSITORY**
+```cmd
+class ACR_GROUPS_REPOSITORY:
+    def create_main(self, data):
+        acr_groups = ACR_GROUPS(**data)
+        acr_groups.save()
+        return acr_groups
+
+    def create_temp(self, data):
+        acr_groups_temp = ACR_GROUPS_TEMP(**data)
+        acr_groups_temp.save()
+        return acr_groups_temp
+```
 
 ## Decorators
 There are custom decorators made for this app, **approver_required** and **encoder_required**, the functions for this decorators are found in the **decorators.py** file.
