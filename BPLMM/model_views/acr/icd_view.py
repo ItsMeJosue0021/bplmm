@@ -3,9 +3,10 @@ from ...forms import *
 from datetime import datetime
 from django.db.models import Q # type: ignore
 from django.contrib import messages # type: ignore
-
 from django.core.paginator import Paginator # type: ignore
 from django.shortcuts import render, get_object_or_404 # type: ignore
+
+from django.contrib.auth.decorators import login_required # type: ignore
 
 #services
 from ...services.icd_service import ACR_GROUPS_ICD_SERVICE
@@ -20,6 +21,7 @@ GROUP_ICD_SERVICE = ACR_GROUPS_ICD_SERVICE(ACR_GROUPS_ICD_REPOSITORY())
 # 
 # 
 #  
+@login_required
 def create_temp_icd_modal(request, group_id):
     TEMPLATE = 'components/acr/fieldsets/acr-icds.html'
     form = SAVE_ICD_FORM(request.POST or None)
@@ -46,6 +48,7 @@ def create_temp_icd_modal(request, group_id):
 # 
 # 
 # 
+@login_required
 def temp_icds_by_group(request, temp_group_id):
     icds = ACR_GROUPS_ICDS_TEMP.objects.filter(TEMP_ACR_GROUPID=temp_group_id, is_approved=False).order_by('-created_at')
     return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'temp_group_id': temp_group_id, 'icds': paginate(request, icds, 2)})
@@ -53,6 +56,7 @@ def temp_icds_by_group(request, temp_group_id):
 # 
 # 
 # 
+@login_required
 def temp_icds_by_approved_group(request, group_id):
     icds = ACR_GROUPS_ICDS_TEMP.objects.filter(ACR_GROUPID=group_id, is_approved=False).order_by('-created_at')
     return render(request, 'components/htmx-templates/icds-temp-by-group.html', {'group_id': group_id, 'icds': paginate(request, icds, 2)})
@@ -60,6 +64,7 @@ def temp_icds_by_approved_group(request, group_id):
 # 
 # 
 # 
+@login_required
 def main_icds_by_group(request, group_id):
     desc_search_query = request.GET.get('description_search', '')
     date_search_query = request.GET.get('date_search', '')
@@ -75,6 +80,7 @@ def main_icds_by_group(request, group_id):
 # 
 # 
 # 
+@login_required
 def temp_icd_with_rules_details(request, icdcode):
     TEMPLATE = 'pages/acr/temp_icd_with_rules_details.html'
     
@@ -97,6 +103,7 @@ def temp_icd_with_rules_details(request, icdcode):
 # 
 # 
 # 
+@login_required
 def check_if_icdcode_exists(request):
     code = request.GET.get('ICDCODE', None)
     icdcode = None

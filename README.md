@@ -47,6 +47,10 @@ python manage.py createsuperuser
 
 Once the superuser has been created, I normally add two user groups in the    Groups table namely 'Encoder' and 'Approver' and set their permisions respectively.
 
+## Add Initial Users
+Since the authentication of the application has ben set up, pages are only available to authenticated users.
+Using the access of the superuser you created, access the admin panel and create 2 users. One user as an Approver and another as an Encoder.
+
 ## Running the Application
 
 To run the application, open a Command Prompt in VS Code

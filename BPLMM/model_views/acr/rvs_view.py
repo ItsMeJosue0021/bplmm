@@ -7,7 +7,6 @@ from django.contrib import messages # type: ignore
 from django.core.paginator import Paginator # type: ignore
 from django.shortcuts import render, redirect, get_object_or_404 # type: ignore
 from django.contrib.auth.decorators import login_required # type: ignore
-from django.contrib.auth.decorators import login_required # type: ignore
 from ...decorators import encoder_required, approver_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout # type: ignore
 #services
